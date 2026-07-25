@@ -21,24 +21,16 @@ from scipy.stats import spearmanr
 import common as C
 
 
-def multi_by_group(df, col, group_col, group_order=None, min_n=1, valid_opts=None):
+def multi_by_group(df, col, group_col, group_order=None, min_n=1):
     """
     複選題 × 分群 → 長表：分群 / 選項 / 分子 / 分母 / 群內比例 / lift / 信賴度。
     分母＝該分群中「有作答該題」的人數。lift＝群內比例 ÷ 全體比例。
 
-    valid_opts：該題的正式選項清單。給了就套 common.bucket_and_dedupe——
-      清單外的自由填答收斂成「其他（自由填答）」並去重。**有正式選項清單的題目一律要給**。
-      不收斂的後果（實際發生過）：受訪者的原句會與正式選項並排輸出，
-      例如動機題出現「我現在已淡出」「累了」、資源題出現「所屬社團夥伴一起討論」，
-      每個都只有 1 人；它們還會共用同一組 lift 欄算出誇張的倍數
-      （出資者群 n=16 裡某句自由填答算出 lift 2.94）。讀者無從得知那是單一個人打的字，
-      而在 10–19 人的小分群中，這有回推到特定填答者的風險——問卷承諾的是「全程匿名」。
+    自由填答的收斂**不在這裡做**，而是在 main() 開頭對整個 df 一次做完（見 normalize_freetext）。
+    原因：03_全體_* 那批表走的是 C.pct_table 而不是本函式，只在本函式裡收斂會漏掉一半的輸出。
 
     lift 一律經 common.lift_or_blank：分子少於 common.LIFT_MIN_NUMERATOR 就留空。
     """
-    if valid_opts is not None:
-        df = df.copy()
-        df[col] = df[col].apply(lambda v: C.bucket_and_dedupe(v, valid_opts))
     base = C.pct_table(df, col).set_index("選項")["比例"].to_dict()
     groups = group_order or [g for g in df[group_col].unique() if str(g).strip()]
     rows = []
@@ -61,6 +53,34 @@ def multi_by_group(df, col, group_col, group_order=None, min_n=1, valid_opts=Non
                 "信賴度": C.subgroup_confidence(denom),
             })
     return pd.DataFrame(rows)
+
+
+def normalize_freetext(df):
+    """
+    對所有「有正式選項清單」的複選題，一次收斂自由填答並去重（見 common.VALID_OPTS）。
+
+    在 main() 開頭做，而不是在各分析函式裡做——因為 03_全體_* 走 C.pct_table、
+    03_三層×* 走 multi_by_group，分頭處理必然會漏掉一邊。
+
+    兩道守門：
+      · 清單裡的每個選項都必須真的出現在資料中 → 擋打錯字（打錯會讓正式選項被誤併成「其他」）
+      · 列出資料中不在清單裡的值 → 讓人確認那些真的是自由填答，不是漏列的正式選項
+    """
+    df = df.copy()
+    for col, opts in C.VALID_OPTS.items():
+        seen = set()
+        for v in df[col]:
+            seen.update(o.strip() for o in str(v).split(C.MULTI_SELECT_SEP) if o.strip())
+        missing = [o for o in opts if o not in seen]
+        if missing:
+            raise ValueError(
+                f"守門檢查失敗：VALID_OPTS 中這些選項在資料裡找不到（可能打錯字，"
+                f"也可能真的 0 人選）：{missing}｜題目：{col[:24]}…")
+        extra = sorted(seen - set(opts))
+        if extra:
+            print(f"  · {col[:20]}… 收斂 {len(extra)} 種自由填答 → 其他（自由填答）：{extra}")
+        df[col] = df[col].apply(lambda v, o=opts: C.bucket_and_dedupe(v, o))
+    return df
 
 
 def trouble_table(df, idx, group_col=None):
@@ -107,14 +127,16 @@ def main():
     # 年齡：全體分布用原始 5 層；交叉分析用收合 3 層，避免 N=2 的格子產生假訊號
     df["年齡_合併"] = df[C.C_AGE].str.strip().map(C.AGE_COARSE)
 
+    # 自由填答一次收斂完，之後所有輸出（pct_table 與 multi_by_group 兩條路）都一致
+    print("自由填答收斂：")
+    df = normalize_freetext(df)
+
     # ---------- 1. 資源 × 專案階段 ----------
-    res_stage = multi_by_group(df, C.C_RESOURCES, "專案階段_合併", C.STAGE_COARSE_ORDER,
-                               valid_opts=C.RESOURCE_OPTS)
+    res_stage = multi_by_group(df, C.C_RESOURCES, "專案階段_合併", C.STAGE_COARSE_ORDER)
     C.save_table(res_stage, "03_資源×專案階段", "曾參與 N=47，全部 L1 方向觀察")
 
     # ---------- 2. 資源 × 決策位置 ----------
-    res_depth = multi_by_group(df, C.C_RESOURCES, "決策位置", ["方向決策者", "執行協力者"],
-                               valid_opts=C.RESOURCE_OPTS)
+    res_depth = multi_by_group(df, C.C_RESOURCES, "決策位置", ["方向決策者", "執行協力者"])
     C.save_table(res_depth, "03_資源×決策位置", "僅曾參與者有作答")
 
     # ---------- 3. 困擾 ----------
@@ -148,20 +170,17 @@ def main():
     C.save_table(trouble_table(df, idx, "參與深度"), "03_困擾×參與深度5級",
                  "曾參與層各深度 n=5/6/8/18/10，全部 L1；二分版見 03_困擾×決策位置")
     C.save_table(multi_by_group(df, C.C_RESOURCES, "參與深度",
-                                list(C.DEPTH_LABEL.values()),
-                                valid_opts=C.RESOURCE_OPTS), "03_資源×參與深度5級",
+                                list(C.DEPTH_LABEL.values())), "03_資源×參與深度5級",
                  "同上，5 級完整版")
 
     # ---------- 4. 年齡 × 動機（條件比例＋lift）----------
     for col, name in [(C.C_MOTIVE_FIRST, "初次動機"), (C.C_MOTIVE_NOW, "持續動機")]:
         done_only = df[df[C.LAYER] == C.L_DONE]
-        t = multi_by_group(done_only, col, "年齡_合併", C.AGE_COARSE_ORDER,
-                           valid_opts=C.MOTIVES)
+        t = multi_by_group(done_only, col, "年齡_合併", C.AGE_COARSE_ORDER)
         C.save_table(t, f"03_年齡×{name}_lift",
                      "年齡收合為 3 層（10/19/18 人）；條件比例＋lift；不做顯著性檢定")
         # 原始 5 層版一併保留供追溯，但因含 N=2 的格，不作為結論依據
-        C.save_table(multi_by_group(done_only, col, C.C_AGE, C.AGE_ORDER,
-                                    valid_opts=C.MOTIVES),
+        C.save_table(multi_by_group(done_only, col, C.C_AGE, C.AGE_ORDER),
                      f"03_年齡×{name}_lift_原始5層",
                      "含 N=2 的年齡層，僅供追溯，不作結論依據")
 
