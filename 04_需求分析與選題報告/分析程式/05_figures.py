@@ -285,7 +285,7 @@ def main():
                         textcoords="offset points", fontsize=10.5,
                         color=C.PALETTE["layers"][layer], ha="center", va="center", zorder=4)
         note = "，人數少僅供參考" if n < 30 else ""
-        ax.set_title(f"{layer}（{n} 人{note}）", fontsize=11, pad=8)
+        ax.set_title(f"{C.LAYER_PLAIN[layer]}（{n} 人{note}）", fontsize=11, pad=8)
         ax.grid(color=C.PALETTE["grid"], lw=0.8, zorder=0)
         ax.set_axisbelow(True)
         ax.tick_params(length=0, labelsize=8.5)
@@ -303,9 +303,9 @@ def main():
              "每個面板都是完整的狩野四象限（SI 0–1、DSI 0～−1，分界線在正中央）；"
              "同一個編號在三個面板中是同一個主題，可直接橫向比較落點位移。",
              ha="center", fontsize=8.5, color="#52514e")
-    fig.suptitle("狩野落點：入坑三層比較", fontsize=13, x=0.09, ha="left", y=1.04)
-    fig.text(0.09, 0.99, "「捲動更多人」③ 與「留住夥伴」④ 在「從未接觸」層落到無差別 I，"
-                         "在另外兩層都是魅力 A——沒進場的人感受不到團隊經營的痛",
+    fig.suptitle("三群人分別覺得哪些主題值得寫", fontsize=13, x=0.09, ha="left", y=1.04)
+    fig.text(0.09, 0.99, "「捲動更多人」③ 與「留住夥伴」④ 對還沒接觸的人落在「無差別」，"
+                         "對另外兩群都是「魅力」：沒進場的人感受不到團隊經營的痛",
              ha="left", fontsize=8.5, color="#52514e")
     C.save_fig(fig, "04_狩野落點_三層")
     plt.close(fig)
@@ -339,6 +339,59 @@ def main():
            "格內＝該階段中用過該資源的比例（人數/該階段人數）｜47 位曾參與者，各階段只有 6–17 人，僅供參考")
     fig.colorbar(im, ax=ax, shrink=0.6, label="群內比例")
     C.save_fig(fig, "05_資源×專案階段")
+    plt.close(fig)
+
+    # ---------------- 3b. 出資端與提案端的資源落差（兩個面板對照）----------------
+    # 兩邊問的不是同一題，也不是同一套選項，所以不畫成同一組長條：
+    #   左＝出資者答「最難找資源的是哪個階段」（27 人，只給早期／落地／維運三個選項）
+    #   右＝提案端答「這個專案用過哪些資源」中勾「主要靠我自己想辦法」的比例
+    #       （依填答者最近參與的專案所在階段分組，另有「停擺」一組，出資者那題沒有）
+    # 用同一個 y 軸順序（早期→落地→維運）並把「落地」標成強調色，讓落差看得出來。
+    FUND_TO_STAGE = {
+        "還在很早期、只有想法的": "早期（探索或開發中）",
+        "已經做出原型、要往落地走的": "落地",
+        "已經上線、要長期維運的": "維運",
+    }
+    fd = pd.read_csv(T / "03_出資者_資源沙漠階段.csv")
+    unknown = set(fd["選項"]) - set(FUND_TO_STAGE)
+    assert not unknown, f"出資者階段題出現未預期選項：{sorted(unknown)}"
+    fd["階段"] = fd["選項"].map(FUND_TO_STAGE)
+    fd_n = int(fd["分母"].iloc[0])
+
+    sf = rs[rs["選項"] == "主要靠我自己想辦法"].copy()
+
+    fig, axes = plt.subplots(1, 2, figsize=(12.6, 4.2))
+    panels = [
+        (axes[0], fd.set_index("階段"), "比例", "票數", fd_n,
+         # 問卷設計稿把這題標為複選，但實際作答裡沒有任何人複選（票數 14+10+3 剛好等於
+         # 作答人數 27），所以圖上照實描述作答狀況，不宣稱表單的題型設定。
+         f"出資者認為最難找資源的階段", f"曾出錢支持過專案的 {fd_n} 人，作答中每人都只選了一個"),
+        (axes[1], sf.set_index("分群"), "群內比例", "分子", None,
+         "提案端說「主要靠我自己想辦法」的比例",
+         "依每個人最近參與的專案所在階段分組"),
+    ]
+    for ax, d, vcol, ncol, fixed_den, title, sub in panels:
+        stages = [s for s in C.STAGE_COARSE_ORDER if s in d.index]
+        y = np.arange(len(stages))[::-1]
+        for yi, st in zip(y, stages):
+            v = float(d.loc[st, vcol])
+            n = int(d.loc[st, ncol])
+            den = fixed_den if fixed_den else int(d.loc[st, "分母"])
+            hot = st == "落地"
+            ax.barh(yi, v, height=0.6, zorder=2,
+                    color=C.PALETTE["accent"] if hot else C.PALETTE["neutral"])
+            ax.text(v + 0.015, yi, f"{v:.0%}  ({n}/{den})",
+                    va="center", fontsize=8.5, color="#52514e")
+        ax.set_yticks(y, [s.replace("（探索或開發中）", "") for s in stages], fontsize=9.5)
+        ax.set_xlim(0, 0.72)
+        ax.xaxis.set_major_formatter(lambda x, _: f"{x:.0%}")
+        style_axes(ax, title=title, subtitle=sub)
+
+    fig.text(0.5, -0.10,
+             "出資者覺得最不缺資源的「落地」（11%），正是提案端最常說只能靠自己的一段（35%）。"
+             "兩題問法不同：一邊問難易感受、一邊問實際用過哪些資源，用得少也可能只是還沒用到。",
+             ha="center", fontsize=8.5, color="#52514e")
+    C.save_fig(fig, "17_出資端與提案端的資源落差")
     plt.close(fig)
 
     # ---------------- 4. 年齡 × 持續動機 lift（分歧型）----------------
@@ -432,7 +485,7 @@ def main():
         for k, layer in enumerate(C.LAYER_ORDER):
             ax.barh(y + (1 - k) * 0.26, piv[layer], height=0.24,
                     color=C.PALETTE["layers"][layer],
-                    label=f"{layer}（N={dens[layer]}）", zorder=2)
+                    label=f"{C.LAYER_PLAIN[layer]}（{dens[layer]} 人）", zorder=2)
         for k, layer in enumerate(C.LAYER_ORDER):
             for yi, v in zip(y + (1 - k) * 0.26, piv[layer]):
                 ax.text(v + 0.008, yi, f"{v:.0%}", va="center", fontsize=7.5, color="#52514e")
@@ -441,7 +494,7 @@ def main():
         ax.xaxis.set_major_formatter(lambda x, _: f"{x:.0%}")
         ax.legend(frameon=False, fontsize=8.5, loc="lower right")
         style_axes(ax, title=title,
-                   subtitle="各層的勾選率（分母為該層有作答人數）｜從未接觸層只有 26 人，僅供參考")
+                   subtitle="各群的勾選率（分母為該群有作答人數）｜還沒接觸的人只有 26 位，僅供參考")
         C.save_fig(fig, fname)
         plt.close(fig)
 

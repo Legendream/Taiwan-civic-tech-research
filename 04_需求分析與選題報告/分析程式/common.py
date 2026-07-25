@@ -86,6 +86,16 @@ L_DONE = "曾參與"           # 預期 N=47，L2
 LAYER_ORDER = [L_NEVER, L_AWARE, L_DONE]
 LAYER_EXPECTED_N = {L_NEVER: 26, L_AWARE: 54, L_DONE: 47}
 
+# 圖表專用的白話標籤。對外報告不讓「三層」這個分析術語進正文，
+# 但圖上原本會直接印出 L_NEVER／L_AWARE／L_DONE，等於把術語帶回來。
+# ⚠️ 只用於圖表標籤，**不可**拿去改 CSV 的分群欄——那些值是各腳本互相比對的鍵，
+#    改了會讓 06_number_index.py 與 10_role_crosstab.py 的守門檢查失效。
+LAYER_PLAIN = {
+    L_NEVER: "還沒接觸的人",
+    L_AWARE: "接觸過但還沒做過專案的人",
+    L_DONE: "做過專案的人",
+}
+
 NEVER_CONTACT_VALUE = "我從未接觸過公民科技，只有聽過或看過"
 
 # 最近一次接觸時間：活躍度序位（「從未接觸」不在此軸上，給 None）
