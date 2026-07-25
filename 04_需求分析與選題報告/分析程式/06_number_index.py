@@ -7,6 +7,8 @@
 A. **自動稽核報告本文**：掃描報告裡每一個「NN%（分子/分母）」寫法，
    重算 分子÷分母 是否等於所寫的百分比。任何一處對不上就報錯。
    → 這是無法蒙混的檢查：報告中所有比例都必須自洽。
+   稽核對象是 REPORTS 列出的每一份報告（生態系分析 v1 ＋ 對外整合版）。
+   列在 REPORTS 裡的檔案若不存在就直接報錯，避免改名後這道關卡默默失效。
 
 B. **產出 99_數字索引.csv**：報告位置／數字／來源欄位／篩選條件／分子／分母／驗算式，
    讓 Claire 隨機抽查，不必碰程式。
@@ -21,7 +23,11 @@ import pandas as pd
 
 import common as C
 
-REPORT = C.OUT_DIR / "公民科技生態系分析報告_v1.md"
+# 要稽核的報告。整合版是要對外發布的那一份，必須跟 v1 一樣受這道關卡保護。
+REPORTS = [
+    C.OUT_DIR / "公民科技生態系分析報告_v1.md",
+    C.OUT_DIR / "公民科技生態系分析報告_整合版_v1.md",
+]
 
 # 「NN%（a/b）」：全形或半形括號、全形或半形斜線
 PCT_PAT = re.compile(r"(\d+(?:\.\d+)?)\s*%\*{0,2}\s*[（(]\s*(\d+)\s*[/／]\s*(\d+)\s*[)）]")
@@ -30,11 +36,9 @@ PCT_PAT = re.compile(r"(\d+(?:\.\d+)?)\s*%\*{0,2}\s*[（(]\s*(\d+)\s*[/／]\s*(\
 LIFT_PAT = re.compile(r"(?<![\d%.])(\d+\.\d{2})\*{0,2}\s*[（(]\s*(\d+)\s*[/／]\s*(\d+)\s*[)）]")
 
 
-def audit_report():
-    """A. 掃描報告本文，重算每一個「百分比（分子/分母）」。"""
-    if not REPORT.exists():
-        sys.exit(f"找不到報告：{REPORT}")
-    text = REPORT.read_text(encoding="utf-8")
+def audit_one(path):
+    """掃描單一份報告，回傳（百分比稽核列, lift 列, 對不上的列）。"""
+    text = path.read_text(encoding="utf-8")
 
     rows, bad = [], []
     for m in PCT_PAT.finditer(text):
@@ -43,33 +47,53 @@ def audit_report():
         # 報告一律取整數百分比，容許 ±1 個百分點的四捨五入誤差
         ok = abs(calc - pct) <= 1.0
         line_no = text[:m.start()].count("\n") + 1
-        rows.append({"行號": line_no, "原文": m.group(0), "宣稱%": pct,
+        rows.append({"報告": path.name, "行號": line_no, "原文": m.group(0), "宣稱%": pct,
                      "分子": num, "分母": den, "重算%": round(calc, 1),
                      "誤差": round(calc - pct, 2), "通過": ok})
         if not ok:
             bad.append(rows[-1])
 
-    lift_rows, lift_bad = [], []
+    lift_rows = []
     for m in LIFT_PAT.finditer(text):
         lift, num, den = float(m.group(1)), int(m.group(2)), int(m.group(3))
         line_no = text[:m.start()].count("\n") + 1
-        lift_rows.append({"行號": line_no, "原文": m.group(0), "宣稱lift": lift,
-                          "分子": num, "分母": den, "群內比例": round(num / den, 3)})
+        lift_rows.append({"報告": path.name, "行號": line_no, "原文": m.group(0),
+                          "宣稱lift": lift, "分子": num, "分母": den,
+                          "群內比例": round(num / den, 3)})
 
-    audit = pd.DataFrame(rows)
-    C.save_table(audit, "99_報告數字自我稽核", "每個「%（分子/分母）」的重算結果")
+    return rows, lift_rows, bad
 
-    print(f"A. 報告本文稽核：掃到 {len(rows)} 個「百分比（分子/分母）」寫法")
-    if bad:
-        print(f"   ✗ 有 {len(bad)} 處對不上：")
-        for b in bad:
-            print(f"      第 {b['行號']} 行 {b['原文']} → 重算 {b['重算%']}%（誤差 {b['誤差']}）")
-    else:
-        print(f"   ✓ 全部 {len(rows)} 處的 分子÷分母 都與所寫百分比相符（容許 ±1pt 四捨五入）")
-    lift_df = pd.DataFrame(lift_rows)
-    C.save_table(lift_df, "99_報告lift稽核", "每個 lift 標示的分子/分母")
-    print(f"   另掃到 {len(lift_rows)} 個 lift 標示，已輸出到 99_報告lift稽核.csv")
-    return audit, lift_df, len(bad)
+
+def audit_report():
+    """A. 逐份掃描 REPORTS 裡的報告，重算每一個「百分比（分子/分母）」。"""
+    missing = [p for p in REPORTS if not p.exists()]
+    if missing:
+        sys.exit("找不到報告：" + "、".join(str(p) for p in missing)
+                 + "\n（若報告已改名或移除，請同步更新 06_number_index.py 的 REPORTS）")
+
+    all_rows, all_lifts, all_bad = [], [], []
+    print("A. 報告本文稽核")
+    for path in REPORTS:
+        rows, lift_rows, bad = audit_one(path)
+        all_rows += rows
+        all_lifts += lift_rows
+        all_bad += bad
+
+        print(f"   {path.name}：掃到 {len(rows)} 個「百分比（分子/分母）」寫法、"
+              f"{len(lift_rows)} 個 lift 標示")
+        if bad:
+            print(f"      ✗ 有 {len(bad)} 處對不上：")
+            for b in bad:
+                print(f"         第 {b['行號']} 行 {b['原文']} → "
+                      f"重算 {b['重算%']}%（誤差 {b['誤差']}）")
+        else:
+            print("      ✓ 全部相符（容許 ±1pt 四捨五入）")
+
+    audit = pd.DataFrame(all_rows)
+    C.save_table(audit, "99_報告數字自我稽核", "每個「%（分子/分母）」的重算結果（含報告欄）")
+    lift_df = pd.DataFrame(all_lifts)
+    C.save_table(lift_df, "99_報告lift稽核", "每個 lift 標示的分子/分母（含報告欄）")
+    return audit, lift_df, len(all_bad)
 
 
 def build_index():
@@ -214,8 +238,9 @@ def main():
         ["報告位置", "項目", "數字", "分子", "分母", "驗算式", "信賴度"]].to_string(index=False))
 
     if n_bad:
-        sys.exit(f"\n✗ 報告本文有 {n_bad} 處數字對不上，請先修正報告再交付。")
-    print("\n✓ 報告本文所有比例自洽；數字索引已產出。")
+        sys.exit(f"\n✗ 報告本文共有 {n_bad} 處數字對不上（詳見上方逐份清單），"
+                 "請先修正報告再交付。")
+    print(f"\n✓ {len(REPORTS)} 份報告的所有比例都自洽；數字索引已產出。")
 
 
 if __name__ == "__main__":
