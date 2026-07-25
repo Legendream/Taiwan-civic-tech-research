@@ -369,8 +369,11 @@ def main():
     ax.set_yticks(np.arange(-.5, len(piv.index), 1), minor=True)
     ax.grid(which="minor", color=C.PALETTE["surface"], linewidth=2)
     ax.tick_params(which="both", length=0)
+    # 白色格＝該格 lift 留空（勾選人數少於 common.LIFT_MIN_NUMERATOR，倍數會被一兩個人左右）。
+    # imshow 對 NaN 預設不上色，看起來像缺資料，所以副標必須明講白色的意思。
     titles(ax, "不同世代，現在的動機不一樣",
            "格內＝該年齡層中選這個動機的比例與人數｜顏色代表與全體相比：橘＝高於全體、藍＝低於全體、灰＝差不多\n"
+           f"白色＝勾選的人少於 {C.LIFT_MIN_NUMERATOR} 人，不與全體相比（比出來的倍數會被一兩個人左右），但比例與人數照樣標出\n"
            "三個年齡層各只有 10／19／18 人，樣本偏少，結果僅供參考")
     C.save_fig(fig, "06_年齡×持續動機")
     plt.close(fig)

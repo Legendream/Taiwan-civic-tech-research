@@ -163,6 +163,41 @@ def bucket_freetext(options, valid):
     return [o if o in valid else FREETEXT_BUCKET for o in options]
 
 
+def bucket_and_dedupe(value, valid):
+    """
+    複選題單格字串 → 收斂自由填答並去重 → 重新組回字串。
+
+    ⚠️ 去重是必要的，不是保險。bucket_freetext 把所有非正式選項映到同一個字串，
+       若某人的自由填答本身含分隔字串「, 」（例如「自己的存款, 朋友借的場地」），
+       explode_multi 會把它切成多個 token 而全部收斂成同一選項，該人就對同一選項
+       貢獻多票——pct_table 的「單一選項票數＝人數」不變式因此失效，
+       群內比例可能 >1（實測：票數 2／分母 1／比例 2.0）。
+       dict.fromkeys 去重且保留原順序。
+    """
+    opts = [o.strip() for o in str(value).split(MULTI_SELECT_SEP) if o.strip()]
+    return MULTI_SELECT_SEP.join(dict.fromkeys(bucket_freetext(opts, set(valid))))
+
+
+# ---------------------------------------------------------------- lift 的分子下限
+# 分子低於此值時，lift 由 1–4 個人決定，只是雜訊——而且放大方向永遠是
+# 「讓小群看起來特別」，一律留空並在「lift留空原因」欄說明。
+# ⚠️ 這條政策必須套用到**每一個**輸出 lift 的地方。曾經只實作一半
+#    （只加在 10_role_crosstab.py 的 multi_by_masks，trouble_by_group 漏掉），
+#    結果 21/65 列違反了同一份檔案自己寫的規則。放在共用檔就是為了不再各寫一份。
+LIFT_MIN_NUMERATOR = 5
+
+
+def lift_blank_reason(n: int) -> str:
+    return f"勾選人數少於 {LIFT_MIN_NUMERATOR} 人，倍數會被一兩個人左右" if n < LIFT_MIN_NUMERATOR else ""
+
+
+def lift_or_blank(group_p, base_p, numerator):
+    """算 lift；分子不足或基準為 0 時回傳 None。"""
+    if not base_p or numerator < LIFT_MIN_NUMERATOR:
+        return None
+    return round(group_p / base_p, 2)
+
+
 # 角色題混進的自由填答（非角色），歸為「其他」不計入階梯與廣度
 ROLE_JUNK = {
     "2025/11/01 帶東京都世田谷區議員們 g0v 台北社群空間交流",

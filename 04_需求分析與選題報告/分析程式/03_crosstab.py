@@ -21,11 +21,24 @@ from scipy.stats import spearmanr
 import common as C
 
 
-def multi_by_group(df, col, group_col, group_order=None, min_n=1):
+def multi_by_group(df, col, group_col, group_order=None, min_n=1, valid_opts=None):
     """
     複選題 × 分群 → 長表：分群 / 選項 / 分子 / 分母 / 群內比例 / lift / 信賴度。
     分母＝該分群中「有作答該題」的人數。lift＝群內比例 ÷ 全體比例。
+
+    valid_opts：該題的正式選項清單。給了就套 common.bucket_and_dedupe——
+      清單外的自由填答收斂成「其他（自由填答）」並去重。**有正式選項清單的題目一律要給**。
+      不收斂的後果（實際發生過）：受訪者的原句會與正式選項並排輸出，
+      例如動機題出現「我現在已淡出」「累了」、資源題出現「所屬社團夥伴一起討論」，
+      每個都只有 1 人；它們還會共用同一組 lift 欄算出誇張的倍數
+      （出資者群 n=16 裡某句自由填答算出 lift 2.94）。讀者無從得知那是單一個人打的字，
+      而在 10–19 人的小分群中，這有回推到特定填答者的風險——問卷承諾的是「全程匿名」。
+
+    lift 一律經 common.lift_or_blank：分子少於 common.LIFT_MIN_NUMERATOR 就留空。
     """
+    if valid_opts is not None:
+        df = df.copy()
+        df[col] = df[col].apply(lambda v: C.bucket_and_dedupe(v, valid_opts))
     base = C.pct_table(df, col).set_index("選項")["比例"].to_dict()
     groups = group_order or [g for g in df[group_col].unique() if str(g).strip()]
     rows = []
@@ -43,7 +56,8 @@ def multi_by_group(df, col, group_col, group_order=None, min_n=1):
                 "分群": g, "選項": opt, "分子": n, "分母": denom,
                 "群內比例": round(p, 4),
                 "全體比例": round(base[opt], 4),
-                "lift": round(p / base[opt], 2) if base[opt] else np.nan,
+                "lift": C.lift_or_blank(p, base[opt], n),
+                "lift留空原因": C.lift_blank_reason(n),
                 "信賴度": C.subgroup_confidence(denom),
             })
     return pd.DataFrame(rows)
@@ -94,11 +108,13 @@ def main():
     df["年齡_合併"] = df[C.C_AGE].str.strip().map(C.AGE_COARSE)
 
     # ---------- 1. 資源 × 專案階段 ----------
-    res_stage = multi_by_group(df, C.C_RESOURCES, "專案階段_合併", C.STAGE_COARSE_ORDER)
+    res_stage = multi_by_group(df, C.C_RESOURCES, "專案階段_合併", C.STAGE_COARSE_ORDER,
+                               valid_opts=C.RESOURCE_OPTS)
     C.save_table(res_stage, "03_資源×專案階段", "曾參與 N=47，全部 L1 方向觀察")
 
     # ---------- 2. 資源 × 決策位置 ----------
-    res_depth = multi_by_group(df, C.C_RESOURCES, "決策位置", ["方向決策者", "執行協力者"])
+    res_depth = multi_by_group(df, C.C_RESOURCES, "決策位置", ["方向決策者", "執行協力者"],
+                               valid_opts=C.RESOURCE_OPTS)
     C.save_table(res_depth, "03_資源×決策位置", "僅曾參與者有作答")
 
     # ---------- 3. 困擾 ----------
@@ -132,17 +148,20 @@ def main():
     C.save_table(trouble_table(df, idx, "參與深度"), "03_困擾×參與深度5級",
                  "曾參與層各深度 n=5/6/8/18/10，全部 L1；二分版見 03_困擾×決策位置")
     C.save_table(multi_by_group(df, C.C_RESOURCES, "參與深度",
-                                list(C.DEPTH_LABEL.values())), "03_資源×參與深度5級",
+                                list(C.DEPTH_LABEL.values()),
+                                valid_opts=C.RESOURCE_OPTS), "03_資源×參與深度5級",
                  "同上，5 級完整版")
 
     # ---------- 4. 年齡 × 動機（條件比例＋lift）----------
     for col, name in [(C.C_MOTIVE_FIRST, "初次動機"), (C.C_MOTIVE_NOW, "持續動機")]:
         done_only = df[df[C.LAYER] == C.L_DONE]
-        t = multi_by_group(done_only, col, "年齡_合併", C.AGE_COARSE_ORDER)
+        t = multi_by_group(done_only, col, "年齡_合併", C.AGE_COARSE_ORDER,
+                           valid_opts=C.MOTIVES)
         C.save_table(t, f"03_年齡×{name}_lift",
                      "年齡收合為 3 層（10/19/18 人）；條件比例＋lift；不做顯著性檢定")
         # 原始 5 層版一併保留供追溯，但因含 N=2 的格，不作為結論依據
-        C.save_table(multi_by_group(done_only, col, C.C_AGE, C.AGE_ORDER),
+        C.save_table(multi_by_group(done_only, col, C.C_AGE, C.AGE_ORDER,
+                                    valid_opts=C.MOTIVES),
                      f"03_年齡×{name}_lift_原始5層",
                      "含 N=2 的年齡層，僅供追溯，不作結論依據")
 
