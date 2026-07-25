@@ -34,6 +34,10 @@ PCT_PAT = re.compile(r"(\d+(?:\.\d+)?)\s*%\*{0,2}\s*[（(]\s*(\d+)\s*[/／]\s*(\
 # 「lift 值（a/b）」：例如 2.09（4/10）
 # 數值與括號之間可能夾 markdown 粗體記號（例如 **2.09**（4/10）），必須容許
 LIFT_PAT = re.compile(r"(?<![\d%.])(\d+\.\d{2})\*{0,2}\s*[（(]\s*(\d+)\s*[/／]\s*(\d+)\s*[)）]")
+# 「N 人中有 M 人（P%）」：小樣本改用這種讀得懂的寫法，一樣要被稽核，
+# 否則換句話說就等於繞過這道關卡。分母在前、分子在後，與上面兩個 pattern 相反。
+PEOPLE_PAT = re.compile(
+    r"(\d+)\s*人中(?:有)?\s*(\d+)\s*人\s*[（(]\s*(\d+(?:\.\d+)?)\s*%\s*[)）]")
 
 
 def audit_one(path):
@@ -45,6 +49,17 @@ def audit_one(path):
         pct, num, den = float(m.group(1)), int(m.group(2)), int(m.group(3))
         calc = num / den * 100
         # 報告一律取整數百分比，容許 ±1 個百分點的四捨五入誤差
+        ok = abs(calc - pct) <= 1.0
+        line_no = text[:m.start()].count("\n") + 1
+        rows.append({"報告": path.name, "行號": line_no, "原文": m.group(0), "宣稱%": pct,
+                     "分子": num, "分母": den, "重算%": round(calc, 1),
+                     "誤差": round(calc - pct, 2), "通過": ok})
+        if not ok:
+            bad.append(rows[-1])
+
+    for m in PEOPLE_PAT.finditer(text):
+        den, num, pct = int(m.group(1)), int(m.group(2)), float(m.group(3))
+        calc = num / den * 100
         ok = abs(calc - pct) <= 1.0
         line_no = text[:m.start()].count("\n") + 1
         rows.append({"報告": path.name, "行號": line_no, "原文": m.group(0), "宣稱%": pct,
