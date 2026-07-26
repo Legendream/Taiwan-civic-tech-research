@@ -394,40 +394,60 @@ def main():
     C.save_fig(fig, "17_出資端與提案端的資源落差")
     plt.close(fig)
 
-    # ---------------- 4. 年齡 × 持續動機 lift（分歧型）----------------
+    # ---------------- 4. 年齡 × 持續動機：只列高於全體的（分面橫條）----------------
+    # 原本畫成熱區，但同一個視覺通道塞了三種意思（顏色＝與全體相比、格內數字＝群內比例、
+    # 白色＝人數太少不比），讀者分不出來；而且這題是複選，一欄的分子相加會超過該群人數，
+    # 熱區的排版會誘導人去直欄相加。改成：每個世代只列「勾選率高於全體」的動機，
+    # 條長＝高出全體幾個百分點，其餘不畫。
+    # 用百分點而不是倍數：各群只有 10／19／18 人，分子多在 5 人以下，
+    # 倍數會被一兩個人左右（同 common.LIFT_MIN_NUMERATOR 的理由）。
     lf = pd.read_csv(T / "03_年齡×持續動機_lift.csv")
-    lf = lf[lf["選項"].isin(C.MOTIVES)]
-    # 顏色仍以「與全體相比」上色（全體＝中性灰），但**格內只寫比例與人數**，
-    # 不再出現 lift 這個詞與倍數值——讀者容易把 2.09 誤讀成「佔全體的比例」。
-    piv = lf.pivot(index="選項", columns="分群", values="lift").reindex(
-        columns=[a for a in C.AGE_COARSE_ORDER if a in set(lf["分群"])])
-    pct = lf.pivot(index="選項", columns="分群", values="群內比例").reindex(
-        index=piv.index, columns=piv.columns)
-    nums = lf.pivot(index="選項", columns="分群", values="分子").reindex(
-        index=piv.index, columns=piv.columns)
-    dens = {g: int(lf.loc[lf["分群"] == g, "分母"].iloc[0]) for g in piv.columns}
+    lf = lf[lf["選項"].isin(C.MOTIVES)].copy()
+    lf["高出百分點"] = (lf["群內比例"] - lf["全體比例"]) * 100
+    ages = [a for a in C.AGE_COARSE_ORDER if a in set(lf["分群"])]
+    dens = {g: int(lf.loc[lf["分群"] == g, "分母"].iloc[0]) for g in ages}
 
-    fig, ax = plt.subplots(figsize=(8.6, 0.66 * len(piv) + 2.6))
-    norm = TwoSlopeNorm(vmin=0, vcenter=1.0, vmax=max(2.0, np.nanmax(piv.values)))
-    ax.imshow(piv.values, cmap=DIV, norm=norm, aspect="auto")
-    ax.set_xticks(range(len(piv.columns)),
-                  [f"{c}\n(N={dens[c]})" for c in piv.columns], fontsize=9)
-    ax.set_yticks(range(len(piv.index)), piv.index, fontsize=9)
-    for i in range(len(piv.index)):
-        for j in range(len(piv.columns)):
-            ax.text(j, i,
-                    f"{pct.values[i, j]:.0%}\n({int(nums.values[i, j])}/{dens[piv.columns[j]]})",
-                    ha="center", va="center", fontsize=9, color="#0b0b0b")
-    ax.set_xticks(np.arange(-.5, len(piv.columns), 1), minor=True)
-    ax.set_yticks(np.arange(-.5, len(piv.index), 1), minor=True)
-    ax.grid(which="minor", color=C.PALETTE["surface"], linewidth=2)
-    ax.tick_params(which="both", length=0)
-    # 白色格＝該格 lift 留空（勾選人數少於 common.LIFT_MIN_NUMERATOR，倍數會被一兩個人左右）。
-    # imshow 對 NaN 預設不上色，看起來像缺資料，所以副標必須明講白色的意思。
-    titles(ax, "不同世代，現在的動機不一樣",
-           "格內＝該年齡層中選這個動機的比例與人數｜顏色代表與全體相比：橘＝高於全體、藍＝低於全體、灰＝差不多\n"
-           f"白色＝勾選的人少於 {C.LIFT_MIN_NUMERATOR} 人，不與全體相比（比出來的倍數會被一兩個人左右），但比例與人數照樣標出\n"
-           "三個年齡層各只有 10／19／18 人，樣本偏少，結果僅供參考")
+    up = {g: lf[(lf["分群"] == g) & (lf["高出百分點"] > 0)]
+                .sort_values("高出百分點", ascending=False) for g in ages}
+    heights = [max(len(up[g]), 1) for g in ages]
+
+    fig, axes = plt.subplots(
+        len(ages), 1, figsize=(9.8, 0.5 * sum(heights) + 0.95 * len(ages) + 2.3),
+        gridspec_kw={"height_ratios": heights, "hspace": 1.15 / max(heights)})
+    axes = np.atleast_1d(axes)
+    xmax = max(lf["高出百分點"].max() * 1.62, 12)
+
+    for ax, g in zip(axes, ages):
+        d = up[g]
+        y = np.arange(len(d))[::-1]
+        ax.barh(y, d["高出百分點"], height=0.62, color=C.PALETTE["accent"], zorder=2)
+        for yi, (_, r) in zip(y, d.iterrows()):
+            ax.text(r["高出百分點"] + xmax * 0.015, yi,
+                    f'{r["群內比例"]:.0%}（{int(r["分子"])}/{int(r["分母"])}）'
+                    f'，高出 {r["高出百分點"]:.0f} 個百分點',
+                    va="center", fontsize=8.5, color="#52514e")
+        ax.set_yticks(y, list(d["選項"]), fontsize=9)
+        ax.set_ylim(-0.7, len(d) - 0.3)
+        ax.set_xlim(0, xmax)
+        ax.set_xticks([])
+        for side in ("top", "right", "bottom"):
+            ax.spines[side].set_visible(False)
+        ax.tick_params(length=0)
+        note = "只有這一個高於全體" if len(d) == 1 else f"{len(d)} 個高於全體"
+        # 單行標籤，不用 titles()：那個 helper 會另外排一行副標，
+        # 在多面板、面板高度不一的情況下會壓到上一個面板的長條。
+        ax.text(0, 1.0, f"{g}（{dens[g]} 人）　{note}", transform=ax.transAxes,
+                fontsize=10.5, fontweight="bold", color="#0b0b0b", va="bottom")
+
+    fig.suptitle("不同世代，現在的動機不一樣", fontsize=13.5, fontweight="bold",
+                 x=0.015, ha="left", y=1.0)
+    fig.text(0.015, 0.955,
+             "每一條＝該世代勾這個動機的比例，比全體 47 位曾參與者高出幾個百分點；低於全體的不畫。",
+             ha="left", fontsize=8.5, color="#52514e", transform=fig.transFigure)
+    fig.text(0.015, -0.012,
+             "這題可複選，每人平均勾 2.3 個，所以同一個世代各條的人數相加會超過該世代的總人數。"
+             "三個世代各只有 10／19／18 人，差異僅供參考。",
+             ha="left", fontsize=8.5, color="#52514e", linespacing=1.6)
     C.save_fig(fig, "06_年齡×持續動機")
     plt.close(fig)
 
