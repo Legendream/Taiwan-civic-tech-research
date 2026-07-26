@@ -394,11 +394,12 @@ def main():
     C.save_fig(fig, "17_出資端與提案端的資源落差")
     plt.close(fig)
 
-    # ---------------- 4. 年齡 × 持續動機：只列高於全體的（分面橫條）----------------
+    # ---------------- 4. 年齡 × 持續動機：與全體的差距（雙向橫條）----------------
     # 原本畫成熱區，但同一個視覺通道塞了三種意思（顏色＝與全體相比、格內數字＝群內比例、
     # 白色＝人數太少不比），讀者分不出來；而且這題是複選，一欄的分子相加會超過該群人數，
-    # 熱區的排版會誘導人去直欄相加。改成：每個世代只列「勾選率高於全體」的動機，
-    # 條長＝高出全體幾個百分點，其餘不畫。
+    # 熱區的排版會誘導人去直欄相加。
+    # 改成單一語意的雙向條：位置＝與全體的差距，右（暖色）＝高於全體、左（淡藍）＝低於全體，
+    # 長度＝差幾個百分點。只用一個視覺通道表達一件事，方向與長度都不必再另外解釋。
     # 用百分點而不是倍數：各群只有 10／19／18 人，分子多在 5 人以下，
     # 倍數會被一兩個人左右（同 common.LIFT_MIN_NUMERATOR 的理由）。
     lf = pd.read_csv(T / "03_年齡×持續動機_lift.csv")
@@ -406,45 +407,46 @@ def main():
     lf["高出百分點"] = (lf["群內比例"] - lf["全體比例"]) * 100
     ages = [a for a in C.AGE_COARSE_ORDER if a in set(lf["分群"])]
     dens = {g: int(lf.loc[lf["分群"] == g, "分母"].iloc[0]) for g in ages}
-
-    up = {g: lf[(lf["分群"] == g) & (lf["高出百分點"] > 0)]
-                .sort_values("高出百分點", ascending=False) for g in ages}
-    heights = [max(len(up[g]), 1) for g in ages]
+    BELOW = "#b9d0ed"                      # 淡藍＝低於全體，與暖色的「高於」分邊
 
     fig, axes = plt.subplots(
-        len(ages), 1, figsize=(9.8, 0.5 * sum(heights) + 0.95 * len(ages) + 2.3),
-        gridspec_kw={"height_ratios": heights, "hspace": 1.15 / max(heights)})
+        len(ages), 1, figsize=(11.4, 0.5 * len(C.MOTIVES) * len(ages) + 1.1 * len(ages) + 2.4),
+        gridspec_kw={"hspace": 0.42})
     axes = np.atleast_1d(axes)
-    xmax = max(lf["高出百分點"].max() * 1.62, 12)
+    lim = max(lf["高出百分點"].abs()) * 1.75
 
     for ax, g in zip(axes, ages):
-        d = up[g]
+        d = lf[lf["分群"] == g].sort_values("高出百分點", ascending=False)
         y = np.arange(len(d))[::-1]
-        ax.barh(y, d["高出百分點"], height=0.62, color=C.PALETTE["accent"], zorder=2)
+        ax.barh(y, d["高出百分點"], height=0.62, zorder=2,
+                color=[C.PALETTE["accent"] if v > 0 else BELOW for v in d["高出百分點"]])
         for yi, (_, r) in zip(y, d.iterrows()):
-            ax.text(r["高出百分點"] + xmax * 0.015, yi,
-                    f'{r["群內比例"]:.0%}（{int(r["分子"])}/{int(r["分母"])}）'
-                    f'，高出 {r["高出百分點"]:.0f} 個百分點',
-                    va="center", fontsize=8.5, color="#52514e")
+            v = r["高出百分點"]
+            lab = (f'{r["群內比例"]:.0%}（{int(r["分子"])}/{int(r["分母"])}）'
+                   f'，{"高出" if v > 0 else "低了"} {abs(v):.0f} 個百分點')
+            ax.text(v + (lim * 0.02 if v > 0 else -lim * 0.02), yi, lab,
+                    va="center", ha="left" if v > 0 else "right",
+                    fontsize=8.5, color="#52514e")
+        ax.axvline(0, color="#0b0b0b", lw=1.0, zorder=3)
         ax.set_yticks(y, list(d["選項"]), fontsize=9)
         ax.set_ylim(-0.7, len(d) - 0.3)
-        ax.set_xlim(0, xmax)
+        ax.set_xlim(-lim, lim)
         ax.set_xticks([])
-        for side in ("top", "right", "bottom"):
+        for side in ("top", "right", "bottom", "left"):
             ax.spines[side].set_visible(False)
         ax.tick_params(length=0)
-        note = "只有這一個高於全體" if len(d) == 1 else f"{len(d)} 個高於全體"
-        # 單行標籤，不用 titles()：那個 helper 會另外排一行副標，
-        # 在多面板、面板高度不一的情況下會壓到上一個面板的長條。
-        ax.text(0, 1.0, f"{g}（{dens[g]} 人）　{note}", transform=ax.transAxes,
-                fontsize=10.5, fontweight="bold", color="#0b0b0b", va="bottom")
+        n_up = int((d["高出百分點"] > 0).sum())
+        ax.text(0, 1.0, f"{g}（{dens[g]} 人）　{n_up} 個高於全體、{len(d) - n_up} 個低於全體",
+                transform=ax.transAxes, fontsize=10.5, fontweight="bold",
+                color="#0b0b0b", va="bottom")
 
     fig.suptitle("不同世代，現在的動機不一樣", fontsize=13.5, fontweight="bold",
-                 x=0.015, ha="left", y=1.0)
-    fig.text(0.015, 0.955,
-             "每一條＝該世代勾這個動機的比例，比全體 47 位曾參與者高出幾個百分點；低於全體的不畫。",
+                 x=0.012, ha="left", y=1.0)
+    fig.text(0.012, 0.962,
+             "每一條＝該世代勾這個動機的比例，與全體 47 位曾參與者相差幾個百分點。"
+             "往右（暖色）＝高於全體，往左（淡藍）＝低於全體。",
              ha="left", fontsize=8.5, color="#52514e", transform=fig.transFigure)
-    fig.text(0.015, -0.012,
+    fig.text(0.012, -0.01,
              "這題可複選，每人平均勾 2.3 個，所以同一個世代各條的人數相加會超過該世代的總人數。"
              "三個世代各只有 10／19／18 人，差異僅供參考。",
              ha="left", fontsize=8.5, color="#52514e", linespacing=1.6)
