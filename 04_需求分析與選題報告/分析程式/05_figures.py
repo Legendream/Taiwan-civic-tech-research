@@ -284,8 +284,7 @@ def main():
             ax.annotate(C.KANO_NUM[r["主題"]], (x, y), xytext=(dx, dy),
                         textcoords="offset points", fontsize=10.5,
                         color=C.PALETTE["layers"][layer], ha="center", va="center", zorder=4)
-        note = "，人數少僅供參考" if n < 30 else ""
-        ax.set_title(f"{C.LAYER_PLAIN[layer]}（{n} 人{note}）", fontsize=11, pad=8)
+        ax.set_title(f"{C.LAYER_PLAIN[layer]}（{n} 人）", fontsize=11, pad=8)
         ax.grid(color=C.PALETTE["grid"], lw=0.8, zorder=0)
         ax.set_axisbelow(True)
         ax.tick_params(length=0, labelsize=8.5)
@@ -336,7 +335,7 @@ def main():
     ax.grid(which="minor", color=C.PALETTE["surface"], linewidth=2)
     ax.tick_params(which="both", length=0)
     titles(ax, "不同階段的專案，用到哪些資源",
-           "格內＝該階段中用過該資源的比例（人數/該階段人數）｜47 位曾參與者，各階段只有 6–17 人，僅供參考")
+           "格內＝該階段中用過該資源的比例（人數/該階段人數）｜47 位曾參與者，各階段有 6–17 人")
     fig.colorbar(im, ax=ax, shrink=0.6, label="群內比例")
     C.save_fig(fig, "05_資源×專案階段")
     plt.close(fig)
@@ -448,7 +447,7 @@ def main():
              ha="left", fontsize=8.5, color="#52514e", transform=fig.transFigure)
     fig.text(0.012, -0.01,
              "這題可複選，每人平均勾 2.3 個，所以同一個世代各條的人數相加會超過該世代的總人數。"
-             "三個世代各只有 10／19／18 人，差異僅供參考。",
+             "三個世代各有 10／19／18 人。",
              ha="left", fontsize=8.5, color="#52514e", linespacing=1.6)
     C.save_fig(fig, "06_年齡×持續動機")
     plt.close(fig)
@@ -516,7 +515,7 @@ def main():
         ax.xaxis.set_major_formatter(lambda x, _: f"{x:.0%}")
         ax.legend(frameon=False, fontsize=8.5, loc="lower right")
         style_axes(ax, title=title,
-                   subtitle="各群的勾選率（分母為該群有作答人數）｜還沒接觸的人只有 26 位，僅供參考")
+                   subtitle="各群的勾選率（分母為該群有作答人數）｜還沒接觸的人有 26 位")
         C.save_fig(fig, fname)
         plt.close(fig)
 
@@ -538,7 +537,7 @@ def main():
     nj = pd.read_csv(T / "03_未參與原因.csv")
     hbar(nj, "選項", "比例", "票數", int(nj["分母"].iloc[0]),
          "從未接觸者說，是什麼擋住了他們",
-         "分母＝26 位「從未接觸公民科技」者（全數作答），人數少僅供參考｜"
+         "分母＝26 位「從未接觸公民科技」者（全數作答）｜"
          "注意：被選為主要對象的「接觸未參與」54 人，問卷未問此題",
          "13_未參與原因", color=C.SERIES[2])
 
