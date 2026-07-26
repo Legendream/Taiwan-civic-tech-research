@@ -131,6 +131,21 @@ def main():
     print("自由填答收斂：")
     df = normalize_freetext(df)
 
+    # ---------- 0. 資源與專長：全體曾參與者 ----------
+    # 這兩張表原本不存在，報告第 5 章與 5.1 節卻各引用了一整組數字（人脈 31/47、
+    # 議題研究 24/47 等）。缺表等於缺追溯：稽核只能重算算術，無法確認分子分母
+    # 取自正確的題目與群體，而那正是 61/126 那類錯誤的存活空間。
+    # 分母＝該題有作答的人數（＝曾參與的 47 人，只有他們被問到這兩題）。
+    done_only_df = df[df[C.LAYER] == C.L_DONE]
+    for col, name, extra in [
+            (C.C_RESOURCES, "資源", "複選，票數即人數，不同選項的票數不可相加"),
+            (C.C_SKILLS, "專長", "問的是「在這個專案裡負責什麼」，不是「你會什麼」")]:
+        tbl = C.pct_table(done_only_df, col)
+        # 分母由程式推導（該題實際有作答的人數），不寫死 47：問卷持續開放填答，
+        # 日後若有曾參與者跳過這一題，寫死的說明就會與 CSV 的分母欄打架。
+        n = int(tbl["分母"].iloc[0]) if len(tbl) else 0
+        C.save_table(tbl, f"03_全體_{name}", f"分母={n} 位曾參與者；{extra}")
+
     # ---------- 1. 資源 × 專案階段 ----------
     res_stage = multi_by_group(df, C.C_RESOURCES, "專案階段_合併", C.STAGE_COARSE_ORDER)
     C.save_table(res_stage, "03_資源×專案階段", "曾參與 N=47，全部 L1 方向觀察")
@@ -209,6 +224,108 @@ def main():
         C.save_table(C.pct_table(df, col), f"03_全體_{name}")
         C.save_table(multi_by_group(df, col, C.LAYER, C.LAYER_ORDER), f"03_三層×{name}")
 
+    # g0v 參加經驗：報告第 1 章「公民科技不等於 g0v」整段都靠這一題。
+    # ⚠️ 這一題就是 61/126 那個錯誤的現場。當時報告寫「48%（61/126）從來沒參加過任何
+    #    g0v 活動」，數字取自**分支題**「承上，你參加過哪些 g0v 活動？」的選項列
+    #    （只有 126 人作答）；該講的是這一題「最近一次參加是什麼時候」，127 人全數作答、
+    #    60 人選「我沒參加過」。算術自洽讓稽核放行，錯的是取自哪一題。
+    #    數字已於 PR #7 修正為 47%（60/127），但一直沒有對應的輸出表，
+    #    追溯鏈仍是斷的——這裡補上，讓它以後查得到來源。
+    G0V_NEVER_VALUE = "我沒參加過 g0v 的活動"
+    _g0v_vals = set(df[C.C_G0V_LAST].str.strip())
+    assert G0V_NEVER_VALUE in _g0v_vals, (
+        f"守門檢查失敗：g0v 最近一次參加題找不到選項「{G0V_NEVER_VALUE}」。"
+        f"實際出現的值：{sorted(_g0v_vals)}。"
+        "表單選項文字若改過，這裡會靜默算成 0 人，必須先確認再改常數。")
+    g0v_never = df[C.C_G0V_LAST].str.strip() == G0V_NEVER_VALUE
+    g0v_rows = []
+    for gname, mask in [("全體", pd.Series(True, index=df.index)),
+                        (C.L_DONE, df[C.LAYER] == C.L_DONE)]:
+        denom = int(mask.sum())
+        n = int((g0v_never & mask).sum())
+        g0v_rows.append({"分群": gname, "類別": "從未參加過任何 g0v 活動",
+                         "分子": n, "分母": denom, "比例": round(n / denom, 4),
+                         "信賴度": C.confidence(denom) if denom >= 120
+                                 else C.subgroup_confidence(denom)})
+    # 跳過「我沒參加過」：它已經是上面「從未參加過任何 g0v 活動」那一列，
+    # 重複輸出會讓索引出現兩列同分子同分母、名稱卻不同的候選，替後續的來源比對製造歧義。
+    dist = df[C.C_G0V_LAST].str.strip().value_counts()
+    for k, v in dist.items():
+        if k == G0V_NEVER_VALUE:
+            continue
+        g0v_rows.append({"分群": "全體", "類別": f"最近一次參加：{k}",
+                         "分子": int(v), "分母": len(df), "比例": round(v / len(df), 4),
+                         "信賴度": C.confidence(len(df))})
+    C.save_table(pd.DataFrame(g0v_rows), "03_全體_g0v參加經驗",
+                 "來源是「最近一次參加 g0v 活動是什麼時候」（127 人全數作答），"
+                 "不是分支題「你參加過哪些 g0v 活動」（僅 126 人作答）")
+
+    # 管道：官方 vs 親友的互斥四分組。
+    # 報告第 7 章整整兩張表都建立在這組數字上，先前卻沒有任何表可以追溯，
+    # 只存在於報告正文。這是複選題最容易出錯的地方：把「至少勾了官方任一項的人數」
+    # 寫成各官方選項票數相加（會把同時勾多項的人重複計）。
+    # 這裡一律以「人」為單位去重計算，並讓四組相加必須等於分母。
+    OFFICIAL_CHANNELS = [
+        "g0v 社群管道（FB_Threads_Instgram)",
+        "g0v Slack",
+        "揪松團每月電子報",
+        "揪松團 LINE 群組",
+        "社群活動資訊彙整網頁（https://g0v.hackmd.io/@jothon/event）",
+    ]
+    FRIEND_CHANNEL = "親友推薦"
+    NO_CHANNEL = "都沒有，我之前不太清楚這些管道"
+    # 守門：OFFICIAL_CHANNELS 是這裡寫死的，而正式選項的權威來源是 common.VALID_OPTS。
+    # 兩者一旦失去同步（例如日後新增一個官方管道），只用該新管道的人會被歸進
+    # 「兩者都沒有」，官方觸及率靜默低估，而下面的分割檢查完全看不出來。
+    _known = set(OFFICIAL_CHANNELS) | {FRIEND_CHANNEL, NO_CHANNEL, C.FREETEXT_BUCKET}
+    _missing = set(C.VALID_OPTS[C.C_G0V_CHANNEL]) - _known
+    assert not _missing, (
+        f"守門檢查失敗：g0v 消息管道有正式選項沒被歸類成官方／親友／都沒有：{sorted(_missing)}。"
+        "請更新 OFFICIAL_CHANNELS，否則官方管道觸及率會被低估。")
+    ch_rows = []
+    for gname, sub in [("全體", df), (C.L_DONE, df[df[C.LAYER] == C.L_DONE])]:
+        picked = [{o.strip() for o in str(v).split(C.MULTI_SELECT_SEP) if o.strip()}
+                  for v in sub[C.C_G0V_CHANNEL]]
+        denom = len(picked)
+        has_off = [bool(p & set(OFFICIAL_CHANNELS)) for p in picked]
+        has_fri = [FRIEND_CHANNEL in p for p in picked]
+        cats = [
+            ("至少用到一個官方管道", sum(has_off)),
+            ("有靠親友推薦", sum(has_fri)),
+            ("只有官方管道", sum(o and not f for o, f in zip(has_off, has_fri))),
+            ("官方與親友都有", sum(o and f for o, f in zip(has_off, has_fri))),
+            ("只靠親友推薦，沒有任何官方管道", sum(f and not o for o, f in zip(has_off, has_fri))),
+            ("兩者都沒有", sum((not o) and (not f) for o, f in zip(has_off, has_fri))),
+        ]
+        for label, n in cats:
+            ch_rows.append({
+                "分群": gname, "類別": label, "分子": n, "分母": denom,
+                "比例": round(n / denom, 4),
+                "互斥四分組": label in ("只有官方管道", "官方與親友都有",
+                                    "只靠親友推薦，沒有任何官方管道", "兩者都沒有"),
+                "信賴度": C.confidence(denom) if denom >= 120 else C.subgroup_confidence(denom),
+            })
+        # 註：四組由 (has_off, has_fri) 的 2×2 組合定義，相加必然等於分母，
+        # 檢查它是恆真的、給不出任何保證。真正會出錯的是「官方管道有沒有列全」，
+        # 那道守門寫在上面的 _missing 檢查。這裡只保留交叉驗算。
+        by = dict(cats)
+        assert by["至少用到一個官方管道"] == by["只有官方管道"] + by["官方與親友都有"], gname
+        assert by["有靠親友推薦"] == by["只靠親友推薦，沒有任何官方管道"] + by["官方與親友都有"], gname
+    C.save_table(pd.DataFrame(ch_rows), "03_管道_官方vs親友",
+                 "以人去重計算；互斥四分組的四列相加＝分母。"
+                 "官方管道清單是否列全，由 03_crosstab.py 的 _missing 守門檢查")
+
+    # 居住地：雙北合計。報告寫 62%（79/127），但台北 41 票＋新北 39 票＝80，
+    # 差的那 1 人同時勾了台北／新北／桃園（common.pct_table 的警語就是記這件事）。
+    # 這正是「票數不可相加當人數」的實例，故單獨出表，用 people_count 去重。
+    n_tp, d_tp = C.people_count(df, C.C_REGION, ["台北市", "新北市"])
+    C.save_table(pd.DataFrame([{
+        "類別": "雙北（台北市或新北市）", "分子": n_tp, "分母": d_tp,
+        "比例": round(n_tp / d_tp, 4),
+        "算法": "people_count 去重；不可用台北票數＋新北票數（會重複計同時勾兩地的人）",
+        "信賴度": C.confidence(d_tp),
+    }]), "03_全體_居住地_雙北合計", "報告第 1 章 62%（79/127）的來源")
+
     # ⚠ 此題分支到「從未接觸」層（26 人全數作答），不是「接觸未參與」層。
     #    被選為主要服務對象的「接觸未參與」54 人，問卷沒問過他們為何沒投入——報告限制章須寫明。
     never = df[df[C.LAYER] == C.L_NEVER]
@@ -253,6 +370,20 @@ def main():
         ov_rows.append(row)
     C.save_table(pd.DataFrame(ov_rows), "03_角色重疊矩陣",
                  "列＝勾了該角色的人；值＝其中也勾了欄角色的比例。若為巢狀階梯，下三角應全 1.00")
+
+    # 「動手做的人，不一定用過別人的公民科技產品」（報告第 2 章）。
+    # 分母是「勾了開發維護**或**發起專案」的人數，必須去重——同時勾兩個的人只算一次，
+    # 不能把兩個選項的票數相加（33＋28＝61，實際是 38 人）。
+    dev, init, user = C.ROLE_LADDER[2], C.ROLE_LADDER[3], C.ROLE_LADDER[0]
+    maker = [st for st in role_sets if dev in st or init in st]
+    no_user = sum(1 for st in maker if user not in st)
+    C.save_table(pd.DataFrame([
+        {"類別": "勾了「開發維護」或「發起專案」（去重）", "分子": len(maker), "分母": len(role_sets),
+         "比例": round(len(maker) / len(role_sets), 4)},
+        {"類別": "上列的人當中，沒有勾「使用過某個工具或參與過討論」", "分子": no_user,
+         "分母": len(maker), "比例": round(no_user / len(maker), 4)},
+    ]), "03_角色_動手做但沒用過",
+        "分母 101 位曾接觸者；第二列的分母是第一列的分子（38），不是 101")
 
     # 角色廣度分布
     breadth = idx["角色廣度"].dropna().astype(int).value_counts().sort_index()
