@@ -103,6 +103,15 @@ def summarise(out: pd.DataFrame) -> pd.DataFrame:
     for v in C.STAGE_COARSE_ORDER:
         n = int((done["專案階段_合併"] == v).sum())
         add("專案階段（合併）", v, n, len(done))
+    # 手上同時進行幾個專案：報告用它講「有多少人目前處於休眠狀態」。
+    # 先前只存在於人層級的 01_衍生變項.csv（未入版控），摘要表沒有，
+    # 導致該數字無法從公開的分析結果回溯，故補進摘要。
+    proj_counts = done["同時進行專案數"].value_counts()
+    proj_order = ["0 個，目前沒有投入的專案", "1 到 3 個", "4 個以上"]
+    unexpected = sorted(set(proj_counts.index) - set(proj_order))
+    assert not unexpected, f"同時進行專案數出現未預期的值：{unexpected}"
+    for v in proj_order:
+        add("同時進行專案數", v, int(proj_counts.get(v, 0)), len(done))
     for v, n in out["年齡"].value_counts().items():
         add("年齡", v, int(n), len(out))
     return pd.DataFrame(rows)
