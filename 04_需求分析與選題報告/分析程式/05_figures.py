@@ -6,12 +6,11 @@
 顏色已用 validate_palette.js 驗證（見 common.PALETTE 註解）。
 
 圖形選擇：
-  · 量值排序（困擾、活動意願、管道、地區）→ 橫條，單一數列不放圖例，直接標數值
-  · 量值矩陣（資源×階段）→ 熱區，單一色相由淺到深
+  · 量值排序（困擾、資源、專長、管道、地區、角色）→ 橫條，單一數列不放圖例，直接標數值
   · 極性矩陣（年齡×動機 lift，中點 1.0）→ 分歧配色，兩色相＋中性灰中點
-  · 兩點之間的變化（初次→持續動機）→ 斜線圖，兩端直接標示
   · 二維落點（狩野 SI×DSI）→ 散佈圖＋四象限
   · 分群比較（三層×需求）→ 分組橫條，固定色序＋圖例
+  · 單選互斥分層（127 人分三層）→ 甜甜圈圖，色隨身分固定
 
 所有圖都附對應的數據 CSV（分析結果/），滿足 relief rule 與可追溯性。
 
@@ -127,12 +126,12 @@ def main():
     titles(ax, "每項困難的困擾程度分布（1–5 分完整呈現）",
            "依「3 分以上人數」由多到少排列｜格內數字為人數，3 人以下未標\n"
            "此題沒有「沒遇到」選項，所以 1 分同時包含「沒發生過」與「發生了但不影響」")
-    C.save_fig(fig, "02_困擾_五級分布")
+    C.save_fig(fig, "05_困擾_五級分布")
     plt.close(fig)
 
     # ---------------- 2a. 狩野落點圖（全體，單張）----------------
     for src, fname, title, sub in [
-        ("02_狩野_全體.csv", "03_狩野落點_全體", "五個文章主題的狩野落點（全體）",
+        ("02_狩野_全體.csv", "12_狩野落點_全體", "五個文章主題的狩野落點（全體）",
          "N=126｜SI 0–1、DSI 0～−1 全幅，分界線 0.5／−0.5 位於正中央\n"
          "五個主題全部落在「魅力 A」，其中「落地、接進體制」最靠近期望 O 邊界"),
     ]:
@@ -183,69 +182,6 @@ def main():
         titles(ax, title, sub, extra_pad=0.075)
         C.save_fig(fig, fname)
         plt.close(fig)
-
-    # ------------- 2a-2. 舊報告圖 3-1 的更新版（沿用 v1 視覺語言，只換數字）-------------
-    # v2.docx 內嵌的圖 3-1 原本是 N=120 版，表格更新到 N=126 後圖表會自相矛盾。
-    # 這裡重畫同一張圖：彩色象限底 ＋ 象限說明文字，維持 v1 的樣子，只有數據換新。
-    ka = pd.read_csv(T / "02_狩野_全體.csv")
-    # 尺寸鎖定 1560x1118（dpi 150），與 docx 內嵌原圖同長寬比，換圖時才不會被拉伸
-    fig, ax = plt.subplots(figsize=(1560 / 150, 1118 / 150))
-    ax.set_xlim(0, 1)
-    ax.set_ylim(-1, 0)
-    quad = [((0.5, -0.5, 0.5, 0.5), "#efefec"),      # 左上 無差異 I
-            ((0.5, -0.5, 0.5, 0.5), None)]
-    ax.add_patch(plt.Rectangle((0, -0.5), 0.5, 0.5, facecolor="#efefec", zorder=0))
-    ax.add_patch(plt.Rectangle((0.5, -0.5), 0.5, 0.5, facecolor="#fbecd9", zorder=0))
-    ax.add_patch(plt.Rectangle((0, -1), 0.5, 0.5, facecolor="#e8f1e8", zorder=0))
-    ax.add_patch(plt.Rectangle((0.5, -1), 0.5, 0.5, facecolor="#e2ebf6", zorder=0))
-    ax.axvline(0.5, color="#8a8a85", lw=1.2, ls="--", zorder=1)
-    ax.axhline(-0.5, color="#8a8a85", lw=1.2, ls="--", zorder=1)
-
-    n_valid = int(ka["有作答"].max())
-    # 右側兩個象限的說明靠右對齊、貼著邊界（沿用 v1 的擺法）：
-    # 資料點集中在 SI 0.6–0.8，說明文字若置中會壓到「留住夥伴」的標籤。
-    quad_text = [
-        (0.25, -0.06, "center", 0.25, "center", "無差異 I", "#8a8a85",
-         "有沒有這篇文章，讀者\n都無感。\n→ 寫了 CP 值低，可略過"),
-        (0.75, -0.06, "center", 0.985, "right", "魅力 A（驚喜加分）", "#c8621f",
-         "有→驚喜、大加分；沒有→也不會怪你。\n→ 差異化亮點，本次 5 主題全落此區"),
-        (0.25, -0.56, "center", 0.25, "center", "基本 M（必備門檻）", "#3f7d46",
-         "有→視為理所當然；\n沒有→會不滿、扣分。\n→ 沒寫像缺漏，必補"),
-        (0.75, -0.56, "center", 0.985, "right", "期望 O（越多越好）", "#2a5f9e",
-         "有→滿意度線性上升；\n沒有→明顯失望。\n→ 投資報酬穩定，該寫"),
-    ]
-    for qx, qy, hha, bx, bha, head, colr, body in quad_text:
-        ax.text(qx, qy, head, fontsize=13, color=colr, ha=hha, va="top", zorder=2)
-        ax.text(bx, qy - 0.055, body, fontsize=9, color="#52514e",
-                ha=bha, va="top", linespacing=1.6, zorder=2)
-
-    # 標籤位置沿用 v1 的擺法，並避開彼此
-    label_off = {
-        "怎麼捲動更多人（包含不會寫程式的人）一起參與": (-0.055, 0.052, "center"),
-        "怎麼留住夥伴、維持團隊運作的能量": (0.055, 0.052, "center"),
-        "如何發起一個公民科技專案": (-0.035, -0.075, "center"),
-        "沒有現成資料時，怎麼搜尋、整理或自建資料集": (0.075, 0.030, "left"),
-        "怎麼讓做好的東西真正落地、接進體制": (0.022, 0.048, "left"),
-    }
-    ax.scatter(ka["SI"], ka["DSI"], s=170, color="#b5342a",
-               edgecolor="#ffffff", linewidth=2, zorder=4)
-    for _, r in ka.iterrows():
-        dx, dy, ha = label_off[r["主題"]]
-        ax.text(r["SI"] + dx, r["DSI"] + dy,
-                f"{C.KANO_SHORT[r['主題']]}\nSI={r['SI']:.2f}",
-                fontsize=9.5, color="#b5342a", ha=ha, va="center",
-                linespacing=1.5, zorder=5)
-
-    ax.set_xlabel("SI 滿意影響力 →（有這篇文章能加多少分；越右越加分）", fontsize=10, color="#333")
-    ax.set_ylabel("DSI 不滿意影響力 ↓（沒這篇文章會扣多少分；越下越扣分）", fontsize=10, color="#333")
-    ax.set_title(f"狩野模型四象限 × 5 個方法論文章主題（有效樣本 {n_valid} 份）",
-                 fontsize=14, pad=14)
-    ax.tick_params(length=0, labelsize=9)
-    for side in ("top", "right"):
-        ax.spines[side].set_visible(True)
-        ax.spines[side].set_color("#cccccc")
-    C.save_fig(fig, "00_狩野四象限說明圖_N126", bbox=None)
-    plt.close(fig)
 
     # ---------------- 2b. 狩野落點：入坑三層（小倍數）----------------
     # 三層 15 個點畫在同一張圖，只有 5 個標得到名字、其餘 10 個無法對應主題。
@@ -306,91 +242,7 @@ def main():
     fig.text(0.09, 0.99, "「捲動更多人」③ 與「留住夥伴」④ 對還沒接觸的人落在「無差別」，"
                          "對另外兩群都是「魅力」：沒進場的人感受不到團隊經營的痛",
              ha="left", fontsize=8.5, color="#52514e")
-    C.save_fig(fig, "04_狩野落點_三層")
-    plt.close(fig)
-
-    # ---------------- 3. 資源 × 專案階段（順序型熱區）----------------
-    rs = pd.read_csv(T / "03_資源×專案階段.csv")
-    rs = rs[rs["選項"] != "所屬社團夥伴一起討論"]          # 單一自由填答，不入矩陣
-    piv = rs.pivot(index="選項", columns="分群", values="群內比例")
-    piv = piv.reindex(columns=[c for c in C.STAGE_COARSE_ORDER if c in piv.columns])
-    piv = piv.loc[piv.mean(axis=1).sort_values(ascending=False).index]
-    denoms = {g: int(rs.loc[rs["分群"] == g, "分母"].iloc[0]) for g in piv.columns}
-    nums = rs.pivot(index="選項", columns="分群", values="分子").reindex(
-        index=piv.index, columns=piv.columns)
-
-    fig, ax = plt.subplots(figsize=(8.2, 0.62 * len(piv) + 2.4))
-    im = ax.imshow(piv.values, cmap=SEQ, vmin=0, vmax=1, aspect="auto")
-    ax.set_xticks(range(len(piv.columns)),
-                  [f"{c}\n(N={denoms[c]})" for c in piv.columns], fontsize=9)
-    ax.set_yticks(range(len(piv.index)), piv.index, fontsize=9)
-    for i in range(len(piv.index)):
-        for j in range(len(piv.columns)):
-            v = piv.values[i, j]
-            ax.text(j, i, f"{v:.0%}\n({int(nums.values[i, j])}/{denoms[piv.columns[j]]})",
-                    ha="center", va="center", fontsize=8,
-                    color="#ffffff" if v > 0.55 else "#0b0b0b")
-    ax.set_xticks(np.arange(-.5, len(piv.columns), 1), minor=True)
-    ax.set_yticks(np.arange(-.5, len(piv.index), 1), minor=True)
-    ax.grid(which="minor", color=C.PALETTE["surface"], linewidth=2)
-    ax.tick_params(which="both", length=0)
-    titles(ax, "不同階段的專案，用到哪些資源",
-           "格內＝該階段中用過該資源的比例（人數/該階段人數）｜47 位曾參與者，各階段有 6–17 人")
-    fig.colorbar(im, ax=ax, shrink=0.6, label="群內比例")
-    C.save_fig(fig, "05_資源×專案階段")
-    plt.close(fig)
-
-    # ---------------- 3b. 出資端與提案端的資源落差（兩個面板對照）----------------
-    # 兩邊問的不是同一題，也不是同一套選項，所以不畫成同一組長條：
-    #   左＝出資者答「最難找資源的是哪個階段」（27 人，只給早期／落地／維運三個選項）
-    #   右＝提案端答「這個專案用過哪些資源」中勾「主要靠我自己想辦法」的比例
-    #       （依填答者最近參與的專案所在階段分組，另有「停擺」一組，出資者那題沒有）
-    # 用同一個 y 軸順序（早期→落地→維運）並把「落地」標成強調色，讓落差看得出來。
-    FUND_TO_STAGE = {
-        "還在很早期、只有想法的": "早期（探索或開發中）",
-        "已經做出原型、要往落地走的": "落地",
-        "已經上線、要長期維運的": "維運",
-    }
-    fd = pd.read_csv(T / "03_出資者_資源沙漠階段.csv")
-    unknown = set(fd["選項"]) - set(FUND_TO_STAGE)
-    assert not unknown, f"出資者階段題出現未預期選項：{sorted(unknown)}"
-    fd["階段"] = fd["選項"].map(FUND_TO_STAGE)
-    fd_n = int(fd["分母"].iloc[0])
-
-    sf = rs[rs["選項"] == "主要靠我自己想辦法"].copy()
-
-    fig, axes = plt.subplots(1, 2, figsize=(12.6, 4.2))
-    panels = [
-        (axes[0], fd.set_index("階段"), "比例", "票數", fd_n,
-         # 問卷設計稿把這題標為複選，但實際作答裡沒有任何人複選（票數 14+10+3 剛好等於
-         # 作答人數 27），所以圖上照實描述作答狀況，不宣稱表單的題型設定。
-         f"出資者認為最難找資源的階段", f"曾出錢支持過專案的 {fd_n} 人，作答中每人都只選了一個"),
-        (axes[1], sf.set_index("分群"), "群內比例", "分子", None,
-         "提案端說「主要靠我自己想辦法」的比例",
-         "依每個人最近參與的專案所在階段分組"),
-    ]
-    for ax, d, vcol, ncol, fixed_den, title, sub in panels:
-        stages = [s for s in C.STAGE_COARSE_ORDER if s in d.index]
-        y = np.arange(len(stages))[::-1]
-        for yi, st in zip(y, stages):
-            v = float(d.loc[st, vcol])
-            n = int(d.loc[st, ncol])
-            den = fixed_den if fixed_den else int(d.loc[st, "分母"])
-            hot = st == "落地"
-            ax.barh(yi, v, height=0.6, zorder=2,
-                    color=C.PALETTE["accent"] if hot else C.PALETTE["neutral"])
-            ax.text(v + 0.015, yi, f"{v:.0%}  ({n}/{den})",
-                    va="center", fontsize=8.5, color="#52514e")
-        ax.set_yticks(y, [s.replace("（探索或開發中）", "") for s in stages], fontsize=9.5)
-        ax.set_xlim(0, 0.72)
-        ax.xaxis.set_major_formatter(lambda x, _: f"{x:.0%}")
-        style_axes(ax, title=title, subtitle=sub)
-
-    fig.text(0.5, -0.10,
-             "出資者覺得最不缺資源的「落地」（11%），正是提案端最常說只能靠自己的一段（35%）。"
-             "兩題問法不同：一邊問難易感受、一邊問實際用過哪些資源，用得少也可能只是還沒用到。",
-             ha="center", fontsize=8.5, color="#52514e")
-    C.save_fig(fig, "17_出資端與提案端的資源落差")
+    C.save_fig(fig, "13_狩野落點_三層")
     plt.close(fig)
 
     # ---------------- 4. 年齡 × 持續動機：與全體的差距（雙向橫條）----------------
@@ -452,48 +304,10 @@ def main():
     C.save_fig(fig, "06_年齡×持續動機")
     plt.close(fig)
 
-    # ---------------- 5. 動機流向（斜線圖）----------------
-    fl = pd.read_csv(T / "04_動機_流向.csv").sort_values("初次_人數", ascending=False)
-    fig, ax = plt.subplots(figsize=(10.5, 6.4))
-    left_y = spread(fl["初次_人數"].tolist(), 1.5)
-    right_y = spread(fl["持續_人數"].tolist(), 1.5)
-    for (_, r), ly, ry in zip(fl.iterrows(), left_y, right_y):
-        color = (C.SERIES[1] if r["淨變化"] > 0
-                 else C.PALETTE["neutral"] if r["淨變化"] == 0 else C.SERIES[0])
-        ax.plot([0, 1], [r["初次_人數"], r["持續_人數"]], color=color, lw=2, zorder=2)
-        ax.scatter([0, 1], [r["初次_人數"], r["持續_人數"]], s=42, color=color,
-                   edgecolor=C.PALETTE["surface"], linewidth=1.6, zorder=3)
-        ax.text(-0.035, ly, f"{r['動機']}　{int(r['初次_人數'])}",
-                ha="right", va="center", fontsize=8.5, color="#52514e")
-        ax.text(1.035, ry,
-                f"{int(r['持續_人數'])}　留存 {int(r['留存'])}／新增 {int(r['新增'])}",
-                ha="left", va="center", fontsize=8.5, color="#52514e")
-    ax.set_xlim(-0.62, 1.42)
-    ax.set_ylim(3, 42)
-    ax.set_xticks([0, 1], ["第一次投入的契機", "現在還留下來的原因"], fontsize=10)
-    ax.set_yticks([])
-    ax.grid(axis="y", color=C.PALETTE["grid"], lw=0.8, zorder=0)
-    ax.set_axisbelow(True)
-    ax.tick_params(length=0, labelsize=9)
-    ax.spines["left"].set_visible(False)
-    titles(ax, "動機從入門到現在，怎麼移動",
-           "同一批 47 位曾參與者的配對比較，數字為人數（分母 47）｜橘＝淨增加、藍＝淨減少、灰＝持平\n"
-           "總量看似穩定，但 19/47（40%）的人，動機組合其實換過")
-    C.save_fig(fig, "07_動機流向")
-    plt.close(fig)
-
-    # ---------------- 6. 活動意願 ----------------
-    ev = pd.read_csv(T / "03_全體_活動意願.csv")
-    ev = ev[ev["票數"] >= 3]
-    hbar(ev, "選項", "比例", "票數", int(ev["分母"].iloc[0]),
-         "如果揪松團辦這些活動，大家最想報名哪一個",
-         f"全體 N={int(ev['分母'].iloc[0])}，每人最多選 2 個｜受「最多選 2」限制，需求只會被低估",
-         "08_活動意願", color=C.SERIES[1])
-
     # ---------------- 7. 三層 × 議題領域／工具 ----------------
     for src, fname, title, topn in [
-        ("03_三層×議題領域.csv", "09_三層×議題領域", "想先看哪些議題領域的資料清單", 12),
-        ("03_三層×跨領域工具.csv", "10_三層×跨領域工具", "想看哪些跨領域工具的介紹", 7),
+        ("03_三層×議題領域.csv", "14_三層×議題領域", "想先看哪些議題領域的資料清單", 12),
+        ("03_三層×跨領域工具.csv", "15_三層×跨領域工具", "想看哪些跨領域工具的介紹", 7),
     ]:
         t = pd.read_csv(T / src)
         order = (t.groupby("選項")["分子"].sum().sort_values(ascending=False).head(topn).index)
@@ -526,90 +340,35 @@ def main():
          "大家從哪裡得知 g0v 的活動消息",
          f"全體 N={int(ch['分母'].iloc[0])}，複選｜「親友推薦」與「g0v 社群管道」並列第一（各 51 人），"
          "意味著觸及仍有一半依賴人際網絡",
-         "11_g0v消息管道")
+         "09_g0v消息管道")
 
     rg = pd.read_csv(T / "03_全體_居住地.csv")
     hbar(rg, "選項", "比例", "票數", int(rg["分母"].iloc[0]),
          "填答者的居住地分布",
          f"全體 N={int(rg['分母'].iloc[0])}｜雙北合計逾六成，反映問卷經 g0v 管道發放的取樣偏誤",
-         "12_居住地分布", color=C.PALETTE["neutral"])
+         "02_居住地分布", color=C.PALETTE["neutral"])
 
     nj = pd.read_csv(T / "03_未參與原因.csv")
     hbar(nj, "選項", "比例", "票數", int(nj["分母"].iloc[0]),
          "從未接觸者說，是什麼擋住了他們",
          "分母＝26 位「從未接觸公民科技」者（全數作答）｜"
          "注意：被選為主要對象的「接觸未參與」54 人，問卷未問此題",
-         "13_未參與原因", color=C.SERIES[2])
+         "10_未參與原因", color=C.SERIES[2])
 
-    # ---------------- 9. 角色與參與深度（§3 原本沒有任何圖）----------------
+    # ---------------- 9. 角色分布（§3 原本沒有任何圖）----------------
     roles = pd.read_csv(T / "03_全體_角色勾選.csv")
     roles = roles[roles["選項"].isin(C.ROLE_LADDER)].copy()
     roles["短名"] = roles["選項"].map(C.ROLE_SHORT)
     order = [C.ROLE_SHORT[r] for r in C.ROLE_LADDER]        # 由淺到深，不依票數排序
     roles = roles.set_index("短名").loc[order].reset_index()
-    breadth = pd.read_csv(T / "03_角色廣度分布.csv")
 
-    fig, (axa, axb) = plt.subplots(1, 2, figsize=(13.5, 4.6),
-                                   gridspec_kw={"width_ratios": [1.35, 1]})
-    # 左：各角色勾選率，維持「由淺到深」的順序（不是由多到少），才看得出階梯形狀
-    ypos = np.arange(len(roles))[::-1]
-    axa.barh(ypos, roles["比例"], height=0.6, color=C.PALETTE["primary"], zorder=2)
-    for y, v, n in zip(ypos, roles["比例"], roles["票數"]):
-        axa.text(v + 0.012, y, f"{v:.0%}（{int(n)}/101）", va="center",
-                 fontsize=8.5, color="#52514e")
-    axa.set_yticks(ypos, roles["短名"])
-    axa.set_xlim(0, 1.12)
-    axa.xaxis.set_major_formatter(lambda x, _: f"{x:.0%}")
-    axa.grid(axis="x", color=C.PALETTE["grid"], lw=0.8, zorder=0)
-    axa.set_axisbelow(True)
-    axa.tick_params(length=0, labelsize=9.5)
-    axa.set_title("擔任過哪些角色（複選，由淺到深排列）", fontsize=11, loc="left", pad=8)
-
-    # 右：角色廣度＝一個人勾了幾種角色
-    axb.bar(breadth["勾選角色數"], breadth["人數"], width=0.62,
-            color=C.PALETTE["accent"], zorder=2)
-    for x, n, r in zip(breadth["勾選角色數"], breadth["人數"], breadth["比例"]):
-        axb.text(x, n + 1, f"{int(n)}\n{r:.0%}", ha="center", fontsize=8.5, color="#52514e")
-    axb.set_xticks(breadth["勾選角色數"])
-    axb.set_ylim(0, breadth["人數"].max() * 1.25)
-    axb.grid(axis="y", color=C.PALETTE["grid"], lw=0.8, zorder=0)
-    axb.set_axisbelow(True)
-    axb.tick_params(length=0, labelsize=9.5)
-    axb.set_xlabel("一個人勾了幾種角色", fontsize=9, color="#52514e")
-    axb.set_title("角色廣度分布", fontsize=11, loc="left", pad=8)
-
-    fig.suptitle("角色分布：多數人只站在一個位置", fontsize=13, x=0.045, ha="left", y=1.06)
-    fig.text(0.045, 1.0,
-             "分母＝101 位曾接觸者（其中 99 人有有效角色）｜"
-             "近半數（46 人）只勾了一種角色，勾滿五種的有 10 人",
-             ha="left", fontsize=8.5, color="#52514e")
-    C.save_fig(fig, "14_角色分布與廣度")
-    plt.close(fig)
-
-    # 角色重疊矩陣：直接呈現「不是巢狀階梯」這個事實
-    ov = pd.read_csv(T / "03_角色重疊矩陣.csv")
-    mat = ov[[f"也勾{s}" for s in order]].values
-    fig, ax = plt.subplots(figsize=(8.4, 5.4))
-    ax.imshow(mat, cmap=SEQ, vmin=0, vmax=1, aspect="auto")
-    ax.set_xticks(range(len(order)), order, fontsize=9.5)
-    ax.set_yticks(range(len(order)),
-                  [f"{s}\n(n={int(n)})" for s, n in zip(ov["勾了（列）"], ov["該角色人數"])],
-                  fontsize=9)
-    for i in range(len(order)):
-        for j in range(len(order)):
-            v = mat[i, j]
-            ax.text(j, i, f"{v:.0%}", ha="center", va="center", fontsize=9.5,
-                    color="#ffffff" if v > 0.55 else "#0b0b0b")
-    ax.set_xticks(np.arange(-.5, len(order), 1), minor=True)
-    ax.set_yticks(np.arange(-.5, len(order), 1), minor=True)
-    ax.grid(which="minor", color=C.PALETTE["surface"], linewidth=2)
-    ax.tick_params(which="both", length=0)
-    titles(ax, "角色之間不是巢狀階梯",
-           "列＝勾了該角色的人，格內＝其中「也」勾了欄角色的比例\n"
-           "若真是由淺到深的巢狀階梯，左下三角應該全部是 100%——實際上並不是"
-           "（例如勾「發起者」的人只有 82% 也勾了使用者）")
-    C.save_fig(fig, "15_角色重疊矩陣")
-    plt.close(fig)
+    # 標籤用問卷 Q3 逐字選項，不用短名——短名離開問卷脈絡後看不出在講哪個角色
+    roles_full = roles.copy()
+    roles_full["問卷原始選項"] = roles_full["選項"].map(C.ROLE_ORIGINAL)
+    hbar(roles_full, "問卷原始選項", "比例", "票數", 101,
+         "擔任過哪些角色（複選，選項照問卷 Q3 逐字）",
+         "分母＝101 位曾接觸者｜可複選，加總會超過 100%",
+         "03_角色分布_問卷原始選項", figsize=(10.5, 3.6))
 
     # 參與深度分布（§3.1 原本只有表）
     idx_df = pd.read_csv(T / "01_衍生變項.csv", index_col=0, keep_default_na=False)
@@ -630,8 +389,50 @@ def main():
     ax.tick_params(length=0, labelsize=9.5)
     titles(ax, "參與深度：四成的人只站在第一階",
            "分母＝101 位曾接觸者｜灰色那列是逃生選項，不在深度軸上、未給權重")
-    C.save_fig(fig, "16_參與深度分布")
+    C.save_fig(fig, "04_參與深度分布")
     plt.close(fig)
+
+    # ---------------- 19. 入坑分層：127 人分成三層（單選、互斥，適合圓餅圖） ----------------
+    layer_counts = idx_df["入坑分層"].value_counts()
+    layer_vals = [int(layer_counts.get(l, 0)) for l in C.LAYER_ORDER]
+    layer_colors = [C.PALETTE["layers"][l] for l in C.LAYER_ORDER]
+    total = sum(layer_vals)
+
+    pd.DataFrame({
+        "分層": C.LAYER_ORDER,
+        "人數": layer_vals,
+        "分母": total,
+        "比例": [v / total for v in layer_vals],
+    }).to_csv(T / "01_入坑分層分布.csv", index=False, encoding="utf-8-sig")
+
+    layer_labels_wrapped = [C.LAYER_PLAIN[l].replace("，", "，\n") for l in C.LAYER_ORDER]
+    fig, ax = plt.subplots(figsize=(7.4, 6.4))
+    wedges, _ = ax.pie(
+        layer_vals, colors=layer_colors, startangle=90, counterclock=False,
+        wedgeprops={"width": 0.55, "edgecolor": C.PALETTE["surface"], "linewidth": 2})
+    for w, label, v in zip(wedges, layer_labels_wrapped, layer_vals):
+        ang = np.deg2rad((w.theta2 + w.theta1) / 2)
+        ax.text(np.cos(ang) * 0.76, np.sin(ang) * 0.76, f"{label}\n{v} 人（{v / total:.0%}）",
+                ha="center", va="center", fontsize=9, color="#ffffff", linespacing=1.4)
+    ax.set_aspect("equal")
+    titles(ax, "127 位填答者，分成三層",
+           f"分母＝全體 {total} 人｜色隨身分固定：聽過或看過＝綠、接觸未參與＝橘、做過專案＝藍")
+    C.save_fig(fig, "01_入坑分層分布")
+    plt.close(fig)
+
+    # ---------------- 21. 用過哪些資源（複選，Q「這個專案曾使用過哪些資源？」）----------------
+    resources = pd.read_csv(T / "03_全體_資源.csv")
+    hbar(resources, "選項", "比例", "票數", 47,
+         "曾參與過專案的人，用過哪些資源",
+         "分母＝47 位曾參與者｜可複選，加總會超過 100%",
+         "07_全體_資源")
+
+    # ---------------- 22. 貢獻過哪些專長（複選）----------------
+    skills = pd.read_csv(T / "03_全體_專長.csv")
+    hbar(skills, "選項", "比例", "票數", 47,
+         "曾參與過專案的人，貢獻過哪些專長",
+         "分母＝47 位曾參與者｜可複選，加總會超過 100%｜常見一人多工",
+         "08_全體_專長")
 
     print("\n完成。所有圖已輸出到 圖表v2/，每張圖對應的數據 CSV 在 分析結果/。")
 
