@@ -5,7 +5,7 @@
 補第 7 章「入門型與深度型的活動，服務的是不同的人」的圖：同一批活動意願數字
 （03_三層×活動意願.csv），依三層分組橫向比較，取代只用文字描述的排序落差。
 
-輸出：圖表v2/18_三層×活動意願.png
+輸出：圖表v2/11_三層×活動意願.png
 
 執行：python3 11_activity_by_layer.py
 """
@@ -23,28 +23,30 @@ T = C.TABLE_DIR
 
 def main():
     d = pd.read_csv(T / "03_三層×活動意願.csv")
-    short = {"公民科技資料庫入門": "資料庫入門"}
-    d["主題"] = d["選項"].str.split("：").str[0].replace(short)
 
-    # 不用 C.LAYER_PLAIN：那份白話標籤把 L_NEVER 寫成「還沒接觸的人」，
-    # 但這一層實際是「聽過或看過、只是還沒真正參與」，兩者不同義
-    # （這份報告這一輪已把正文與其他新圖的用字改到跟問卷題目一致）。
-    lay = {
-        C.L_NEVER: "聽過或看過，還沒參與（26 人）",
-        C.L_AWARE: "接觸過，還沒做過專案（54 人）",
-        C.L_DONE: "做過專案（47 人）",
-    }
+    # 標籤照問卷 Q17a 逐字選項（含冒號後的說明），不縮寫成活動短名——
+    # 短名離開問卷脈絡後看不出在講哪個活動，讀者需要冒號後的說明才認得出來。
+    # 只在冒號處插入換行方便橫式長條圖排版，文字本身不刪減。
+
+    lay = {layer: f"{C.LAYER_PLAIN[layer]}（{n} 人）"
+           for layer, n in C.LAYER_EXPECTED_N.items()}
     d = d[d["分群"].isin(lay)]
 
-    order = ["公私協力怎麼談", "公民科技實戰心法", "資料庫入門", "用 AI 幫你提案"]
+    order = [
+        "公私協力怎麼談：一起討論公部門和民間合作的方法，以及常卡在哪",
+        "公民科技實戰心法：從真實案例復盤，學前人怎麼把專案做起來",
+        "公民科技資料庫入門：學會用網站和 AI 問答，快速查專案、看懂專案怎麼組成",
+        "用 AI 幫你提案：從零開始，動手把點子變成專案構想和藍圖",
+    ]
+    labels = [t.replace("：", "：\n", 1) for t in order]
     groups = C.LAYER_ORDER
     colors = ["#F2A65A", "#E8743B", "#B5451B"]
 
-    fig, ax = plt.subplots(figsize=(11, 5.2))
+    fig, ax = plt.subplots(figsize=(13, 6.8))
     y = np.arange(len(order))
     h = 0.26
     for k, g in enumerate(groups):
-        sub = d[d["分群"] == g].set_index("主題")
+        sub = d[d["分群"] == g].set_index("選項")
         missing = set(order) - set(sub.index)
         assert not missing, f"{g} 缺少主題：{missing}"
         vals = [sub.loc[t, "群內比例"] * 100 for t in order]
@@ -55,7 +57,7 @@ def main():
                     va="center", fontsize=8.5, color="#444")
 
     ax.set_yticks(y)
-    ax.set_yticklabels(order, fontsize=11)
+    ax.set_yticklabels(labels, fontsize=9.5)
     ax.invert_yaxis()
     ax.set_xlim(0, 88)
     ax.set_xlabel("該群裡把這個活動列入的比例", fontsize=10)
@@ -69,9 +71,9 @@ def main():
     ax.legend(loc="lower right", fontsize=9, frameon=False)
     ax.xaxis.grid(True, color="#DDD", lw=0.6)
     ax.set_axisbelow(True)
-    C.save_fig(fig, "18_三層×活動意願")
+    C.save_fig(fig, "11_三層×活動意願")
     plt.close(fig)
-    print("已產出 圖表v2/18_三層×活動意願.png")
+    print("已產出 圖表v2/11_三層×活動意願.png")
 
 
 if __name__ == "__main__":
