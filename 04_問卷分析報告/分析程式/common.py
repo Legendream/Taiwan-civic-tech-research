@@ -14,7 +14,7 @@ from pathlib import Path
 
 PROJ = Path(__file__).resolve().parents[2]           # g0v civic tech guide/
 RAW_DIR = PROJ / "03_問卷回收資料"
-OUT_DIR = PROJ / "04_需求分析與選題報告"
+OUT_DIR = PROJ / "04_問卷分析報告"
 
 RAW_CSV = RAW_DIR / "臺灣公民科技參與者的需求調查 _至 2026_7_24 的填答 - 表單回覆 1.csv"
 OLD_CSV = RAW_DIR / "去識別化給 AI 分析＿用科技促進公眾利益，最難的是什麼？臺灣公民科技參與者的需求調查 - 表單回覆 1.csv"
