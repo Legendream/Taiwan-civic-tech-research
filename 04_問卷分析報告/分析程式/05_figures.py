@@ -101,8 +101,7 @@ def main():
     # 但 5 分在各題只有 0–3 人，單獨畫一張又幾乎全是雜訊，故用堆疊呈現完整分布。
     dist = pd.read_csv(T / "03_困擾_五級分布.csv").sort_values("3分以上_比例")
     score_cols = [c for c in dist.columns if re.match(r"^[1-5]分_", c)]
-    # 1、2 分用淺灰（沒卡住），3–5 分用逐漸加深的暖色（卡住的程度）
-    stack_colors = ["#e8e8e4", "#cfcfc9", "#f4c6ad", "#e8895b", "#b5342a"]
+    stack_colors = C.PALETTE["trouble_scale"]
     fig, ax = plt.subplots(figsize=(11, 0.5 * len(dist) + 2.4))
     left = np.zeros(len(dist))
     ypos = np.arange(len(dist))

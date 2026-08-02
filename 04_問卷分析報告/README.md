@@ -11,6 +11,7 @@
 | **報告裡的 15 張圖** | `圖表v2/01_*.png` ～ `15_*.png` |
 | **每張圖背後的數據** | `分析結果/*.csv` |
 | **重跑整套分析** | `分析程式/`（見下方指令） |
+| **對外的互動網頁** | `../docs/`（見 `../docs/README.md`），資料來源就是本資料夾的 `分析結果/*.csv` |
 
 > `.docx` 是 Claire 手動排版、實際交付的版本；`.md` 是同一份報告的純文字版，
 > 供 `06_number_index.py`、`12_source_audit.py` 稽核每個數字用。
@@ -48,6 +49,8 @@ python3 04_motivation.py && python3 05_figures.py && python3 09_opentext.py && p
 python3 11_activity_by_layer.py
 python3 06_number_index.py   # 稽核報告本文每一個百分比，對不上就失敗
 python3 12_source_audit.py   # 逐處列出每個數字取自哪一題、分母是誰
+python3 13_web_data.py       # 產生展示網頁的資料檔（../docs/data/figures.json）
+python3 14_web_number_check.py  # 稽核展示網頁上每一個百分比，對不上就失敗
 ```
 
 原始問卷資料不在版控裡（見專案根目錄 `README.md` 的說明），要完整重跑得先取得
