@@ -40,7 +40,9 @@ def main():
     ]
     labels = [t.replace("：", "：\n", 1) for t in order]
     groups = C.LAYER_ORDER
-    colors = ["#F2A65A", "#E8743B", "#B5451B"]
+    # 三層一律用 PALETTE["layers"]（綠／橘／藍），與 01、13、14、15 同一套。
+    # 原本這裡寫死一組橘色階，是全部圖表裡唯一沒跟到共用配色的地方。
+    colors = [C.PALETTE["layers"][g] for g in groups]
 
     fig, ax = plt.subplots(figsize=(13, 6.8))
     y = np.arange(len(order))
@@ -51,7 +53,8 @@ def main():
         assert not missing, f"{g} 缺少主題：{missing}"
         vals = [sub.loc[t, "群內比例"] * 100 for t in order]
         nums = [f"{int(sub.loc[t,'分子'])}/{int(sub.loc[t,'分母'])}" for t in order]
-        bars = ax.barh(y + (1 - k) * h, vals, height=h, color=colors[k], label=lay[g])
+        # (k - 1)：讓長條由上到下是綠、橘、藍，與圖例同序，也與 14、15 一致。
+        bars = ax.barh(y + (k - 1) * h, vals, height=h, color=colors[k], label=lay[g])
         for b, v, n in zip(bars, vals, nums):
             ax.text(v + 1, b.get_y() + b.get_height() / 2, f"{v:.0f}%（{n}）",
                     va="center", fontsize=8.5, color="#444")
