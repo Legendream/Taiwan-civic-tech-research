@@ -200,26 +200,31 @@ h1.report-title { font-size: 26px; line-height: 1.4; margin-bottom: 4px; }
 .download-note { font-size: 12.5px; color: var(--text-dim); margin-left: 8px; }
 
 section.chapter { margin-top: 56px; padding-top: 8px; scroll-margin-top: 16px; }
-section.chapter > h2 {
-  font-size: 22px;
-  border-bottom: 2px solid var(--primary);
+
+/* 標題階層，字級由大到小：
+   h2.part-title（壹／貳／參／肆／伍，全篇最高階）
+   > section.chapter > h2 一般型（一／二／三…／各章小節）
+   > h3（1.1／2.1…）
+   > h4（次要說明文字） */
+section.chapter > h2.part-title {
+  font-size: 25px;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.02em;
+  border-bottom: 3px solid var(--primary);
+  padding-bottom: 10px;
+  margin: 0 0 20px;
+}
+section.chapter > h2:not(.part-title) {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
   padding-bottom: 8px;
   margin-bottom: 18px;
 }
-/* 部標題（壹／貳／參／肆／伍）：獨立於底下的章節主標，不擠在同一行。
-   當作 section.chapter 的第一個子元素放，靠 section 本身的 margin-top 頂開上一段。
-   selector 要比上面的 section.chapter > h2 更具體，才能蓋掉它的字級與底線。 */
-section.chapter > h2.part-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--primary);
-  letter-spacing: 0.08em;
-  border-bottom: none;
-  padding-bottom: 0;
-  margin: 0 0 6px;
-}
-h3 { font-size: 18px; margin-top: 34px; }
-h4 { font-size: 15.5px; color: var(--text-dim); margin-top: 24px; }
+h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-top: 34px; }
+h4 { font-size: 15.5px; font-weight: 700; color: var(--text-dim); margin-top: 24px; }
 
 p { margin: 14px 0; }
 
@@ -441,6 +446,7 @@ footer {
 @media (max-width: 480px) {
   main { padding: 28px 14px 90px; }
   h1.report-title { font-size: 21px; }
-  section.chapter > h2 { font-size: 19px; }
+  section.chapter > h2.part-title { font-size: 20px; }
+  section.chapter > h2:not(.part-title) { font-size: 18px; }
   body { font-size: 15.5px; }
 }
