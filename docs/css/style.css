@@ -185,36 +185,45 @@ main {
 h1.report-title { font-size: 26px; line-height: 1.4; margin-bottom: 4px; }
 .meta-line { color: var(--text-dim); font-size: 14px; margin: 4px 0; }
 
-/* 封面 */
+/* 封面：要像一張浮起來、跟後面內容分開的卡片，且第一屏要看得到「這份報告在講什麼」，
+   插畫是輔助，不能佔掉太多高度。 */
 .cover {
   background: var(--insight-bg);
   border: 1px solid var(--insight-border);
   border-radius: 16px;
-  padding: 32px 26px 22px;
+  padding: 26px 26px 18px;
   margin-bottom: 12px;
+  box-shadow: 0 10px 30px rgba(20, 60, 110, 0.10);
 }
 .cover-main {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
   flex-wrap: wrap;
 }
-.cover-text { flex: 1 1 320px; min-width: 240px; }
+.cover-text { flex: 1 1 340px; min-width: 240px; }
 .cover-eyebrow {
   font-size: 13px;
   font-weight: 700;
   color: var(--primary);
   letter-spacing: 0.05em;
-  margin: 0 0 10px;
+  margin: 0 0 6px;
 }
 .cover-eyebrow a { color: inherit; }
-.cover-illo { flex: 0 0 190px; display: flex; justify-content: center; }
-.cover-illo svg { width: 100%; max-width: 190px; height: auto; }
+.cover-hook {
+  font-size: 15.5px;
+  color: var(--text-dim);
+  line-height: 1.55;
+  margin: 4px 0 14px;
+}
+.cover-hook strong { color: var(--text); }
+.cover-illo { flex: 0 0 130px; display: flex; justify-content: center; }
+.cover-illo svg { width: 100%; max-width: 130px; height: auto; }
 .cover-stats {
   display: flex;
   gap: 22px;
-  margin-top: 24px;
-  padding-top: 18px;
+  margin-top: 16px;
+  padding-top: 14px;
   border-top: 1px solid var(--insight-border);
   flex-wrap: wrap;
 }
