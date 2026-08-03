@@ -111,4 +111,31 @@
     });
   });
 
+  // ---------------------------------------------------------------- 深色／淺色手動切換
+  // 預設跟隨訪客系統設定；按過一次之後記住選擇（localStorage），下次來也維持這個選擇。
+  var themeToggle = document.getElementById("themeToggle");
+  if (themeToggle) {
+    var mql = window.matchMedia("(prefers-color-scheme: dark)");
+
+    function effectiveTheme() {
+      var stored = localStorage.getItem("theme");
+      return stored || (mql.matches ? "dark" : "light");
+    }
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      themeToggle.textContent = theme === "dark" ? "☀️ 淺色" : "🌙 深色";
+      themeToggle.setAttribute("aria-label", theme === "dark" ? "切換成淺色模式" : "切換成深色模式");
+    }
+
+    applyTheme(effectiveTheme());
+    themeToggle.addEventListener("click", function () {
+      var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      localStorage.setItem("theme", next);
+      applyTheme(next);
+    });
+    // 使用者還沒手動選過的話，系統深色/淺色切換時網頁也跟著換
+    mql.addEventListener("change", function () {
+      if (!localStorage.getItem("theme")) applyTheme(effectiveTheme());
+    });
+  }
 })();

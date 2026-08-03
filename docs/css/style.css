@@ -134,6 +134,24 @@ a { color: var(--link); }
   transition: width 0.15s ease-out;
 }
 
+/* -------------------------------------------------- 深色／淺色切換 */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 55;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+}
+.theme-toggle:hover { filter: brightness(0.97); }
+
 /* -------------------------------------------------- 手機導覽 */
 .mobile-nav-toggle {
   display: none;
