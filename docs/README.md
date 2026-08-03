@@ -4,6 +4,9 @@
 沒有任何建置步驟、沒有任何外部 CDN 或第三方請求——把這個資料夾整包複製到
 任何地方都能直接開啟。
 
+**正式上線網址：[report.claire-cheng.com](https://report.claire-cheng.com/)**
+（GitHub Pages 讀 `main` 分支的 `/docs` 資料夾，`docs/CNAME` 綁定這個自訂網域）
+
 ## 這裡有什麼
 
 ```
@@ -49,6 +52,8 @@ python3 -m http.server 8000
 
 ## 部署到 GitHub Pages
 
+> ✅ 這幾步已經做過、網站已上線，下面留著當作之後要重弄（例如換一個 repo）時的參考。
+
 這個 repo 是公開的（`github.com/Legendream/Taiwan-civic-tech-research`），
 GitHub Pages 可以直接讀這個 `docs/` 資料夾當網站根目錄：
 
@@ -59,7 +64,10 @@ GitHub Pages 可以直接讀這個 `docs/` 資料夾當網站根目錄：
 
 這幾步要在 GitHub 網站上手動按，Claude 不會代按。
 
-## 之後要換成你自己的網域
+## 換成你自己的網域
+
+> ✅ 已經設定完成：`report.claire-cheng.com` → `legendream.github.io`（Cloudflare DNS only）。
+> 下面留著當參考，之後想換別的子網域可以照抄。
 
 等 GitHub Pages 的網址確認可以正常開啟之後，再做這幾步換成你自己的網域：
 
