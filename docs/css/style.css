@@ -206,6 +206,18 @@ section.chapter > h2 {
   padding-bottom: 8px;
   margin-bottom: 18px;
 }
+/* 部標題（壹／貳／參／肆／伍）：獨立於底下的章節主標，不擠在同一行。
+   當作 section.chapter 的第一個子元素放，靠 section 本身的 margin-top 頂開上一段。
+   selector 要比上面的 section.chapter > h2 更具體，才能蓋掉它的字級與底線。 */
+section.chapter > h2.part-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.08em;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin: 0 0 6px;
+}
 h3 { font-size: 18px; margin-top: 34px; }
 h4 { font-size: 15.5px; color: var(--text-dim); margin-top: 24px; }
 
