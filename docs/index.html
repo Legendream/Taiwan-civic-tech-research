@@ -15,7 +15,8 @@
     <nav>
       <h2>報告</h2>
       <ul>
-        <li><a href="#top">封面與背景</a></li>
+        <li><a href="#top">封面</a></li>
+        <li><a href="#intro">壹、研究背景</a></li>
         <li><a href="#persona">依身分推薦閱讀</a></li>
       </ul>
       <h2>貳、研究摘要</h2>
@@ -92,31 +93,81 @@
   <main id="main">
     <div class="content">
 
-      <header id="top">
-        <h1 class="report-title">臺灣公民科技生態系與需求調查報告</h1>
-        <p class="meta-line">作者：鄭婷宇（Claire）</p>
-        <p class="meta-line">資料範圍：截至 2026/7/20 的問卷有效樣本，共 <strong>127 份</strong></p>
-        <p class="meta-line">引用授權：CC BY 4.0, by g0v.tw jothon &amp; Claire Cheng</p>
-        <p class="download-row">
-          <a class="download-link" href="https://drive.google.com/file/d/1sjmVg55kwz9KhXLgtFsSFg_uNhs2AjOz/view?usp=sharing" target="_blank" rel="noopener">
-            📄 下載報告 PDF
-          </a>
-        </p>
+      <header id="top" class="cover">
+        <div class="cover-main">
+          <div class="cover-text">
+            <p class="cover-eyebrow"><a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 揪松團問卷研究</p>
+            <h1 class="report-title">臺灣公民科技生態系與需求調查報告</h1>
+            <p class="meta-line">作者：鄭婷宇（Claire）</p>
+            <p class="meta-line">資料範圍：截至 2026/7/20 的問卷有效樣本，共 <strong>127 份</strong></p>
+            <p class="meta-line">引用授權：CC BY 4.0, by <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> jothon &amp; Claire Cheng</p>
+            <p class="download-row">
+              <a class="download-link" href="https://drive.google.com/file/d/1sjmVg55kwz9KhXLgtFsSFg_uNhs2AjOz/view?usp=sharing" target="_blank" rel="noopener">
+                📄 下載報告 PDF
+              </a>
+              <a class="btn-ghost" href="#intro">開始閱讀 ↓</a>
+            </p>
+          </div>
+
+          <div class="cover-illo">
+            <svg viewBox="0 0 220 220" role="img" aria-label="公民科技參與示意圖：外圈是旁觀者，中圈是通報者，核心是圍著電腦動手做專案的貢獻者">
+              <defs>
+                <g id="cover-person">
+                  <circle cx="0" cy="-7.5" r="3.4"/>
+                  <path d="M -5.5 5 C -5.5 -2 5.5 -2 5.5 5 Z"/>
+                </g>
+              </defs>
+
+              <circle cx="110" cy="110" r="95" fill="none" stroke="#1baf7a" stroke-width="1.5" stroke-dasharray="2,6" opacity="0.55"/>
+              <circle cx="110" cy="110" r="62" fill="none" stroke="#eb6834" stroke-width="1.5" stroke-dasharray="2,6" opacity="0.55"/>
+              <circle cx="110" cy="110" r="32" fill="#2a78d6" opacity="0.09"/>
+
+              <!-- 外圈：聽過或看過（旁觀）-->
+              <use href="#cover-person" x="34" y="72" fill="#1baf7a"/>
+              <use href="#cover-person" x="184" y="66" fill="#1baf7a"/>
+              <use href="#cover-person" x="168" y="178" fill="#1baf7a"/>
+              <use href="#cover-person" x="46" y="168" fill="#1baf7a"/>
+              <use href="#cover-person" x="110" y="20" fill="#1baf7a"/>
+
+              <!-- 中圈：接觸未參與（通報、關注）-->
+              <use href="#cover-person" x="62" y="64" fill="#eb6834"/>
+              <use href="#cover-person" x="160" y="80" fill="#eb6834"/>
+              <use href="#cover-person" x="140" y="150" fill="#eb6834"/>
+              <use href="#cover-person" x="70" y="146" fill="#eb6834"/>
+
+              <!-- 核心：做過專案，圍著一台筆電動手做 -->
+              <rect x="99" y="112" width="22" height="14" rx="2" fill="none" stroke="#2a78d6" stroke-width="2.2"/>
+              <line x1="99" y1="126" x2="121" y2="126" stroke="#2a78d6" stroke-width="2.2"/>
+              <path d="M 94 129 L 126 129 L 122 134 L 98 134 Z" fill="#2a78d6"/>
+              <path d="M 104 117 l 4 4 l 6 -6" fill="none" stroke="#eaf1fb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+              <use href="#cover-person" x="86" y="98" fill="#2a78d6"/>
+              <use href="#cover-person" x="134" y="98" fill="#2a78d6"/>
+              <use href="#cover-person" x="110" y="90" fill="#2a78d6"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="cover-stats">
+          <div class="stat"><b>127</b><span>份有效樣本</span></div>
+          <div class="stat"><b>47</b><span>真正動手做過專案</span></div>
+          <div class="stat"><b>15</b><span>張互動圖表</span></div>
+        </div>
       </header>
 
       <section id="intro" class="chapter">
         <h2 class="part-title">壹、研究背景</h2>
-        <p>這份報告根據臺灣零時政府（g0v.tw）揪松團<sup><a href="#fn1">1</a></sup>（g0v.tw 社群的一個任務小組）於
+        <p>這份報告根據臺灣零時政府（<a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a>）揪松團<sup><a href="#fn1">1</a></sup>（<a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 社群的一個任務小組）於
           2026 年發放的問卷填答做分析。填答的原始資料去除個資後，以「CC-BY 4.0 臺灣公民科技推廣問卷填寫者」的授權發布，
           <a href="https://docs.google.com/spreadsheets/d/1Z7am3yalgPbQLureQS0tWTofSKrLJRAI4473pFLErag/edit?usp=sharing" target="_blank" rel="noopener">公開給所有人取用</a>。</p>
         <p>本次研究取自 2026/07/20、共計 127 份填答結果。研究目的是瞭解：臺灣公民科技圈的組成，包括誰參與專案？
           參與不同程度的人的需求與挑戰是什麼？我們希望瞭解公民科技吸引這群人的魅力、參與的痛點又是什麼，
-          好規劃 g0v.tw 揪松團應在何處、投入什麼資源，才能最大化效益，以孵育臺灣的公民科技生態系。</p>
+          好規劃 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 揪松團應在何處、投入什麼資源，才能最大化效益，以孵育臺灣的公民科技生態系。</p>
         <p>公民科技，簡單說就是用科技和數位工具，讓公民社會變得更好。可能是打造一個解決方案，讓大家更容易參與公共事務、
           更好用公共服務；也可能是串聯社群、推動討論，用科技或開放資料改善政策、提升民主品質。這裡說的開放資料，指的是
           政府或機構主動公開、任何人都可以自由取用與再利用的資料。例如 Covid-19 期間協助大家找到口罩的「口罩地圖」，
           或是像 vTaiwan 那樣用線上工具讓不同立場的人一起討論政策，都是公民科技的例子。</p>
-        <p>如果你想直接看看有哪些專案、找到可以加入的地方，g0v.tw 揪松團經營的
+        <p>如果你想直接看看有哪些專案、找到可以加入的地方，<a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 揪松團經營的
           <a href="https://civictech.tw/" target="_blank" rel="noopener">台灣公民科技資料庫</a>收錄了許多可以參考的專案與行動指引。</p>
       </section>
 
@@ -136,7 +187,7 @@
         <ol class="finding-list">
           <li>
             <strong>一、專案進度停滯不前、核心成員累垮，是專案貢獻者最大的痛點</strong>
-            <p>每次 g0v.tw 的雙月黑客松，都能見到許多專案在找一起做的夥伴。不過，對貢獻者來說，最困擾的並非找不到夥伴，
+            <p>每次 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 的雙月黑客松，都能見到許多專案在找一起做的夥伴。不過，對貢獻者來說，最困擾的並非找不到夥伴，
               而是專案難有穩定進度、成果很難真正發揮影響力、核心成員累垮。在這次調查中，做過專案的 47 人裡，
               有 32%（15/47）的人在填答當下，手上沒有任何一個進行中的專案。進度時快時慢、成果找不到著力點、
               少數人長期硬撐，這三件事互相加乘，才是最大原因。<strong>在專案裡決定權越大的人，被累垮的比例越高。</strong>
@@ -152,7 +203,7 @@
             <strong>三、不知道有哪些專案、缺人帶，最讓新人對參與專案感到卻步</strong>
             <p>還沒實際參與過的人之中，最多人卡在「不知道有哪些專案或議題」與「身邊沒有人帶，怕融不進去或幫不上忙」，
               接著是「不知道怎麼加入、找不到入口」。「覺得要會寫程式、技術門檻太高」只排到第四。全體填答者裡有
-              65% 從 g0v.tw 至少一個官方管道接收消息，但<strong>光是收得到消息，不等於知道可以做什麼、有人可以問</strong>。</p>
+              65% 從 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 至少一個官方管道接收消息，但<strong>光是收得到消息，不等於知道可以做什麼、有人可以問</strong>。</p>
           </li>
           <li>
             <strong>四、清楚解釋專案如何解決問題、將想法化為具體原型，最能吸引到資源挹注</strong>
@@ -202,21 +253,21 @@
           </div>
         </details>
 
-        <h3 id="ch1-2">1.2 關心公民科技的人，都來過 g0v.tw 嗎？</h3>
+        <h3 id="ch1-2">1.2 關心公民科技的人，都來過 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 嗎？</h3>
         <div class="insight-card">
           <span class="insight-icon" aria-hidden="true">📡</span>
           <div class="insight-body">
           <span class="insight-label">重點</span>
-          <p class="insight-text">47% 的人從沒參加過任何 g0v.tw 活動；光是收得到消息，不等於知道可以做什麼、有人可以問。</p>
+          <p class="insight-text">47% 的人從沒參加過任何 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 活動；光是收得到消息，不等於知道可以做什麼、有人可以問。</p>
         </div>
         </div>
         <details class="full-explanation">
           <summary>看完整說明</summary>
           <div class="full-explanation-body">
-            <p>全體填答者裡有 47%（60/127）的人從來沒參加過任何 g0v.tw 活動；更關鍵的是，47 位真的做過專案的人裡，
-              也有 28%（13/47）從未參加過 g0v.tw 活動。</p>
-            <p>在「你從哪裡得知公民科技相關資訊」這題，「非營利組織」佔 59%，甚至比「開源社群（含 g0v.tw）」的 54% 還高。
-              這說明 g0v.tw 是這個生態系裡很重要的節點，但不是唯一入口。</p>
+            <p>全體填答者裡有 47%（60/127）的人從來沒參加過任何 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 活動；更關鍵的是，47 位真的做過專案的人裡，
+              也有 28%（13/47）從未參加過 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 活動。</p>
+            <p>在「你從哪裡得知公民科技相關資訊」這題，「非營利組織」佔 59%，甚至比「開源社群（含 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a>）」的 54% 還高。
+              這說明 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 是這個生態系裡很重要的節點，但不是唯一入口。</p>
           </div>
         </details>
       </section>
@@ -511,7 +562,7 @@
               想爭取經費挹注的專案，平時就應多方收集潛在經費來源，並時刻評估專案的影響力、將解決問題的路徑論述清楚。</p>
             <p><strong>這 27 位出資者幾乎都是圈內人。</strong> 其中 20 人自己就做過公民科技專案、6 人接觸過但還沒做過專案，
               只有 1 人屬於只聽過或看過、還沒實際碰過的那一層。這份調查撈到的資金多半來自已經在圈內的人，而不是圈外的資助者。
-              這也可能是取樣偏誤，畢竟問卷是透過 g0v.tw 及相關社群管道發放的。</p>
+              這也可能是取樣偏誤，畢竟問卷是透過 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 及相關社群管道發放的。</p>
           </div>
         </details>
 
@@ -559,8 +610,8 @@
         <details class="full-explanation">
           <summary>看完整說明</summary>
           <div class="full-explanation-body">
-            <p>複選題「你現在主要透過哪些管道，得知 g0v.tw 的活動消息？」的填答狀況：單一選項裡排最前面的兩個是
-              g0v.tw 的社群帳號（Facebook、Threads、Instagram）與親友推薦，都是 40%；接著是 g0v.tw 的 Slack，佔 23%；
+            <p>複選題「你現在主要透過哪些管道，得知 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 的活動消息？」的填答狀況：單一選項裡排最前面的兩個是
+              <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 的社群帳號（Facebook、Threads、Instagram）與親友推薦，都是 40%；接著是 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 的 Slack，佔 23%；
               揪松團每月電子報，佔 19%；揪松團 LINE 群組，佔 12%；另外有 11% 表示「都沒有，我之前不太清楚這些管道」。</p>
             <p>把社群帳號、Slack、電子報、LINE 群組、活動彙整網頁這五個官方管道合起來算（同一人不管勾了幾個都只算一次），
               會發現<strong>官方管道觸及到的人明顯比親友推薦多。</strong></p>
@@ -626,7 +677,7 @@
             <p class="insight-text">五個候選的方法論主題，全部落在「魅力型」。有了會加分，但還不到不寫會被抱怨的程度。</p>
           </div>
         </div>
-        <p>我們將 g0v.tw 揪松團規劃中的文章主題，使用<strong>狩野分析</strong>（Kano model），檢視填答者對這些主題的需求屬性：</p>
+        <p>我們將 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 揪松團規劃中的文章主題，使用<strong>狩野分析</strong>（Kano model），檢視填答者對這些主題的需求屬性：</p>
         <ul>
           <li><strong>魅力型</strong>：有了會驚喜，沒有也不會抱怨。屬於加分項。</li>
           <li><strong>期望型</strong>：有了滿意度線性上升，沒有會明顯失望。投資報酬最穩定。</li>
@@ -696,10 +747,10 @@
         <details class="full-explanation">
           <summary>看完整說明</summary>
           <div class="full-explanation-body">
-            <p>第七章顯示，擋住新人的頭號原因是不知道有哪些專案或議題可以參與，並非能力不足。g0v.tw 揪松團經營的
+            <p>第七章顯示，擋住新人的頭號原因是不知道有哪些專案或議題可以參與，並非能力不足。<a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 揪松團經營的
               <a href="https://civictech.tw/" target="_blank" rel="noopener">台灣公民科技資料庫</a>收錄可供參考的各主題領域專案與行動指引，
               這類資源已經存在，因此關鍵是：如何讓資料庫順利接住剛加入的人？</p>
-            <p>新人的另一項困難是「身邊沒有人帶」。g0v.tw 揪松團有許多機制與過往嘗試，都在試圖連結初次參與 g0v.tw 黑客松的新人，
+            <p>新人的另一項困難是「身邊沒有人帶」。<a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 揪松團有許多機制與過往嘗試，都在試圖連結初次參與 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 黑客松的新人，
               以及社群裡經驗豐富的資深者。儘管如此，還是有許多人卻步於無人帶領。該如何設計更有效的新人引薦機制？
               或是「引進門」這件事情本來就需要新人付出更多心力主動踏入？這是值得思考的方向。</p>
           </div>
@@ -734,7 +785,7 @@
             <tbody>
               <tr>
                 <td>27 位出資者的觀點代表出資端（第六章）</td>
-                <td>27 人裡有 26 人本身就在圈內。問卷是透過 g0v.tw 管道發放的，撈得到的出資者本來就會是圈內人，
+                <td>27 人裡有 26 人本身就在圈內。問卷是透過 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 管道發放的，撈得到的出資者本來就會是圈內人，
                   所以這裡呈現的是圈內出資者的觀點，不是基金會、企業或政府等圈外資助者的觀點。</td>
               </tr>
               <tr>
@@ -758,7 +809,7 @@
               </tr>
               <tr>
                 <td>雙北佔六成（第一章）</td>
-                <td>完全是取樣結果。問卷經 g0v.tw 管道發放，g0v.tw 的實體活動長期在台北舉辦，不能推論成社群真實的地理分布。</td>
+                <td>完全是取樣結果。問卷經 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 管道發放，<a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 的實體活動長期在台北舉辦，不能推論成社群真實的地理分布。</td>
               </tr>
             </tbody>
           </table>
@@ -781,20 +832,20 @@
       <section id="about" class="chapter">
         <h2 class="part-title">授權與資料來源</h2>
         <ul>
-          <li>引用授權：CC BY 4.0, by g0v.tw jothon &amp; Claire Cheng</li>
+          <li>引用授權：CC BY 4.0, by <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> jothon &amp; Claire Cheng</li>
           <li>歡迎使用問卷去識別化後的原始資料，自己分析。問卷填答資料授權為「CC-BY 4.0 臺灣公民科技推廣問卷填寫者」：
             <a href="https://docs.google.com/spreadsheets/d/1Z7am3yalgPbQLureQS0tWTofSKrLJRAI4473pFLErag/edit?gid=780169479#gid=780169479" target="_blank" rel="noopener">前往資料表</a></li>
           <li>想核對報告裡的任何一個數字：分析程式、彙總數據 CSV 與可重跑的 pipeline 都公開在
             <a href="https://github.com/Legendream/Taiwan-civic-tech-research" target="_blank" rel="noopener">GitHub repo</a></li>
         </ul>
         <p id="fn1" style="font-size:13px;color:var(--text-dim)">
-          1. 零時政府（g0v.tw）是臺灣一個推動公民科技的開源社群。
+          1. 零時政府（<a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a>）是臺灣一個推動公民科技的開源社群。
           <a href="#top">↩ 回內文</a>
         </p>
       </section>
 
       <footer>
-        <p>臺灣公民科技生態系與需求調查報告　｜　作者：鄭婷宇（Claire）　｜　CC BY 4.0, by g0v.tw jothon &amp; Claire Cheng</p>
+        <p>臺灣公民科技生態系與需求調查報告　｜　作者：鄭婷宇（Claire）　｜　CC BY 4.0, by <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> jothon &amp; Claire Cheng</p>
         <p>資料範圍：截至 2026/7/20 的問卷有效樣本，共 127 份　｜
           <a href="https://github.com/Legendream/Taiwan-civic-tech-research" target="_blank" rel="noopener">在 GitHub 上核對報告裡的每個數字</a></p>
       </footer>
