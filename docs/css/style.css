@@ -42,6 +42,7 @@
   --link: #7fb0e8;
   --insight-bg: #1d2a3d;
   --insight-border: #2f4864;
+  color-scheme: dark;
 }
 :root[data-theme="light"] {
   --bg: #f6f8fb;
@@ -52,6 +53,7 @@
   --insight-bg: #eaf1fb;
   --insight-border: #a9c8ec;
   --link: #1b5296;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
@@ -401,6 +403,7 @@ th, td {
   border: 1px solid var(--border);
   padding: 7px 10px;
   text-align: left;
+  color: var(--text);
 }
 th { background: color-mix(in srgb, var(--primary) 8%, transparent); }
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
