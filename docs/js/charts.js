@@ -82,7 +82,18 @@
   }
   function hideTip() { if (tip) tip.hidden = true; }
 
+  var tipDismissBound = false;
+  function bindTipDismiss() {
+    if (tipDismissBound) return;
+    tipDismissBound = true;
+    window.addEventListener("scroll", hideTip, { passive: true });
+    document.addEventListener("touchstart", function (e) {
+      if (!e.target.closest("[data-chart]")) hideTip();
+    }, { passive: true });
+  }
+
   function bindHover(target, htmlFn) {
+    bindTipDismiss();
     target.addEventListener("mousemove", function (e) { showTip(e, htmlFn()); });
     target.addEventListener("mouseleave", hideTip);
     target.addEventListener("touchstart", function (e) { showTip(e, htmlFn()); }, { passive: true });
