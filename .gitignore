@@ -74,7 +74,22 @@
 04_問卷分析報告/分析結果/99_報告數字自我稽核.csv
 04_問卷分析報告/分析結果/99_報告lift稽核.csv
 
-# ---------- 五、系統與暫存 ----------
+# ---------- 五、本機開發環境 ----------
+
+# .claude/skills/civic-tech-writing-pipeline 是一條 symlink（Finder 說的「替身」），
+# 指向隔壁 repo 的 ../AI Writing Pipeline/civic-tech-writing-pipeline/。
+# 有了它，在本專案寫文章時 Claude Code 會自動載入該 skill，而編輯到的就是隔壁 repo 的
+# 正本——不會產生第二份副本、不會兩份走鐘。
+#
+# ⚠️ symlink 記的是本機絕對路徑（/Users/Claire/...），別人 clone 下來會拿到一條斷掉的
+#    連結。所以它只留在本機、不進版控。
+#
+# 這不影響 skill 的交付：skill 的交付路徑是公開 repo
+# github.com/Legendream/AI-Writing-Skill，取用者自行把該資料夾放進他們的
+# .claude/skills/，或用 raw 網址貼進 claude.ai。與本機怎麼擺無關。
+.claude/skills/
+
+# ---------- 六、系統與暫存 ----------
 
 .DS_Store
 __pycache__/
