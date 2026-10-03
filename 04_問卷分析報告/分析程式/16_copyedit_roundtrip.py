@@ -55,7 +55,7 @@ def parse_draft(path=DRAFT_MD):
 
 def to_plain_segments(bid, text):
     """把稿件正文（Markdown＋改稿標記）轉回畫面上會看到的文字片段。"""
-    text = text.replace("〔鎖〕", "").replace("〔待裁決〕", "")
+    text = text.replace("〔鎖〕", "").replace("〔維持〕", "")
     text = re.sub(r"\[\^(\d+)\]", r"\1", text)                 # 註腳
     text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)        # 連結
     text = text.replace("**", "")
