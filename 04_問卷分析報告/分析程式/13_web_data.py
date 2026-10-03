@@ -54,7 +54,7 @@ def hbar_dataset(csv_name, label_col, value_col, num_col,
     for _, r in df.iterrows():
         items.append({
             "label": r[label_col],
-            "pct": round(float(r[value_col]), 4),
+            "pct": round(float(r[value_col]), 6),
             "n": int(r[num_col]),
             "d": int(r["分母"]),
         })
@@ -65,6 +65,29 @@ def hbar_dataset(csv_name, label_col, value_col, num_col,
         "denomNote": denom_note,
         "items": items,
     }
+
+
+def exact_ratios(out):
+    """有分子分母的比例，一律改用分子÷分母重算。
+
+    分析結果/*.csv 的比例欄只存到小數第 4 位（例如 14/26 存成 0.5385），
+    charts.js 再四捨五入到小數 1 位就變成 53.9%，但 14/26 實際是 53.85%→53.8%。
+    兩次四捨五入會讓少數格子的尾數差 0.1，所以網頁資料不沿用 CSV 的比例欄。
+    """
+    for fig in out["figures"].values():
+        for it in fig.get("items") or []:
+            if it.get("n") is not None and it.get("d") and "pct" in it:
+                it["pct"] = it["n"] / it["d"]
+            if "n3plus" in it:
+                it["pct3plus"] = it["n3plus"] / it["d"]
+                it["pct4plus"] = it["n4plus"] / it["d"]
+        for opt in fig.get("options") or []:
+            for v in opt["byLayer"].values():
+                v["pct"] = v["n"] / v["d"]
+        for panel in fig.get("panels") or []:
+            for it in panel["items"]:
+                if "groupPct" in it:
+                    it["groupPct"] = it["n"] / it["d"]
 
 
 def main():
@@ -97,7 +120,7 @@ def main():
         "subtitle": "分母＝全體 127 人｜色隨身分固定：聽過或看過＝綠、接觸未參與＝橘、做過專案＝藍",
         "items": [
             {"label": C.LAYER_PLAIN[r["分層"]], "key": r["分層"],
-             "pct": round(float(r["比例"]), 4), "n": int(r["人數"]), "d": int(r["分母"])}
+             "pct": round(float(r["比例"]), 6), "n": int(r["人數"]), "d": int(r["分母"])}
             for _, r in lay.iterrows()
         ],
     }
@@ -110,13 +133,12 @@ def main():
         "分母＝全體 127 人")
     twin = pd.read_csv(C.TABLE_DIR / "03_全體_居住地_雙北合計.csv").iloc[0]
     out["tables"]["雙北合計"] = {
-        "n": int(twin["分子"]), "d": int(twin["分母"]), "pct": round(float(twin["比例"]), 4),
+        "n": int(twin["分子"]), "d": int(twin["分母"]), "pct": round(float(twin["比例"]), 6),
     }
 
     # ---------------- fig03：角色分布 ----------------
     roles = pd.read_csv(C.TABLE_DIR / "03_全體_角色勾選.csv")
     roles = roles[roles["選項"].isin(C.ROLE_LADDER)].copy()
-    roles["原始選項"] = roles["選項"].map(C.ROLE_ORIGINAL)
     roles = roles.set_index("選項").loc[C.ROLE_LADDER].reset_index()
     out["figures"]["fig03_roles"] = {
         "type": "hbar",
@@ -125,8 +147,8 @@ def main():
         "denomNote": "分母＝101 位曾接觸公民科技者",
         "sortByOrder": True,
         "items": [
-            {"label": r["原始選項"], "shortLabel": C.ROLE_SHORT[r["選項"]],
-             "pct": round(float(r["比例"]), 4), "n": int(r["票數"]), "d": int(r["分母"])}
+            {"label": r["選項"], "shortLabel": C.ROLE_SHORT[r["選項"]],
+             "pct": round(float(r["比例"]), 6), "n": int(r["票數"]), "d": int(r["分母"])}
             for _, r in roles.iterrows()
         ],
     }
@@ -144,7 +166,7 @@ def main():
         "sortByOrder": True,
         "escapeLabel": "以上都不太像我",
         "items": [
-            {"label": r["類別"], "pct": round(float(r["比例"]), 4),
+            {"label": r["類別"], "pct": round(float(r["比例"]), 6),
              "n": int(r["人數"]), "d": int(r["分母"])}
             for _, r in depth.iterrows()
         ],
@@ -169,9 +191,9 @@ def main():
                 "label": r["困難"],
                 "d": int(r["合計"]),
                 "counts": [int(r[c]) for c in score_cols],
-                "pct3plus": round(float(r["3分以上_比例"]), 4),
+                "pct3plus": round(float(r["3分以上_比例"]), 6),
                 "n3plus": int(r["3分以上_合計"]),
-                "pct4plus": round(float(r["4分以上_比例"]), 4),
+                "pct4plus": round(float(r["4分以上_比例"]), 6),
                 "n4plus": int(r["4分以上_合計"]),
             }
             for _, r in dist.iterrows()
@@ -181,12 +203,17 @@ def main():
     # ---------------- fig06：年齡×持續動機（雙向橫條，三面板） ----------------
     lf = pd.read_csv(C.TABLE_DIR / "03_年齡×持續動機_lift.csv")
     lf = lf[lf["選項"].isin(C.MOTIVES)].copy()
+    # 全體比例改用「持續動機人數 ÷ 47」重算：CSV 的「全體比例」只存到小數第 4 位
+    flow = pd.read_csv(C.TABLE_DIR / "04_動機_流向.csv").set_index("動機")
+    base = {m: int(flow.loc[m, "持續_人數"]) / int(flow.loc[m, "分母"]) for m in flow.index}
     panels = []
     for age in C.AGE_COARSE_ORDER:
         d = lf[lf["分群"] == age].copy()
         if d.empty:
             continue
         denom = int(d["分母"].iloc[0])
+        d["群內比例"] = d["分子"] / d["分母"]
+        d["全體比例"] = d["選項"].map(base)
         d["高出百分點"] = (d["群內比例"] - d["全體比例"]) * 100
         d = d.sort_values("高出百分點", ascending=False)
         panels.append({
@@ -194,8 +221,8 @@ def main():
             "d": denom,
             "items": [
                 {"label": r["選項"], "n": int(r["分子"]), "d": int(r["分母"]),
-                 "groupPct": round(float(r["群內比例"]), 4),
-                 "basePct": round(float(r["全體比例"]), 4),
+                 "groupPct": round(float(r["群內比例"]), 6),
+                 "basePct": round(float(r["全體比例"]), 6),
                  "diffPts": round(float(r["高出百分點"]), 2)}
                 for _, r in d.iterrows()
             ],
@@ -227,8 +254,8 @@ def main():
     out["figures"]["fig09_channel"] = hbar_dataset(
         "03_全體_g0v消息管道.csv", "選項", "比例", "票數",
         "大家從哪裡得知 g0v 的活動消息",
-        "全體 N=127，複選｜「親友推薦」與「g0v 社群管道」並列第一（各 51 人），"
-        "意味著觸及仍有一半依賴人際網絡",
+        "全體 N=127，複選｜「親友推薦」與「g0v 社群管道」並列單一選項第一（各 51 人）；"
+        "但五個官方管道合計觸及 65%，高於親友推薦的 40%",
         "分母＝全體 127 人", min_votes=3)
 
     # ---------------- fig10：未參與原因 ----------------
@@ -259,7 +286,7 @@ def main():
             for _, r in sub.iterrows():
                 byLayer[r["分群"]] = {
                     "n": int(r["分子"]), "d": int(r["分母"]),
-                    "pct": round(float(r["群內比例"]), 4),
+                    "pct": round(float(r["群內比例"]), 6),
                 }
             options.append({"label": opt, "byLayer": byLayer})
         return {
@@ -361,6 +388,8 @@ def main():
     region_link_twin = pd.read_csv(C.TABLE_DIR / "09_開放題_地區連結×雙北.csv")
     out["tables"]["開放題地區連結×雙北"] = rows(
         region_link_twin, ["主題", "全體有填答者中的人數", "全體有填答者", "住雙北且有此連結", "住雙北人數"])
+
+    exact_ratios(out)
 
     path = WEB_DATA_DIR / "figures.json"
     with open(path, "w", encoding="utf-8") as f:
