@@ -459,7 +459,7 @@ RULES_HEAD = """# 網頁改稿稿件
 - 只能改 `<!-- 正文開始 -->` 與 `<!-- 正文結束 -->` 之間的文字
 - 每段下面的「事實卡」是這段話的事實根據，**不可改動、不可複製進正文**
 - 正文裡標成 〔鎖〕「…」 的引號內容是問卷選項或題目原文，一字不能改
-- 標成 〔待裁決〕「…」 的引號，目前和原文不一致，等 Claire 決定前先不要動
+- 標成 〔維持〕「…」 的引號，和問卷原文不完全一樣，但 Claire 決定維持現狀：引號內容同樣照舊不動
 
 """
 
@@ -495,7 +495,7 @@ def render(blocks, figs, items, questions):
                 return f"〔鎖〕「{m.group(1)}」"
             if kind in ("近似選項", "近似題目"):
                 quote_issues.append((b["id"], m.group(1), src))
-                return f"〔待裁決〕「{m.group(1)}」"
+                return f"〔維持〕「{m.group(1)}」"
             return m.group(0)
         if b["kind"] not in ("側欄目錄", "介面文字"):
             text = QUOTE_RE.sub(lock, text)
@@ -538,8 +538,12 @@ def render(blocks, figs, items, questions):
 
 def render_issues(issues, quote_issues):
     out = ["# 待裁決清單\n",
-           "> 由 `分析程式/15_copyedit_export.py` 產生。這些是**網頁現有文字**的問題，",
-           "> 不是改稿造成的。每一條請 Claire 決定怎麼處理；這次的 PR 不改網頁。\n"]
+           "> 由 `分析程式/15_copyedit_export.py` 產生。列的是**網頁現有文字**和資料或選項原文對不上的地方，",
+           "> 不是改稿造成的。\n"]
+    if CF.DECIDED:
+        out.append("## 已裁決（2026-10-03）\n")
+        out += [f"- {x}" for x in CF.DECIDED]
+        out.append("")
     out.append("## 一、數字或說法與資料對不上\n")
     if issues:
         out.append("| 段落 | 原文 | 問題 | 資料實際是 |")
@@ -548,23 +552,20 @@ def render_issues(issues, quote_issues):
             out.append(f"| `{bid}` | {tok} | {why} | {desc} |")
     else:
         out.append("（無）")
-    out.append("\n## 二、引號內容與問卷選項原文不一致\n")
-    out.append("引號代表照引原文。以下引述和原文有出入，請決定要改回原文照引，"
-               "還是拿掉引號改成描述。\n")
+    out.append("\n## 二、引號內容與問卷選項原文不一致（已裁決維持現狀，留作對照）\n")
     if quote_issues:
         groups = {}
         for bid, q, src in quote_issues:
             groups.setdefault(src, []).append((bid, q))
         out.append(f"共 {len(quote_issues)} 處，依對應的原文分成 {len(groups)} 組。"
-                   "建議先定一條通則（例如「引號內一律照原文全引；想用簡稱就拿掉引號」），"
-                   "再看有沒有要例外處理的。\n")
+                   "稿件裡標成〔維持〕，改寫時引號內容照舊不動。\n")
         out.append("| 最接近的原文（問卷選項、題目或圖表標籤） | 網頁目前寫的（段落） |")
         out.append("|---|---|")
         for src, lst in groups.items():
             cells = "<br>".join(f"「{q}」（`{bid}`）" for bid, q in lst)
             out.append(f"| {src} | {cells} |")
     out.append("\n## 三、其他\n")
-    out += [f"- {x}" for x in CF.OTHER_ISSUES]
+    out += [f"- {x}" for x in CF.OTHER_ISSUES] or ["（無）"]
     return "\n".join(out) + "\n"
 
 
@@ -591,7 +592,7 @@ def main():
     ISSUES_MD.write_text(render_issues(issues, quote_issues), encoding="utf-8")
     print(f"段落 {len(blocks)} 個、數字 {n_tok} 處（全部有指定來源並重算通過，"
           f"其中 {len(issues)} 處列入待裁決）")
-    print(f"上鎖引述 {n_lock} 處、與原文不一致的引述 {len(quote_issues)} 處")
+    print(f"上鎖引述 {n_lock} 處、標成〔維持〕的引述 {len(quote_issues)} 處")
     print(f"輸出：{DRAFT_MD.relative_to(C.PROJ)}、{ISSUES_MD.relative_to(C.PROJ)}")
 
 
