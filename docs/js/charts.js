@@ -14,6 +14,42 @@
     ["從未接觸", "接觸未參與", "曾參與"];
   var LAYER_PLAIN = (window.FIGDATA && window.FIGDATA.layerPlain) || {};
 
+  // 圖表裡由程式產生的文字。中文頁用這裡的預設值；英文頁在載入本檔前設定 window.CHART_TEXT 覆蓋。
+  var TX = Object.assign({
+    sep: "。",
+    wordWrap: false,       // 英文要依單字換行；中文逐字換行
+    maxLines: 2,
+    score3Val: function (pct, n, d) { return "3分以上 " + pct + "（" + n + "/" + d + "）"; },
+    pctFrac: function (pct, n, d) { return pct + "（" + n + "/" + d + "）"; },
+    pctN: function (pct, n) { return pct + "（" + n + "）"; },
+    gap: "　",
+    score3Tip: "3 分以上：",
+    score4Tip: "4 分以上：",
+    peoplePct: function (n, pct) { return n + " 人（" + pct + "）"; },
+    people: function (n) { return n + " 人"; },
+    withN: function (lab, n) { return lab + "（" + n + " 人）"; },
+    panelHead: function (group, d, up, down) {
+      return group + "（" + d + " 人）　" + up + " 個高於全體、" + down + " 個低於全體";
+    },
+    diffTip: function (g, n, d, b, isUp, pts) {
+      return "群內：" + g + " (" + n + "/" + d + ")　全體：" + b + "　" + (isUp ? "高出" : "低了") + " " + pts + " 個百分點";
+    },
+    kanoI: "無差別", kanoA: "魅力", kanoM: "基本", kanoO: "期望",
+    viewTable: "看數據表",
+    thItems: ["選項", "比例", "分子", "分母"],
+    thTrouble: ["困難", "3分以上", "4分以上", "分母"],
+    thAge: ["世代", "動機", "群內比例", "全體比例", "差幾個百分點"],
+    thKano: ["主題", "SI", "DSI", "落點"],
+    thKanoLayers: ["分群", "主題", "SI", "DSI", "落點"],
+    thLayered: ["選項", "分群", "比例", "分子", "分母"],
+    toggleAria: "切換分群檢視",
+    allGroups: "三群並排",
+    only: "只看：",
+    noData: "（找不到圖表資料：",
+    badType: "（不支援的圖表類型：",
+    close: "）",
+  }, window.CHART_TEXT || {});
+
   function el(tag, attrs, children) {
     var e = document.createElementNS(NS, tag);
     for (var k in attrs) {
@@ -45,17 +81,23 @@
   function wrapLabel(str, maxWidth, fontSize) {
     if (measureText(str, fontSize) <= maxWidth) return [str];
     var lines = [], cur = "";
-    for (var i = 0; i < str.length; i++) {
-      var next = cur + str[i];
+    // 中文逐字切；英文依單字切（以空白為界），避免把單字從中間切斷
+    var units = TX.wordWrap ? (str.match(/\S+\s*/g) || [str]) : str.split("");
+    for (var i = 0; i < units.length; i++) {
+      var next = cur + units[i];
       if (measureText(next, fontSize) > maxWidth && cur.length > 0) {
-        lines.push(cur);
-        cur = str[i];
+        lines.push(cur.replace(/\s+$/, ""));
+        cur = units[i];
       } else {
         cur = next;
       }
     }
-    if (cur) lines.push(cur);
-    return lines.slice(0, 2); // 最多兩行，避免長標籤把圖撐爆
+    if (cur) lines.push(cur.replace(/\s+$/, ""));
+    if (lines.length > TX.maxLines) {       // 太長就截斷，並用「…」標示被截掉
+      lines = lines.slice(0, TX.maxLines);
+      if (TX.wordWrap) lines[TX.maxLines - 1] += "…";
+    }
+    return lines;
   }
 
   // ---------------------------------------------------------------- tooltip
@@ -130,7 +172,7 @@
     var barH = 16, rowGap = 10, labelGap = 4;
     var leftPad = 4;
     var maxValW = Math.max.apply(null, fig.items.map(function (d) {
-      return measureText(pct0(d.pct) + "（" + d.n + "/" + d.d + "）", valueFS);
+      return measureText(TX.pctFrac(pct0(d.pct), d.n, d.d), valueFS);
     }));
     var rightPad = Math.min(W * 0.4, maxValW + 16);
     var barMaxW = W - leftPad - rightPad;
@@ -147,7 +189,7 @@
     });
     var H = y + 4;
 
-    var svg = mountSVG(container, W, H, fig.title + "。" + fig.subtitle);
+    var svg = mountSVG(container, W, H, fig.title + TX.sep + fig.subtitle);
 
     items.forEach(function (d, i) {
       var rt = rowTops[i];
@@ -165,7 +207,7 @@
       });
       svg.appendChild(rect);
       svg.appendChild(text(leftPad + bw + 6, barY + barH - 3,
-        pct0(d.pct) + "（" + d.n + "/" + d.d + "）",
+        TX.pctFrac(pct0(d.pct), d.n, d.d),
         { "font-size": valueFS, fill: "#52514e" }));
 
       var hit = el("rect", {
@@ -173,7 +215,7 @@
       });
       bindHover(hit, function () {
         return "<strong>" + escapeHtml(d.label) + "</strong><br>" +
-          pct1(d.pct) + "　(" + d.n + " / " + d.d + ")";
+          pct1(d.pct) + TX.gap + "(" + d.n + " / " + d.d + ")";
       });
       svg.appendChild(hit);
     });
@@ -187,7 +229,7 @@
     var barH = 20, rowGap = 14, labelGap = 4;
     var leftPad = 4;
     var maxValW = Math.max.apply(null, fig.items.map(function (d) {
-      return measureText("3分以上 " + pct0(d.pct3plus) + "（" + d.n3plus + "/" + d.d + "）", valueFS);
+      return measureText(TX.score3Val(pct0(d.pct3plus), d.n3plus, d.d), valueFS);
     }));
     var rightPad = Math.min(W * 0.55, maxValW + 14);
     var barMaxW = W - leftPad - rightPad;
@@ -207,7 +249,7 @@
     var legendH = legendLines.length * 16 + 12;
     var H = y + legendH;
 
-    var svg = mountSVG(container, W, H, fig.title + "。" + fig.subtitle);
+    var svg = mountSVG(container, W, H, fig.title + TX.sep + fig.subtitle);
 
     fig.items.forEach(function (d, i) {
       var rt = rowTops[i];
@@ -234,14 +276,14 @@
         x += w;
       });
       svg.appendChild(text(x + 8, barY + barH - 5,
-        "3分以上 " + pct0(d.pct3plus) + "（" + d.n3plus + "/" + d.d + "）",
+        TX.score3Val(pct0(d.pct3plus), d.n3plus, d.d),
         { "font-size": valueFS, fill: "#52514e" }));
 
       var hit = el("rect", { x: 0, y: rt.y, width: W, height: (barY + barH) - rt.y, fill: "transparent" });
       bindHover(hit, function () {
         return "<strong>" + escapeHtml(d.label) + "</strong><br>" +
-          "3 分以上：" + pct1(d.pct3plus) + " (" + d.n3plus + "/" + d.d + ")<br>" +
-          "4 分以上：" + pct1(d.pct4plus) + " (" + d.n4plus + "/" + d.d + ")";
+          TX.score3Tip + pct1(d.pct3plus) + " (" + d.n3plus + "/" + d.d + ")<br>" +
+          TX.score4Tip + pct1(d.pct4plus) + " (" + d.n4plus + "/" + d.d + ")";
       });
       svg.appendChild(hit);
     });
@@ -264,7 +306,7 @@
     var W = chartWidth(container);
     var size = Math.min(W, 420);
     var H = size + 70;
-    var svg = mountSVG(container, W, H, fig.title + "。" + fig.subtitle);
+    var svg = mountSVG(container, W, H, fig.title + TX.sep + fig.subtitle);
     var cx = W / 2, cy = size / 2 + 10, r = size / 2 - 30, rInner = r * 0.55;
     var total = fig.items.reduce(function (s, d) { return s + d.n; }, 0);
     var startAngle = -Math.PI / 2;
@@ -297,7 +339,7 @@
           { "font-size": 11.5, fill: "#fff", "text-anchor": "middle", "font-weight": 600 }));
       });
       svg.appendChild(text(lx, ly + lines.length * 13 - (lines.length - 1) * 6.5,
-        d.n + " 人（" + pct0(d.pct) + "）",
+        TX.peoplePct(d.n, pct0(d.pct)),
         { "font-size": 10.5, fill: "#fff", "text-anchor": "middle" }));
 
       startAngle = endAngle;
@@ -321,14 +363,13 @@
 
     var headLinesByPanel = fig.panels.map(function (p) {
       var nUp = p.items.filter(function (it) { return it.diffPts > 0; }).length;
-      return wrapLabel(p.group + "（" + p.d + " 人）　" + nUp + " 個高於全體、" +
-        (p.items.length - nUp) + " 個低於全體", W - 8, 12.5);
+      return wrapLabel(TX.panelHead(p.group, p.d, nUp, p.items.length - nUp), W - 8, 12.5);
     });
     var panelHeights = fig.panels.map(function (p, pi) {
       return headH + (headLinesByPanel[pi].length - 1) * 15 + p.items.length * rowH + 8;
     });
     var H = panelHeights.reduce(function (a, b) { return a + b + panelGap; }, 0) + 10;
-    var svg = mountSVG(container, W, H, fig.title + "。" + fig.subtitle);
+    var svg = mountSVG(container, W, H, fig.title + TX.sep + fig.subtitle);
 
     var y = 8;
     fig.panels.forEach(function (p, pi) {
@@ -357,7 +398,7 @@
         });
         svg.appendChild(rect);
 
-        var valLabel = pct0(it.groupPct) + "（" + it.n + "/" + it.d + "）";
+        var valLabel = TX.pctFrac(pct0(it.groupPct), it.n, it.d);
         var valW = measureText(valLabel, valueFS);
         var outsideX = isUp ? x + barW + 6 : x - 6;
         var fitsOutside = isUp
@@ -376,8 +417,7 @@
         var hit = el("rect", { x: 0, y: rTop, width: W, height: rowH, fill: "transparent" });
         bindHover(hit, function () {
           return "<strong>" + escapeHtml(p.group) + " / " + escapeHtml(it.label) + "</strong><br>" +
-            "群內：" + pct1(it.groupPct) + " (" + it.n + "/" + it.d + ")　全體：" + pct1(it.basePct) +
-            "　" + (isUp ? "高出" : "低了") + " " + Math.abs(Math.round(it.diffPts)) + " 個百分點";
+            TX.diffTip(pct1(it.groupPct), it.n, it.d, pct1(it.basePct), isUp, Math.abs(Math.round(it.diffPts)));
         });
         svg.appendChild(hit);
       });
@@ -402,10 +442,10 @@
     svg.appendChild(el("line", { x1: px(0.5), x2: px(0.5), y1: py(0), y2: py(-1), stroke: PAL.neutral, "stroke-dasharray": "3,3" }));
     svg.appendChild(el("line", { x1: px(0), x2: px(1), y1: py(-0.5), y2: py(-0.5), stroke: PAL.neutral, "stroke-dasharray": "3,3" }));
     var qFS = 11 * fontScale;
-    svg.appendChild(text(px(0) + 2, py(0) - 4, "無差別", { "font-size": qFS, fill: "#a8a8a2" }));
-    svg.appendChild(text(px(1) - 2, py(0) - 4, "魅力", { "font-size": qFS, fill: "#a8a8a2", "text-anchor": "end" }));
-    svg.appendChild(text(px(0) + 2, py(-1) + qFS, "基本", { "font-size": qFS, fill: "#a8a8a2" }));
-    svg.appendChild(text(px(1) - 2, py(-1) + qFS, "期望", { "font-size": qFS, fill: "#a8a8a2", "text-anchor": "end" }));
+    svg.appendChild(text(px(0) + 2, py(0) - 4, TX.kanoI, { "font-size": qFS, fill: "#a8a8a2" }));
+    svg.appendChild(text(px(1) - 2, py(0) - 4, TX.kanoA, { "font-size": qFS, fill: "#a8a8a2", "text-anchor": "end" }));
+    svg.appendChild(text(px(0) + 2, py(-1) + qFS, TX.kanoM, { "font-size": qFS, fill: "#a8a8a2" }));
+    svg.appendChild(text(px(1) - 2, py(-1) + qFS, TX.kanoO, { "font-size": qFS, fill: "#a8a8a2", "text-anchor": "end" }));
 
     items.forEach(function (it) {
       var cx = px(it.si), cy = py(it.dsi);
@@ -416,7 +456,7 @@
       var hit = el("circle", { cx: cx, cy: cy, r: 14 * fontScale, fill: "transparent" });
       bindHover(hit, function () {
         return "<strong>" + it.num + " " + escapeHtml(it.fullLabel) + "</strong><br>" +
-          "SI " + it.si.toFixed(2) + "　DSI " + it.dsi.toFixed(2) + "　" + it.quadrant;
+          "SI " + it.si.toFixed(2) + TX.gap + "DSI " + it.dsi.toFixed(2) + TX.gap + it.quadrant;
       });
       svg.appendChild(hit);
     });
@@ -427,11 +467,11 @@
     var size = Math.min(W, 480);
     var legendH = fig.items.length * 16 + 10;
     var H = size + legendH + 20;
-    var svg = mountSVG(container, W, H, fig.title + "。" + fig.subtitle);
+    var svg = mountSVG(container, W, H, fig.title + TX.sep + fig.subtitle);
     kanoPlot(svg, (W - size) / 2, 4, size, fig.items);
     var ly = size + 22;
     fig.items.forEach(function (it) {
-      svg.appendChild(text(4, ly, it.num + " " + it.label + "　(" + it.si.toFixed(2) + ", " + it.dsi.toFixed(2) + ")",
+      svg.appendChild(text(4, ly, it.num + " " + it.label + TX.gap + "(" + it.si.toFixed(2) + ", " + it.dsi.toFixed(2) + ")",
         { "font-size": 12, fill: "#52514e" }));
       ly += 16;
     });
@@ -451,14 +491,14 @@
     var legendLines = wrapFlow(legendEntries, W - 8);
     var legendH = legendLines.length * 16 + 12;
     var H = rows * panelH + legendH + 10;
-    var svg = mountSVG(container, W, H, fig.title + "。" + fig.subtitle);
+    var svg = mountSVG(container, W, H, fig.title + TX.sep + fig.subtitle);
 
     fig.panels.forEach(function (p, i) {
       var col = i % perRow, row = Math.floor(i / perRow);
       var x0 = col * (panelSize + 12), y0 = row * panelH + 20;
       svg.appendChild(text(x0 + 4, y0 - 4,
         LAYER_PLAIN[p.layer] || p.layer, { "font-size": 12, fill: "#0b0b0b", "font-weight": 700 }));
-      svg.appendChild(text(x0 + panelSize - 4, y0 - 4, p.n + " 人",
+      svg.appendChild(text(x0 + panelSize - 4, y0 - 4, TX.people(p.n),
         { "font-size": 11, fill: "#52514e", "text-anchor": "end" }));
       var colored = p.items.map(function (it) {
         return Object.assign({}, it, { color: PAL.layers[p.layer] });
@@ -505,14 +545,14 @@
     });
     var legendEntries = LAYER_ORDER.map(function (layer) {
       var denom = fig.layerDenoms[layer];
-      var lab = (LAYER_PLAIN[layer] || layer) + (denom ? "（" + denom + " 人）" : "");
+      var lab = denom ? TX.withN(LAYER_PLAIN[layer] || layer, denom) : (LAYER_PLAIN[layer] || layer);
       return { layer: layer, lab: lab, w: 15 + measureText(lab, 10.5) + 22 };
     });
     var legendLines = mode === "all" ? wrapFlow(legendEntries, W - leftPad) : [];
     var legendH = legendLines.length ? legendLines.length * 18 + 10 : 0;
     var H = y + legendH + 6;
 
-    var svg = mountSVG(container, W, H, fig.title + "。" + fig.subtitle);
+    var svg = mountSVG(container, W, H, fig.title + TX.sep + fig.subtitle);
     var maxPct = 0;
     options.forEach(function (o) {
       (mode === "all" ? LAYER_ORDER : [mode]).forEach(function (layer) {
@@ -581,7 +621,7 @@
     var det = document.createElement("details");
     det.className = "data-table-toggle";
     var sum = document.createElement("summary");
-    sum.textContent = "看數據表";
+    sum.textContent = TX.viewTable;
     det.appendChild(sum);
     var wrap = document.createElement("div");
     wrap.className = "table-wrap";
@@ -607,12 +647,12 @@
     }
 
     if (fig.type === "hbar" || fig.type === "donut") {
-      rowsFromItems(["選項", "比例", "分子", "分母"], fig.items.map(function (d) {
+      rowsFromItems(TX.thItems, fig.items.map(function (d) {
         return [d.label, pct1(d.pct), d.n, d.d];
       }));
     } else if (fig.type === "stacked-hbar") {
-      rowsFromItems(["困難", "3分以上", "4分以上", "分母"], fig.items.map(function (d) {
-        return [d.label, pct1(d.pct3plus) + "（" + d.n3plus + "）", pct1(d.pct4plus) + "（" + d.n4plus + "）", d.d];
+      rowsFromItems(TX.thTrouble, fig.items.map(function (d) {
+        return [d.label, TX.pctN(pct1(d.pct3plus), d.n3plus), TX.pctN(pct1(d.pct4plus), d.n4plus), d.d];
       }));
     } else if (fig.type === "diverging") {
       var out = [];
@@ -621,9 +661,9 @@
           out.push([p.group, it.label, pct1(it.groupPct), pct1(it.basePct), (it.diffPts > 0 ? "+" : "") + it.diffPts.toFixed(1)]);
         });
       });
-      rowsFromItems(["世代", "動機", "群內比例", "全體比例", "差幾個百分點"], out);
+      rowsFromItems(TX.thAge, out);
     } else if (fig.type === "scatter-kano") {
-      rowsFromItems(["主題", "SI", "DSI", "落點"], fig.items.map(function (it) {
+      rowsFromItems(TX.thKano, fig.items.map(function (it) {
         return [it.num + " " + it.fullLabel, it.si.toFixed(3), it.dsi.toFixed(3), it.quadrant];
       }));
     } else if (fig.type === "scatter-kano-panels") {
@@ -633,7 +673,7 @@
           out2.push([LAYER_PLAIN[p.layer] || p.layer, it.num + " " + it.fullLabel, it.si.toFixed(3), it.dsi.toFixed(3), it.quadrant]);
         });
       });
-      rowsFromItems(["分群", "主題", "SI", "DSI", "落點"], out2);
+      rowsFromItems(TX.thKanoLayers, out2);
     } else if (fig.type === "grouped-hbar-layers") {
       var out3 = [];
       fig.options.forEach(function (o) {
@@ -642,7 +682,7 @@
           if (d) out3.push([o.label, LAYER_PLAIN[layer] || layer, pct1(d.pct), d.n, d.d]);
         });
       });
-      rowsFromItems(["選項", "分群", "比例", "分子", "分母"], out3);
+      rowsFromItems(TX.thLayered, out3);
     }
     wrap.appendChild(table);
     det.appendChild(wrap);
@@ -669,9 +709,9 @@
     var bar = document.createElement("div");
     bar.className = "layer-toggle";
     bar.setAttribute("role", "group");
-    bar.setAttribute("aria-label", "切換分群檢視");
-    var options = [{ key: "all", label: "三群並排" }].concat(
-      LAYER_ORDER.map(function (l) { return { key: l, label: "只看：" + (LAYER_PLAIN[l] || l) }; })
+    bar.setAttribute("aria-label", TX.toggleAria);
+    var options = [{ key: "all", label: TX.allGroups }].concat(
+      LAYER_ORDER.map(function (l) { return { key: l, label: TX.only + (LAYER_PLAIN[l] || l) }; })
     );
     var chartDiv = document.createElement("div");
     var active = initialKey || "all";
@@ -719,7 +759,7 @@
     var key = container.getAttribute("data-chart");
     var fig = window.FIGDATA.figures[key];
     if (!fig) {
-      container.textContent = "（找不到圖表資料：" + key + "）";
+      container.textContent = TX.noData + key + TX.close;
       return;
     }
     container.innerHTML = "";
@@ -733,7 +773,7 @@
     var fn = RENDERERS[fig.type];
     if (!fn) {
       var msg = document.createElement("p");
-      msg.textContent = "（不支援的圖表類型：" + fig.type + "）";
+      msg.textContent = TX.badType + fig.type + TX.close;
       container.appendChild(msg);
       return;
     }

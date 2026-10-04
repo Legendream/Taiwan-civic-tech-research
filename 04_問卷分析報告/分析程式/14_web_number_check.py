@@ -47,8 +47,13 @@ def fail(msg):
 
 # ---------------------------------------------------------------- 第一層：figures.json 內部一致性
 
-def check_figures_json():
-    data = json.loads(FIGURES_JSON.read_text(encoding="utf-8"))
+# 英文版（20_build_english.py 產生）也要稽核：(圖表資料, 網頁)
+EN_PAIRS = [(DOCS_DIR / "data" / "figures_en.json", DOCS_DIR / "en" / "full" / "index.html"),
+            (None, DOCS_DIR / "en" / "index.html")]
+
+
+def check_figures_json(path=FIGURES_JSON):
+    data = json.loads(path.read_text(encoding="utf-8"))
     checked = 0
 
     def check_frac(label, n, d, pct, tol=0.002):
@@ -171,8 +176,8 @@ PCT_WITH_FRAC = re.compile(
 PCT_BARE = re.compile(r"(\d+(?:\.\d+)?)\s*%")
 
 
-def check_index_html(pair_set, pct_values):
-    raw = INDEX_HTML.read_text(encoding="utf-8")
+def check_index_html(pair_set, pct_values, path=INDEX_HTML):
+    raw = path.read_text(encoding="utf-8")
     visible = strip_html(raw)
 
     # 先找「N%（a/b）」，把命中的範圍記下來，剩下的裸 % 才用寬鬆規則查
@@ -221,6 +226,19 @@ def main():
     print("== 第二層：docs/index.html 正文的手寫百分比 ==")
     n2, n3 = check_index_html(pair_set, pct_values)
     print(f"  帶分子分母的百分比 {n2} 處、裸百分比 {n3} 處")
+
+    print("== 英文版 ==")
+    for fig_path, page in EN_PAIRS:
+        if not page.exists():
+            print(f"  （尚未產生 {page.relative_to(C.PROJ)}，略過）")
+            continue
+        if fig_path:
+            k = check_figures_json(fig_path)
+            n1 += k
+            print(f"  {fig_path.name}：檢查了 {k} 個資料點")
+        a, b = check_index_html(pair_set, pct_values, page)
+        n2, n3 = n2 + a, n3 + b
+        print(f"  {page.relative_to(C.PROJ)}：帶分子分母的百分比 {a} 處、裸百分比 {b} 處")
 
     print()
     if FAIL:

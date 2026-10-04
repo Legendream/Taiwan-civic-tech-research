@@ -154,6 +154,39 @@ a { color: var(--link); }
 }
 .theme-toggle:hover { filter: brightness(0.97); }
 
+/* -------------------------------------------------- 語言切換（放在深淺色按鈕左邊） */
+.lang-toggle {
+  position: fixed;
+  top: 16px;
+  right: 118px;
+  z-index: 55;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+}
+.lang-toggle:hover { filter: brightness(0.97); }
+
+/* -------------------------------------------------- 英文精華版 */
+.summary-hint {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin: 0 0 10px;
+}
+/* 手機上右上角的語言、深淺色按鈕會蓋住第一行，把提示往下推到按鈕下方 */
+@media (max-width: 880px) {
+  .summary-hint { margin-top: 32px; }
+}
+.summary-page .cover { margin-bottom: 28px; }
+.summary-page h2 { margin-top: 36px; }
+.summary-page h3 { margin-top: 26px; }
+.cta-row { margin: 40px 0 24px; text-align: center; }
+
 /* -------------------------------------------------- 手機導覽 */
 .mobile-nav-toggle {
   display: none;
