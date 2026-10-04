@@ -65,31 +65,48 @@ class Node:
     def __init__(self, tag, attrs, parent):
         self.tag, self.attrs, self.parent = tag, dict(attrs), parent
         self.children = []
+        # 在原始 HTML 裡的位置（字元索引），套用改稿時用來精準替換：
+        # start＝開始標籤起點、inner_start＝開始標籤之後、inner_end＝結束標籤起點、end＝結束標籤之後
+        self.start = self.inner_start = self.inner_end = self.end = None
 
     def cls(self):
         return self.attrs.get("class", "").split()
 
 
 class TreeBuilder(HTMLParser):
-    def __init__(self):
+    def __init__(self, html_text=""):
         super().__init__(convert_charrefs=True)
         self.root = Node("root", [], None)
         self.cur = self.root
+        self._line_starts = [0]
+        for line in html_text.split("\n")[:-1]:
+            self._line_starts.append(self._line_starts[-1] + len(line) + 1)
+
+    def _pos(self):
+        line, col = self.getpos()
+        return self._line_starts[line - 1] + col
 
     def handle_starttag(self, tag, attrs):
         node = Node(tag, attrs, self.cur)
+        node.start = self._pos()
+        node.inner_start = node.start + len(self.get_starttag_text())
         self.cur.children.append(node)
         if tag not in VOID:
             self.cur = node
 
     def handle_startendtag(self, tag, attrs):
-        self.cur.children.append(Node(tag, attrs, self.cur))
+        node = Node(tag, attrs, self.cur)
+        node.start = self._pos()
+        node.end = node.start + len(self.get_starttag_text())
+        self.cur.children.append(node)
 
     def handle_endtag(self, tag):
         n = self.cur
         while n is not self.root and n.tag != tag:
             n = n.parent
         if n is not self.root:
+            n.inner_end = self._pos()
+            n.end = n.inner_end + len(f"</{tag}>")
             self.cur = n.parent
 
     def handle_data(self, data):
@@ -159,7 +176,7 @@ def parse_persona_routes():
 
 
 def walk(html_text):
-    tb = TreeBuilder()
+    tb = TreeBuilder(html_text)
     tb.feed(html_text)
     blocks = []
     state = {"anchor": "head", "seq": {}}
@@ -185,15 +202,17 @@ def walk(html_text):
         cls = node.cls()
 
         if node.tag == "aside":                       # 側欄目錄：整份當一個區塊
-            items = []
+            items, nodes = [], []
             for a in iter_nodes(node):
                 if a.tag == "h2":
                     items.append(f"【{norm_ws(inline_md(a))}】")
+                    nodes.append(a)
                 elif a.tag == "a":
                     depth = "　　" if "sub" in a.parent.parent.cls() else ""
                     items.append(f"{depth}- {norm_ws(inline_md(a))}")
+                    nodes.append(a)
             blocks.append({"id": "nav", "anchor": "nav", "kind": "側欄目錄",
-                           "text": "\n".join(items)})
+                           "text": "\n".join(items), "nodes": nodes})
             return
         if "chart-block" in cls:
             key = node.attrs["data-chart"]
@@ -201,22 +220,24 @@ def walk(html_text):
                            "fig": key, "text": ""})
             return
         if node.tag == "table":
-            rows, cap, dyn = [], "", None
+            rows, cells, cap, cap_node, dyn = [], [], "", None, None
             for n in iter_nodes(node):
                 if n.tag == "caption":
-                    cap = norm_ws(inline_md(n))
+                    cap, cap_node = norm_ws(inline_md(n)), n
                 elif n.tag == "tr":
-                    rows.append([norm_ws(inline_md(c)) for c in n.children
-                                 if isinstance(c, Node) and c.tag in ("td", "th")])
+                    row_nodes = [c for c in n.children if isinstance(c, Node) and c.tag in ("td", "th")]
+                    rows.append([norm_ws(inline_md(c)) for c in row_nodes])
+                    cells.append(row_nodes)
                 elif n.tag == "tbody" and n.attrs.get("id"):
                     dyn = n.attrs["id"]
             text = "\n".join(" ｜ ".join(r) for r in rows)
             blocks.append({"id": new_id(), "anchor": state["anchor"], "kind": "表格",
-                           "caption": cap, "rows": rows, "dynamic": dyn, "text": text})
+                           "caption": cap, "rows": rows, "dynamic": dyn, "text": text,
+                           "cap_node": cap_node, "cells": cells})
             return
         if "stat" in cls and node.tag == "div":
-            add("封面數字", " ".join(norm_ws(inline_md(c)) for c in node.children
-                                    if isinstance(c, Node)))
+            kids = [c for c in node.children if isinstance(c, Node)]
+            add("封面數字", " ".join(norm_ws(inline_md(c)) for c in kids), nodes=kids)
             return
         if "persona-result" in cls:
             for r in parse_persona_routes():
@@ -239,7 +260,7 @@ def walk(html_text):
                 kind = "重點卡"
             elif "lede" in cls:
                 kind = "引言"
-            add(kind, text)
+            add(kind, text, node=node)
             return
         if node.tag in BLOCK_TAGS:
             # 區塊裡同時有行內文字與子區塊（例如摘要的 <li><strong>…</strong><p>…</p></li>）：
@@ -247,7 +268,8 @@ def walk(html_text):
             buf = Node("frag", [], None)
             for ch in node.children:
                 if isinstance(ch, Node) and (ch.tag in BLOCK_TAGS or has_block_child(ch)):
-                    add("小標", norm_ws(inline_md(buf)))
+                    add("小標", norm_ws(inline_md(buf)),
+                        frag_nodes=[c for c in buf.children if isinstance(c, Node)])
                     buf = Node("frag", [], None)
                     visit(ch)
                 else:
