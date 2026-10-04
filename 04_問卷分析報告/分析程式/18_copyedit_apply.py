@@ -169,6 +169,54 @@ def replace_string_literal(src, old, new, where):
     return src
 
 
+def html_spans(b, new, cur):
+    """一個段落要在 index.html 裡替換的位置與內容：[(起點, 終點, 新內容)]。
+    只處理寫在 HTML 裡的段落；圖表、身分推薦、頁面標題描述、介面文字由呼叫端另外處理。"""
+    kind = b["kind"]
+    spans = []
+    if kind == "表格":
+        cap, rows = parse_table(new)
+        old_rows = b["rows"]
+        if [len(r) for r in rows] != [len(r) for r in old_rows]:
+            raise SystemExit(f"[{b['id']}] 表格欄列數和網頁不同")
+        if cap is not None and b["cap_node"] is not None and plain(cap) != plain(b["caption"]):
+            n = b["cap_node"]
+            spans.append((n.inner_start, n.inner_end, md_to_html(strip_marks(cap))))
+        for r, (nrow, orow) in enumerate(zip(rows, old_rows)):
+            for c, (nc, oc) in enumerate(zip(nrow, orow)):
+                if plain(nc) != plain(oc):
+                    n = b["cells"][r][c]
+                    spans.append((n.inner_start, n.inner_end, md_to_html(strip_marks(nc))))
+    elif kind == "側欄目錄":
+        new_items, nodes = parse_nav(new), b["nodes"]
+        old_items = parse_nav(cur)
+        if len(new_items) != len(nodes):
+            raise SystemExit(f"[{b['id']}] 側欄目錄項目數和網頁不同")
+        for n, o, t in zip(nodes, old_items, new_items):
+            if t != o:
+                spans.append((n.inner_start, n.inner_end, md_to_html(t)))
+    elif kind == "封面數字":
+        num_node, label_node = b["nodes"]
+        m = re.match(r"^(\S+)\s+(.*)$", strip_marks(new))
+        spans.append((num_node.inner_start, num_node.inner_end, htmllib.escape(m.group(1))))
+        spans.append((label_node.inner_start, label_node.inner_end, md_to_html(m.group(2))))
+    elif kind == "小標":
+        frag = b["frag_nodes"]
+        if len(frag) != 1:
+            raise SystemExit(f"[{b['id']}] 小標的結構不是單一元素，無法安全替換")
+        spans.append((frag[0].start, frag[0].end, md_to_html(strip_marks(new))))
+    else:
+        n = b["node"]
+        spans.append((n.inner_start, n.inner_end, md_to_html(strip_marks(new))))
+    return spans
+
+
+def apply_spans(html_text, spans):
+    for s_, e, r in sorted(spans, key=lambda x: -x[0]):
+        html_text = html_text[:s_] + r + html_text[e:]
+    return html_text
+
+
 def apply(draft_path):
     draft = dict(RT.parse_draft(draft_path))
     html_text = EX.INDEX_HTML.read_text(encoding="utf-8")
@@ -185,22 +233,9 @@ def apply(draft_path):
         kind = b["kind"]
         cur = EX.editable_text(b, figs)
         if kind == "表格":
-            cap, rows = parse_table(new)
-            old_rows = b["rows"]
-            if [len(r) for r in rows] != [len(r) for r in old_rows]:
-                raise SystemExit(f"[{bid}] 表格欄列數和網頁不同")
-            touched = False
-            if cap is not None and b["cap_node"] is not None and plain(cap) != plain(b["caption"]):
-                n = b["cap_node"]
-                spans.append((n.inner_start, n.inner_end, md_to_html(strip_marks(cap))))
-                touched = True
-            for r, (nrow, orow) in enumerate(zip(rows, old_rows)):
-                for c, (nc, oc) in enumerate(zip(nrow, orow)):
-                    if plain(nc) != plain(oc):
-                        n = b["cells"][r][c]
-                        spans.append((n.inner_start, n.inner_end, md_to_html(strip_marks(nc))))
-                        touched = True
-            if touched:
+            table_spans = html_spans(b, new, cur)
+            if table_spans:
+                spans += table_spans
                 changed.append(bid)
             continue
         if plain(new) == plain(cur) and strip_marks(new) == cur:
@@ -224,24 +259,8 @@ def apply(draft_path):
                     if js_src.count(old_lit) != 1:
                         raise SystemExit(f"[{bid}] app.js 找不到唯一的 {old_lit}")
                     js_src = js_src.replace(old_lit, f'["{anchor}", {json.dumps(new_label, ensure_ascii=False)}]')
-        elif kind == "側欄目錄":
-            new_items, nodes = parse_nav(new), b["nodes"]
-            old_items = parse_nav(cur)
-            if len(new_items) != len(nodes):
-                raise SystemExit(f"[{bid}] 側欄目錄項目數和網頁不同")
-            for n, o, t in zip(nodes, old_items, new_items):
-                if t != o:
-                    spans.append((n.inner_start, n.inner_end, md_to_html(t)))
-        elif kind == "封面數字":
-            num_node, label_node = b["nodes"]
-            m = re.match(r"^(\S+)\s+(.*)$", strip_marks(new))
-            spans.append((num_node.inner_start, num_node.inner_end, htmllib.escape(m.group(1))))
-            spans.append((label_node.inner_start, label_node.inner_end, md_to_html(m.group(2))))
-        elif kind == "小標":
-            frag = b["frag_nodes"]
-            if len(frag) != 1:
-                raise SystemExit(f"[{bid}] 小標的結構不是單一元素，無法安全替換")
-            spans.append((frag[0].start, frag[0].end, md_to_html(strip_marks(new))))
+        elif kind in ("側欄目錄", "封面數字", "小標"):
+            spans += html_spans(b, new, cur)
         elif kind == "頁面標題":
             html_text = html_text.replace(f"<title>{cur}</title>", f"<title>{htmllib.escape(new)}</title>", 1)
         elif kind == "頁面描述":
@@ -249,8 +268,7 @@ def apply(draft_path):
         elif kind == "介面文字":
             raise SystemExit("介面文字由程式產生，這支腳本不處理；稿件裡的 ui 段落應維持原樣")
         else:
-            n = b["node"]
-            spans.append((n.inner_start, n.inner_end, md_to_html(strip_marks(new))))
+            spans += html_spans(b, new, cur)
 
     # 被共用的圖表字串，也要確認沒改的圖不會被連帶改到
     for fid, fig in figs["figures"].items():
@@ -269,8 +287,7 @@ def apply(draft_path):
         shift = len(html_text) - len(orig)
         head_end = orig.index("</title>")
         spans = [(s + shift, e + shift, r) if s > head_end else (s, e, r) for s, e, r in spans]
-    for s, e, r in sorted(spans, key=lambda x: -x[0]):
-        html_text = html_text[:s] + r + html_text[e:]
+    html_text = apply_spans(html_text, spans)
 
     EX.INDEX_HTML.write_text(html_text, encoding="utf-8")
     WEB_DATA_PY.write_text(web_src, encoding="utf-8")

@@ -90,6 +90,80 @@ def exact_ratios(out):
                     it["groupPct"] = it["n"] / it["d"]
 
 
+# ---------------------------------------------------------------- 英文版
+
+EN_TERMS = C.OUT_DIR / "英文版" / "圖表與介面譯名.csv"
+# 同一個中文字串在不同圖表裡意思不同時，依圖表另外指定（狩野圖的「發起專案」是文章主題簡稱，不是參與深度）
+EN_PER_FIGURE = {
+    "fig12_kano_all": {"發起專案": "Starting a project"},
+    "fig13_kano_layers": {"發起專案": "Starting a project"},
+}
+# 會顯示在畫面上的欄位；其他欄位（layerOrder、byLayer 的鍵、panels 的 layer）是程式內部的鍵，不翻
+EN_DISPLAY_KEYS = {"title", "subtitle", "denomNote", "label", "shortLabel", "fullLabel",
+                   "group", "escapeLabel", "quadrant", "主題", "選項"}
+
+
+def has_cjk(s):
+    return any("\u4e00" <= ch <= "\u9fff" for ch in s)
+
+
+def build_english(out):
+    """以中文版資料為底，只換顯示文字；數字完全共用，不會對不上。"""
+    import copy
+    terms = pd.read_csv(EN_TERMS, dtype=str).set_index("中文")["英文"].to_dict()
+    en = copy.deepcopy(out)
+    missing = set()
+
+    def tr(val, fig=None):
+        val_key = val
+        if fig and val_key in EN_PER_FIGURE.get(fig, {}):
+            return EN_PER_FIGURE[fig][val_key]
+        if val_key in terms:
+            return terms[val_key]
+        missing.add(val_key)
+        return val
+
+    def walk(node, fig=None):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                if k in EN_DISPLAY_KEYS and isinstance(v, str) and has_cjk(v):
+                    node[k] = tr(v, fig)
+                elif k == "seriesLabels":
+                    node[k] = [tr(x, fig) for x in v]
+                else:
+                    walk(v, fig)
+        elif isinstance(node, list):
+            for x in node:
+                walk(x, fig)
+
+    for fid, fig in en["figures"].items():
+        walk(fig, fid)
+    en["layerPlain"] = {k: tr(v) for k, v in en["layerPlain"].items()}
+    for t in ("開放題總表", "出資者評估準則"):
+        walk(en["tables"][t])
+    en["meta"]["sample_note"] = "Data: 127 valid survey responses collected up to 20 July 2026"
+    if missing:
+        raise SystemExit("英文對照表缺少這些圖表文字（請補進 英文版/圖表與介面譯名.csv）：\n  "
+                         + "\n  ".join(sorted(missing)))
+    return en
+
+
+def write_data(obj, stem):
+    path = WEB_DATA_DIR / f"{stem}.json"
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False, indent=1)
+    # 同時輸出 .js 版本：網頁用 <script src> 載入，不用 fetch。
+    # 原因：file:// 開啟本機 HTML 時，fetch() 讀同層 json 會被瀏覽器 CORS 擋下，
+    # 但 <script src="data/figures.js"> 沒有這個限制，離線、雙擊開檔都能跑（D1／D2）。
+    js_path = WEB_DATA_DIR / f"{stem}.js"
+    with open(js_path, "w", encoding="utf-8") as f:
+        f.write("// 由 13_web_data.py 自動產生，不要手改。\n")
+        f.write("window.FIGDATA = ")
+        json.dump(obj, f, ensure_ascii=False, indent=1)
+        f.write(";\n")
+    return path, js_path
+
+
 def main():
     out = {
         "meta": {
@@ -385,21 +459,10 @@ def main():
 
     exact_ratios(out)
 
-    path = WEB_DATA_DIR / "figures.json"
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False, indent=1)
+    path, js_path = write_data(out, "figures")
+    write_data(build_english(out), "figures_en")
 
-    # 同時輸出 .js 版本：網頁用 <script src> 載入，不用 fetch。
-    # 原因：file:// 開啟本機 HTML 時，fetch() 讀同層 json 會被瀏覽器 CORS 擋下，
-    # 但 <script src="data/figures.js"> 沒有這個限制，離線、雙擊開檔都能跑（D1／D2）。
-    js_path = WEB_DATA_DIR / "figures.js"
-    with open(js_path, "w", encoding="utf-8") as f:
-        f.write("// 由 13_web_data.py 自動產生，不要手改。\n")
-        f.write("window.FIGDATA = ")
-        json.dump(out, f, ensure_ascii=False, indent=1)
-        f.write(";\n")
-
-    print(f"→ 已輸出 {path} 與 {js_path.name}"
+    print(f"→ 已輸出 {path} 與 {js_path.name}，以及英文版 figures_en.json／.js"
           f"（{len(out['figures'])} 張圖、{len(out['tables'])} 個輔助表）")
 
 

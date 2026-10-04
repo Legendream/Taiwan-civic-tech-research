@@ -61,7 +61,14 @@
   onScrollSpy();
 
   // ---------------------------------------------------------------- 身分推薦
-  var PERSONA_ROUTES = {
+  // 介面文字。中文頁用預設值；英文頁在載入本檔前設定 window.APP_TEXT、window.PERSONA_ROUTES_OVERRIDE 覆蓋。
+  var UI = Object.assign({
+    startWith: "建議先讀：",
+    dark: "🌙 深色", light: "☀️ 淺色",
+    toDark: "切換成深色模式", toLight: "切換成淺色模式",
+  }, window.APP_TEXT || {});
+
+  var PERSONA_ROUTES = window.PERSONA_ROUTES_OVERRIDE || {
     newcomer: {
       label: "我是新手，還在了解這個圈子",
       why: "第七章發現，新人進不來的第一大原因，是「不知道有哪些專案」，而不是能力不夠。建議你先讀第一章看看這群人都在哪裡、第七章弄清楚入口到底斷在哪，最後再看研究建議 1.3 的各階段資源規劃。",
@@ -100,7 +107,7 @@
       var key = btn.getAttribute("data-persona");
       var route = PERSONA_ROUTES[key];
       if (!route || !personaResult) return;
-      var html = "<p class=\"persona-why\">" + route.why + "</p>建議先讀：<ul>" +
+      var html = "<p class=\"persona-why\">" + route.why + "</p>" + UI.startWith + "<ul>" +
         route.sections.map(function (s) {
           return '<li><a href="' + s[0] + '">' + s[1] + "</a></li>";
         }).join("") + "</ul>";
@@ -120,8 +127,8 @@
     }
     function applyTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
-      themeToggle.textContent = theme === "dark" ? "☀️ 淺色" : "🌙 深色";
-      themeToggle.setAttribute("aria-label", theme === "dark" ? "切換成淺色模式" : "切換成深色模式");
+      themeToggle.textContent = theme === "dark" ? UI.light : UI.dark;
+      themeToggle.setAttribute("aria-label", theme === "dark" ? UI.toLight : UI.toDark);
     }
 
     applyTheme(effectiveTheme());
