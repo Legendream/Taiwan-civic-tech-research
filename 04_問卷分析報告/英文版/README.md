@@ -51,6 +51,22 @@ python3 14_web_number_check.py   # 網頁數字稽核（含英文頁）
 | `top-06`、`about-03` | 註明 PDF、原始資料表是中文 | — |
 | `ch1-1-09` | 雙北補「capital region」 | — |
 | 全文 | 三群人用 Curious／Users／Builders 稱呼；第二群「most have used a civic tech tool or joined a discussion」 | 54 人中 51 人勾了「使用過某個公民科技工具、服務，或參與討論的人」（逐人明細重算） |
+| `about-05` 註腳 | g0v 名稱由來：把 gov 的 o 換成 0，從零重新想像政府的角色 | g0v.tw 英文介紹頁：「g0v replaces 'o' in gov with '0', which reimagines the role of government from scratch zero」 |
+| `summary-03` | 「jump in」補「community slang for joining a project」 | g0v 社群用語「跳坑」 |
+| `ch2-1-05` | 參與深度五級各加一句說明 | 問卷選項原文（`common.py` 的 DEPTH_ORDER） |
+| `rec-1-1-03` | 狩野分析補一句「a method from product design…」 | 狩野模型的一般定義 |
+
+## 讀者測試（2026-10-04）
+
+請 Antigravity 以「馬來西亞公民社會的第一次讀者」身分讀精華版與完整版，只指出看不懂的地方、不改稿。
+共 47 條意見（看不懂 13、缺背景 9、用詞不清 9、英文不自然 16），逐條回原文確認後採用 24 條，主要是：
+
+- 容易誤解的詞：「Issue research」改「Topic research」（避免被讀成軟體 issue）；「Public-private collaboration」改「Working with government」（大英國協國家常指政府外包合約）
+- 補定義：參與深度五級、淨變化的算法、狩野分析
+- 避免誤讀：動機變化不是追蹤調查，改寫成「比較當初加入的原因和現在留下的原因」；「funded」統一為「gave financial support」
+- 英文順句：Jothon 大小寫統一、句首不用數字、懸垂分詞等
+
+未採用：需要問卷沒有的資料才能回答的背景（台灣公務員制度、地理差異、經費結構）；在發現旁重複寫樣本限制（Claire 裁決限制集中在最後說明）；口語化的寫法（Claire 要的就是口語）。
 
 ## 驗證
 

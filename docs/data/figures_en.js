@@ -671,7 +671,7 @@ window.FIGDATA = {
    "denomNote": "Base: 47 Builders",
    "items": [
     {
-     "label": "Issue research",
+     "label": "Topic research",
      "pct": 0.5106382978723404,
      "n": 24,
      "d": 47
@@ -856,7 +856,7 @@ window.FIGDATA = {
    },
    "options": [
     {
-     "label": "Public-private collaboration: how government and civil society can work together, and where it usually gets stuck",
+     "label": "Working with government: how the public sector and civil society can work together, and where it usually gets stuck",
      "byLayer": {
       "從未接觸": {
        "n": 12,
@@ -1925,7 +1925,7 @@ window.FIGDATA = {
    },
    {
     "題目": "專案在解決什麼問題",
-    "主題": "Public-private collaboration and civil servants",
+    "主題": "Working with government and civil servants",
     "筆數": 2,
     "分母": 47,
     "比例": 0.0426
