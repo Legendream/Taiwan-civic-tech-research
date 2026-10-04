@@ -99,8 +99,8 @@ def main():
             elif bid.startswith("persona-route-"):
                 ok = s in persona[bid.split("-")[-1]]
             elif bid == "ui":
-                # 「☀️ 淺色」只在深色模式出現、「☰ 章節」只在手機版顯示，桌機淺色畫面上看不到
-                ok = s in body or s in ("☀️淺色", "☰章節")
+                # 深淺色切換按鈕只會顯示其中一種文字、「☰ 章節」只在手機版顯示
+                ok = s in body or s in ("☀️淺色", "🌙深色", "☰章節")
                 for m in re.finditer(re.escape(s), body):        # 介面文字重複出現，全部標記
                     covered[m.start():m.end()] = [True] * len(s)
             else:
