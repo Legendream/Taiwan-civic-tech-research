@@ -1,6 +1,6 @@
 中文,英文,類別
 127 位填答者分成三群,The 127 respondents fall into three groups,圖標題
-分母＝全體 127 人（綠：聽過或看過、橘：接觸未參與、藍：做過專案）,"Base: all 127 respondents (green: the Curious, orange: the Users, blue: the Builders)",圖副標
+分母＝全體 127 人（綠：好奇者、橘：使用者、藍：實作者）,"Base: all 127 respondents (green: the Curious, orange: the Users, blue: the Builders)",圖副標
 填答者的居住地分布,Where respondents live,圖標題
 全體 N=127，雙北合計逾六成,"All respondents, N=127. Over 60% live in Taipei or New Taipei",圖副標
 分母＝全體 127 人,Base: all 127 respondents,分母說明
@@ -11,39 +11,41 @@
 分母＝101 位曾接觸者（灰色選項不在深度軸上、未計權重）,Base: 101 who have had contact with civic tech (the grey option is not on the depth scale and is not weighted),圖副標
 各項困難的困擾程度分布（完整呈現 1 到 5 分）,How much each difficulty troubles people (all ratings from 1 to 5),圖標題
 依「3 分以上人數」由多到少排列（無「沒遇到」選項，評 1 分包含「沒發生過」與「發生了但不影響」）,"Sorted by how many rated it 3 or higher (there was no “not experienced” option, so a rating of 1 covers both “never happened” and “happened but had no impact”)",圖副標
-分母＝47 位曾參與者（每題皆為 47 人作答）,Base: 47 Builders (all 47 rated every item),分母說明
+分母＝47 位實作者（每題皆為 47 人作答）,Base: 47 Builders (all 47 rated every item),分母說明
 不同世代留在專案的動機差異,Why people stay: differences by age,圖標題
 各長條代表該世代勾選比例與全體 47 人的差距（百分點）。向右為高於全體，向左為低於全體。,"Each bar shows how far an age group's share is from all 47 Builders, in percentage points. Right means higher than overall; left means lower.",圖副標
 三個年齡層分別為 10、19、18 人（可複選）,"The three age groups have 10, 19 and 18 people (more than one answer allowed)",分母說明
-做過專案的人用過哪些資源,Resources the Builders have used,圖標題
-分母＝47 位曾參與者（複選，加總超過 100%）,"Base: 47 Builders (more than one answer allowed, so totals exceed 100%)",圖副標
-分母＝47 位做過專案的人,Base: 47 Builders,分母說明
-做過專案的人貢獻過哪些專長,Skills the Builders have contributed,圖標題
-分母＝47 位曾參與者（複選，加總超過 100%，常見一人多工）,"Base: 47 Builders (more than one answer allowed, so totals exceed 100%; many people do several things)",圖副標
+實作者用過哪些資源,Resources the Builders have used,圖標題
+分母＝47 位實作者（複選，加總超過 100%）,"Base: 47 Builders (more than one answer allowed, so totals exceed 100%)",圖副標
+分母＝47 位實作者,Base: 47 Builders,分母說明
+實作者貢獻過哪些專長,Skills the Builders have contributed,圖標題
+分母＝47 位實作者（複選，加總超過 100%，常見一人多工）,"Base: 47 Builders (more than one answer allowed, so totals exceed 100%; many people do several things)",圖副標
 填答者從哪裡得知 g0v.tw 的活動消息,Where respondents hear about g0v.tw events,圖標題
 全體 N=127（複選）。「親友推薦」與「g0v 社群管道」並列單選第一（各 51 人）；五個官方管道合計觸及 65%，高於親友推薦的 40%,"All respondents, N=127 (more than one answer allowed). “Friends or family” and “g0v.tw social media” tie as the top single options (51 people each); the five official channels combined reach 65%, more than the 40% reached by friends or family",圖副標
-還沒參與的人，是什麼擋住了他們,What holds back people who have not taken part,圖標題
-最多選 3 項。分母＝26 位從未接觸者（接觸未參與的 54 人未問此題）,Up to 3 choices. Base: the 26 Curious (the 54 Users were not asked this question),圖副標
-分母＝26 位從未接觸者,Base: the 26 Curious,分母說明
+好奇者還沒參與，是什麼擋住了他們,What holds back people who have not taken part,圖標題
+最多選 3 項。分母＝26 位好奇者（54 位使用者未問此題）,Up to 3 choices. Base: the 26 Curious (the 54 Users were not asked this question),圖副標
+分母＝26 位好奇者,Base: the 26 Curious,分母說明
 三群人分別最想報名哪些活動,Which events each group most wants to attend,圖標題
 複選，最多選 2 個。各群長條代表該群勾選率,Up to 2 choices. Each bar shows the share of that group who chose it,圖副標
-從未接觸 26 人、接觸未參與 54 人、做過專案 47 人,"The Curious: 26, the Users: 54, the Builders: 47",分母說明
+好奇者 26 人、使用者 54 人、實作者 47 人,"The Curious: 26, the Users: 54, the Builders: 47",分母說明
 五個文章主題的狩野落點（全體填答者）,Where the five article topics fall in the Kano model (all respondents),圖標題
 N=126｜SI 0–1、DSI 0～−1 全幅，分界線 0.5／−0.5 位於正中央。五個主題全部落在「魅力 A」，其中「落地、接進體制」最靠近期望 O 邊界,"N=126 | Full SI range 0 to 1 and DSI range 0 to −1, with the 0.5 / −0.5 dividing lines in the middle. All five topics fall in “Attractive (A)”, with “Into real use” closest to the “Performance (O)” boundary",圖副標
 分母＝126 位有作答者（全體 127 人中 126 人答了狩野題）,Base: 126 who answered (126 of the 127 respondents answered the Kano questions),分母說明
 三群人分別覺得哪些主題值得寫,Which topics each group thinks are worth writing about,圖標題
-「捲動更多人」③ 與「留住夥伴」④ 對還沒接觸的人落在「無差別」，對另外兩群人都是「魅力」：沒進場的人感受不到團隊經營的痛,“Getting more people involved” ③ and “Keeping partners” ④ are “Indifferent” for the Curious but “Attractive” for both other groups: people who are not yet involved don't feel the pain of running a team,圖副標
+「捲動更多人」③ 與「留住夥伴」④ 對好奇者落在「無差別」，對另外兩群人都是「魅力」：沒進場的人感受不到團隊經營的痛,“Getting more people involved” ③ and “Keeping partners” ④ are “Indifferent” for the Curious but “Attractive” for both other groups: people who are not yet involved don't feel the pain of running a team,圖副標
 每個面板都是完整的狩野四象限；同一個編號在三個面板中代表同一個主題,Each panel shows all four Kano quadrants; the same number means the same topic in all three panels,分母說明
 各群填答者最想先看哪些議題領域的資料清單,Which issue areas each group most wants data lists for,圖標題
-此題複選，最多選 5 個領域｜各群勾選率（分母為該群有作答人數）｜還沒接觸的人有 26 位,Up to 5 areas | Share of each group who chose it (base: those in the group who answered) | There are 26 Curious,圖副標
+此題複選，最多選 5 個領域｜各群勾選率（分母為該群有作答人數）｜好奇者有 26 位,Up to 5 areas | Share of each group who chose it (base: those in the group who answered) | There are 26 Curious,圖副標
 各群填答者最想看哪些跨領域工具的介紹,Which cross-cutting tools each group most wants introduced,圖標題
-此題複選，最多選 3 個工具｜各群勾選率（分母為該群有作答人數）｜還沒接觸的人有 26 位,Up to 3 tools | Share of each group who chose it (base: those in the group who answered) | There are 26 Curious,圖副標
+此題複選，最多選 3 個工具｜各群勾選率（分母為該群有作答人數）｜好奇者有 26 位,Up to 3 tools | Share of each group who chose it (base: those in the group who answered) | There are 26 Curious,圖副標
 聽過或看過，還沒接觸,The Curious,三群
 接觸過，還沒做過專案,The Users,三群
 做過專案,The Builders,三群
 從未接觸,The Curious,三群
 接觸未參與,The Users,三群
 曾參與,The Builders,三群
+好奇者,The Curious,三群
+實作者,The Builders,三群
 台北市,Taipei City,居住地
 新北市,New Taipei City,居住地
 桃園市,Taoyuan City,居住地
