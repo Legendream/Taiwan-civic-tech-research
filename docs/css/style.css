@@ -183,6 +183,11 @@ a { color: var(--link); }
   .summary-hint { margin-top: 32px; }
 }
 .summary-page .cover { margin-bottom: 28px; }
+/* 精華版沒有側欄與提示行，封面直接貼著頁首；視窗不夠寬時（內容 760px + 兩顆按鈕約 390px），
+   右上角固定的語言、深淺色按鈕會壓到封面上緣，所以把整個內容往下推到按鈕下方 */
+@media (max-width: 1150px) {
+  .summary-page { padding-top: 48px; }
+}
 .summary-page h2 { margin-top: 36px; }
 .summary-page h3 { margin-top: 26px; }
 .cta-row { margin: 40px 0 24px; text-align: center; }
