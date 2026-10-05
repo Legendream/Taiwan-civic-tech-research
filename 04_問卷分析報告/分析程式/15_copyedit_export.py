@@ -56,6 +56,7 @@ ISSUES_MD = OUT / "待裁決清單.md"
 
 BLOCK_TAGS = {"h1", "h2", "h3", "p", "li", "caption", "tr", "button", "summary"}
 VOID = {"meta", "link", "br", "img", "input", "hr", "use", "circle", "path", "rect", "line"}
+BR = "\x00BR\x00"
 SKIP_TAGS = {"script", "style", "svg", "title", "head"}
 # 重複出現的介面文字：不逐處列出，集中在最後的「介面文字」區塊列一次
 UI_ONCE = {"看完整說明", "跳到主要內容"}
@@ -140,6 +141,8 @@ def inline_md(node):
             out.append(f"[{inner}]({href})" if href and not href.startswith("#fn") else inner)
         elif ch.tag == "sup":
             out.append(f"[^{inner.strip()}]")
+        elif ch.tag == "br":
+            out.append(BR)                     # 段內換行（例如 2.1 參與深度五級的條列）
         else:
             out.append(inner)
     return "".join(out)
@@ -148,7 +151,8 @@ def inline_md(node):
 def norm_ws(s):
     # 照瀏覽器的規則收合空白：連續空白（含原始碼換行縮排）變成一個半形空格。
     # 全形空格（U+3000）不是 HTML 空白，保留原樣。
-    return re.sub(r"[ \t\r\n]+", " ", s).strip()
+    s = re.sub(r"[ \t\r\n]+", " ", s).strip()
+    return re.sub(r" ?" + BR + " ?", "\n", s)    # <br> 在稿件裡寫成換行
 
 
 def has_block_child(node):

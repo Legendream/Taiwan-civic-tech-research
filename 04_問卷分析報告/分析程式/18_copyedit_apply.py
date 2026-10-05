@@ -74,7 +74,7 @@ def md_to_html(text):
                 out.append(f'<a href="{htmllib.escape(href)}" target="_blank" rel="noopener">{label}</a>')
         pos = m.end()
     out.append(htmllib.escape(text[pos:], quote=False))
-    return "".join(out)
+    return "".join(out).replace("\n", "<br>")       # 段內換行還原成 <br>
 
 
 def plain(text):
