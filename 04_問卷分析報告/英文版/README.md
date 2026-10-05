@@ -18,6 +18,7 @@
 | `完整版譯稿.md` | 完整版全部正文，段落編號與中文改稿包一一對應 |
 | `術語表.md` | 中英術語（全部經 Claire 確認） |
 | `圖表與介面譯名.csv` | 圖表標題、說明、選項的中英對照，由程式套用 |
+| `Word版/` | 精華版、完整版的 Word 檔，文字和圖放在一起，給想拿報告去用的人（例如揪松團） |
 | `讀者測試意見_原文.md` | Antigravity 讀者測試的意見原文（採用與否見下方「讀者測試」一節） |
 
 ## 怎麼重新產生
@@ -28,9 +29,10 @@ python3 13_web_data.py           # 同時產生 figures.json 與 figures_en.json
 python3 20_build_english.py      # 產生 docs/en/、docs/en/full/、docs/js/i18n_en.js
 python3 19_translation_check.py  # 逐段核對英文數字和中文版一致
 python3 14_web_number_check.py   # 網頁數字稽核（含英文頁）
+python3 21_word_export.py        # 產生 Word版/（需要 Google Chrome，約 3 秒）
 ```
 
-**中文網頁改了，英文版要跟著改**：先改 `完整版譯稿.md` 對應的段落，再重跑上面四步。
+**中文網頁改了，英文版要跟著改**：先改 `完整版譯稿.md` 對應的段落，再重跑上面五步。
 `19_translation_check.py` 會擋下數字對不上的段落。
 
 ## 寫法原則
