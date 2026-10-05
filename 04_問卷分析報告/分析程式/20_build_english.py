@@ -173,6 +173,8 @@ def build_full(draft):
         html = html.replace(a, b)
     html = '<html lang="en">\n' + html
     # 中文版的「English」切換鈕換成「中文」，並在封面上方提示可以先看精華版
+    # 中文行動呼籲不放進英文完整版（英文版的行動呼籲另案處理）
+    html = re.sub(r" *<!-- 行動呼籲開始.*?<!-- 行動呼籲結束 -->\n\n", "", html, count=1, flags=re.S)
     for a, b in [(lang_toggle("../en/full/", "English", "Read in English"),
                   lang_toggle("../../full/", "中文", "閱讀中文版")),
                  ('<div class="summary-hint">第一次來？<a href="../">先看 5 分鐘精華版</a>。</div>',

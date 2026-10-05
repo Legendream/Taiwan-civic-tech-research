@@ -570,3 +570,29 @@ footer {
   section.chapter > h2:not(.part-title) { font-size: 18px; }
   body { font-size: 15.5px; }
 }
+
+/* -------------------------------------------------- 行動呼籲（中文精華版、完整版共用，22_build_summary_zh.py 產生） */
+.next-steps { margin: 40px 0; }
+.next-steps h2 { margin-top: 0; }
+.next-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+.next-step-card {
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--primary);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.next-step-card h3 { margin: 0 0 10px; font-size: 16px; }
+.next-step-card ul { margin: 0; padding-left: 0; list-style: none; }
+.next-step-card li { margin: 0 0 10px; font-size: 14px; line-height: 1.6; }
+.next-step-card li:last-child { margin-bottom: 0; }
+.next-step-card li a { font-weight: 600; display: block; }
+.next-step-card .step-why { color: var(--text-dim); font-size: 13px; }
+.next-step-card:nth-child(1) { border-top-color: var(--layer-never); }
+.next-step-card:nth-child(2) { border-top-color: var(--layer-done); }
+.next-step-card:nth-child(3) { border-top-color: var(--accent); }

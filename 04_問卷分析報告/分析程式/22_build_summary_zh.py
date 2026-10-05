@@ -3,6 +3,7 @@
 22_build_summary_zh.py — 產生中文精華版首頁 docs/index.html。
 
 來源只有一份：中文精華版/精華版_初稿.md（每段附〔根據〕）。
+行動呼籲另有一份：中文精華版/行動呼籲.md，同時放進精華版與完整版（docs/full/index.html 的插入點）。
 這支腳本拿掉〔根據〕與檔頭說明，寫出上線用的 中文精華版/精華版.md，再轉成網頁。
 Markdown 轉 HTML 沿用英文精華版的做法（20_build_english.py 的 md_block_to_html），版面共用同一份 CSS。
 
@@ -36,6 +37,10 @@ DOCS = C.PROJ / "docs"
 ZH_DIR = C.OUT_DIR / "中文精華版"
 DRAFT_MD = ZH_DIR / "精華版_初稿.md"
 ONLINE_MD = ZH_DIR / "精華版.md"
+CTA_MD = ZH_DIR / "行動呼籲.md"
+FULL_HTML = DOCS / "full" / "index.html"
+CTA_START = "<!-- 行動呼籲開始（22_build_summary_zh.py 產生，不要手改） -->"
+CTA_END = "<!-- 行動呼籲結束 -->"
 
 # 舊連結帶著完整版的章節錨點時，轉到 full/ 的同一處
 ANCHOR_REDIRECT = """<script>
@@ -49,6 +54,53 @@ ANCHOR_REDIRECT = """<script>
     window.addEventListener("hashchange", go);
   })();
 </script>"""
+
+
+CTA_LINE = re.compile(r"^- \[(.+?)\]\((.+?)\)：(.+)$")
+
+
+def cta_html(full_prefix):
+    """行動呼籲.md → 三張卡片。full_prefix：精華版是 "full/"，完整版是 ""。"""
+    src = CTA_MD.read_text(encoding="utf-8")
+    body = src.split("<!-- 正文開始 -->", 1)[1].split("<!-- 正文結束 -->", 1)[0]
+    title, cards, cur = "", [], None
+    for ln in body.strip().split("\n"):
+        ln = ln.strip()
+        if ln.startswith("## "):
+            title = ln[3:]
+        elif ln.startswith("### "):
+            cur = {"head": ln[4:], "items": []}
+            cards.append(cur)
+        elif ln.startswith("- "):
+            m = CTA_LINE.match(ln)
+            if not m or cur is None:
+                raise SystemExit(f"行動呼籲.md 格式不對：{ln}")
+            text, href, why = m.groups()
+            href = href.replace("{FULL}", full_prefix)
+            ext = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
+            cur["items"].append(f'<li><a href="{htmllib.escape(href)}"{ext}>{htmllib.escape(text)}</a>'
+                                f'<span class="step-why">{htmllib.escape(why)}</span></li>')
+        elif ln:
+            raise SystemExit(f"行動呼籲.md 有無法辨識的行：{ln}")
+    if len(cards) != 3 or not title:
+        raise SystemExit("行動呼籲.md 應該有一個 ## 標題與三張 ### 卡片")
+    cards_html = "\n".join(
+        f'          <div class="next-step-card"><h3>{htmllib.escape(c["head"])}</h3>'
+        f'<ul>{"".join(c["items"])}</ul></div>' for c in cards)
+    return (f'      <section class="next-steps" id="next-steps">\n'
+            f'        <h2>{htmllib.escape(title)}</h2>\n'
+            f'        <div class="next-steps-grid">\n{cards_html}\n        </div>\n'
+            f'      </section>')
+
+
+def update_full():
+    """把行動呼籲寫進完整版的插入點（兩個標記之間的內容整段換掉）。"""
+    html = FULL_HTML.read_text(encoding="utf-8")
+    pat = re.compile(re.escape(CTA_START) + r".*?" + re.escape(CTA_END), re.S)
+    if len(pat.findall(html)) != 1:
+        raise SystemExit("完整版找不到行動呼籲的插入點標記")
+    html = pat.sub(lambda m: f"{CTA_START}\n{cta_html('')}\n      {CTA_END}", html)
+    FULL_HTML.write_text(html, encoding="utf-8")
 
 
 def online_text():
@@ -74,6 +126,11 @@ def build(body):
     # 中文標題轉不出英文 slug，改用流水號當錨點
     n = iter(range(1, 100))
     content = re.sub(r'<h2 id="">', lambda m: f'<h2 id="sec-{next(n)}">', content)
+    # 行動呼籲放在「我們可以怎麼做」之後
+    about = re.search(r'<h2 id="sec-\d+">關於這份調查</h2>', content)
+    if not about:
+        raise SystemExit("精華版找不到「關於這份調查」，無法放行動呼籲")
+    content = content[:about.start()] + cta_html("full/") + "\n" + content[about.start():]
     desc = "127 位 g0v.tw 參與者告訴我們：怎麼進來、卡在哪裡、為什麼留下。臺灣公民科技調查的 5 分鐘精華版。"
     html = f"""<html lang="zh-Hant">
 <meta charset="utf-8">
@@ -126,7 +183,8 @@ def main():
         raise SystemExit("上線版還有〔根據〕：請確認每個〔根據〕都自成一段")
     write_online_md(body)
     out = build(body)
-    print(f"✅ 已產生 {ONLINE_MD.relative_to(C.PROJ)}、{out.relative_to(C.PROJ)}")
+    update_full()
+    print(f"✅ 已產生 {ONLINE_MD.relative_to(C.PROJ)}、{out.relative_to(C.PROJ)}，並更新 {FULL_HTML.relative_to(C.PROJ)} 的行動呼籲")
 
 
 if __name__ == "__main__":

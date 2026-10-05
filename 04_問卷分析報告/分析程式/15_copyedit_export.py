@@ -205,6 +205,8 @@ def walk(html_text):
             state["anchor"] = node.attrs["id"]
         cls = node.cls()
 
+        if "next-steps" in cls:                       # 行動呼籲：由 22_build_summary_zh.py 從 中文精華版/行動呼籲.md 產生，不進改稿包
+            return
         if node.tag == "aside":                       # 側欄目錄：整份當一個區塊
             items, nodes = [], []
             for a in iter_nodes(node):
