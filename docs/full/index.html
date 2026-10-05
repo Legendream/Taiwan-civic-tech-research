@@ -1,8 +1,10 @@
+<!doctype html>
+<html lang="zh-Hant">
 <meta charset="utf-8">
 <title>臺灣公民科技生態系與需求調查報告</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="由 g0v 揪松團發起的臺灣公民科技調查，整理了 127 位填答者的回饋：看看大家是誰、在專案裡卡在哪裡、又是什麼原因讓人願意留下來。">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="only light">
 <link rel="stylesheet" href="../css/style.css">
 <link rel="canonical" href="https://report.claire-cheng.com/full/">
 <link rel="alternate" hreflang="zh-Hant" href="https://report.claire-cheng.com/full/">
@@ -10,11 +12,17 @@
 
 <a class="skip-link" href="#main">跳到主要內容</a>
 
+<header class="topbar">
+  <a class="brand" href="#top">g0v.tw 揪松團問卷調查</a>
+  <a class="lang-toggle" href="../en/full/" hreflang="en" lang="en" title="Read in English">English</a>
+</header>
+
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <div class="layout">
   <aside class="sidebar" id="sidebar" aria-label="章節導覽">
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="sheet-head"><span class="sheet-title">目錄</span><button type="button" class="sheet-close" id="sheetClose" aria-label="關閉目錄"></button></div>
+    <div class="progress"><span id="progressLabel">已讀 0%</span><div class="progress-track"><div class="progress-fill"></div></div></div>
     <nav>
       <h2>報告</h2>
       <ul>
@@ -94,69 +102,30 @@
   </aside>
 
   <main id="main">
+    <div class="dock">
+      <div class="dock-where"><div class="dock-part" id="dockPart">報告</div><div class="dock-ch" id="dockCh">封面</div><div class="progress-track" aria-hidden="true"><div class="progress-fill"></div></div></div>
+      <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-expanded="false" aria-controls="sidebar">目錄</button>
+    </div>
     <div class="content">
 
       <div class="summary-hint">第一次來？<a href="../">先看 5 分鐘精華版</a>。</div>
       <header id="top" class="cover">
-        <div class="cover-main">
-          <div class="cover-text">
-            <p class="cover-eyebrow"><a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 揪松團問卷調查</p>
-            <h1 class="report-title">臺灣公民科技生態系與需求調查報告</h1>
-            <p class="cover-hook"><strong>127 份有效填答</strong>：看臺灣公民科技的參與者從哪裡來、做專案卡在哪裡、又是什麼讓大家願意留下來。</p>
-            <p class="meta-line">作者：鄭婷宇（Claire）　｜　資料範圍：截至 2026/7/20，共 <strong>127 份</strong>有效樣本</p>
-            <p class="meta-line">引用授權：CC BY 4.0, by <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> jothon &amp; <a href="https://claire-cheng.com/zh" target="_blank" rel="noopener">Claire Cheng</a></p>
-            <p class="download-row">
-              <a class="download-link" href="https://drive.google.com/file/d/1sjmVg55kwz9KhXLgtFsSFg_uNhs2AjOz/view?usp=sharing" target="_blank" rel="noopener">
-                📄 下載報告 PDF
-              </a>
-              <a class="btn-ghost" href="#intro">開始閱讀 ↓</a>
-            </p>
-          </div>
-
-          <div class="cover-illo">
-            <svg viewBox="0 0 220 220" role="img" aria-label="公民科技參與示意圖：外圈是旁觀者，中圈是通報者，核心是圍著電腦動手做專案的貢獻者">
-              <defs>
-                <g id="cover-person">
-                  <circle cx="0" cy="-7.5" r="3.4"/>
-                  <path d="M -5.5 5 C -5.5 -2 5.5 -2 5.5 5 Z"/>
-                </g>
-              </defs>
-
-              <circle cx="110" cy="110" r="95" fill="none" stroke="#1baf7a" stroke-width="1.5" stroke-dasharray="2,6" opacity="0.55"/>
-              <circle cx="110" cy="110" r="62" fill="none" stroke="#eb6834" stroke-width="1.5" stroke-dasharray="2,6" opacity="0.55"/>
-              <circle cx="110" cy="110" r="32" fill="#2a78d6" opacity="0.09"/>
-
-              <!-- 外圈：聽過或看過（旁觀）-->
-              <use href="#cover-person" x="34" y="72" fill="#1baf7a"/>
-              <use href="#cover-person" x="184" y="66" fill="#1baf7a"/>
-              <use href="#cover-person" x="168" y="178" fill="#1baf7a"/>
-              <use href="#cover-person" x="46" y="168" fill="#1baf7a"/>
-              <use href="#cover-person" x="110" y="20" fill="#1baf7a"/>
-
-              <!-- 中圈：接觸未參與（通報、關注）-->
-              <use href="#cover-person" x="62" y="64" fill="#eb6834"/>
-              <use href="#cover-person" x="160" y="80" fill="#eb6834"/>
-              <use href="#cover-person" x="140" y="150" fill="#eb6834"/>
-              <use href="#cover-person" x="70" y="146" fill="#eb6834"/>
-
-              <!-- 核心：做過專案，圍著一台筆電動手做 -->
-              <rect x="99" y="112" width="22" height="14" rx="2" fill="none" stroke="#2a78d6" stroke-width="2.2"/>
-              <line x1="99" y1="126" x2="121" y2="126" stroke="#2a78d6" stroke-width="2.2"/>
-              <path d="M 94 129 L 126 129 L 122 134 L 98 134 Z" fill="#2a78d6"/>
-              <path d="M 104 117 l 4 4 l 6 -6" fill="none" stroke="#eaf1fb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-
-              <use href="#cover-person" x="86" y="98" fill="#2a78d6"/>
-              <use href="#cover-person" x="134" y="98" fill="#2a78d6"/>
-              <use href="#cover-person" x="110" y="90" fill="#2a78d6"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="cover-stats">
-          <div class="stat"><b>127</b><span>份有效填答</span></div>
-          <div class="stat"><b>47</b><span>人真正動手做過專案</span></div>
-          <div class="stat"><b>15</b><span>張互動圖表</span></div>
-        </div>
+        <p class="cover-eyebrow"><a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 揪松團問卷調查</p>
+        <h1 class="report-title">臺灣公民科技生態系與需求調查報告</h1>
+        <p class="cover-hook"><strong>127 份有效填答</strong>：看臺灣公民科技的參與者從哪裡來、做專案卡在哪裡、又是什麼讓大家願意留下來。</p>
+        <p class="meta-line">作者：鄭婷宇（Claire）　｜　資料範圍：截至 2026/7/20，共 <strong>127 份</strong>有效樣本</p>
+        <p class="meta-line">引用授權：CC BY 4.0, by <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> jothon &amp; <a href="https://claire-cheng.com/zh" target="_blank" rel="noopener">Claire Cheng</a></p>
+        <p class="download-row">
+          <a class="download-link" href="https://drive.google.com/file/d/1sjmVg55kwz9KhXLgtFsSFg_uNhs2AjOz/view?usp=sharing" target="_blank" rel="noopener">
+           下載報告 PDF
+          </a>
+          <a class="btn-ghost" href="#intro">開始閱讀 ↓</a>
+        </p>
+        <figure class="layer-band" role="img" aria-label="127 位填答者：好奇者 26 人、使用者 54 人、實作者 47 人">
+          <div class="band-labels" aria-hidden="true"><div class="never"><div class="bl-n never">26</div><div class="bl-t">好奇者</div></div><div class="aware"><div class="bl-n aware">54</div><div class="bl-t">使用者</div></div><div class="done"><div class="bl-n done">47</div><div class="bl-t">實作者</div></div></div>
+          <div class="band" aria-hidden="true"><i class="never"></i><i class="aware"></i><i class="done"></i></div>
+          <div class="band-cap" aria-hidden="true">127 份有效填答</div>
+        </figure>
       </header>
 
       <section id="intro" class="chapter">
@@ -169,11 +138,11 @@
 
       <section id="persona" class="persona-picker chapter" aria-label="依身分推薦閱讀">
         <h3>照你的身分，挑這幾章先看</h3>
-        <p style="margin-top:0;color:var(--text-dim);font-size:13.5px">選一個最符合你現在狀況的角色；不選也沒關係，直接順著讀完全文也可以。</p>
-        <div class="persona-buttons">
-          <button type="button" class="persona-btn" data-persona="newcomer">🌱 我是新手，還在了解這個圈子</button>
-          <button type="button" class="persona-btn" data-persona="doing">🔧 我正在做（或做過）公民科技專案</button>
-          <button type="button" class="persona-btn" data-persona="funder">💡 我可能提供資源，或想支持社群經營</button>
+        <p>選一個最符合你現在狀況的角色；不選也沒關係，直接順著讀完全文也可以。</p>
+        <div class="persona-buttons" role="radiogroup" aria-label="照你的身分，挑這幾章先看">
+          <button type="button" class="persona-btn" role="radio" aria-checked="false" data-persona="newcomer">我是新手，還在了解這個圈子</button>
+          <button type="button" class="persona-btn" role="radio" aria-checked="false" data-persona="doing">我正在做（或做過）公民科技專案</button>
+          <button type="button" class="persona-btn" role="radio" aria-checked="false" data-persona="funder">我可能提供資源，或想支持社群經營</button>
         </div>
         <div class="persona-result" id="personaResult"></div>
       </section>
@@ -416,7 +385,7 @@
             <p>對社群的認同，淨變化在六項動機中降幅最大：初次有 20 人勾選，現在剩 17 人。其中 6 人（30%）不再以此為動機，另有 3 人是後來才新增勾選。這個現象值得探討：不再以社群為動機的人，是否在參與過程中逐漸消耗了對社群的認同？</p>
             <p>淨增加的動機只有兩項：「累積作品集、練功」與「想認識新朋友、找到同好」；前者增幅較大，屬於目標導向動機。</p>
             <p>單看持續參與的動機，不同年齡層有些差異：30 歲以下 10 人中有 4 人（40%）選了「累積作品集、練功」，高於全體的 19%；41 歲以上則以「認同目標」最高（佔 89%），差距最大的是「純粹覺得好玩」與「認同這個社群」，分別比全體低了 21 與 20 個百分點。</p>
-            <p style="font-size:13.5px;color:var(--text-dim)">不過三個年齡層各自只有 10 到 19 人，這項世代差異適合作為初步觀察，未來樣本增加後值得繼續追蹤。</p>
+            <p style="font-size:13.5px;color:var(--dim)">不過三個年齡層各自只有 10 到 19 人，這項世代差異適合作為初步觀察，未來樣本增加後值得繼續追蹤。</p>
           </div>
         </details>
       </section>
@@ -693,32 +662,32 @@
         <h2>一、對立假設：每條結論的另一種解釋</h2>
         <p>前面每一章在呈現主要發現時，都附上了另一種可能的解釋角度。這一節把這些對立假設集中整理，方便讀者比對查核，也方便判斷哪些結論能放心參考、哪些適合當作後續觀察的方向。</p>
         <div class="table-wrap">
-          <table>
+          <table class="stack-mobile">
             <thead><tr><th>本報告的結論</th><th>另一種可能的解釋</th></tr></thead>
             <tbody>
               <tr>
-                <td>27 位出資者的觀點代表出資端（第六章）</td>
-                <td>27 人裡有 26 人本身就在圈內。問卷是透過 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 管道發放的，接觸到的出資者本來多半是圈內人。這裡呈現的是圈內出資者的觀點，不代表基金會、企業或政府等圈外資助者的看法。</td>
+                <td data-label="本報告的結論">27 位出資者的觀點代表出資端<br><a class="ch-ref" href="#ch6">第六章</a></td>
+                <td data-label="另一種可能的解釋">27 人裡有 26 人本身就在圈內。問卷是透過 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 管道發放的，接觸到的出資者本來多半是圈內人。這裡呈現的是圈內出資者的觀點，不代表基金會、企業或政府等圈外資助者的看法。</td>
               </tr>
               <tr>
-                <td>人脈比經費更常被用到（第五章）</td>
-                <td>這題問的是「用過哪些」，不是「哪些最難拿到」。用得多可能只是因為人脈相對容易取得，不代表經費不重要或不稀缺。</td>
+                <td data-label="本報告的結論">人脈比經費更常被用到<br><a class="ch-ref" href="#ch5">第五章</a></td>
+                <td data-label="另一種可能的解釋">這題問的是「用過哪些」，不是「哪些最難拿到」。用得多可能只是因為人脈相對容易取得，不代表經費不重要或不稀缺。</td>
               </tr>
               <tr>
-                <td>社群歸屬感是最容易褪色的動機（第四章）</td>
-                <td>問卷只調查到還留在圈內的人。如果社群歸屬感真的留不住人，那些人可能早就離開、不會來填問卷，流失比例反而可能被低估。</td>
+                <td data-label="本報告的結論">社群歸屬感是最容易褪色的動機<br><a class="ch-ref" href="#ch4">第四章</a></td>
+                <td data-label="另一種可能的解釋">問卷只調查到還留在圈內的人。如果社群歸屬感真的留不住人，那些人可能早就離開、不會來填問卷，流失比例反而可能被低估。</td>
               </tr>
               <tr>
-                <td>41 歲以上以「認同目標」為主要理由（第四章）</td>
-                <td>可能是世代差異，也可能是留下來的人本身經過篩選：年紀較長還留在圈內的，本來就比較偏向使命導向。</td>
+                <td data-label="本報告的結論">41 歲以上以「認同目標」為主要理由<br><a class="ch-ref" href="#ch4">第四章</a></td>
+                <td data-label="另一種可能的解釋">可能是世代差異，也可能是留下來的人本身經過篩選：年紀較長還留在圈內的，本來就比較偏向使命導向。</td>
               </tr>
               <tr>
-                <td>擋住新人的是資訊不是技術（第七章）</td>
-                <td>這 26 位好奇者已經聽過或看過公民科技、只是還沒實際參與，不是完全沒聽過的一般大眾。對完全沒接觸過的人來說，門檻可能落在不同地方。</td>
+                <td data-label="本報告的結論">擋住新人的是資訊不是技術<br><a class="ch-ref" href="#ch7">第七章</a></td>
+                <td data-label="另一種可能的解釋">這 26 位好奇者已經聽過或看過公民科技、只是還沒實際參與，不是完全沒聽過的一般大眾。對完全沒接觸過的人來說，門檻可能落在不同地方。</td>
               </tr>
               <tr>
-                <td>雙北佔六成（第一章）</td>
-                <td>這反映了取樣的限制：問卷是透過 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 管道發放，且 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 的實體活動長期在台北舉辦，不能直接推論成社群真實的地理分布。</td>
+                <td data-label="本報告的結論">雙北佔六成<br><a class="ch-ref" href="#ch1">第一章</a></td>
+                <td data-label="另一種可能的解釋">這反映了取樣的限制：問卷是透過 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 管道發放，且 <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> 的實體活動長期在台北舉辦，不能直接推論成社群真實的地理分布。</td>
               </tr>
             </tbody>
           </table>
@@ -741,9 +710,9 @@
       <section class="next-steps" id="next-steps">
         <h2 class="part-title">下一步，你可以這樣做</h2>
         <div class="next-steps-grid">
-          <div class="next-step-card"><h3>🌱 還在觀望，想找地方開始</h3><ul><li><a href="https://civictech.tw/" target="_blank" rel="noopener">到台灣公民科技資料庫找專案</a><span class="step-why">先挑一個你關心的議題</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">看看近期的黑客松</a><span class="step-why">現場可以直接問人、跟著一起做</span></li><li><a href="https://g0v.hackmd.io/@daisuke/ryjkbFyuS" target="_blank" rel="noopener">加入 g0v 的 Slack</a><span class="step-why">在頻道裡找到正在做事的人</span></li></ul></div>
-          <div class="next-step-card"><h3>🔧 正在做專案</h3><ul><li><a href="https://g0v.hackmd.io/@jothon/ctpbook/" target="_blank" rel="noopener">翻翻 g0v 公民科技專案與社群手冊</a><span class="step-why">社群整理的專案經營經驗</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">到黑客松提案找夥伴</a><span class="step-why">上台三分鐘，說出你需要什麼樣的人</span></li><li><a href="https://docs.google.com/spreadsheets/d/1Z7am3yalgPbQLureQS0tWTofSKrLJRAI4473pFLErag/edit?gid=780169479#gid=780169479" target="_blank" rel="noopener">拿這份調查的原始資料寫提案</a><span class="step-why">問卷資料公開，CC BY 4.0</span></li></ul></div>
-          <div class="next-step-card"><h3>💡 想支持公民科技</h3><ul><li><a href="https://ocf.neticrm.tw/civicrm/contribute/transact?reset=1&amp;id=30" target="_blank" rel="noopener">認養大松</a><span class="step-why">小額捐款，讓黑客松繼續辦下去</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">到黑客松認識團隊</a><span class="step-why">介紹專家、牽線政府窗口、提供開會場地，都是實作者用得到的支持</span></li><li><a href="#rec-1-4">讀研究建議 1.4</a><span class="step-why">早期專案最缺資源，看看可以從哪裡幫忙</span></li></ul></div>
+          <div class="next-step-card"><h3>還在觀望，想找地方開始</h3><ul><li><a href="https://civictech.tw/" target="_blank" rel="noopener">到台灣公民科技資料庫找專案</a><span class="step-why">先挑一個你關心的議題</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">看看近期的黑客松</a><span class="step-why">現場可以直接問人、跟著一起做</span></li><li><a href="https://g0v.hackmd.io/@daisuke/ryjkbFyuS" target="_blank" rel="noopener">加入 g0v 的 Slack</a><span class="step-why">在頻道裡找到正在做事的人</span></li></ul></div>
+          <div class="next-step-card"><h3>正在做專案</h3><ul><li><a href="https://g0v.hackmd.io/@jothon/ctpbook/" target="_blank" rel="noopener">翻翻 g0v 公民科技專案與社群手冊</a><span class="step-why">社群整理的專案經營經驗</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">到黑客松提案找夥伴</a><span class="step-why">上台三分鐘，說出你需要什麼樣的人</span></li><li><a href="https://docs.google.com/spreadsheets/d/1Z7am3yalgPbQLureQS0tWTofSKrLJRAI4473pFLErag/edit?gid=780169479#gid=780169479" target="_blank" rel="noopener">拿這份調查的原始資料寫提案</a><span class="step-why">問卷資料公開，CC BY 4.0</span></li></ul></div>
+          <div class="next-step-card"><h3>想支持公民科技</h3><ul><li><a href="https://ocf.neticrm.tw/civicrm/contribute/transact?reset=1&amp;id=30" target="_blank" rel="noopener">認養大松</a><span class="step-why">小額捐款，讓黑客松繼續辦下去</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">到黑客松認識團隊</a><span class="step-why">介紹專家、牽線政府窗口、提供開會場地，都是實作者用得到的支持</span></li><li><a href="#rec-1-4">讀研究建議 1.4</a><span class="step-why">早期專案最缺資源，看看可以從哪裡幫忙</span></li></ul></div>
         </div>
       </section>
       <!-- 行動呼籲結束 -->
@@ -757,7 +726,7 @@
           <li>想核對報告裡的任何一個數字：分析程式、彙總數據 CSV 與可重跑的 pipeline 都公開在
             <a href="https://github.com/Legendream/Taiwan-civic-tech-research" target="_blank" rel="noopener">GitHub repo</a></li>
         </ul>
-        <p id="fn1" style="font-size:13px;color:var(--text-dim)">1. 零時政府（<a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a>）是臺灣一個推動公民科技的開源社群。名稱把 gov 的 o 換成 0，意思是從零開始重新想像政府的角色。 <a href="#top">↩ 回內文</a></p>
+        <p id="fn1" style="font-size:13px;color:var(--dim)">1. 零時政府（<a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a>）是臺灣一個推動公民科技的開源社群。名稱把 gov 的 o 換成 0，意思是從零開始重新想像政府的角色。 <a href="#top">↩ 回內文</a></p>
       </section>
 
       <footer>
@@ -770,9 +739,6 @@
   </main>
 </div>
 
-<a class="lang-toggle" href="../en/full/" hreflang="en" title="Read in English">English</a>
-<button type="button" class="theme-toggle" id="themeToggle" aria-label="切換深色／淺色模式">🌙 深色</button>
-<button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-expanded="false" aria-controls="sidebar">☰ 章節</button>
 
 <script src="../data/figures.js"></script>
 <script src="../js/charts.js"></script>
