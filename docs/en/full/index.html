@@ -1,9 +1,10 @@
+<!doctype html>
 <html lang="en">
 <meta charset="utf-8">
 <title>Taiwan Civic Tech Ecosystem and Needs Survey: Full Report</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="A survey run by g0v.tw Jothon, based on 127 responses: who takes part in Taiwan&#x27;s civic tech community, where they get stuck on projects, and what makes them want to stay.">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="only light">
 <link rel="stylesheet" href="../../css/style.css">
 <link rel="canonical" href="https://report.claire-cheng.com/en/full/">
 <link rel="alternate" hreflang="zh-Hant" href="https://report.claire-cheng.com/full/">
@@ -11,11 +12,17 @@
 
 <a class="skip-link" href="#main">Skip to main content</a>
 
+<header class="topbar">
+  <a class="brand" href="#top">A survey by g0v.tw Jothon</a>
+  <a class="lang-toggle" href="../../full/" hreflang="zh-Hant" lang="zh-Hant" title="閱讀中文版">中文</a>
+</header>
+
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <div class="layout">
   <aside class="sidebar" id="sidebar" aria-label="Contents">
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="sheet-head"><span class="sheet-title">Contents</span><button type="button" class="sheet-close" id="sheetClose" aria-label="Close contents"></button></div>
+    <div class="progress"><span id="progressLabel">0% read</span><div class="progress-track"><div class="progress-fill"></div></div></div>
     <nav>
       <h2>Report</h2>
       <ul>
@@ -95,64 +102,25 @@
   </aside>
 
   <main id="main">
+    <div class="dock">
+      <div class="dock-where"><div class="dock-part" id="dockPart">Report</div><div class="dock-ch" id="dockCh">Cover</div><div class="progress-track" aria-hidden="true"><div class="progress-fill"></div></div></div>
+      <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-expanded="false" aria-controls="sidebar">Contents</button>
+    </div>
     <div class="content">
 
       <p class="summary-hint">New here? <a href="../">Start with the 5-minute summary</a>.</p>
       <header id="top" class="cover">
-        <div class="cover-main">
-          <div class="cover-text">
-            <p class="cover-eyebrow">A survey by <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> Jothon</p>
-            <h1 class="report-title">Taiwan Civic Tech Ecosystem and Needs Survey</h1>
-            <p class="cover-hook"><strong>127 valid responses</strong>: where Taiwan's civic tech participants come from, where they get stuck on projects, and what makes them want to stay.</p>
-            <p class="meta-line">Author: Claire Cheng (鄭婷宇) | Data: <strong>127</strong> valid responses collected up to 20 July 2026</p>
-            <p class="meta-line">License: CC BY 4.0, by <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> Jothon &amp; <a href="https://claire-cheng.com/en" target="_blank" rel="noopener">Claire Cheng</a></p>
-            <p class="download-row"><a href="https://drive.google.com/file/d/1sjmVg55kwz9KhXLgtFsSFg_uNhs2AjOz/view?usp=sharing" target="_blank" rel="noopener"> 📄 Download the report (PDF, in Mandarin) </a> <a href="#intro">Start reading ↓</a></p>
-          </div>
-
-          <div class="cover-illo">
-            <svg viewBox="0 0 220 220" role="img" aria-label="Illustration of civic tech involvement: onlookers in the outer ring, contributors of information in the middle ring, and builders working around a laptop at the core">
-              <defs>
-                <g id="cover-person">
-                  <circle cx="0" cy="-7.5" r="3.4"/>
-                  <path d="M -5.5 5 C -5.5 -2 5.5 -2 5.5 5 Z"/>
-                </g>
-              </defs>
-
-              <circle cx="110" cy="110" r="95" fill="none" stroke="#1baf7a" stroke-width="1.5" stroke-dasharray="2,6" opacity="0.55"/>
-              <circle cx="110" cy="110" r="62" fill="none" stroke="#eb6834" stroke-width="1.5" stroke-dasharray="2,6" opacity="0.55"/>
-              <circle cx="110" cy="110" r="32" fill="#2a78d6" opacity="0.09"/>
-
-              
-              <use href="#cover-person" x="34" y="72" fill="#1baf7a"/>
-              <use href="#cover-person" x="184" y="66" fill="#1baf7a"/>
-              <use href="#cover-person" x="168" y="178" fill="#1baf7a"/>
-              <use href="#cover-person" x="46" y="168" fill="#1baf7a"/>
-              <use href="#cover-person" x="110" y="20" fill="#1baf7a"/>
-
-              
-              <use href="#cover-person" x="62" y="64" fill="#eb6834"/>
-              <use href="#cover-person" x="160" y="80" fill="#eb6834"/>
-              <use href="#cover-person" x="140" y="150" fill="#eb6834"/>
-              <use href="#cover-person" x="70" y="146" fill="#eb6834"/>
-
-              
-              <rect x="99" y="112" width="22" height="14" rx="2" fill="none" stroke="#2a78d6" stroke-width="2.2"/>
-              <line x1="99" y1="126" x2="121" y2="126" stroke="#2a78d6" stroke-width="2.2"/>
-              <path d="M 94 129 L 126 129 L 122 134 L 98 134 Z" fill="#2a78d6"/>
-              <path d="M 104 117 l 4 4 l 6 -6" fill="none" stroke="#eaf1fb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-
-              <use href="#cover-person" x="86" y="98" fill="#2a78d6"/>
-              <use href="#cover-person" x="134" y="98" fill="#2a78d6"/>
-              <use href="#cover-person" x="110" y="90" fill="#2a78d6"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="cover-stats">
-          <div class="stat"><b>127</b><span>valid responses</span></div>
-          <div class="stat"><b>47</b><span>people have actually worked on a project</span></div>
-          <div class="stat"><b>15</b><span>interactive charts</span></div>
-        </div>
+        <p class="cover-eyebrow">A survey by <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> Jothon</p>
+        <h1 class="report-title">Taiwan Civic Tech Ecosystem and Needs Survey</h1>
+        <p class="cover-hook"><strong>127 valid responses</strong>: where Taiwan's civic tech participants come from, where they get stuck on projects, and what makes them want to stay.</p>
+        <p class="meta-line">Author: Claire Cheng (鄭婷宇) | Data: <strong>127</strong> valid responses collected up to 20 July 2026</p>
+        <p class="meta-line">License: CC BY 4.0, by <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> Jothon &amp; <a href="https://claire-cheng.com/en" target="_blank" rel="noopener">Claire Cheng</a></p>
+        <p class="download-row"><a class="download-link" href="https://drive.google.com/file/d/1sjmVg55kwz9KhXLgtFsSFg_uNhs2AjOz/view?usp=sharing" target="_blank" rel="noopener">Download the report (PDF, in Mandarin) </a> <a class="btn-ghost" href="#intro">Start reading ↓</a></p>
+        <figure class="layer-band" role="img" aria-label="127 respondents: 26 Curious, 54 Users, 47 Builders">
+          <div class="band-labels" aria-hidden="true"><div class="never"><div class="bl-n never">26</div><div class="bl-t">The Curious</div></div><div class="aware"><div class="bl-n aware">54</div><div class="bl-t">The Users</div></div><div class="done"><div class="bl-n done">47</div><div class="bl-t">The Builders</div></div></div>
+          <div class="band" aria-hidden="true"><i class="never"></i><i class="aware"></i><i class="done"></i></div>
+          <div class="band-cap" aria-hidden="true">127 valid responses</div>
+        </figure>
       </header>
 
       <section id="intro" class="chapter">
@@ -165,11 +133,11 @@
 
       <section id="persona" class="persona-picker chapter" aria-label="Reading suggestions by role">
         <h3>Where to start, based on who you are</h3>
-        <p style="margin-top:0;color:var(--text-dim);font-size:13.5px">Pick the role that fits you best. Or skip this and read from start to finish.</p>
-        <div class="persona-buttons">
-          <button type="button" class="persona-btn" data-persona="newcomer">🌱 I'm new and still getting to know the community</button>
-          <button type="button" class="persona-btn" data-persona="doing">🔧 I'm working on (or have worked on) a civic tech project</button>
-          <button type="button" class="persona-btn" data-persona="funder">💡 I might provide resources, or want to support the community</button>
+        <p>Pick the role that fits you best. Or skip this and read from start to finish.</p>
+        <div class="persona-buttons" role="radiogroup" aria-label="Where to start, based on who you are">
+          <button type="button" class="persona-btn" role="radio" aria-checked="false" data-persona="newcomer">I'm new and still getting to know the community</button>
+          <button type="button" class="persona-btn" role="radio" aria-checked="false" data-persona="doing">I'm working on (or have worked on) a civic tech project</button>
+          <button type="button" class="persona-btn" role="radio" aria-checked="false" data-persona="funder">I might provide resources, or want to support the community</button>
         </div>
         <div class="persona-result" id="personaResult"></div>
       </section>
@@ -412,7 +380,7 @@
             <p>Identifying with the community had the biggest net drop of the six motives: 20 people chose it at first, and 17 do now. Of the original 20, 6 (30%) no longer give it as a reason, while 3 others picked it up later. This is worth looking into: did the people who stopped naming the community as a reason gradually lose their sense of belonging along the way?</p>
             <p>Only two motives grew overall: "building a portfolio and sharpening skills" and "Meet new people and like-minded friends". The first grew more, and it is a goal-oriented motive.</p>
             <p>Looking only at why people stay, there are some differences by age. Among those 30 and under, 4 of 10 (40%) chose "building a portfolio and sharpening skills", higher than 19% across all Builders. Among those 41 and over, "believing in the goal" stands out at 89%, and the biggest gaps are "just for fun" and "identifying with the community", 21 and 20 percentage points below the overall figures.</p>
-            <p style="font-size:13.5px;color:var(--text-dim)">But each age group has only 10 to 19 people, so these generational differences are an early observation, worth tracking again as more responses come in.</p>
+            <p style="font-size:13.5px;color:var(--dim)">But each age group has only 10 to 19 people, so these generational differences are an early observation, worth tracking again as more responses come in.</p>
           </div>
         </details>
       </section>
@@ -689,32 +657,32 @@
         <h2>1. Alternative explanations for each conclusion</h2>
         <p>Each chapter offered another possible explanation alongside its main findings. This section brings these alternative explanations together, so readers can check them and judge which conclusions can be relied on and which are better treated as directions for further observation.</p>
         <div class="table-wrap">
-          <table>
+          <table class="stack-mobile">
             <thead><tr><th>This report's conclusion</th><th>Another possible explanation</th></tr></thead>
             <tbody>
               <tr>
-                <td>The 27 funders represent the views of funders (Chapter 6)</td>
-                <td>26 of the 27 are already part of the community. The survey was shared through <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> channels, so the funders it reached were mostly insiders. These are insiders' views, not those of outside funders such as foundations, companies or governments.</td>
+                <td data-label="This report's conclusion">The 27 funders represent the views of funders<br><a class="ch-ref" href="#ch6">Chapter 6</a></td>
+                <td data-label="Another possible explanation">26 of the 27 are already part of the community. The survey was shared through <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> channels, so the funders it reached were mostly insiders. These are insiders' views, not those of outside funders such as foundations, companies or governments.</td>
               </tr>
               <tr>
-                <td>Personal networks are used more than funding (Chapter 5)</td>
-                <td>The question asked "which have you used", not "which are hardest to get". Networks may be used more simply because they are easier to come by; this does not mean funding is unimportant or not scarce.</td>
+                <td data-label="This report's conclusion">Personal networks are used more than funding<br><a class="ch-ref" href="#ch5">Chapter 5</a></td>
+                <td data-label="Another possible explanation">The question asked "which have you used", not "which are hardest to get". Networks may be used more simply because they are easier to come by; this does not mean funding is unimportant or not scarce.</td>
               </tr>
               <tr>
-                <td>The sense of belonging is the motive that fades most (Chapter 4)</td>
-                <td>The survey only reached people still in the community. If belonging really fails to keep people, those people may have left long ago and never answered the survey, so the drop may actually be underestimated.</td>
+                <td data-label="This report's conclusion">The sense of belonging is the motive that fades most<br><a class="ch-ref" href="#ch4">Chapter 4</a></td>
+                <td data-label="Another possible explanation">The survey only reached people still in the community. If belonging really fails to keep people, those people may have left long ago and never answered the survey, so the drop may actually be underestimated.</td>
               </tr>
               <tr>
-                <td>People aged 41 and over stay mainly because they "believe in the goal" (Chapter 4)</td>
-                <td>This may be a generational difference, or it may be that those who stay have already been filtered: older people still in the community are more likely to be mission-driven to begin with.</td>
+                <td data-label="This report's conclusion">People aged 41 and over stay mainly because they "believe in the goal"<br><a class="ch-ref" href="#ch4">Chapter 4</a></td>
+                <td data-label="Another possible explanation">This may be a generational difference, or it may be that those who stay have already been filtered: older people still in the community are more likely to be mission-driven to begin with.</td>
               </tr>
               <tr>
-                <td>What holds newcomers back is information, not technology (Chapter 7)</td>
-                <td>These 26 people have already heard of or seen civic tech, but not taken part; they are not the general public who have never heard of it. For people with no contact at all, the barriers may lie elsewhere.</td>
+                <td data-label="This report's conclusion">What holds newcomers back is information, not technology<br><a class="ch-ref" href="#ch7">Chapter 7</a></td>
+                <td data-label="Another possible explanation">These 26 people have already heard of or seen civic tech, but not taken part; they are not the general public who have never heard of it. For people with no contact at all, the barriers may lie elsewhere.</td>
               </tr>
               <tr>
-                <td>Six in ten live in Taipei or New Taipei (Chapter 1)</td>
-                <td>This reflects a limit of the sample: the survey was shared through <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> channels, and <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a>'s in-person events have long been held in Taipei, so it cannot be taken as the community's real geographic spread.</td>
+                <td data-label="This report's conclusion">Six in ten live in Taipei or New Taipei<br><a class="ch-ref" href="#ch1">Chapter 1</a></td>
+                <td data-label="Another possible explanation">This reflects a limit of the sample: the survey was shared through <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> channels, and <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a>'s in-person events have long been held in Taipei, so it cannot be taken as the community's real geographic spread.</td>
               </tr>
             </tbody>
           </table>
@@ -738,9 +706,9 @@
         <h2 class="part-title">Your next step</h2>
         <p>Most of these pages are in Mandarin.</p>
         <div class="next-steps-grid">
-          <div class="next-step-card"><h3>🌱 Still looking for a way in</h3><ul><li><a href="https://civictech.tw/" target="_blank" rel="noopener">Browse projects on Civic Tech Taiwan</a><span class="step-why">start with an issue you care about</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">Check upcoming hackathons</a><span class="step-why">ask people in person and join in on the day</span></li><li><a href="https://g0v.hackmd.io/@daisuke/ryjkbFyuS" target="_blank" rel="noopener">Join g0v&#x27;s Slack</a><span class="step-why">find the channels where people are actively working</span></li></ul></div>
-          <div class="next-step-card"><h3>🔧 Already working on a project</h3><ul><li><a href="https://g0v.hackmd.io/@jothon/ctpbook/" target="_blank" rel="noopener">Read the g0v civic tech project and community handbook</a><span class="step-why">project experience collected by the community</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">Pitch at a hackathon to find teammates</a><span class="step-why">three minutes on stage to say who you need</span></li><li><a href="https://docs.google.com/spreadsheets/d/1Z7am3yalgPbQLureQS0tWTofSKrLJRAI4473pFLErag/edit?gid=780169479#gid=780169479" target="_blank" rel="noopener">Use this survey&#x27;s raw data in your proposal</a><span class="step-why">open data, CC BY 4.0</span></li></ul></div>
-          <div class="next-step-card"><h3>💡 Looking to collaborate</h3><ul><li><a href="https://civictech.tw/#wish-pool" target="_blank" rel="noopener">See what help projects are asking for</a><span class="step-why">each project idea lists the skills it needs</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">Meet teams at a hackathon</a><span class="step-why">introducing experts, connecting a team with government contacts or offering a meeting space all help</span></li></ul></div>
+          <div class="next-step-card"><h3>Still looking for a way in</h3><ul><li><a href="https://civictech.tw/" target="_blank" rel="noopener">Browse projects on Civic Tech Taiwan</a><span class="step-why">start with an issue you care about</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">Check upcoming hackathons</a><span class="step-why">ask people in person and join in on the day</span></li><li><a href="https://g0v.hackmd.io/@daisuke/ryjkbFyuS" target="_blank" rel="noopener">Join g0v&#x27;s Slack</a><span class="step-why">find the channels where people are actively working</span></li></ul></div>
+          <div class="next-step-card"><h3>Already working on a project</h3><ul><li><a href="https://g0v.hackmd.io/@jothon/ctpbook/" target="_blank" rel="noopener">Read the g0v civic tech project and community handbook</a><span class="step-why">project experience collected by the community</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">Pitch at a hackathon to find teammates</a><span class="step-why">three minutes on stage to say who you need</span></li><li><a href="https://docs.google.com/spreadsheets/d/1Z7am3yalgPbQLureQS0tWTofSKrLJRAI4473pFLErag/edit?gid=780169479#gid=780169479" target="_blank" rel="noopener">Use this survey&#x27;s raw data in your proposal</a><span class="step-why">open data, CC BY 4.0</span></li></ul></div>
+          <div class="next-step-card"><h3>Looking to collaborate</h3><ul><li><a href="https://civictech.tw/#wish-pool" target="_blank" rel="noopener">See what help projects are asking for</a><span class="step-why">each project idea lists the skills it needs</span></li><li><a href="https://g0v.hackmd.io/@jothon/event_promote_rundown" target="_blank" rel="noopener">Meet teams at a hackathon</a><span class="step-why">introducing experts, connecting a team with government contacts or offering a meeting space all help</span></li></ul></div>
         </div>
       </section>
       <!-- 行動呼籲結束 -->
@@ -752,7 +720,7 @@
           <li>You are welcome to analyze the anonymized raw survey data yourself. It is licensed under CC BY 4.0, credited to the survey respondents ("臺灣公民科技推廣問卷填寫者"): <a href="https://docs.google.com/spreadsheets/d/1Z7am3yalgPbQLureQS0tWTofSKrLJRAI4473pFLErag/edit?gid=780169479#gid=780169479" target="_blank" rel="noopener">go to the data sheet (in Mandarin)</a></li>
           <li>To check any number in this report, the analysis code, summary data CSVs and re-runnable pipeline are all public in this <a href="https://github.com/Legendream/Taiwan-civic-tech-research" target="_blank" rel="noopener">GitHub repo</a></li>
         </ul>
-        <p id="fn1" style="font-size:13px;color:var(--text-dim)">1. <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> (零時政府) is an open source community in Taiwan that promotes civic tech. The name swaps the "o" in "gov" for a zero, to rethink the role of government from zero. <a href="#top">↩ Back to text</a></p>
+        <p id="fn1" style="font-size:13px;color:var(--dim)">1. <a href="https://g0v.tw/" target="_blank" rel="noopener">g0v.tw</a> (零時政府) is an open source community in Taiwan that promotes civic tech. The name swaps the "o" in "gov" for a zero, to rethink the role of government from zero. <a href="#top">↩ Back to text</a></p>
       </section>
 
       <footer>
@@ -764,9 +732,6 @@
   </main>
 </div>
 
-<a class="lang-toggle" href="../../full/" hreflang="zh-Hant" title="閱讀中文版">中文</a>
-<button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch between dark and light mode">🌙 Dark</button>
-<button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-expanded="false" aria-controls="sidebar">☰ Contents</button>
 
 <script src="../../js/i18n_en.js"></script>
 <script src="../../data/figures_en.js"></script>

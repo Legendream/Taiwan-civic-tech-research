@@ -1,73 +1,256 @@
-/* app.js — 章節導覽、閱讀進度、手機選單、身分推薦。不依賴任何外部函式庫。 */
+/* app.js — 章節導覽、閱讀進度、手機目錄、身分推薦、圖表收合。不依賴任何外部函式庫。
+ * 2026-10 重設計：移除深色模式切換；精華版的章節目錄、段落編號、分段進度、
+ * 完整版的章節切換都由這支程式從既有標題產生，不需要改產生程式。
+ * 沒有 JavaScript 時頁面仍可完整閱讀，只是少了這些導覽輔助。
+ */
 (function () {
   "use strict";
 
-  // ---------------------------------------------------------------- 手機側邊欄
-  var sidebar = document.getElementById("sidebar");
-  var overlay = document.getElementById("sidebarOverlay");
-  var toggleBtn = document.getElementById("mobileNavToggle");
-
-  function openSidebar() {
-    sidebar.classList.add("open");
-    overlay.classList.add("open");
-    toggleBtn.setAttribute("aria-expanded", "true");
-  }
-  function closeSidebar() {
-    sidebar.classList.remove("open");
-    overlay.classList.remove("open");
-    toggleBtn.setAttribute("aria-expanded", "false");
-  }
-  if (toggleBtn) {
-    toggleBtn.addEventListener("click", function () {
-      if (sidebar.classList.contains("open")) closeSidebar(); else openSidebar();
-    });
-    overlay.addEventListener("click", closeSidebar);
-    sidebar.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", closeSidebar);
-    });
-  }
-
-  // ---------------------------------------------------------------- 閱讀進度
-  var progressFill = document.getElementById("progressFill");
-  function updateProgress() {
-    var doc = document.documentElement;
-    var scrollable = doc.scrollHeight - doc.clientHeight;
-    var pct = scrollable > 0 ? (doc.scrollTop || document.body.scrollTop) / scrollable : 0;
-    if (progressFill) progressFill.style.width = Math.min(100, Math.max(0, pct * 100)) + "%";
-  }
-  window.addEventListener("scroll", updateProgress, { passive: true });
-  updateProgress();
-
-  // ---------------------------------------------------------------- Scrollspy
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll(".sidebar nav a[href^='#']"));
-  var sections = navLinks
-    .map(function (a) {
-      var id = a.getAttribute("href").slice(1);
-      var target = document.getElementById(id);
-      return target ? { link: a, target: target } : null;
-    })
-    .filter(Boolean);
-
-  function onScrollSpy() {
-    var y = window.scrollY + 120;
-    var current = null;
-    sections.forEach(function (s) {
-      if (s.target.offsetTop <= y) current = s;
-    });
-    navLinks.forEach(function (a) { a.classList.remove("active"); });
-    if (current) current.link.classList.add("active");
-  }
-  window.addEventListener("scroll", onScrollSpy, { passive: true });
-  onScrollSpy();
-
-  // ---------------------------------------------------------------- 身分推薦
   // 介面文字。中文頁用預設值；英文頁在載入本檔前設定 window.APP_TEXT、window.PERSONA_ROUTES_OVERRIDE 覆蓋。
   var UI = Object.assign({
+    tocTitle: "本頁章節",
     startWith: "建議先讀：",
-    dark: "🌙 深色", light: "☀️ 淺色",
-    toDark: "切換成深色模式", toLight: "切換成淺色模式",
+    nextChapter: "下一章",
+    readPct: "已讀 {p}%",
   }, window.APP_TEXT || {});
 
+  var doc = document.documentElement;
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var isDesktop = function () { return window.matchMedia("(min-width: 1024px)").matches; };
+
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+  function scrollPct() {
+    var se = document.scrollingElement || doc;
+    var max = se.scrollHeight - window.innerHeight;
+    return max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+  }
+  function onScroll(fn) {
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () { ticking = false; fn(); });
+    }, { passive: true });
+    window.addEventListener("resize", fn);
+    fn();
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  // ================================================================ 精華版
+  var summary = document.querySelector(".summary-page");
+  if (summary) {
+    var heads = Array.prototype.slice.call(summary.querySelectorAll(":scope > h2[id]"));
+    var total = heads.length;
+
+    // 每段 h2 上方加「03 / 06」，同時收集目錄項目
+    var tocItems = heads.map(function (h, i) {
+      var num = el("p", "sec-num", pad2(i + 1) + " / " + pad2(total));
+      num.setAttribute("aria-hidden", "true");
+      h.parentNode.insertBefore(num, h);
+      return { id: h.id, n: pad2(i + 1), text: h.textContent };
+    });
+
+    function buildList() {
+      var ol = el("ol");
+      tocItems.forEach(function (t) {
+        var li = el("li");
+        var a = el("a");
+        a.href = "#" + t.id;
+        a.appendChild(el("span", "toc-n", t.n));
+        a.appendChild(document.createTextNode(t.text));
+        li.appendChild(a);
+        ol.appendChild(li);
+      });
+      return ol;
+    }
+
+    // 手機：封面下方的目錄
+    var cover = summary.querySelector(".cover");
+    if (cover && total) {
+      var toc = el("nav", "page-toc");
+      toc.setAttribute("aria-label", UI.tocTitle);
+      toc.appendChild(el("p", "toc-title", UI.tocTitle));
+      toc.appendChild(buildList());
+      cover.appendChild(toc);
+    }
+
+    // 桌機：左側章節軌
+    var layout = document.querySelector(".layout");
+    var main = document.getElementById("main");
+    var railLinks = [];
+    if (layout && main && total) {
+      var rail = el("nav", "page-rail");
+      rail.setAttribute("aria-label", UI.tocTitle);
+      var box = el("div", "rail-box");
+      box.appendChild(el("p", "toc-title", UI.tocTitle));
+      var list = buildList();
+      box.appendChild(list);
+      rail.appendChild(box);
+      layout.insertBefore(rail, main);
+      railLinks = Array.prototype.slice.call(list.querySelectorAll("a"));
+    }
+
+    // 頂列下方的分段進度
+    var topbar = document.querySelector(".topbar");
+    var segFills = [], segLabel = null;
+    if (topbar && total) {
+      var seg = el("div", "seg-progress");
+      seg.setAttribute("aria-hidden", "true");
+      var segs = el("div", "segs");
+      heads.forEach(function () {
+        var s = el("i", "seg");
+        var b = el("b");
+        s.appendChild(b);
+        segs.appendChild(s);
+        segFills.push(b);
+      });
+      seg.appendChild(segs);
+      segLabel = el("span", "seg-label", "0 / " + total);
+      seg.appendChild(segLabel);
+      topbar.appendChild(seg);
+    }
+
+    onScroll(function () {
+      var line = isDesktop() ? 120 : 150;
+      var cur = -1, frac = 0;
+      for (var i = 0; i < heads.length; i++) {
+        if (heads[i].getBoundingClientRect().top <= line) cur = i;
+      }
+      if (cur >= 0) {
+        var top = heads[cur].getBoundingClientRect().top;
+        var nextTop = cur + 1 < heads.length
+          ? heads[cur + 1].getBoundingClientRect().top
+          : summary.getBoundingClientRect().bottom;
+        var span = nextTop - top;
+        frac = span > 0 ? Math.min(1, Math.max(0, (line - top) / span)) : 1;
+      }
+      segFills.forEach(function (b, i) {
+        b.style.width = (i < cur ? 100 : i === cur ? Math.round(frac * 100) : 0) + "%";
+      });
+      if (segLabel) segLabel.textContent = (cur + 1) + " / " + total;
+      railLinks.forEach(function (a, i) { a.classList.toggle("active", i === Math.max(cur, 0)); });
+    });
+
+    // 手機上把標記 data-fold="mobile" 的圖表收進「展開」，點開再畫
+    if (!isDesktop()) {
+      var figs = (window.FIGDATA && window.FIGDATA.figures) || {};
+      summary.querySelectorAll('.chart-block[data-fold="mobile"]').forEach(function (block) {
+        var fig = figs[block.getAttribute("data-chart")];
+        var det = el("details", "chart-fold");
+        var sum = el("summary", null, fig ? fig.title : block.getAttribute("data-chart"));
+        det.appendChild(sum);
+        block.parentNode.insertBefore(det, block);
+        det.appendChild(block);
+        det.addEventListener("toggle", function () {
+          if (det.open && window.ChartKit && window.ChartKit.render) window.ChartKit.render(block);
+        });
+      });
+    }
+  }
+
+  // ================================================================ 完整版：章節導覽
+  var sidebar = document.getElementById("sidebar");
+  if (sidebar) {
+    var overlay = document.getElementById("sidebarOverlay");
+    var toggleBtn = document.getElementById("mobileNavToggle");
+    var closeBtn = document.getElementById("sheetClose");
+
+    function openSheet() {
+      sidebar.classList.add("open");
+      if (overlay) overlay.classList.add("open");
+      if (toggleBtn) toggleBtn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+      var cur = sidebar.querySelector("a.active");
+      if (cur) cur.scrollIntoView({ block: "center" });
+      if (closeBtn) closeBtn.focus();
+    }
+    function closeSheet(returnFocus) {
+      if (!sidebar.classList.contains("open")) return;
+      sidebar.classList.remove("open");
+      if (overlay) overlay.classList.remove("open");
+      if (toggleBtn) toggleBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      if (returnFocus && toggleBtn) toggleBtn.focus();
+    }
+    if (toggleBtn) toggleBtn.addEventListener("click", openSheet);
+    if (closeBtn) closeBtn.addEventListener("click", function () { closeSheet(true); });
+    if (overlay) overlay.addEventListener("click", function () { closeSheet(true); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeSheet(true);
+    });
+    sidebar.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () { closeSheet(false); });
+    });
+    window.addEventListener("resize", function () { if (isDesktop()) closeSheet(false); });
+
+    // 章節結構：大部（nav h2）→ 章（第一層連結）→ 小節（.sub 連結）
+    var navLinks = Array.prototype.slice.call(sidebar.querySelectorAll("nav a[href^='#']"));
+    var entries = navLinks.map(function (a) {
+      var target = document.getElementById(decodeURIComponent(a.getAttribute("href").slice(1)));
+      if (!target) return null;
+      var isSub = !!a.closest(".sub");
+      var topLi = isSub ? a.closest(".sub").closest("li") : a.closest("li");
+      var topLink = topLi ? topLi.querySelector(":scope > a") : a;
+      var ul = topLi ? topLi.parentNode : null;
+      var group = ul && ul.previousElementSibling && ul.previousElementSibling.tagName === "H2"
+        ? ul.previousElementSibling.textContent : "";
+      return { link: a, target: target, isSub: isSub, topLi: topLi, topLink: topLink, group: group };
+    }).filter(Boolean);
+
+    var dockPart = document.getElementById("dockPart");
+    var dockCh = document.getElementById("dockCh");
+    var fills = document.querySelectorAll(".progress-fill");
+    var pctLabel = document.getElementById("progressLabel");
+
+    onScroll(function () {
+      var y = window.scrollY + (isDesktop() ? 120 : 160);
+      var cur = null;
+      entries.forEach(function (s) {
+        if (s.target.getBoundingClientRect().top + window.scrollY <= y) cur = s;
+      });
+      entries.forEach(function (s) {
+        s.link.classList.remove("active", "cur");
+        if (s.topLi) s.topLi.classList.remove("open");
+      });
+      if (cur) {
+        cur.link.classList.add("active");
+        if (cur.topLi) cur.topLi.classList.add("open");
+        if (cur.isSub && cur.topLink) cur.topLink.classList.add("cur");
+        if (dockPart) dockPart.textContent = cur.group;
+        if (dockCh) dockCh.textContent = cur.isSub && cur.topLink
+          ? cur.topLink.textContent + " › " + cur.link.textContent
+          : cur.link.textContent;
+      }
+      var p = scrollPct();
+      fills.forEach(function (f) { f.style.width = Math.round(p * 100) + "%"; });
+      if (pctLabel) pctLabel.textContent = UI.readPct.replace("{p}", Math.round(p * 100));
+    });
+
+    // 每一章結尾加「下一章」（只加在研究發現、研究建議、反思這幾類章節）
+    var tops = entries.filter(function (s) { return !s.isSub; });
+    tops.forEach(function (s, i) {
+      var sec = s.target;
+      var next = tops[i + 1];
+      if (!next || sec.tagName !== "SECTION" || !/^(ch\d|rec-|reflect-)/.test(sec.id)) return;
+      var nav = el("nav", "chapter-pager");
+      nav.setAttribute("aria-label", UI.nextChapter);
+      var a = el("a");
+      a.href = "#" + next.target.id;
+      var wrap = el("span");
+      wrap.appendChild(el("span", "pager-k", UI.nextChapter));
+      wrap.appendChild(el("span", "pager-t", next.link.textContent));
+      a.appendChild(wrap);
+      nav.appendChild(a);
+      sec.appendChild(nav);
+    });
+  }
+
+  // ================================================================ 身分推薦
   var PERSONA_ROUTES = window.PERSONA_ROUTES_OVERRIDE || {
     newcomer: {
       label: "我是新手，還在了解這個圈子",
@@ -98,48 +281,44 @@
     },
   };
 
-  var personaButtons = document.querySelectorAll(".persona-btn");
+  var personaButtons = Array.prototype.slice.call(document.querySelectorAll(".persona-btn"));
   var personaResult = document.getElementById("personaResult");
-  personaButtons.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      personaButtons.forEach(function (b) { b.classList.remove("active"); });
-      btn.classList.add("active");
-      var key = btn.getAttribute("data-persona");
-      var route = PERSONA_ROUTES[key];
-      if (!route || !personaResult) return;
-      var html = "<p class=\"persona-why\">" + route.why + "</p>" + UI.startWith + "<ul>" +
-        route.sections.map(function (s) {
-          return '<li><a href="' + s[0] + '">' + s[1] + "</a></li>";
-        }).join("") + "</ul>";
-      personaResult.innerHTML = html;
+  function pickPersona(btn, moveFocus) {
+    personaButtons.forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle("active", on);
+      b.setAttribute("aria-checked", on ? "true" : "false");
+      b.tabIndex = on ? 0 : -1;
+    });
+    if (moveFocus) btn.focus();
+    var route = PERSONA_ROUTES[btn.getAttribute("data-persona")];
+    if (!route || !personaResult) return;
+    personaResult.textContent = "";
+    personaResult.appendChild(el("p", "persona-why", route.why));
+    personaResult.appendChild(el("p", "route-label", UI.startWith));
+    var ol = el("ol", "route");
+    route.sections.forEach(function (s) {
+      var li = el("li");
+      var a = el("a", null, s[1]);
+      a.href = s[0];
+      li.appendChild(a);
+      ol.appendChild(li);
+    });
+    personaResult.appendChild(ol);
+  }
+  personaButtons.forEach(function (btn, i) {
+    btn.tabIndex = i === 0 ? 0 : -1;
+    btn.addEventListener("click", function () { pickPersona(btn, false); });
+    // 單選群組的鍵盤操作：方向鍵在選項間移動
+    btn.addEventListener("keydown", function (e) {
+      var d = (e.key === "ArrowRight" || e.key === "ArrowDown") ? 1
+        : (e.key === "ArrowLeft" || e.key === "ArrowUp") ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      var n = personaButtons[(i + d + personaButtons.length) % personaButtons.length];
+      pickPersona(n, true);
     });
   });
 
-  // ---------------------------------------------------------------- 深色／淺色手動切換
-  // 預設跟隨訪客系統設定；按過一次之後記住選擇（localStorage），下次來也維持這個選擇。
-  var themeToggle = document.getElementById("themeToggle");
-  if (themeToggle) {
-    var mql = window.matchMedia("(prefers-color-scheme: dark)");
-
-    function effectiveTheme() {
-      var stored = localStorage.getItem("theme");
-      return stored || (mql.matches ? "dark" : "light");
-    }
-    function applyTheme(theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      themeToggle.textContent = theme === "dark" ? UI.light : UI.dark;
-      themeToggle.setAttribute("aria-label", theme === "dark" ? UI.toLight : UI.toDark);
-    }
-
-    applyTheme(effectiveTheme());
-    themeToggle.addEventListener("click", function () {
-      var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      localStorage.setItem("theme", next);
-      applyTheme(next);
-    });
-    // 使用者還沒手動選過的話，系統深色/淺色切換時網頁也跟著換
-    mql.addEventListener("change", function () {
-      if (!localStorage.getItem("theme")) applyTheme(effectiveTheme());
-    });
-  }
+  if (reduceMotion) doc.style.scrollBehavior = "auto";
 })();

@@ -7,7 +7,7 @@
 
   var NS = "http://www.w3.org/2000/svg";
   var PAL = (window.FIGDATA && window.FIGDATA.palette) || {
-    primary: "#2a78d6", accent: "#eb6834", neutral: "#8a8a85", grid: "#e4e4e0",
+    primary: "#2a78d6", accent: "#eb6834", neutral: "#8a8a85", grid: "#e4e9ef",
     layers: { "從未接觸": "#1baf7a", "接觸未參與": "#eb6834", "曾參與": "#2a78d6" },
   };
   var LAYER_ORDER = (window.FIGDATA && window.FIGDATA.layerOrder) ||
@@ -196,7 +196,7 @@
       var ly = rt.y;
       rt.lines.forEach(function (line) {
         svg.appendChild(text(leftPad, ly + labelFS, line,
-          { "font-size": labelFS, fill: "#2a2a28", "font-weight": 500 }));
+          { "font-size": labelFS, fill: "#172235", "font-weight": 500 }));
         ly += labelFS + 2;
       });
       var barY = ly + labelGap;
@@ -208,7 +208,7 @@
       svg.appendChild(rect);
       svg.appendChild(text(leftPad + bw + 6, barY + barH - 3,
         TX.pctFrac(pct0(d.pct), d.n, d.d),
-        { "font-size": valueFS, fill: "#52514e" }));
+        { "font-size": valueFS, fill: "#4c5a6d" }));
 
       var hit = el("rect", {
         x: 0, y: rt.y, width: W, height: (barY + barH) - rt.y, fill: "transparent",
@@ -256,7 +256,7 @@
       var ly = rt.y;
       rt.lines.forEach(function (line) {
         svg.appendChild(text(leftPad, ly + labelFS, line,
-          { "font-size": labelFS, fill: "#2a2a28", "font-weight": 500 }));
+          { "font-size": labelFS, fill: "#172235", "font-weight": 500 }));
         ly += labelFS + 2;
       });
       var barY = ly + labelGap;
@@ -270,14 +270,14 @@
           svg.appendChild(rect);
           if (c >= 3) {
             svg.appendChild(text(x + w / 2, barY + barH / 2 + 4, String(c),
-              { "font-size": valueFS, fill: "#0b0b0b", "text-anchor": "middle" }));
+              { "font-size": valueFS, fill: "#172235", "text-anchor": "middle" }));
           }
         }
         x += w;
       });
       svg.appendChild(text(x + 8, barY + barH - 5,
         TX.score3Val(pct0(d.pct3plus), d.n3plus, d.d),
-        { "font-size": valueFS, fill: "#52514e" }));
+        { "font-size": valueFS, fill: "#4c5a6d" }));
 
       var hit = el("rect", { x: 0, y: rt.y, width: W, height: (barY + barH) - rt.y, fill: "transparent" });
       bindHover(hit, function () {
@@ -294,7 +294,7 @@
       line.forEach(function (entry) {
         var sw = el("rect", { x: lx, y: lyLegend - 10, width: 12, height: 12, fill: entry.color });
         svg.appendChild(sw);
-        svg.appendChild(text(lx + 16, lyLegend, entry.lab, { "font-size": 10.5, fill: "#52514e" }));
+        svg.appendChild(text(lx + 16, lyLegend, entry.lab, { "font-size": 10.5, fill: "#4c5a6d" }));
         lx += entry.w;
       });
     });
@@ -376,17 +376,17 @@
       var headLines = headLinesByPanel[pi];
       headLines.forEach(function (line, li) {
         svg.appendChild(text(4, y + 14 + li * 15, line,
-          { "font-size": 12.5, fill: "#0b0b0b", "font-weight": 700 }));
+          { "font-size": 12.5, fill: "#172235", "font-weight": 700 }));
       });
       var rowY = y + headH + (headLines.length - 1) * 15;
       svg.appendChild(el("line", {
         x1: midX, x2: midX, y1: rowY - 4, y2: rowY + p.items.length * rowH,
-        stroke: "#0b0b0b", "stroke-width": 1,
+        stroke: "#172235", "stroke-width": 1,
       }));
       p.items.forEach(function (it, ri) {
         var rTop = rowY + ri * rowH;
         svg.appendChild(text(midX, rTop + labelFS, it.label,
-          { "font-size": labelFS, fill: "#2a2a28", "text-anchor": "middle" }));
+          { "font-size": labelFS, fill: "#172235", "text-anchor": "middle" }));
 
         var barY = rTop + labelFS + 6;
         var barW = Math.abs(it.diffPts) * scale;
@@ -406,7 +406,7 @@
           : (outsideX - valW >= edgePad);
         var valX, anchor, color;
         if (fitsOutside) {
-          valX = outsideX; anchor = isUp ? "start" : "end"; color = "#52514e";
+          valX = outsideX; anchor = isUp ? "start" : "end"; color = "#4c5a6d";
         } else {
           // 空間不夠時把數值標籤搬進色塊裡，避免超出畫布被裁掉
           valX = isUp ? x + barW - 5 : x + 5; anchor = isUp ? "end" : "start"; color = "#ffffff";
@@ -442,10 +442,10 @@
     svg.appendChild(el("line", { x1: px(0.5), x2: px(0.5), y1: py(0), y2: py(-1), stroke: PAL.neutral, "stroke-dasharray": "3,3" }));
     svg.appendChild(el("line", { x1: px(0), x2: px(1), y1: py(-0.5), y2: py(-0.5), stroke: PAL.neutral, "stroke-dasharray": "3,3" }));
     var qFS = 11 * fontScale;
-    svg.appendChild(text(px(0) + 2, py(0) - 4, TX.kanoI, { "font-size": qFS, fill: "#a8a8a2" }));
-    svg.appendChild(text(px(1) - 2, py(0) - 4, TX.kanoA, { "font-size": qFS, fill: "#a8a8a2", "text-anchor": "end" }));
-    svg.appendChild(text(px(0) + 2, py(-1) + qFS, TX.kanoM, { "font-size": qFS, fill: "#a8a8a2" }));
-    svg.appendChild(text(px(1) - 2, py(-1) + qFS, TX.kanoO, { "font-size": qFS, fill: "#a8a8a2", "text-anchor": "end" }));
+    svg.appendChild(text(px(0) + 2, py(0) - 4, TX.kanoI, { "font-size": qFS, fill: "#6b7889" }));
+    svg.appendChild(text(px(1) - 2, py(0) - 4, TX.kanoA, { "font-size": qFS, fill: "#6b7889", "text-anchor": "end" }));
+    svg.appendChild(text(px(0) + 2, py(-1) + qFS, TX.kanoM, { "font-size": qFS, fill: "#6b7889" }));
+    svg.appendChild(text(px(1) - 2, py(-1) + qFS, TX.kanoO, { "font-size": qFS, fill: "#6b7889", "text-anchor": "end" }));
 
     items.forEach(function (it) {
       var cx = px(it.si), cy = py(it.dsi);
@@ -472,7 +472,7 @@
     var ly = size + 22;
     fig.items.forEach(function (it) {
       svg.appendChild(text(4, ly, it.num + " " + it.label + TX.gap + "(" + it.si.toFixed(2) + ", " + it.dsi.toFixed(2) + ")",
-        { "font-size": 12, fill: "#52514e" }));
+        { "font-size": 12, fill: "#4c5a6d" }));
       ly += 16;
     });
     appendCaption(container, fig.denomNote);
@@ -497,9 +497,9 @@
       var col = i % perRow, row = Math.floor(i / perRow);
       var x0 = col * (panelSize + 12), y0 = row * panelH + 20;
       svg.appendChild(text(x0 + 4, y0 - 4,
-        LAYER_PLAIN[p.layer] || p.layer, { "font-size": 12, fill: "#0b0b0b", "font-weight": 700 }));
+        LAYER_PLAIN[p.layer] || p.layer, { "font-size": 12, fill: "#172235", "font-weight": 700 }));
       svg.appendChild(text(x0 + panelSize - 4, y0 - 4, TX.people(p.n),
-        { "font-size": 11, fill: "#52514e", "text-anchor": "end" }));
+        { "font-size": 11, fill: "#4c5a6d", "text-anchor": "end" }));
       var colored = p.items.map(function (it) {
         return Object.assign({}, it, { color: PAL.layers[p.layer] });
       });
@@ -509,7 +509,7 @@
     legendLines.forEach(function (line, li) {
       var lx = 4, ly = rows * panelH + 18 + li * 16;
       line.forEach(function (entry) {
-        svg.appendChild(text(lx, ly, entry.text, { "font-size": 11, fill: "#52514e" }));
+        svg.appendChild(text(lx, ly, entry.text, { "font-size": 11, fill: "#4c5a6d" }));
         lx += entry.w;
       });
     });
@@ -566,7 +566,7 @@
       var ly = rt.y;
       rt.lines.forEach(function (line) {
         svg.appendChild(text(leftPad, ly + labelFS, line,
-          { "font-size": labelFS, fill: "#2a2a28", "font-weight": 500 }));
+          { "font-size": labelFS, fill: "#172235", "font-weight": 500 }));
         ly += labelFS + 2;
       });
       var barY = ly + labelGap;
@@ -579,7 +579,7 @@
         var rect = el("rect", { x: leftPad, y: by, width: bw, height: subBarH, fill: PAL.layers[layer], rx: 2 });
         svg.appendChild(rect);
         svg.appendChild(text(leftPad + bw + 5, by + subBarH - 2, pct0(d.pct),
-          { "font-size": valueFS, fill: "#52514e" }));
+          { "font-size": valueFS, fill: "#4c5a6d" }));
         var hit = el("rect", { x: 0, y: by, width: W, height: subBarH, fill: "transparent" });
         bindHover(hit, function () {
           return "<strong>" + escapeHtml(o.label) + "</strong><br>" +
@@ -595,7 +595,7 @@
       line.forEach(function (entry) {
         var sw = el("rect", { x: lx, y: lyLegend - 10, width: 11, height: 11, fill: PAL.layers[entry.layer] });
         svg.appendChild(sw);
-        svg.appendChild(text(lx + 15, lyLegend, entry.lab, { "font-size": 10.5, fill: "#52514e" }));
+        svg.appendChild(text(lx + 15, lyLegend, entry.lab, { "font-size": 10.5, fill: "#4c5a6d" }));
         lx += entry.w;
       });
     });
@@ -718,11 +718,23 @@
     options.forEach(function (opt) {
       var btn = document.createElement("button");
       btn.type = "button";
-      btn.textContent = opt.label;
+      if (opt.key !== "all" && PAL.layers[opt.key]) {
+        var dot = document.createElement("span");
+        dot.className = "dot";
+        dot.setAttribute("aria-hidden", "true");
+        dot.style.background = PAL.layers[opt.key];
+        btn.appendChild(dot);
+      }
+      btn.appendChild(document.createTextNode(opt.label));
       btn.className = "layer-toggle-btn" + (opt.key === active ? " active" : "");
+      btn.setAttribute("aria-pressed", opt.key === active ? "true" : "false");
       btn.addEventListener("click", function () {
-        Array.prototype.forEach.call(bar.children, function (b) { b.classList.remove("active"); });
+        Array.prototype.forEach.call(bar.children, function (b) {
+          b.classList.remove("active");
+          b.setAttribute("aria-pressed", "false");
+        });
         btn.classList.add("active");
+        btn.setAttribute("aria-pressed", "true");
         wrap.dataset.activeLayer = opt.key;
         renderFn(chartDiv, fig, opt.key);
       });
@@ -797,7 +809,7 @@
     };
   }
 
-  window.ChartKit = { renderAll: renderAll };
+  window.ChartKit = { renderAll: renderAll, render: renderOne };
 
   document.addEventListener("DOMContentLoaded", renderAll);
   window.addEventListener("resize", debounce(renderAll, 250));

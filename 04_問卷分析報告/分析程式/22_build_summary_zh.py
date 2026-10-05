@@ -95,16 +95,18 @@ def build(body):
         raise SystemExit("精華版找不到「關於這份調查」，無法放行動呼籲")
     content = content[:about.start()] + EN.cta_html(CTA_MD, "full/") + "\n" + content[about.start():]
     desc = "127 位 g0v.tw 參與者告訴我們：怎麼進來、卡在哪裡、為什麼留下。臺灣公民科技調查的 5 分鐘精華版。"
-    html = f"""<html lang="zh-Hant">
+    html = f"""<!doctype html>
+<html lang="zh-Hant">
 <meta charset="utf-8">
 <title>{htmllib.escape(title)}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{htmllib.escape(desc)}">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="only light">
 <link rel="stylesheet" href="css/style.css">
 {EN.head_links("/", "/", "/en/")}
 <a class="skip-link" href="#main">跳到主要內容</a>
 
+{EN.topbar("g0v.tw 揪松團問卷調查", EN.lang_toggle("en/", "English", "Read in English"))}
 <div class="layout">
   <main id="main">
     <div class="content summary-page">
@@ -126,9 +128,6 @@ def build(body):
     </div>
   </main>
 </div>
-
-{EN.lang_toggle("en/", "English", "Read in English")}
-<button type="button" class="theme-toggle" id="themeToggle" aria-label="切換深色／淺色模式">🌙 深色</button>
 
 {ANCHOR_REDIRECT}
 <script src="data/figures.js"></script>

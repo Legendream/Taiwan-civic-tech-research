@@ -34,11 +34,10 @@ window.CHART_TEXT = {
   close: ")"
 };
 window.APP_TEXT = {
+ "tocTitle": "On this page",
  "startWith": "Start with:",
- "dark": "🌙 Dark",
- "light": "☀️ Light",
- "toDark": "Switch to dark mode",
- "toLight": "Switch to light mode"
+ "nextChapter": "Next chapter",
+ "readPct": "{p}% read"
 };
 window.PERSONA_ROUTES_OVERRIDE = {
  "newcomer": {
