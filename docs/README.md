@@ -11,7 +11,8 @@
 
 ```
 docs/
-├── index.html            中文版，全部內容都在這一頁（單頁應用）
+├── index.html            中文精華版（首頁，22_build_summary_zh.py 產生，不要手改）
+├── full/index.html       中文完整版，全部內容都在這一頁（單頁應用）
 ├── en/index.html         英文精華版（約 900 字、3 張圖）
 ├── en/full/index.html    英文完整版（中文版的忠實翻譯，結構相同）
 ├── css/style.css          版面、深色模式、語言切換按鈕（中英共用）
@@ -34,6 +35,7 @@ docs/
 ```bash
 cd 04_問卷分析報告/分析程式
 python3 13_web_data.py           # 重新產生 docs/data/figures*.json 與 figures*.js（中英文）
+python3 22_build_summary_zh.py   # 重新產生中文精華版 docs/index.html，並更新完整版的行動呼籲
 python3 20_build_english.py      # 重新產生英文頁 docs/en/、docs/en/full/、docs/js/i18n_en.js
 python3 19_translation_check.py  # 逐段核對英文譯稿的數字和中文版一致
 python3 14_web_number_check.py   # 核對網頁上每個百分比（含英文頁），對不上就會失敗
@@ -43,12 +45,16 @@ python3 14_web_number_check.py   # 核對網頁上每個百分比（含英文頁
 直接改會在下次重新產生時被蓋掉。中文網頁改了文字，先改譯稿對應段落再重跑，
 細節見 `04_問卷分析報告/英文版/README.md`。
 
-如果報告正文（`index.html` 裡手寫的段落）也跟著改了數字，一定要重跑
+**中文精華版也不要直接改 HTML**：改 `04_問卷分析報告/中文精華版/精華版_初稿.md`（行動呼籲改 `行動呼籲.md`），再跑 `22_build_summary_zh.py`。
+
+**舊連結**：完整版以前放在網址根目錄。首頁找不到網址裡的章節錨點時（例如 `/#ch3`），會自動轉到 `/full/#ch3`。
+
+如果報告正文（`full/index.html` 裡手寫的段落）也跟著改了數字，一定要重跑
 `14_web_number_check.py`——它會抓出「文字裡的百分比」與「分析結果 CSV」對不上的地方。
 
 ## 本機預覽
 
-不需要任何安裝，直接用瀏覽器開 `docs/index.html` 就能看（雙擊開檔也可以，
+不需要任何安裝，直接用瀏覽器開 `docs/index.html`（精華版）或 `docs/full/index.html`（完整版）就能看（雙擊開檔也可以，
 因為圖表資料是用 `<script src="data/figures.js">` 載入，不是 `fetch()`，
 不會被瀏覽器的本機檔案安全限制擋下）。
 

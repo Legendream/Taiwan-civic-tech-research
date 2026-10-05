@@ -34,11 +34,14 @@ cd 04_問卷分析報告/分析程式
 python3 15_copyedit_export.py
 ```
 
-- `15_copyedit_export.py`：從 `docs/index.html`、`docs/data/figures.json`、`docs/js/app.js` 匯出全文，逐段核對數字並產生三份檔案
+- `15_copyedit_export.py`：從 `docs/full/index.html`（中文完整版；2026-10-05 起首頁改放精華版）、`docs/data/figures.json`、`docs/js/app.js` 匯出全文，逐段核對數字並產生三份檔案
 - `copyedit_facts.py`：每一段的事實對照表（數字來源、論點界線、已知問題）。**網頁文字有改，這份也要跟著改**，否則匯出時會因為數字清單對不上而失敗
 - `16_copyedit_roundtrip.py`：拿瀏覽器實際顯示的文字和稿件比對（取得畫面文字的方法寫在腳本開頭）
 - `17_copyedit_review.py <交回稿件>`：檢查改稿者交回的稿件，產生檢查報告與逐段改前改後
 - `18_copyedit_apply.py <定稿稿件>`：把審定的稿件套回 `index.html`、`13_web_data.py`（圖表文字）、`app.js`（身分推薦）；加 `--check` 逐段核對
+
+段內換行（網頁上的 `<br>`，例如 2.1 參與深度五級的條列）在稿件裡寫成換行，套回網頁時會還原。
+完整版結尾的行動呼籲不在稿件裡：它由 `22_build_summary_zh.py` 從 `中文精華版/行動呼籲.md` 產生。
 
 ⚠️ 有 6 個數字（2.1 的 42 位與 30 位、6.1 的 20／6／1 人、伍、反思的 26 人）只能從未公開的逐人明細 `分析結果/01_衍生變項.csv` 重算。沒有這份檔案時，匯出照常進行，但事實卡會註明「本次未重算」。
 

@@ -7,7 +7,8 @@
 | `report.claire-cheng.com/en/` | **精華版**：約 900 字、3 張圖，5 分鐘讀完；結尾一個按鈕前往完整版 |
 | `report.claire-cheng.com/en/full/` | **完整版**：中文網頁全文的忠實翻譯，結構與中文版一模一樣 |
 
-中文版右上角有「English」按鈕，連到精華版；英文兩頁都有「中文」按鈕連回中文版。
+中文版也分精華版（`/`）與完整版（`/full/`）。語言按鈕一對一：精華版對精華版、完整版對完整版。
+中文完整版結尾的「下一步，你可以這樣做」行動呼籲，英文版還沒有，之後另案處理。
 
 ## 這裡有什麼
 
@@ -29,7 +30,7 @@ python3 13_web_data.py           # 同時產生 figures.json 與 figures_en.json
 python3 20_build_english.py      # 產生 docs/en/、docs/en/full/、docs/js/i18n_en.js
 python3 19_translation_check.py  # 逐段核對英文數字和中文版一致
 python3 14_web_number_check.py   # 網頁數字稽核（含英文頁）
-python3 21_word_export.py        # 產生 Word版/（需要 Google Chrome，約 3 秒）
+python3 21_word_export.py        # 產生 Word版/ 與 ../中文網頁版Word/（需要 Google Chrome，約 5 秒）
 ```
 
 **中文網頁改了，英文版要跟著改**：先改 `完整版譯稿.md` 對應的段落，再重跑上面五步。

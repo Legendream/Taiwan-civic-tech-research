@@ -82,13 +82,14 @@ def cta_html(full_prefix):
                                 f'<span class="step-why">{htmllib.escape(why)}</span></li>')
         elif ln:
             raise SystemExit(f"行動呼籲.md 有無法辨識的行：{ln}")
+    h2_cls = "" if full_prefix else ' class="part-title"'   # 完整版：和「授權與資料來源」同一層
     if len(cards) != 3 or not title:
         raise SystemExit("行動呼籲.md 應該有一個 ## 標題與三張 ### 卡片")
     cards_html = "\n".join(
         f'          <div class="next-step-card"><h3>{htmllib.escape(c["head"])}</h3>'
         f'<ul>{"".join(c["items"])}</ul></div>' for c in cards)
     return (f'      <section class="next-steps" id="next-steps">\n'
-            f'        <h2>{htmllib.escape(title)}</h2>\n'
+            f'        <h2{h2_cls}>{htmllib.escape(title)}</h2>\n'
             f'        <div class="next-steps-grid">\n{cards_html}\n        </div>\n'
             f'      </section>')
 

@@ -20,6 +20,8 @@
 | **網頁文案改稿包** | `改稿包/`（全文＋每段事實根據，給改稿用；見 `改稿包/README.md`） |
 | **英文版**（網頁譯稿、術語表） | `英文版/`（見 `英文版/README.md`） |
 | **英文版 Word 檔**（給想拿去用的人） | `英文版/Word版/`：精華版、完整版各一份，文字與圖表都在檔案裡 |
+| **中文精華版**（網頁首頁的原稿、行動呼籲） | `中文精華版/`：`精華版_初稿.md`（每段附〔根據〕）、`行動呼籲.md`；上線版 `精華版.md` 由程式產生 |
+| **中文網頁版 Word 檔** | `中文網頁版Word/`：精華版、完整版各一份。**這是網頁的副本，不是交付定稿**；交付甲方的仍是 `公民科技生態系分析報告_定稿.docx` |
 
 > `.docx` 是 Claire 手動排版、實際交付的版本；`.md` 是同一份報告的純文字版，
 > 供 `06_number_index.py`、`12_source_audit.py` 稽核每個數字用。
@@ -58,7 +60,10 @@ python3 11_activity_by_layer.py
 python3 06_number_index.py   # 稽核報告本文每一個百分比，對不上就失敗
 python3 12_source_audit.py   # 逐處列出每個數字取自哪一題、分母是誰
 python3 13_web_data.py       # 產生展示網頁的資料檔（../docs/data/figures.json）
-python3 14_web_number_check.py  # 稽核展示網頁上每一個百分比，對不上就失敗
+python3 22_build_summary_zh.py  # 產生中文精華版首頁，並把行動呼籲放進中文完整版
+python3 20_build_english.py     # 產生英文頁
+python3 14_web_number_check.py  # 稽核展示網頁上每一個百分比（中英文、精華版與完整版），對不上就失敗
+python3 21_word_export.py       # 產生中英文 Word 檔（需要 Google Chrome）
 ```
 
 原始問卷資料不在版控裡（見專案根目錄 `README.md` 的說明），要完整重跑得先取得

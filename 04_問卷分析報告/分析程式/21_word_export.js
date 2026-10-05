@@ -1,9 +1,10 @@
-// 21_word_export.js — 由 21_word_export.py 注入英文網頁執行，不需要手動跑。
+// 21_word_export.js — 由 21_word_export.py 注入網頁執行，不需要手動跑。
 // 把網頁正文序列化成區塊清單（標題、段落、清單、表格、重點卡），圖表 SVG 轉成 PNG，
 // 全部 POST 回本機伺服器，再由 21_word_export.py 組成 Word。
 window.__export = async function (prefix) {
   document.documentElement.setAttribute('data-theme', 'light');
   const blocks = [];
+  const lang = document.documentElement.lang.startsWith('en') ? 'en' : 'zh';
   const BLOCK = new Set(['P', 'UL', 'OL', 'TABLE', 'H1', 'H2', 'H3', 'H4', 'DIV', 'SECTION', 'HEADER', 'DETAILS', 'FOOTER', 'LI', 'BLOCKQUOTE']);
 
   function runs(node, fmt = {}, out = []) {
@@ -16,6 +17,7 @@ window.__export = async function (prefix) {
         const tag = n.tagName;
         if (tag === 'BR') { out.push({ text: '\n', ...fmt }); continue; }
         if (BLOCK.has(tag)) continue;
+        if (n.classList.contains('step-why')) out.push({ text: lang === 'en' ? ': ' : '：', ...fmt });   // 行動呼籲：連結與說明之間
         if (tag === 'A' && n.textContent.trim().startsWith('↩')) continue;   // 網頁專用的「回到正文」連結
         const f = { ...fmt };
         if (tag === 'STRONG' || tag === 'B') f.bold = true;
@@ -76,7 +78,7 @@ window.__export = async function (prefix) {
     for (const c of sec.children) if (/^H\d$|^P$/.test(c.tagName)) await walk(c);
     for (const btn of sec.querySelectorAll('.persona-btn')) {
       btn.click();
-      emit({ t: 'p', style: 'bold', runs: [{ text: btn.textContent.replace(/^[^\w"']+/u, ''), bold: true }] });
+      emit({ t: 'p', style: 'bold', runs: [{ text: btn.textContent.replace(/^[^\p{L}\p{N}"']+/u, ''), bold: true }] });
       for (const c of sec.querySelector('.persona-result').childNodes) {
         if (c.nodeType === 3 && c.textContent.trim()) emit({ t: 'p', runs: [{ text: c.textContent.trim() }] });
         else if (c.nodeType === 1) await walk(c);
