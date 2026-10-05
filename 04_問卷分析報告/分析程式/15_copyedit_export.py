@@ -45,7 +45,7 @@ import common as C
 import copyedit_facts as CF
 
 DOCS = C.PROJ / "docs"
-INDEX_HTML = DOCS / "index.html"
+INDEX_HTML = DOCS / "full" / "index.html"
 FIGURES_JSON = DOCS / "data" / "figures.json"
 APP_JS = DOCS / "js" / "app.js"
 OUT = C.OUT_DIR / "改稿包"
@@ -56,6 +56,7 @@ ISSUES_MD = OUT / "待裁決清單.md"
 
 BLOCK_TAGS = {"h1", "h2", "h3", "p", "li", "caption", "tr", "button", "summary"}
 VOID = {"meta", "link", "br", "img", "input", "hr", "use", "circle", "path", "rect", "line"}
+BR = "\x00BR\x00"
 SKIP_TAGS = {"script", "style", "svg", "title", "head"}
 # 重複出現的介面文字：不逐處列出，集中在最後的「介面文字」區塊列一次
 UI_ONCE = {"看完整說明", "跳到主要內容"}
@@ -140,6 +141,8 @@ def inline_md(node):
             out.append(f"[{inner}]({href})" if href and not href.startswith("#fn") else inner)
         elif ch.tag == "sup":
             out.append(f"[^{inner.strip()}]")
+        elif ch.tag == "br":
+            out.append(BR)                     # 段內換行（例如 2.1 參與深度五級的條列）
         else:
             out.append(inner)
     return "".join(out)
@@ -148,7 +151,8 @@ def inline_md(node):
 def norm_ws(s):
     # 照瀏覽器的規則收合空白：連續空白（含原始碼換行縮排）變成一個半形空格。
     # 全形空格（U+3000）不是 HTML 空白，保留原樣。
-    return re.sub(r"[ \t\r\n]+", " ", s).strip()
+    s = re.sub(r"[ \t\r\n]+", " ", s).strip()
+    return re.sub(r" ?" + BR + " ?", "\n", s)    # <br> 在稿件裡寫成換行
 
 
 def has_block_child(node):
@@ -201,6 +205,8 @@ def walk(html_text):
             state["anchor"] = node.attrs["id"]
         cls = node.cls()
 
+        if "next-steps" in cls:                       # 行動呼籲：由 22_build_summary_zh.py 從 中文精華版/行動呼籲.md 產生，不進改稿包
+            return
         if node.tag == "aside":                       # 側欄目錄：整份當一個區塊
             items, nodes = [], []
             for a in iter_nodes(node):

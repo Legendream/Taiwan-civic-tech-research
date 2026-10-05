@@ -22,6 +22,11 @@ WEB_DATA_DIR = C.PROJ / "docs" / "data"
 WEB_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 
+# 網頁上三群的稱呼（好奇者／使用者／實作者，對應英文版 Curious／Users／Builders）。
+# 只用於網頁圖表；報告 PNG 圖仍用 common.LAYER_PLAIN，CSV 的分群鍵值一律不動。
+WEB_LAYER_PLAIN = {C.L_NEVER: "好奇者", C.L_AWARE: "使用者", C.L_DONE: "實作者"}
+
+
 def rows(df, cols):
     """DataFrame → list[dict]，只留指定欄位，數值欄位轉 float/int。"""
     out = []
@@ -138,7 +143,10 @@ def build_english(out):
 
     for fid, fig in en["figures"].items():
         walk(fig, fid)
-    en["layerPlain"] = {k: tr(v) for k, v in en["layerPlain"].items()}
+    # 三群的英文名從報告用的中文標籤翻（中文網頁的「使用者」和角色短名同字，不能直接查表）
+    en["layerPlain"] = {k: tr(C.LAYER_PLAIN[k]) for k in en["layerPlain"]}
+    for it in en["figures"]["fig01_layers"]["items"]:
+        it["label"] = en["layerPlain"][it["key"]]
     for t in ("開放題總表", "出資者評估準則"):
         walk(en["tables"][t])
     en["meta"]["sample_note"] = "Data: 127 valid survey responses collected up to 20 July 2026"
@@ -181,7 +189,7 @@ def main():
             "layers": dict(C.PALETTE["layers"]),
         },
         "layerOrder": C.LAYER_ORDER,
-        "layerPlain": C.LAYER_PLAIN,
+        "layerPlain": WEB_LAYER_PLAIN,
         "figures": {},
         "tables": {},
     }
@@ -191,9 +199,9 @@ def main():
     out["figures"]["fig01_layers"] = {
         "type": "donut",
         "title": "127 位填答者分成三群",
-        "subtitle": "分母＝全體 127 人（綠：聽過或看過、橘：接觸未參與、藍：做過專案）",
+        "subtitle": "分母＝全體 127 人（綠：好奇者、橘：使用者、藍：實作者）",
         "items": [
-            {"label": C.LAYER_PLAIN[r["分層"]], "key": r["分層"],
+            {"label": WEB_LAYER_PLAIN[r["分層"]], "key": r["分層"],
              "pct": round(float(r["比例"]), 6), "n": int(r["人數"]), "d": int(r["分母"])}
             for _, r in lay.iterrows()
         ],
@@ -255,7 +263,7 @@ def main():
         "type": "stacked-hbar",
         "title": "各項困難的困擾程度分布（完整呈現 1 到 5 分）",
         "subtitle": "依「3 分以上人數」由多到少排列（無「沒遇到」選項，評 1 分包含「沒發生過」與「發生了但不影響」）",
-        "denomNote": "分母＝47 位曾參與者（每題皆為 47 人作答）",
+        "denomNote": "分母＝47 位實作者（每題皆為 47 人作答）",
         "seriesLabels": ["1：幾乎沒影響", "2：有點困擾但還能處理", "3：明顯卡住我、拖慢進度",
                           "4：受挫到萌生退意", "5：困擾到專案無法持續"],
         "seriesColors": C.PALETTE["trouble_scale"],
@@ -311,16 +319,16 @@ def main():
     # ---------------- fig07：資源 ----------------
     out["figures"]["fig07_resources"] = hbar_dataset(
         "03_全體_資源.csv", "選項", "比例", "票數",
-        "做過專案的人用過哪些資源",
-        "分母＝47 位曾參與者（複選，加總超過 100%）",
-        "分母＝47 位做過專案的人")
+        "實作者用過哪些資源",
+        "分母＝47 位實作者（複選，加總超過 100%）",
+        "分母＝47 位實作者")
 
     # ---------------- fig08：專長 ----------------
     out["figures"]["fig08_skills"] = hbar_dataset(
         "03_全體_專長.csv", "選項", "比例", "票數",
-        "做過專案的人貢獻過哪些專長",
-        "分母＝47 位曾參與者（複選，加總超過 100%，常見一人多工）",
-        "分母＝47 位做過專案的人")
+        "實作者貢獻過哪些專長",
+        "分母＝47 位實作者（複選，加總超過 100%，常見一人多工）",
+        "分母＝47 位實作者")
 
     # ---------------- fig09：g0v 消息管道 ----------------
     out["figures"]["fig09_channel"] = hbar_dataset(
@@ -332,9 +340,9 @@ def main():
     # ---------------- fig10：未參與原因 ----------------
     out["figures"]["fig10_notjoin"] = hbar_dataset(
         "03_未參與原因.csv", "選項", "比例", "票數",
-        "還沒參與的人，是什麼擋住了他們",
-        "最多選 3 項。分母＝26 位從未接觸者（接觸未參與的 54 人未問此題）",
-        "分母＝26 位從未接觸者")
+        "好奇者還沒參與，是什麼擋住了他們",
+        "最多選 3 項。分母＝26 位好奇者（54 位使用者未問此題）",
+        "分母＝26 位好奇者")
 
     # ---------------- fig11：三層 × 活動意願 ----------------
     def layered_grouped(csv_name, title, subtitle, denom_note, topn=None):
@@ -372,7 +380,7 @@ def main():
         "03_三層×活動意願.csv",
         "三群人分別最想報名哪些活動",
         "複選，最多選 2 個。各群長條代表該群勾選率",
-        "從未接觸 26 人、接觸未參與 54 人、做過專案 47 人")
+        "好奇者 26 人、使用者 54 人、實作者 47 人")
 
     # ---------------- fig12：狩野落點（全體，散佈圖） ----------------
     kano_all = pd.read_csv(C.TABLE_DIR / "02_狩野_全體.csv")
@@ -407,7 +415,7 @@ def main():
     out["figures"]["fig13_kano_layers"] = {
         "type": "scatter-kano-panels",
         "title": "三群人分別覺得哪些主題值得寫",
-        "subtitle": "「捲動更多人」③ 與「留住夥伴」④ 對還沒接觸的人落在「無差別」，對另外兩群人都是「魅力」：沒進場的人感受不到團隊經營的痛",
+        "subtitle": "「捲動更多人」③ 與「留住夥伴」④ 對好奇者落在「無差別」，對另外兩群人都是「魅力」：沒進場的人感受不到團隊經營的痛",
         "denomNote": "每個面板都是完整的狩野四象限；同一個編號在三個面板中代表同一個主題",
         "legend": [{"num": n, "label": C.KANO_SHORT[t]} for t, n in C.KANO_NUM.items()],
         "panels": panels13,
@@ -417,15 +425,15 @@ def main():
     out["figures"]["fig14_domains"] = layered_grouped(
         "03_三層×議題領域.csv",
         "各群填答者最想先看哪些議題領域的資料清單",
-        "此題複選，最多選 5 個領域｜各群勾選率（分母為該群有作答人數）｜還沒接觸的人有 26 位",
-        "從未接觸 26 人、接觸未參與 54 人、做過專案 47 人", topn=12)
+        "此題複選，最多選 5 個領域｜各群勾選率（分母為該群有作答人數）｜好奇者有 26 位",
+        "好奇者 26 人、使用者 54 人、實作者 47 人", topn=12)
 
     # ---------------- fig15：三層 × 跨領域工具 ----------------
     out["figures"]["fig15_tools"] = layered_grouped(
         "03_三層×跨領域工具.csv",
         "各群填答者最想看哪些跨領域工具的介紹",
-        "此題複選，最多選 3 個工具｜各群勾選率（分母為該群有作答人數）｜還沒接觸的人有 26 位",
-        "從未接觸 26 人、接觸未參與 54 人、做過專案 47 人", topn=7)
+        "此題複選，最多選 3 個工具｜各群勾選率（分母為該群有作答人數）｜好奇者有 26 位",
+        "好奇者 26 人、使用者 54 人、實作者 47 人", topn=7)
 
     # ---------------- 輔助表：文中引用但非圖表的數字 ----------------
     gender = pd.read_csv(C.TABLE_DIR / "03_全體_性別分布.csv")

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-21_word_export.py — 把英文網頁（精華版、完整版）轉成 Word 檔，文字和圖放在一起。
+21_word_export.py — 把網頁（中英文的精華版、完整版）轉成 Word 檔，文字和圖放在一起。
 
 給想拿報告去用、但不方便用網頁的人（例如揪松團）。內容直接取自網頁上實際顯示的文字，
 所以網頁改了，重跑這支就會跟著更新，不會出現 Word 和網頁說法不一致。
@@ -18,7 +18,7 @@
 
 需要：Google Chrome、python-docx（pip3 install python-docx）
 執行：python3 21_word_export.py
-輸出：../英文版/Word版/*.docx
+輸出：../英文版/Word版/*.docx、../中文網頁版Word/*.docx
 """
 
 import json
@@ -39,11 +39,15 @@ from docx.oxml import OxmlElement
 
 HERE = Path(__file__).resolve().parent
 DOCS = HERE.parent.parent / "docs"
-OUT_DIR = HERE.parent / "英文版" / "Word版"
+EN_OUT = HERE.parent / "英文版" / "Word版"
+ZH_OUT = HERE.parent / "中文網頁版Word"   # 網頁版的副本；交付甲方的正式定稿仍是 公民科技生態系分析報告_定稿.docx
 JS = HERE / "21_word_export.js"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-PAGES = [("summary", "en/", "Taiwan civic tech survey - summary (EN).docx"),
-         ("full", "en/full/", "Taiwan civic tech survey - full report (EN).docx")]
+# (代號, 網頁路徑, 輸出資料夾, 檔名, 語言)
+PAGES = [("summary", "en/", EN_OUT, "Taiwan civic tech survey - summary (EN).docx", "en"),
+         ("full", "en/full/", EN_OUT, "Taiwan civic tech survey - full report (EN).docx", "en"),
+         ("zh_summary", "", ZH_OUT, "臺灣公民科技生態系調查－精華版（網頁版）.docx", "zh"),
+         ("zh_full", "full/", ZH_OUT, "臺灣公民科技生態系調查－完整版（網頁版）.docx", "zh")]
 TIMEOUT = 90   # 每頁最多等幾秒
 
 MAX_W, MAX_H = 6.5, 8.0   # 圖片最大寬高（吋），讓標題和圖能放在同一頁
@@ -62,11 +66,15 @@ def fill(par, runs, size=None, bold=None):
         r = par.add_run(x['text']); r.bold = bold or x.get('bold'); r.italic = x.get('italic'); r.font.superscript = x.get('sup')
         if size: r.font.size = Pt(size)
     return par
-def build(D, stem, out_path):
+def build(D, stem, out_path, lang_code="en"):
     blocks = json.load(open(f"{D}/{stem}_blocks.json"))
     doc = Document(); st = doc.styles['Normal']; st.font.name = 'Calibri'; st.font.size = Pt(11)
     st.element.rPr.rFonts.set(qn('w:eastAsia'), 'PingFang TC')   # 中文字（人名、署名）用的字型
-    lang = OxmlElement('w:lang'); lang.set(qn('w:val'), 'en-US'); lang.set(qn('w:eastAsia'), 'zh-TW'); st.element.rPr.append(lang)
+    lang = OxmlElement('w:lang'); lang.set(qn('w:val'), 'en-US' if lang_code == 'en' else 'zh-TW'); lang.set(qn('w:eastAsia'), 'zh-TW'); st.element.rPr.append(lang)
+    if lang_code == 'zh':   # 標題樣式也用中文字型，否則 Word 會用預設的日文明體
+        for name in ('Title', 'Heading 1', 'Heading 2', 'Heading 3'):
+            hs = doc.styles[name]; hs.element.get_or_add_rPr().get_or_add_rFonts().set(qn('w:eastAsia'), 'PingFang TC')
+    colon = ': ' if lang_code == 'en' else '：'
     has_parts = any(x.get('part') for x in blocks)
     last_lv = 0
     for s in doc.sections: s.left_margin = s.right_margin = Inches(0.9)
@@ -90,7 +98,7 @@ def build(D, stem, out_path):
                 fill(doc.add_paragraph(style=style), b['runs'])
         elif t == 'callout':
             p = doc.add_paragraph(); p.paragraph_format.left_indent = Inches(0.3)
-            r = p.add_run(b['label'] + ': '); r.bold = True; r.font.color.rgb = RGBColor(0x1B, 0x8F, 0x64)
+            r = p.add_run(b['label'] + colon); r.bold = True; r.font.color.rgb = RGBColor(0x1B, 0x8F, 0x64)
             fill(p, b['runs'])
         elif t == 'table':
             if b.get('caption'):
@@ -124,7 +132,7 @@ def serve(tmp, done):
             path, _, query = self.path.partition("?")
             if path == "/__word_export.js":
                 return self._send(JS.read_bytes(), "application/javascript")
-            if "export=" in query and path in ("/en/", "/en/full/"):
+            if "export=" in query and path in ("/", "/full/", "/en/", "/en/full/"):
                 html = (DOCS / path.strip("/") / "index.html").read_text(encoding="utf-8")
                 html += '\n<script src="/__word_export.js"></script>\n'   # 網頁沒有 </body>，接在最後
                 return self._send(html.encode("utf-8"), "text/html; charset=utf-8")
@@ -173,15 +181,15 @@ def capture(port, page, stem, done, tmp):
 
 
 def main():
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
     done = {"event": threading.Event(), "msg": ""}
     with tempfile.TemporaryDirectory() as t:
         tmp = Path(t)
         srv = serve(tmp, done)
         try:
-            for stem, page, out in PAGES:
+            for stem, page, out_dir, out, lang_code in PAGES:
+                out_dir.mkdir(parents=True, exist_ok=True)
                 capture(srv.server_address[1], page, stem, done, tmp)
-                build(tmp, stem, OUT_DIR / out)
+                build(tmp, stem, out_dir / out, lang_code)
         finally:
             srv.shutdown()
 
