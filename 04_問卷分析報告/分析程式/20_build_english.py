@@ -2,7 +2,7 @@
 """
 20_build_english.py — 產生英文網頁：精華版 docs/en/ 與完整版 docs/en/full/。
 
-完整版：以中文網頁 docs/index.html 為模板，依段落編號換成英文譯稿
+完整版：以中文完整版 docs/full/index.html 為模板，依段落編號換成英文譯稿
         （英文版/完整版譯稿.md），結構與中文版一模一樣。
         圖表讀 docs/data/figures_en.js（13_web_data.py 產生，數字與中文版共用）。
 精華版：由 英文版/精華版.md 轉成網頁，版面沿用同一份 CSS。
@@ -124,10 +124,17 @@ def lang_toggle(href, label, title):
     return f'<a class="lang-toggle" href="{href}" hreflang="{"zh-Hant" if label == "中文" else "en"}" title="{title}">{label}</a>'
 
 
-def head_links(canonical):
+def head_links(canonical, zh, en):
     return (f'<link rel="canonical" href="{SITE}{canonical}">\n'
-            f'<link rel="alternate" hreflang="zh-Hant" href="{SITE}/">\n'
-            f'<link rel="alternate" hreflang="en" href="{SITE}/en/">\n')
+            f'<link rel="alternate" hreflang="zh-Hant" href="{SITE}{zh}">\n'
+            f'<link rel="alternate" hreflang="en" href="{SITE}{en}">\n')
+
+
+# 中文完整版 <head> 裡的 canonical 與語言對照，英文完整版整段換掉
+ZH_FULL_HEAD = ('<link rel="stylesheet" href="../css/style.css">\n'
+                '<link rel="canonical" href="https://report.claire-cheng.com/full/">\n'
+                '<link rel="alternate" hreflang="zh-Hant" href="https://report.claire-cheng.com/full/">\n'
+                '<link rel="alternate" hreflang="en" href="https://report.claire-cheng.com/en/full/">\n')
 
 
 def build_full(draft):
@@ -155,19 +162,24 @@ def build_full(draft):
         html = html.replace(a, b)
 
     # 資源路徑、語言、英文資料與介面文字
-    html = html.replace('<link rel="stylesheet" href="css/style.css">',
-                        '<link rel="stylesheet" href="../../css/style.css">\n' + head_links("/en/full/"))
-    html = html.replace('<script src="data/figures.js"></script>',
-                        '<script src="../../js/i18n_en.js"></script>\n<script src="../../data/figures_en.js"></script>')
-    html = html.replace('<script src="js/charts.js"></script>', '<script src="../../js/charts.js"></script>')
-    html = html.replace('<script src="js/app.js"></script>', '<script src="../../js/app.js"></script>')
+    for a, b in [(ZH_FULL_HEAD, '<link rel="stylesheet" href="../../css/style.css">\n'
+                                + head_links("/en/full/", "/full/", "/en/full/")),
+                 ('<script src="../data/figures.js"></script>',
+                  '<script src="../../js/i18n_en.js"></script>\n<script src="../../data/figures_en.js"></script>'),
+                 ('<script src="../js/charts.js"></script>', '<script src="../../js/charts.js"></script>'),
+                 ('<script src="../js/app.js"></script>', '<script src="../../js/app.js"></script>')]:
+        if a not in html:
+            raise SystemExit(f"模板裡找不到要替換的路徑：{a[:40]}")
+        html = html.replace(a, b)
     html = '<html lang="en">\n' + html
     # 中文版的「English」切換鈕換成「中文」，並在封面上方提示可以先看精華版
-    html = html.replace(lang_toggle("en/", "English", "Read in English"),
-                        lang_toggle("../../", "中文", "閱讀中文版"))
-    html = html.replace('<header id="top" class="cover">',
-                        '<p class="summary-hint">New here? <a href="../">Start with the 5-minute summary</a>.</p>\n'
-                        '      <header id="top" class="cover">', 1)
+    for a, b in [(lang_toggle("../en/full/", "English", "Read in English"),
+                  lang_toggle("../../full/", "中文", "閱讀中文版")),
+                 ('<div class="summary-hint">第一次來？<a href="../">先看 5 分鐘精華版</a>。</div>',
+                  '<p class="summary-hint">New here? <a href="../">Start with the 5-minute summary</a>.</p>')]:
+        if a not in html:
+            raise SystemExit(f"模板裡找不到要替換的文字：{a[:40]}")
+        html = html.replace(a, b)
     out = DOCS / "en" / "full" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html, encoding="utf-8")
@@ -241,7 +253,7 @@ def build_summary():
 <meta name="description" content="{htmllib.escape(desc)}">
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="../css/style.css">
-{head_links("/en/")}
+{head_links("/en/", "/", "/en/")}
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <div class="layout">

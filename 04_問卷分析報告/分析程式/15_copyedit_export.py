@@ -45,7 +45,7 @@ import common as C
 import copyedit_facts as CF
 
 DOCS = C.PROJ / "docs"
-INDEX_HTML = DOCS / "index.html"
+INDEX_HTML = DOCS / "full" / "index.html"
 FIGURES_JSON = DOCS / "data" / "figures.json"
 APP_JS = DOCS / "js" / "app.js"
 OUT = C.OUT_DIR / "改稿包"

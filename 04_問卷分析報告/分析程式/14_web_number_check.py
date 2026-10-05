@@ -14,7 +14,7 @@
 分兩層稽核：
   1. docs/data/figures.json 內部一致性——每個圖表資料點的「比例」都必須等於
      「分子/分母」，抓的是 13_web_data.py 算錯或資料被手動改過的情形。
-  2. docs/index.html 正文裡手寫的百分比——每一處「N%」或「N%（a/b）」，
+  2. docs/full/index.html 正文裡手寫的百分比——每一處「N%」或「N%（a/b）」，
      都要能在 分析結果/*.csv 或 99_數字索引.csv 裡找到對應的分子／分母組合，
      抓的是「照抄報告文字時改動了數字」的情形。
 
@@ -36,7 +36,8 @@ import common as C
 DOCS_DIR = C.PROJ / "docs"
 REPORT_MD = C.OUT_DIR / "公民科技生態系分析報告_定稿.md"
 FIGURES_JSON = DOCS_DIR / "data" / "figures.json"
-INDEX_HTML = DOCS_DIR / "index.html"
+INDEX_HTML = DOCS_DIR / "full" / "index.html"
+ZH_SUMMARY_HTML = DOCS_DIR / "index.html"   # 中文精華版（22_build_summary_zh.py 產生）
 
 FAIL = []
 
@@ -223,9 +224,17 @@ def main():
     pair_set, pct_values = build_ground_truth()
     print(f"  {len(pair_set)} 組 (分子,分母)、{len(pct_values)} 個相異比例值")
 
-    print("== 第二層：docs/index.html 正文的手寫百分比 ==")
+    print("== 第二層：docs/full/index.html 正文的手寫百分比 ==")
     n2, n3 = check_index_html(pair_set, pct_values)
     print(f"  帶分子分母的百分比 {n2} 處、裸百分比 {n3} 處")
+
+    print("== 中文精華版 ==")
+    if ZH_SUMMARY_HTML.exists():
+        a, b = check_index_html(pair_set, pct_values, ZH_SUMMARY_HTML)
+        n2, n3 = n2 + a, n3 + b
+        print(f"  {ZH_SUMMARY_HTML.relative_to(C.PROJ)}：帶分子分母的百分比 {a} 處、裸百分比 {b} 處")
+    else:
+        print("  （尚未產生 docs/index.html，略過）")
 
     print("== 英文版 ==")
     for fig_path, page in EN_PAIRS:
