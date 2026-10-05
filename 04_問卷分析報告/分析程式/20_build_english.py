@@ -40,6 +40,7 @@ DOCS = C.PROJ / "docs"
 EN_DIR = C.OUT_DIR / "英文版"
 FULL_DRAFT = EN_DIR / "完整版譯稿.md"
 SUMMARY_MD = EN_DIR / "精華版.md"
+CTA_MD = EN_DIR / "行動呼籲.md"
 SITE = "https://report.claire-cheng.com"
 
 # 英文頁上刻意保留的中文（人名、資料授權的署名名稱）
@@ -173,8 +174,11 @@ def build_full(draft):
         html = html.replace(a, b)
     html = '<html lang="en">\n' + html
     # 中文版的「English」切換鈕換成「中文」，並在封面上方提示可以先看精華版
-    # 中文行動呼籲不放進英文完整版（英文版的行動呼籲另案處理）
-    html = re.sub(r" *<!-- 行動呼籲開始.*?<!-- 行動呼籲結束 -->\n\n", "", html, count=1, flags=re.S)
+    # 行動呼籲：中文卡片整段換成英文卡片（位置和中文版相同）
+    pat = re.compile(r"(<!-- 行動呼籲開始[^>]*-->\n).*?(\n *<!-- 行動呼籲結束 -->)", re.S)
+    if len(pat.findall(html)) != 1:
+        raise SystemExit("模板裡找不到行動呼籲的插入點標記")
+    html = pat.sub(lambda m: m.group(1) + cta_html(CTA_MD, "") + m.group(2), html)
     for a, b in [(lang_toggle("../en/full/", "English", "Read in English"),
                   lang_toggle("../../full/", "中文", "閱讀中文版")),
                  ('<div class="summary-hint">第一次來？<a href="../">先看 5 分鐘精華版</a>。</div>',
@@ -186,6 +190,50 @@ def build_full(draft):
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html, encoding="utf-8")
     return out
+
+
+# ---------------------------------------------------------------- 行動呼籲（中英文共用，22_build_summary_zh.py 也用這支）
+
+CTA_LINE = re.compile(r"^- \[(.+?)\]\((.+?)\)(?:：|: )(.+)$")
+
+
+def cta_html(md_path, full_prefix):
+    """行動呼籲.md → 三張卡片。full_prefix：精華版是 "full/"，完整版是 ""。
+    標題和第一張卡片之間可以有一行說明（英文版用來提醒連結頁面多為華語）。"""
+    src = md_path.read_text(encoding="utf-8")
+    body = src.split("<!-- 正文開始 -->", 1)[1].split("<!-- 正文結束 -->", 1)[0]
+    title, note, cards, cur = "", "", [], None
+    for ln in body.strip().split("\n"):
+        ln = ln.strip()
+        if ln.startswith("## "):
+            title = ln[3:]
+        elif ln.startswith("### "):
+            cur = {"head": ln[4:], "items": []}
+            cards.append(cur)
+        elif ln.startswith("- "):
+            m = CTA_LINE.match(ln)
+            if not m or cur is None:
+                raise SystemExit(f"{md_path.name} 格式不對：{ln}")
+            text, href, why = m.groups()
+            href = href.replace("{FULL}", full_prefix)
+            ext = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
+            cur["items"].append(f'<li><a href="{htmllib.escape(href)}"{ext}>{htmllib.escape(text)}</a>'
+                                f'<span class="step-why">{htmllib.escape(why)}</span></li>')
+        elif ln and title and not cards and not note:
+            note = ln
+        elif ln:
+            raise SystemExit(f"{md_path.name} 有無法辨識的行：{ln}")
+    h2_cls = "" if full_prefix else ' class="part-title"'   # 完整版：和「授權與資料來源」同一層
+    if len(cards) != 3 or not title:
+        raise SystemExit(f"{md_path.name} 應該有一個 ## 標題與三張 ### 卡片")
+    note_html = f"        <p>{htmllib.escape(note)}</p>\n" if note else ""
+    cards_html = "\n".join(
+        f'          <div class="next-step-card"><h3>{htmllib.escape(c["head"])}</h3>'
+        f'<ul>{"".join(c["items"])}</ul></div>' for c in cards)
+    return (f'      <section class="next-steps" id="next-steps">\n'
+            f'        <h2{h2_cls}>{htmllib.escape(title)}</h2>\n{note_html}'
+            f'        <div class="next-steps-grid">\n{cards_html}\n        </div>\n'
+            f'      </section>')
 
 
 # ---------------------------------------------------------------- 精華版
@@ -246,6 +294,11 @@ def build_summary():
     title = lines[0].lstrip("# ").strip()
     subtitle = lines[2].strip("* ") if len(lines) > 2 else ""
     content = md_block_to_html(lines[4:])
+    # 行動呼籲放在「What other communities can borrow」之後、「About this survey」之前
+    about = content.find('<h2 id="about-this-survey">')
+    if about < 0:
+        raise SystemExit("精華版找不到「About this survey」，無法放行動呼籲")
+    content = content[:about] + cta_html(CTA_MD, "full/") + "\n" + content[about:]
     desc = ("What 127 people around g0v.tw, Taiwan's grassroots civic tech community, "
             "told us about getting in, getting stuck, and staying. A 5-minute summary.")
     html = f"""<html lang="en">

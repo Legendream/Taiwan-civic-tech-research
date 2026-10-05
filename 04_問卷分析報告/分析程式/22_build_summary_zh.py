@@ -56,51 +56,13 @@ ANCHOR_REDIRECT = """<script>
 </script>"""
 
 
-CTA_LINE = re.compile(r"^- \[(.+?)\]\((.+?)\)：(.+)$")
-
-
-def cta_html(full_prefix):
-    """行動呼籲.md → 三張卡片。full_prefix：精華版是 "full/"，完整版是 ""。"""
-    src = CTA_MD.read_text(encoding="utf-8")
-    body = src.split("<!-- 正文開始 -->", 1)[1].split("<!-- 正文結束 -->", 1)[0]
-    title, cards, cur = "", [], None
-    for ln in body.strip().split("\n"):
-        ln = ln.strip()
-        if ln.startswith("## "):
-            title = ln[3:]
-        elif ln.startswith("### "):
-            cur = {"head": ln[4:], "items": []}
-            cards.append(cur)
-        elif ln.startswith("- "):
-            m = CTA_LINE.match(ln)
-            if not m or cur is None:
-                raise SystemExit(f"行動呼籲.md 格式不對：{ln}")
-            text, href, why = m.groups()
-            href = href.replace("{FULL}", full_prefix)
-            ext = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
-            cur["items"].append(f'<li><a href="{htmllib.escape(href)}"{ext}>{htmllib.escape(text)}</a>'
-                                f'<span class="step-why">{htmllib.escape(why)}</span></li>')
-        elif ln:
-            raise SystemExit(f"行動呼籲.md 有無法辨識的行：{ln}")
-    h2_cls = "" if full_prefix else ' class="part-title"'   # 完整版：和「授權與資料來源」同一層
-    if len(cards) != 3 or not title:
-        raise SystemExit("行動呼籲.md 應該有一個 ## 標題與三張 ### 卡片")
-    cards_html = "\n".join(
-        f'          <div class="next-step-card"><h3>{htmllib.escape(c["head"])}</h3>'
-        f'<ul>{"".join(c["items"])}</ul></div>' for c in cards)
-    return (f'      <section class="next-steps" id="next-steps">\n'
-            f'        <h2{h2_cls}>{htmllib.escape(title)}</h2>\n'
-            f'        <div class="next-steps-grid">\n{cards_html}\n        </div>\n'
-            f'      </section>')
-
-
 def update_full():
     """把行動呼籲寫進完整版的插入點（兩個標記之間的內容整段換掉）。"""
     html = FULL_HTML.read_text(encoding="utf-8")
     pat = re.compile(re.escape(CTA_START) + r".*?" + re.escape(CTA_END), re.S)
     if len(pat.findall(html)) != 1:
         raise SystemExit("完整版找不到行動呼籲的插入點標記")
-    html = pat.sub(lambda m: f"{CTA_START}\n{cta_html('')}\n      {CTA_END}", html)
+    html = pat.sub(lambda m: f"{CTA_START}\n{EN.cta_html(CTA_MD, '')}\n      {CTA_END}", html)
     FULL_HTML.write_text(html, encoding="utf-8")
 
 
@@ -131,7 +93,7 @@ def build(body):
     about = re.search(r'<h2 id="sec-\d+">關於這份調查</h2>', content)
     if not about:
         raise SystemExit("精華版找不到「關於這份調查」，無法放行動呼籲")
-    content = content[:about.start()] + cta_html("full/") + "\n" + content[about.start():]
+    content = content[:about.start()] + EN.cta_html(CTA_MD, "full/") + "\n" + content[about.start():]
     desc = "127 位 g0v.tw 參與者告訴我們：怎麼進來、卡在哪裡、為什麼留下。臺灣公民科技調查的 5 分鐘精華版。"
     html = f"""<html lang="zh-Hant">
 <meta charset="utf-8">
