@@ -121,6 +121,10 @@
       background-color: var(--layer-creator);
       box-shadow: 0 0 8px rgba(42, 120, 214, 0.5);
     }
+    .status-indicator-dot.dark {
+      background-color: var(--text-main);
+      box-shadow: 0 0 8px rgba(11, 11, 11, 0.4);
+    }
 
     .slide-counter {
       font-size: 14px;
@@ -191,7 +195,7 @@
 
     .logo-divider {
       color: rgba(11, 11, 11, 0.3);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: bold;
     }
 
@@ -842,6 +846,20 @@
           <div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div>
         </div>
       </div>
+
+      <template class="slide-notes-template">
+        <p><span class="chunk-tag up">▲ 上推：重新定錨公民科技本質</span>（熱情、堅定）<br>
+        演講的一開始，我想先邀請大家回到公民科技最純粹的起點。很多人以為公民科技只是一群工程師在鍵盤上敲程式碼，但它的本質遠比技術更深刻。</p>
+        <br>
+        <p><span class="chunk-tag right">▶ 平移：行動模式對照</span><br>
+        它是當我們看見公共問題感到不滿時，我們不只在社群媒體上宣洩情緒，而是捲起袖子，用數位科技與開放資料把解法做出來。</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：微觀實踐機制</span><br>
+        它的運作是草根的、跨領域的，並且永遠追求開放透明。在 g0v 社群裡，有一種非常迷人的開源備案精神：民間由下而上做出一個 prototype 給社會看，如果政府覺得這個解法好，隨時可以整套拿去用。</p>
+        <br>
+        <p><span class="chunk-tag up">▲ 上推：民主韌性價值</span>（微停頓，加深重量感）<br>
+        芝加哥大學的 Bella Wexler 在碩士論文中指出，台灣 g0v 的草根組織者靠著結構性懷疑與社群信任，由下而上動手做出替代方案，為台灣在數位時代的民主韌性提供了重要的養分。</p>
+      </template>
     </section>
 
     <!-- ====================================================================
@@ -904,6 +922,15 @@
           <div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div>
         </div>
       </div>
+
+      <template class="slide-notes-template">
+        <p><span class="chunk-tag down">▼ 下切：十年的社群質變</span>（敘事節奏、平實鋪陳）<br>
+        走過十多年，台灣公民科技的樣貌其實已經發生了巨大的質變。十年前，大家熟悉的畫面是一群熱血工程師熬夜寫 code、推動開放資料；但十年後的今天，走進大松會場，你會看到研究者、非營利組織工作者、設計師與公私協調者。</p>
+        <br>
+        <p><span class="chunk-tag up">▲ 上推：浮現核心課題</span>（語調轉為嚴肅思考）<br>
+        專業越來越多元，代表公民科技正在深化；但與此同時，一個嚴肅的課題也浮上檯面：成員來來去去，十年前踩過的坑，新一代的專案還在重複踩嗎？在生成式 AI 普及的今天，大家的痛點改變了嗎？<br>
+        這些珍貴的協作經驗，如果只留在少數前輩的腦袋裡，一旦人離開了，知識會不會就這樣斷掉？這正是我們發起這次調研最深層的提問。</p>
+      </template>
     </section>
 
     <!-- ====================================================================
@@ -1453,9 +1480,264 @@
     </section>
 
     <!-- ====================================================================
-         SLIDE 9: S12 第三部 專案生命週期的互補分工
+         SLIDE 9: S9 第三部 黑客松只是起點：熱血專案在原型之後斷在哪裡？
          ==================================================================== -->
-    <section class="slide-canvas" data-slide="9" data-notes-title="S12 體制落地：生命週期分工講稿">
+    <section class="slide-canvas" data-slide="9" data-notes-title="S9 體制落地：黑客松痛點與斷點講稿">
+      <div class="slide-header">
+        <div class="chapter-badge">
+          <span class="status-indicator-dot blue"></span>
+          第三部 體制落地
+        </div>
+        <div class="slide-counter">10 / 17</div>
+      </div>
+
+      <div class="title-group">
+        <h1 class="slide-title">黑客松只是起點：熱血專案在原型之後斷在哪裡？</h1>
+        <p class="slide-subtitle">40% 工具不再使用，32% 手上無進行中專案；點火者只是起點，幼苗存活需要體制土壤</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="split-layout">
+          <!-- 左側真實圖表原圖 -->
+          <div class="chart-container-box">
+            <img src="assets/05_困擾_五級分布.png" alt="困擾五級分布圖" onerror="this.onerror=null; this.src='../04_問卷分析報告/圖表v2/05_困擾_五級分布.png';">
+          </div>
+
+          <!-- 右側痛點與機制分析 -->
+          <div class="data-list">
+            <div class="data-row-card highlight" style="border-color: rgba(235, 104, 52, 0.4); background: rgba(235, 104, 52, 0.03);">
+              <div style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <strong style="color: var(--layer-user); font-size: 15px;">國際研究警訊</strong>
+                  <span style="font-weight: 800; color: var(--layer-user); font-size: 16px;">約 40% 工具不再使用</span>
+                </div>
+                <div style="font-size: 13.5px; color: var(--text-sub); line-height: 1.45;">
+                  回顧 224 篇人機互動論文：客製工具缺人維護，黑客松原型少被真正落地
+                </div>
+              </div>
+            </div>
+
+            <div class="data-row-card">
+              <div style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <strong style="color: var(--text-main); font-size: 15px;">國內調查印證</strong>
+                  <span style="font-weight: 800; color: var(--text-main); font-size: 16px;">32% 無專案 ｜ 6/10 累垮</span>
+                </div>
+                <div style="font-size: 13.5px; color: var(--text-sub); line-height: 1.45;">
+                  台灣問卷高度一致：發起者 10 人中 6 人坦言核心成員累垮拖慢進度
+                </div>
+              </div>
+            </div>
+
+            <div class="data-row-card" style="border-color: rgba(42, 120, 214, 0.35); background: rgba(42, 120, 214, 0.03);">
+              <div style="width: 100%;">
+                <div style="margin-bottom: 6px;">
+                  <strong style="color: var(--layer-creator); font-size: 15px;">關鍵停擺機制：點火者與幼苗模型</strong>
+                </div>
+                <div style="font-size: 13.5px; color: var(--text-sub); line-height: 1.45;">
+                  里斯本研究指出點火者只是啟動；幼苗必須走向基礎設施化，由體制資料與在地社群接手
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>資料來源：2026 調查 N=47，發起者 N=10；圖表引用自 05_困擾_五級分布.png；文獻 Zhang 2022、Farias 2025</div>
+        <div class="footer-right">
+          <div class="footer-logos">
+            <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
+            <span class="logo-divider">×</span>
+            <img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo">
+          </div>
+          <div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div>
+        </div>
+      </div>
+
+      <template class="slide-notes-template">
+        <p><span class="chunk-tag up">▲ 上推：直面專案生命週期的殘酷現實</span>（語調轉深，帶入警醒感）<br>
+        選定了題目，我們進入第三部：體制落地。在 11 篇指引中，大家敲碗最熱烈的就是《成果落地》。因為所有人都知道：黑客松做出 prototype 只是起點，真正的修羅場在黑客松結束之後。</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：國內外雙重數據印證</span>（對照強烈）<br>
+        新加坡國立大學團隊回顧了 224 篇電腦協作與人機互動領域的論文，發現約 40% 的公民科技工具已經不再使用。回頭看台灣的問卷，方向相當一致：做過專案的受訪者中，有 32% 目前手上沒有進行中的專案；而自己起頭的 10 位發起者裡，有 6 位坦言核心成員累垮明顯拖慢了進度。</p>
+        <br>
+        <p><span class="chunk-tag up">▶ 平移：點火者與幼苗心智模型</span><br>
+        葡萄牙里斯本黑客松的研究提出了一個非常傳神的詞，叫做點火者。專案初期要靠點火者啟動網絡、串起各方；但點火只是起點，必須走向基礎設施化，讓在地社群接手，專案才不會在黑客松結束後就停擺。<br>
+        專案就像幼苗，不能只給第一場雨水，它需要扎根在真實使用者身上，需要體制的資料與人脈灌溉，才能活得下來。</p>
+      </template>
+    </section>
+
+    <!-- ====================================================================
+         SLIDE 10: S10 第三部 放大影響力的實務路徑：槓桿策略與開源原型
+         ==================================================================== -->
+    <section class="slide-canvas" data-slide="10" data-notes-title="S10 體制落地：槓桿策略與開源原型講稿">
+      <div class="slide-header">
+        <div class="chapter-badge">
+          <span class="status-indicator-dot blue"></span>
+          第三部 體制落地
+        </div>
+        <div class="slide-counter">11 / 17</div>
+      </div>
+
+      <div class="title-group">
+        <h1 class="slide-title">放大影響力的實務路徑：槓桿策略與開源原型</h1>
+        <p class="slide-subtitle">不追求全民普及而是精準賦能專業轉譯者，不空談倡議而是打造高效率開源替代方案</p>
+      </div>
+
+      <div class="slide-body">
+        <div style="display: flex; flex-direction: column; gap: 18px; width: 100%;">
+          <!-- 路徑一 -->
+          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 24px; box-shadow: var(--card-shadow);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 10px; margin-bottom: 12px;">
+              <span style="display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 13.5px; font-weight: 700; background: rgba(42, 120, 214, 0.1); color: var(--layer-creator);">路徑一 ｜ 專業槓桿策略</span>
+              <span style="font-size: 13px; color: var(--text-sub);">不追求全民普及，鎖定關鍵專業轉譯者放大系統效應</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div style="padding: 12px 14px; border-radius: 8px; background: rgba(11, 11, 11, 0.02); font-size: 13.5px; line-height: 1.45;">
+                <strong style="color: var(--text-main);">【Cofacts 真的假的】：</strong>
+                <span style="color: var(--text-sub);">開放查核資料集被民間防詐機器人串接，甚至獲中選會公開建議民眾查證使用。</span>
+              </div>
+              <div style="padding: 12px 14px; border-radius: 8px; background: rgba(11, 11, 11, 0.02); font-size: 13.5px; line-height: 1.45;">
+                <strong style="color: var(--text-main);">【LawTrace 立法足跡】：</strong>
+                <span style="color: var(--text-sub);">精準解決國會助理與法案研究者痛苦，深度滿足利基專業剛需。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 路徑二 -->
+          <div style="background: var(--card-bg); border: 1px solid rgba(42, 120, 214, 0.35); border-radius: 14px; padding: 18px 24px; box-shadow: var(--card-shadow); background: rgba(42, 120, 214, 0.015);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 10px; margin-bottom: 12px;">
+              <span style="display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 13.5px; font-weight: 700; background: var(--layer-creator); color: #fff;">路徑二 ｜ 開源替代示範</span>
+              <span style="font-size: 13px; color: var(--text-sub);">不在體制外空談倡議，直接打造更高效率的開源待用原型</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div style="padding: 12px 14px; border-radius: 8px; background: #fff; border: 1px solid rgba(11,11,11,0.06); font-size: 13.5px; line-height: 1.45;">
+                <strong style="color: var(--text-main);">【LawTrace 立法足跡】：</strong>
+                <span style="color: var(--text-sub);">直接做出立法院資料庫的現代化替代品，成為體制零風險的 Plan B。</span>
+              </div>
+              <div style="padding: 12px 14px; border-radius: 8px; background: #fff; border: 1px solid rgba(11,11,11,0.06); font-size: 13.5px; line-height: 1.45;">
+                <strong style="color: var(--text-main);">【vTaiwan 數位公民共識】：</strong>
+                <span style="color: var(--text-sub);">將爭議法案的數位公民共識原型端至政務官眼前，促成法規調適。</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>案例出處詳見本專案方法論長文《公民科技專案做出來了，然後呢？從原型走向改變體制的實務指南》</div>
+        <div class="footer-right">
+          <div class="footer-logos">
+            <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
+            <span class="logo-divider">×</span>
+            <img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo">
+          </div>
+          <div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div>
+        </div>
+      </div>
+
+      <template class="slide-notes-template">
+        <p><span class="chunk-tag up">▲ 上推：跳脫普及率的單一框架</span>（思維提升）<br>
+        那麼，原型做出來之後到底該怎麼走？我們梳理了台灣過去十年的成功案例，提煉出四條實戰路徑。今天先介紹前兩條。</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：路徑一 專業槓桿與微觀案例</span>（節奏明快）<br>
+        第一條路徑叫專業槓桿。專案不一定要追求幾十萬大眾下載，你可以專門服務關鍵的轉譯者。就像 Cofacts 真的假的，它專注把開放查核資料集做好，結果民間各大防詐機器人直接串接，甚至中選會也公開建議民眾使用；LawTrace 立法足跡也是如此，它精準解決國會助理與法案研究者的痛苦。</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：路徑二 開源原型與微觀案例</span>（層層推進）<br>
+        第二條路徑叫開源原型示範。與其在體制外寫厚厚一本倡議建言書，不如直接寫 code 做一個開源的 Plan B 給體制看。LawTrace 直接做出立法院資料庫的現代化替代品；vTaiwan 更是直接把爭議法案的數位公民共識原型，端到政務官與公務體系眼前。</p>
+        <br>
+        <p><span class="chunk-tag up">▲ 上推：事實勝於雄辯</span>（有力結尾）<br>
+        做出開源待用原型，體制就能在零風險的情況下看見更好的可能性。</p>
+      </template>
+    </section>
+
+    <!-- ====================================================================
+         SLIDE 11: S11 第三部 放大影響力的實務路徑：借力既有流程與長期接力
+         ==================================================================== -->
+    <section class="slide-canvas" data-slide="11" data-notes-title="S11 體制落地：公務流程借力與資產長跑講稿">
+      <div class="slide-header">
+        <div class="chapter-badge">
+          <span class="status-indicator-dot blue"></span>
+          第三部 體制落地
+        </div>
+        <div class="slide-counter">12 / 17</div>
+      </div>
+
+      <div class="title-group">
+        <h1 class="slide-title">放大影響力的實務路徑：借力既有流程與長期接力</h1>
+        <p class="slide-subtitle">極簡前端門檻無縫銜接公務處分，承認志工流動必然性以開源授權跨年接棒</p>
+      </div>
+
+      <div class="slide-body">
+        <div style="display: flex; flex-direction: column; gap: 18px; width: 100%;">
+          <!-- 路徑三 -->
+          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 24px; box-shadow: var(--card-shadow);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 10px; margin-bottom: 12px;">
+              <span style="display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 13.5px; font-weight: 700; background: rgba(27, 175, 122, 0.15); color: var(--layer-curious);">路徑三 ｜ 公務流程借力</span>
+              <span style="font-size: 13px; color: var(--text-sub);">民間極簡化前端參與門檻，後端介接現行公務通報與處分機制</span>
+            </div>
+            <div style="padding: 12px 14px; border-radius: 8px; background: rgba(11, 11, 11, 0.02); font-size: 13.5px; line-height: 1.5;">
+              <strong style="color: var(--text-main);">【Disfactory 農地違章工廠】：</strong>
+              <span style="color: var(--text-sub);">民眾在手機上免登入拍照通報，NGO 後台接力自動化整理為標準公文字號送交地方政府，倒逼體制依法查處。</span>
+            </div>
+          </div>
+
+          <!-- 路徑四 -->
+          <div style="background: var(--card-bg); border: 1px solid rgba(42, 120, 214, 0.35); border-radius: 14px; padding: 18px 24px; box-shadow: var(--card-shadow); background: rgba(42, 120, 214, 0.015);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 10px; margin-bottom: 12px;">
+              <span style="display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 13.5px; font-weight: 700; background: var(--layer-creator); color: #fff;">路徑四 ｜ 開放資產長跑</span>
+              <span style="font-size: 13px; color: var(--text-sub);">承認志工流動必然性，以開源授權與完整共筆預備跨年度長跑接棒</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; text-align: center;">
+              <div style="padding: 12px 10px; border-radius: 8px; background: #fff; border: 1px solid rgba(11,11,11,0.06);">
+                <div style="font-weight: 800; font-size: 15px; color: var(--layer-creator); margin-bottom: 4px;">2014 年</div>
+                <div style="font-size: 13px; color: var(--text-sub); line-height: 1.4;">g0v 黑客松群眾 OCR 紙本辨識起步</div>
+              </div>
+              <div style="padding: 12px 10px; border-radius: 8px; background: #fff; border: 1px solid rgba(11,11,11,0.06);">
+                <div style="font-weight: 800; font-size: 15px; color: var(--layer-creator); margin-bottom: 4px;">2017 年</div>
+                <div style="font-size: 13px; color: var(--text-sub); line-height: 1.4;">READr 團隊延續資產產出新聞專題</div>
+              </div>
+              <div style="padding: 12px 10px; border-radius: 8px; background: #fff; border: 1px solid rgba(11,11,11,0.06);">
+                <div style="font-weight: 800; font-size: 15px; color: var(--layer-curious); margin-bottom: 4px;">2019 年</div>
+                <div style="font-size: 13px; color: var(--text-sub); line-height: 1.4;">促成修法，監察院查詢平台正式上線！</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>案例出處詳見本專案方法論長文《公民科技專案做出來了，然後呢？》與《資料卡住了怎麼辦？》</div>
+        <div class="footer-right">
+          <div class="footer-logos">
+            <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
+            <span class="logo-divider">×</span>
+            <img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo">
+          </div>
+          <div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div>
+        </div>
+      </div>
+
+      <template class="slide-notes-template">
+        <p><span class="chunk-tag up">▲ 上推：借力體制與跨越世代</span>（視野展開）<br>
+        除了技術示範，後續的兩條路徑則展現了極高的組織智慧。</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：路徑三 借力公務體系</span>（生動描述）<br>
+        第三條路徑是借力使力。民間團隊不需要自己成立龐大的稽查隊伍。Disfactory 農地違章工廠讓民眾在手機上拍照通報，民間團體在後台把事證整理成標準公文，直接送進政府既有的查處體制，要求地方政府依法查處。前端群眾參與，後端無縫咬合公務體系。</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：路徑四 開源長跑的五年接棒</span>（感動人心之真實史實）<br>
+        第四條路徑則是社群長跑接力。承認志工流動是必然的，所以一切資產必須開源。政治獻金數位化專案歷經了長達五年的接力，2014 年在 g0v 黑客松上，網友用群眾 OCR 把紙本資料數位化；2017 年新聞團隊 READr 延續成果，做出資料新聞專題；2019 年修法通過後，監察院自己上線了政治獻金查閱平台！</p>
+        <br>
+        <p><span class="chunk-tag up">▲ 上推：開源資產的永恆性</span>（語氣澎湃）<br>
+        這證明了：人雖然會離開，但只要開源程式碼、共筆文件與授權還在，公民科技的火種就能在不同世代之間持續接棒！</p>
+      </template>
+    </section>
+
+    <!-- ====================================================================
+         SLIDE 12: S12 第三部 走向體制的公私協同：專案生命週期的互補分工
+         ==================================================================== -->
+    <section class="slide-canvas" data-slide="12" data-notes-title="S12 體制落地：生命週期分工講稿">
       <div class="slide-header">
         <div class="chapter-badge">
           <span class="status-indicator-dot blue"></span>
@@ -1494,12 +1776,12 @@
 
             <div style="margin-bottom: 14px; padding: 12px; background: rgba(11, 11, 11, 0.02); border-radius: 8px;">
               <div style="font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 4px;">民間端職責</div>
-              <div style="font-size: 13.5px; color: var(--text-main); line-height: 1.4;">交付可檢驗之開源原型與實作數據，建立對話基礎</div>
+              <div style="font-size: 13.5px; color: var(--text-main); line-height: 1.4;">交付可檢驗之開源待用原型，以實作數據建立對話</div>
             </div>
 
             <div style="padding: 12px; background: rgba(42, 120, 214, 0.04); border-radius: 8px;">
               <div style="font-size: 12px; font-weight: 700; color: var(--layer-creator); margin-bottom: 4px;">體制端支援</div>
-              <div style="font-size: 13.5px; color: var(--text-main); line-height: 1.4;">指派專責業務諮詢窗口，轉譯公務法規與作業邏輯</div>
+              <div style="font-size: 13.5px; color: var(--text-main); line-height: 1.4;">提供專責業務諮詢窗口，轉譯公務法規與作業邏輯</div>
             </div>
           </div>
 
@@ -1510,12 +1792,12 @@
 
             <div style="margin-bottom: 14px; padding: 12px; background: rgba(11, 11, 11, 0.02); border-radius: 8px;">
               <div style="font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 4px;">民間端職責</div>
-              <div style="font-size: 13.5px; color: var(--text-main); line-height: 1.4;">以開放授權完整釋出核心資產，確保持續運作</div>
+              <div style="font-size: 13.5px; color: var(--text-main); line-height: 1.4;">以開放授權完整釋出核心資產，確保持續運作無鎖死</div>
             </div>
 
             <div style="padding: 12px; background: rgba(42, 120, 214, 0.04); border-radius: 8px;">
               <div style="font-size: 12px; font-weight: 700; color: var(--layer-creator); margin-bottom: 4px;">體制端支援</div>
-              <div style="font-size: 13.5px; color: var(--text-main); line-height: 1.4;">將成熟方案納入常規公共服務，擴大普及規模</div>
+              <div style="font-size: 13.5px; color: var(--text-main); line-height: 1.4;">將成熟方案納入常規公共服務，擴大普及規模至全民</div>
             </div>
           </div>
         </div>
@@ -1545,7 +1827,458 @@
       </template>
     </section>
 
-  </div>
+    <!-- ====================================================================
+         SLIDE 13: S13 第四部 專案規劃的雙軌初衷：突破經驗傳承的三大阻力
+         ==================================================================== -->
+    <section class="slide-canvas" data-slide="13" data-notes-title="S13 資產傳承：雙軌規劃突破三大阻力講稿">
+      <div class="slide-header">
+        <div class="chapter-badge">
+          <span class="status-indicator-dot dark"></span>
+          第四部 資產傳承
+        </div>
+        <div class="slide-counter">14 / 17</div>
+      </div>
+
+      <div class="title-group">
+        <h1 class="slide-title">專案規劃的雙軌初衷：突破經驗傳承的三大阻力</h1>
+        <p class="slide-subtitle">拒絕依賴個人熱血燃燒，以「內容示範 ＋ 工具流程」雙軌架構打造永續傳承機制</p>
+      </div>
+
+      <div class="slide-body">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%;">
+          <!-- 左側三大阻力 -->
+          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 20px 22px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="font-size: 13.5px; font-weight: 700; color: var(--text-sub); border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 8px; margin-bottom: 14px;">
+              知識傳承的三大現實阻力（MECE 歸納）
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="padding: 12px 14px; background: rgba(11, 11, 11, 0.02); border-radius: 8px;">
+                <div style="font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 3px;">1. 範疇廣度限制</div>
+                <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">議題跨度極大且持續演進，單一專案難以窮盡所有指南，易陷入涵蓋不足焦慮。</div>
+              </div>
+
+              <div style="padding: 12px 14px; background: rgba(11, 11, 11, 0.02); border-radius: 8px;">
+                <div style="font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 3px;">2. 動筆時間負擔</div>
+                <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">社群成員以業餘時間投入，文字整理成本過於沉重，數萬字踩坑紀錄難以動筆。</div>
+              </div>
+
+              <div style="padding: 12px 14px; background: rgba(235, 104, 52, 0.03); border: 1px solid rgba(235, 104, 52, 0.2); border-radius: 8px;">
+                <div style="font-size: 14px; font-weight: 700; color: var(--layer-user); margin-bottom: 3px;">3. 查核信任門檻</div>
+                <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">生成式 AI 極易產生幻覺，開源講求高信任，單一案例出錯將摧毀全書公信力。</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側雙軌解法 -->
+          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 20px 22px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="font-size: 13.5px; font-weight: 700; color: var(--text-main); border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 8px; margin-bottom: 14px;">
+              專案初期的雙軌破局策略
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div style="padding: 16px 18px; background: rgba(27, 175, 122, 0.04); border-left: 4px solid var(--layer-curious); border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <strong style="color: var(--text-main); font-size: 15px;">內容軌：親自產出 11 篇高品質指引</strong>
+                  <span style="font-size: 12px; font-weight: 700; color: var(--layer-curious); background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(27,175,122,0.2);">突破範疇</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
+                  親自示範盤點 10 年經驗，涵蓋 3 篇方法論長文與 8 篇領域指南，提供標準實戰範本。
+                </div>
+              </div>
+
+              <div style="padding: 16px 18px; background: rgba(42, 120, 214, 0.04); border-left: 4px solid var(--layer-creator); border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <strong style="color: var(--text-main); font-size: 15px;">工具軌：研發人機協作寫作流程</strong>
+                  <span style="font-size: 12px; font-weight: 700; color: var(--layer-creator); background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(42,120,214,0.2);">解放時間與信任</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
+                  將實作沉澱為標準化 Pipeline，大幅壓縮動筆時間，並以三道防線徹底阻絕 AI 幻覺。
+                </div>
+              </div>
+            </div>
+
+            <div style="padding: 10px 14px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; font-size: 12.5px; color: var(--text-sub); text-align: center;">
+              不只留下一本書，更留下一座任何人都能持續開採經驗的開源工具鏈。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>阻力與解法符合 MECE 原則；寫作流程與工具鏈全數以 CC BY 4.0 授權公開釋出</div>
+        <div class="footer-right">
+          <div class="footer-logos">
+            <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
+            <span class="logo-divider">×</span>
+            <img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo">
+          </div>
+          <div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div>
+        </div>
+      </div>
+
+      <template class="slide-notes-template">
+        <p><span class="chunk-tag down">▼ 下切：撞上知識傳承的三大現實阻力</span>（直擊痛點、真實坦白）<br>
+        談完了這麼多精采的專案經驗，我們進入第四部：資產傳承。回到我們自己的任務：到底該怎麼把這十年的智慧傳承下去？<br>
+        剛開始規劃時，我們馬上撞上了三道現實高牆：第一，公民科技領域太廣了，單靠幾個人根本不可能寫完所有指南；第二，社群夥伴平時都有工作，動筆梳理動輒數萬字的踩坑紀錄，時間成本高到難以承受；第三，雖然現在有生成式 AI，但 AI 極度容易產生幻覺、胡言亂語，在講求信任的開源社群，只要一個案例出錯，整份指南的公信力就毀了。</p>
+        <br>
+        <p><span class="chunk-tag up">▲ 上推：跳脫個人燃燒，走向架構突破</span>（思維換檔）<br>
+        如果我們只依賴個人的熱血苦幹，這本指南只會變成另一次偶發的燃燒自己。傳承要能持久，必須靠系統化的架構突破。</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：雙軌規劃的落地標的</span>（清楚明確）<br>
+        因此我們從第一天就設定了雙軌策略：第一軌是內容軌，親自產出 11 篇高品質指引做示範；第二軌更關鍵，是工具軌，我們邊寫邊萃取出一套開源的人機協作寫作流程，讓未來的每一個人都能輕鬆動筆。</p>
+      </template>
+    </section>
+
+    <!-- ====================================================================
+         SLIDE 14: S14 第四部 人機協同寫作流程：八個階段與三道品質防線
+         ==================================================================== -->
+    <section class="slide-canvas" data-slide="14" data-notes-title="S14 資產傳承：人機協同流程與防線講稿">
+      <div class="slide-header">
+        <div class="chapter-badge">
+          <span class="status-indicator-dot dark"></span>
+          第四部 資產傳承
+        </div>
+        <div class="slide-counter">15 / 17</div>
+      </div>
+
+      <div class="title-group">
+        <h1 class="slide-title">人機協同寫作流程：八個階段與三道品質防線</h1>
+        <p class="slide-subtitle">讓人做價值判斷，讓 AI 承擔繁重機械工作；以工程級防線徹底防範幻覺</p>
+      </div>
+
+      <div class="slide-body">
+        <div style="display: grid; grid-template-columns: 1.05fr 1.15fr; gap: 24px; width: 100%;">
+          <!-- 左側人機分工與八階段流程 -->
+          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 20px 22px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="font-size: 13.5px; font-weight: 700; color: var(--text-sub); border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 8px; margin-bottom: 12px;">
+                人機協同分工哲學
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+                <div style="padding: 10px 12px; background: rgba(11, 11, 11, 0.02); border-radius: 8px;">
+                  <div style="font-size: 12.5px; font-weight: 700; color: var(--text-sub); margin-bottom: 2px;">人工智慧職責</div>
+                  <div style="font-size: 13px; color: var(--text-main); line-height: 1.4;">資料檢索、結構排版、草稿初擬，承擔繁瑣體力活</div>
+                </div>
+                <div style="padding: 10px 12px; background: rgba(42, 120, 214, 0.04); border-radius: 8px;">
+                  <div style="font-size: 12.5px; font-weight: 700; color: var(--layer-creator); margin-bottom: 2px;">人類專家職責</div>
+                  <div style="font-size: 13px; color: var(--text-main); line-height: 1.4;">掌握核心觀點、判定真實邊界、拍板發布決策</div>
+                </div>
+              </div>
+
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">
+                八階段推進 Pipeline
+              </div>
+            </div>
+
+            <!-- 8 階段網格 -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; font-size: 12px; text-align: center;">
+              <div style="padding: 8px 4px; background: #fff; border: 1px solid rgba(11,11,11,0.08); border-radius: 6px;">
+                <div style="font-weight: 800; color: var(--text-faint);">01</div>
+                <div style="font-weight: 600; color: var(--text-main); margin-top: 2px;">選題發想</div>
+              </div>
+              <div style="padding: 8px 4px; background: #fff; border: 1px solid rgba(11,11,11,0.08); border-radius: 6px;">
+                <div style="font-weight: 800; color: var(--text-faint);">02</div>
+                <div style="font-weight: 600; color: var(--text-main); margin-top: 2px;">調研訪談</div>
+              </div>
+              <div style="padding: 8px 4px; background: rgba(42,120,214,0.06); border: 1px solid rgba(42,120,214,0.25); border-radius: 6px;">
+                <div style="font-weight: 800; color: var(--layer-creator);">03</div>
+                <div style="font-weight: 700; color: var(--layer-creator); margin-top: 2px;">大綱主張</div>
+              </div>
+              <div style="padding: 8px 4px; background: #fff; border: 1px solid rgba(11,11,11,0.08); border-radius: 6px;">
+                <div style="font-weight: 800; color: var(--text-faint);">04</div>
+                <div style="font-weight: 600; color: var(--text-main); margin-top: 2px;">草稿初擬</div>
+              </div>
+              <div style="padding: 8px 4px; background: rgba(235,104,52,0.06); border: 1px solid rgba(235,104,52,0.25); border-radius: 6px;">
+                <div style="font-weight: 800; color: var(--layer-user);">05</div>
+                <div style="font-weight: 700; color: var(--layer-user); margin-top: 2px;">事實標註</div>
+              </div>
+              <div style="padding: 8px 4px; background: rgba(27,175,122,0.06); border: 1px solid rgba(27,175,122,0.25); border-radius: 6px;">
+                <div style="font-weight: 800; color: var(--layer-curious);">06</div>
+                <div style="font-weight: 700; color: var(--layer-curious); margin-top: 2px;">獨立審查</div>
+              </div>
+              <div style="padding: 8px 4px; background: #fff; border: 1px solid rgba(11,11,11,0.08); border-radius: 6px;">
+                <div style="font-weight: 800; color: var(--text-faint);">07</div>
+                <div style="font-weight: 600; color: var(--text-main); margin-top: 2px;">社群共筆</div>
+              </div>
+              <div style="padding: 8px 4px; background: #fff; border: 1px solid rgba(11,11,11,0.08); border-radius: 6px;">
+                <div style="font-weight: 800; color: var(--text-faint);">08</div>
+                <div style="font-weight: 600; color: var(--text-main); margin-top: 2px;">開源釋出</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側三道品質防線 -->
+          <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 10px;">
+            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--layer-creator); border-radius: 12px; padding: 14px 18px; box-shadow: var(--card-shadow);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <strong style="color: var(--text-main); font-size: 14.5px;">第一道防線 ｜ 大綱階段主張表</strong>
+                <span style="font-size: 12px; font-weight: 700; color: var(--layer-creator); background: rgba(42,120,214,0.08); padding: 2px 8px; border-radius: 4px;">確立核心論點</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
+                嚴格檢視每一個段落的核心論點與真實案例，無真實數據佐證或受訪者口述經驗，絕不予動筆。
+              </div>
+            </div>
+
+            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--layer-user); border-radius: 12px; padding: 14px 18px; box-shadow: var(--card-shadow);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <strong style="color: var(--text-main); font-size: 14.5px;">第二道防線 ｜ 逐條事實等級標註</strong>
+                <span style="font-size: 12px; font-weight: 700; color: var(--layer-user); background: rgba(235,104,52,0.08); padding: 2px 8px; border-radius: 4px;">建立查核總表</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
+                成稿中每個數字、專案引述皆標註查驗等級，並產出對應引用來源清單與查核總表，逐一校對真偽。
+              </div>
+            </div>
+
+            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--layer-curious); border-radius: 12px; padding: 14px 18px; box-shadow: var(--card-shadow);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <strong style="color: var(--text-main); font-size: 14.5px;">第三道防線 ｜ 獨立 AI 審查機制</strong>
+                <span style="font-size: 12px; font-weight: 700; color: var(--layer-curious); background: rgba(27,175,122,0.08); padding: 2px 8px; border-radius: 4px;">杜絕盲點挑錯</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
+                引入未參與撰寫協作的獨立模型擔任審查官，從旁挑錯驗收邏輯漏洞與過度推論，徹底杜絕盲點。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>完整流程規範與開源提示詞詳見 civictech-guide.claire-cheng.com 說明</div>
+        <div class="footer-right">
+          <div class="footer-logos">
+            <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
+            <span class="logo-divider">×</span>
+            <img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo">
+          </div>
+          <div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div>
+        </div>
+      </div>
+
+      <template class="slide-notes-template">
+        <p><span class="chunk-tag up">▲ 上推：人機協同的哲學定義</span>（前瞻、自信）<br>
+        這套人機寫作流程的核心原則非常簡單：讓人做判斷，讓 AI 承擔繁重的體力活。</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：三道嚴格的查核防線</span>（極度精準、展現工程級嚴謹度）<br>
+        我們如何確保 AI 不產生幻覺、確保指南百分之百真實？我們設計了三道硬核防線：<br>
+        第一道防線在大綱階段：作者必須填寫主張表，嚴格檢視每一個段落的核心論點與真實案例，如果沒有真實數據或訪談佐證，絕對不准動筆；<br>
+        第二道防線在成稿階段：文章中的每一個數字、每一個專案引述，全部標註查證等級，並同步產出查核總表與來源清單；<br>
+        第三道防線在審查階段：我們引入一個完全沒有看過草稿、沒參與協作的獨立 AI 擔任審查官，從旁挑錯驗收，杜絕自我審查的認知盲點。</p>
+        <br>
+        <p><span class="chunk-tag up">▲ 上推：賦能社群的效益</span>（微停頓）<br>
+        這套流程幫作者降低動筆的時間負擔，同時把事實查核的標準拉高。</p>
+      </template>
+    </section>
+
+    <!-- ====================================================================
+         SLIDE 15: S15 第四部 沉澱開源紀錄：讓專案成果成為可被接棒的公共財
+         ==================================================================== -->
+    <section class="slide-canvas" data-slide="15" data-notes-title="S15 資產傳承：沉澱開源紀錄三大公共財講稿">
+      <div class="slide-header">
+        <div class="chapter-badge">
+          <span class="status-indicator-dot dark"></span>
+          第四部 資產傳承
+        </div>
+        <div class="slide-counter">16 / 17</div>
+      </div>
+
+      <div class="title-group">
+        <h1 class="slide-title">沉澱開源紀錄：讓專案成果成為可被接棒的公共財</h1>
+        <p class="slide-subtitle">直面問卷傳承斷層痛點，全套以 CC BY 4.0 授權交付三大公共資產</p>
+      </div>
+
+      <div class="slide-body">
+        <div style="display: grid; grid-template-columns: 1fr 1.65fr; gap: 24px; width: 100%;">
+          <!-- 左側痛點實證卡片 -->
+          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 20px 22px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="font-size: 13.5px; font-weight: 700; color: var(--text-sub); border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 8px;">
+              社群傳承痛點量化實證
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 14px; margin-top: auto; margin-bottom: auto;">
+              <div style="padding: 14px 16px; background: rgba(235, 104, 52, 0.03); border: 1px solid rgba(235, 104, 52, 0.25); border-radius: 10px;">
+                <div style="font-size: 30px; font-weight: 900; color: var(--layer-user); line-height: 1;">13%</div>
+                <div style="font-size: 13.5px; font-weight: 700; color: var(--text-main); margin-top: 6px;">缺少文件交接使進度受阻</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">老手與實作者反映人走知識斷，無完整交接直接卡死專案推進。</div>
+              </div>
+
+              <div style="padding: 14px 16px; background: rgba(217, 56, 58, 0.03); border: 1px solid rgba(217, 56, 58, 0.25); border-radius: 10px;">
+                <div style="font-size: 30px; font-weight: 900; color: #d9383a; line-height: 1;">4%</div>
+                <div style="font-size: 13.5px; font-weight: 700; color: var(--text-main); margin-top: 6px;">嚴重至想退出專案</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">熱情成員因缺乏指引與傳承陷入孤立無援，最終精疲力竭離開。</div>
+              </div>
+            </div>
+
+            <div style="padding: 10px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; font-size: 12px; color: var(--text-sub); text-align: center;">
+              成果不該留在個人硬碟，唯有公共財才能永續接棒。
+            </div>
+          </div>
+
+          <!-- 右側三大交付資產對稱卡片 -->
+          <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 12px;">
+            <!-- 資產一 -->
+            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 18px; box-shadow: var(--card-shadow);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-size: 12px; font-weight: 700; color: var(--layer-curious); background: rgba(27,175,122,0.1); padding: 2px 8px; border-radius: 4px;">破解新手卡關</span>
+                <strong style="font-size: 14.5px; color: var(--text-main);">資產一 ｜ 11 篇實務指引手冊</strong>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
+                提供即時可查的實戰工具書，盤點 10 年踩坑經驗，涵蓋選題發起、協同營運與體制落地四大維度。
+              </div>
+            </div>
+
+            <!-- 資產二 -->
+            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 18px; box-shadow: var(--card-shadow);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-size: 12px; font-weight: 700; color: var(--layer-user); background: rgba(235,104,52,0.1); padding: 2px 8px; border-radius: 4px;">破解決策盲點</span>
+                <strong style="font-size: 14.5px; color: var(--text-main);">資產二 ｜ 127 份問卷資料集 ＋ 分析網站</strong>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
+                公開去識別化數據與互動圖表網站（report.claire-cheng.com），為未來公私政策對話奠定客觀科學依據。
+              </div>
+            </div>
+
+            <!-- 資產三 -->
+            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 18px; box-shadow: var(--card-shadow);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-size: 12px; font-weight: 700; color: var(--layer-creator); background: rgba(42,120,214,0.1); padding: 2px 8px; border-radius: 4px;">破解傳承斷層</span>
+                <strong style="font-size: 14.5px; color: var(--text-main);">資產三 ｜ 開源人機寫作 Pipeline</strong>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
+                釋出完整提示詞鏈、大綱主張表與三道防線規格，提供社群人人可用、可持續擴充的經驗沉澱工具。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>資料來源：2026 社群調查困擾評分 N=47；展示網站：report.claire-cheng.com；全案以 CC BY 4.0 釋出</div>
+        <div class="footer-right">
+          <div class="footer-logos">
+            <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
+            <span class="logo-divider">×</span>
+            <img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo">
+          </div>
+          <div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div>
+        </div>
+      </div>
+
+      <template class="slide-notes-template">
+        <p><span class="chunk-tag down">▼ 下切：直擊問卷裡的傳承痛點</span>（語氣沉著嚴肅）<br>
+        為什麼留下開源紀錄與工具這麼重要？問卷裡有兩個數據深深刺痛了我：<br>
+        有 13% 的實作者痛苦地表示，專案缺少文件交接，人一走知識就斷，實質卡死了進度；甚至有 4% 的人感到嚴重到想退出專案。大家滿懷熱血跳進來，最後卻因為知識斷層精疲力竭地離開。</p>
+        <br>
+        <p><span class="chunk-tag up">▲ 上推：本專案的三大實質資產</span>（拉高格局、鏗鏘有力）<br>
+        這就是為什麼我們堅持把這次專案的所有產出，全部以 CC BY 4.0 授權開放出來。我們為台灣公民科技生態系交付了三大資產：</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：三大標的與價值對應</span>（結構對稱）<br>
+        面對新手卡關，我們交付 11 篇扎實的實作指引，打破摸索門檻；面對公私決策盲點，我們交付 127 份去識別化的問卷數據與公開分析網站，讓未來的政策討論有客觀依據；面對傳承斷層，我們交付人機寫作 Pipeline，把工具留給社群。</p>
+        <br>
+        <p><span class="chunk-tag up">▲ 上推：公共財的長遠價值</span>（堅定）<br>
+        成果不該只留在個人的硬碟裡，唯有變成可被接棒的公共財，改變才會持續發生。</p>
+      </template>
+    </section>
+
+    <!-- ====================================================================
+         SLIDE 16: S16 第四部 推動生態系持續長大：今天開始的下一步
+         ==================================================================== -->
+    <section class="slide-canvas" data-slide="16" data-notes-title="S16 結語與行動召喚：今天開始的下一步講稿">
+      <div class="slide-header">
+        <div class="chapter-badge">
+          <span class="status-indicator-dot dark"></span>
+          第四部 資產傳承
+        </div>
+        <div class="slide-counter">17 / 17</div>
+      </div>
+
+      <div class="title-group">
+        <h1 class="slide-title">推動生態系持續長大：今天開始的下一步</h1>
+        <p class="slide-subtitle">公民科技是一場跨越世代的長跑接力，邀請不同位置的夥伴共同行動</p>
+      </div>
+
+      <div class="slide-body">
+        <div style="display: grid; grid-template-columns: 1.45fr 1fr; gap: 24px; width: 100%; align-items: stretch;">
+          <!-- 左側三類夥伴行動呼籲卡片 -->
+          <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 12px;">
+            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--layer-curious); border-radius: 12px; padding: 14px 18px; box-shadow: var(--card-shadow);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <strong style="color: var(--text-main); font-size: 14.5px;">體制夥伴 ｜ 開放資料與常態業務窗口</strong>
+                <span style="font-size: 12px; font-weight: 700; color: var(--layer-curious); background: rgba(27,175,122,0.1); padding: 2px 8px; border-radius: 4px;">官方對接</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
+                不只停留在競賽獎勵，主動釋出乾淨基礎開放資料，指派專責對話窗口，成為民間創新的低風險試驗場。
+              </div>
+            </div>
+
+            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--layer-user); border-radius: 12px; padding: 14px 18px; box-shadow: var(--card-shadow);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <strong style="color: var(--text-main); font-size: 14.5px;">現場會眾 ｜ 掃描 QR Code 填寫問卷</strong>
+                <span style="font-size: 12px; font-weight: 700; color: var(--layer-user); background: rgba(235,104,52,0.1); padding: 2px 8px; border-radius: 4px;">擴大樣本</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
+                花 3 分鐘填寫問卷，為台灣公民科技地圖貢獻第一手真實樣本，讓下一版的經驗傳承更具代表性。
+              </div>
+            </div>
+
+            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--layer-creator); border-radius: 12px; padding: 14px 18px; box-shadow: var(--card-shadow);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <strong style="color: var(--text-main); font-size: 14.5px;">專案團隊 ｜ 套用開源人機寫作流程</strong>
+                <span style="font-size: 12px; font-weight: 700; color: var(--layer-creator); background: rgba(42,120,214,0.1); padding: 2px 8px; border-radius: 4px;">接棒沉澱</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
+                運用人機協同 Pipeline 整理專案踩坑血淚，大幅降低文字負擔，讓智慧在人員流動中被後續接棒。
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側 QR Code 行動卡片 -->
+          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 22px 20px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center;">
+            <div style="font-size: 13.5px; font-weight: 700; color: var(--text-main);">
+              立即造訪公民科技百寶箱
+            </div>
+
+            <div style="background: #fff; padding: 10px; border-radius: 12px; border: 1px solid rgba(11,11,11,0.08); box-shadow: 0 4px 12px rgba(0,0,0,0.04); width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; margin: 8px 0;">
+              <img src="assets/qr-civictech.svg" alt="https://civictech.tw/ QR Code" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+
+            <div style="width: 100%;">
+              <div style="display: inline-block; padding: 4px 12px; border-radius: 20px; background: rgba(11, 11, 11, 0.04); font-size: 13px; font-weight: 700; color: var(--text-main); letter-spacing: 0.5px; margin-bottom: 6px;">
+                civictech.tw
+              </div>
+              <div style="font-size: 12px; color: var(--text-sub); line-height: 1.4;">
+                查閱 11 篇指引 ｜ 填寫問卷 ｜ 取得寫作工具
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>現場掃描 QR Code 造訪 civictech.tw；開源寫作流程見 civictech-guide.claire-cheng.com</div>
+        <div class="footer-right">
+          <div class="footer-logos">
+            <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
+            <span class="logo-divider">×</span>
+            <img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo">
+          </div>
+          <div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div>
+        </div>
+      </div>
+
+      <template class="slide-notes-template">
+        <p><span class="chunk-tag up">▲ 上推：凝聚全場共創使命</span>（溫暖、真摯、激勵人心）<br>
+        在演講的尾聲，我想邀請今天在場不同位置的朋友，一起把台灣的公民科技往前推一步。這不是一個人的工作，而是一整個生態系的接力。</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：三類夥伴的今天下一步</span>（分別對焦三大聽眾，眼神與語氣逐一對焦）<br>
+        如果你是公部門與體制的夥伴，請試著把資料開放出來、開啟常態對話窗口，做民間創新的最佳後盾；<br>
+        如果你是今天坐在台下參與活動的朋友，請現在拿出手機，掃描螢幕上的 QR Code 造訪 civictech.tw，花幾分鐘填寫問卷，每一筆回覆都能讓這份地圖更加完整；<br>
+        如果你是正在坑裡奮鬥的專案夥伴，請試試看我們釋出的寫作流程，把你的踩坑血淚轉化成下一代能讀懂的指引。</p>
+        <br>
+        <p><span class="chunk-tag up">▲ 上推：長跑收尾</span>（堅定微笑致謝）<br>
+        公民科技是一場一代接一代的長跑。感謝有大家的同行，讓我們一起把這條路走得更遠、更寬廣。謝謝大家！</p>
+      </template>
+    </section>
 
   </div>
 
