@@ -465,6 +465,90 @@
       color: var(--text-main);
     }
 
+    /* S6: 滿天繁星藏寶圖版型 */
+    .s6-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 32px;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+    }
+
+    .s6-stat-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: 100%;
+      justify-content: center;
+    }
+
+    .s6-stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 24px 26px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .s6-stat-card.highlight {
+      border-color: rgba(235, 104, 52, 0.35);
+      background: rgba(235, 104, 52, 0.02);
+    }
+
+    .s6-questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .s6-q-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .s6-q-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .s6-q-tag {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(11, 11, 11, 0.05);
+      color: var(--text-sub);
+    }
+
+    .s6-q-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .s6-q-desc {
+      font-size: 13.5px;
+      color: var(--text-sub);
+      line-height: 1.45;
+    }
+
+    .s6-strategy-card {
+      background: rgba(235, 104, 52, 0.03);
+      border: 1px solid rgba(235, 104, 52, 0.35);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0 4px 16px rgba(235, 104, 52, 0.06);
+    }
+
     /* ==========================================================================
        講者演繹備忘錄抽屜 (Speaker Notes Drawer)
        ========================================================================== */
@@ -607,7 +691,7 @@
     <section class="slide-canvas active" data-slide="0" data-notes-title="S0 封面頁講稿">
       <div class="slide-header">
         <div style="font-size: 13.5px; font-weight: 500; color: var(--text-sub);">2026 公民科技工作坊 ｜ 成果發表</div>
-        <div class="slide-counter">01 / 05 (Mockup 原型)</div>
+        <div class="slide-counter">01 / 17</div>
       </div>
 
       <div class="slide-body" style="flex-direction: column; justify-content: space-between; height: 100%; padding: 24px 0 12px 0;">
@@ -1076,9 +1160,128 @@
     </section>
 
     <!-- ====================================================================
-         SLIDE 6: S7 第二部 三層分群看見真實的需求斷裂
+         SLIDE 6: S6 第二部 滿天繁星的開源專案，需要一張看懂全貌的藏寶圖
          ==================================================================== -->
-    <section class="slide-canvas" data-slide="6" data-notes-title="S7 策略選題：三層分群講稿">
+    <section class="slide-canvas" data-slide="6" data-notes-title="S6 策略選題：滿天繁星藏寶圖講稿">
+      <div class="slide-header">
+        <div class="chapter-badge">
+          <span class="status-indicator-dot orange"></span>
+          第二部 策略選題
+        </div>
+        <div class="slide-counter">07 / 17</div>
+      </div>
+
+      <div class="title-group">
+        <h1 class="slide-title">滿天繁星的開源專案，需要一張看懂全貌的藏寶圖</h1>
+        <p class="slide-subtitle">資料庫收錄 226 個專案，但行動指引僅有 11 篇；不憑空猜測，先做調研再精準動筆</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="s6-layout">
+          <!-- 左側：數據對比卡片堆疊 -->
+          <div class="s6-stat-stack">
+            <div class="s6-stat-card">
+              <div class="card-top">
+                <span class="card-label">專案總庫存</span>
+                <span class="status-indicator-dot" style="background: rgba(11, 11, 11, 0.2);"></span>
+              </div>
+              <div>
+                <div class="card-stat">226 <span style="font-size: 18px; font-weight: normal; color: var(--text-faint);">個</span></div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--text-sub);">civictech.tw 資料庫收錄專案</div>
+              </div>
+              <div style="font-size: 13.5px; color: var(--text-faint); padding-top: 10px; border-top: 1px solid rgba(11, 11, 11, 0.06); line-height: 1.45;">
+                歷經十餘年大松黑客松沉澱的珍貴實作成果
+              </div>
+            </div>
+
+            <div class="s6-stat-card highlight">
+              <div class="card-top">
+                <span class="card-label" style="color: var(--layer-user);">實作行動指引</span>
+                <span class="status-indicator-dot orange"></span>
+              </div>
+              <div>
+                <div class="card-stat" style="color: var(--layer-user);">11 <span style="font-size: 18px; font-weight: normal; color: var(--text-faint);">篇</span></div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--layer-user);">既有體制銜接指南覆蓋數</div>
+              </div>
+              <div style="font-size: 13.5px; color: var(--text-main); padding-top: 10px; border-top: 1px solid rgba(235, 104, 52, 0.15); line-height: 1.45;">
+                核心痛點：專案如滿天繁星，新手不知哪一顆與自己相關
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側：三大核心提問 ＋ 策略路徑選擇 -->
+          <div class="s6-questions-list">
+            <div class="s6-q-card">
+              <div class="s6-q-header">
+                <span class="s6-q-tag">核心提問 01</span>
+                <span class="s6-q-title">目標讀者是誰？</span>
+              </div>
+              <div class="s6-q-desc">
+                誰會來看這些指南？社群參與者的背景多元，需求絕非均質同一
+              </div>
+            </div>
+
+            <div class="s6-q-card">
+              <div class="s6-q-header">
+                <span class="s6-q-tag">核心提問 02</span>
+                <span class="s6-q-title">真實痛點為何？</span>
+              </div>
+              <div class="s6-q-desc">
+                不同階段踩到的坑是否相同？技術老手與跨界新手卡關的痛點截然不同
+              </div>
+            </div>
+
+            <div class="s6-q-card">
+              <div class="s6-q-header">
+                <span class="s6-q-tag">核心提問 03</span>
+                <span class="s6-q-title">效益對準何處？</span>
+              </div>
+              <div class="s6-q-desc">
+                資源有限下，指引對準哪一個關鍵切入點，最能帶動社會大眾參與跳坑？
+              </div>
+            </div>
+
+            <div class="s6-strategy-card">
+              <div style="font-size: 15px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
+                <span class="status-indicator-dot orange"></span> 策略路徑選擇：科學方法論
+              </div>
+              <div style="font-size: 13.5px; color: var(--text-sub); margin-top: 6px; line-height: 1.5;">
+                拒絕閉門造車憑空猜測，先透過 <strong>127 份深度問卷調研</strong> 摸清生態系輪廓，再精準定題動筆
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>資料庫專案數據引用自 civictech.tw 平台；問卷資料已去識別化全數 CC BY 4.0 開源</div>
+        <div class="footer-right">
+          <div class="footer-logos">
+            <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
+            <span class="logo-divider">×</span>
+            <img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo">
+          </div>
+          <div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div>
+        </div>
+      </div>
+
+      <template class="slide-notes-template">
+        <p><span class="chunk-tag side">▶ 平移：繁星與藏寶圖比喻</span>（生動引導）<br>
+        了解了生態系的真實樣貌後，我們進入第二部：策略選題。<br>
+        當我接手主持這項指引撰寫計畫時，揪松團已經累積了一個寶庫：civictech.tw 資料庫目前收錄了 226 個台灣公民科技專案，但配套的行動指引只有 11 篇。但這就像滿天繁星，專案非常多，大家抬頭看覺得很美，卻不知道哪一顆跟自己有關。</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：直面規劃初期的三個提問</span>（層層推進）<br>
+        面對這個龐大的資料庫，指引該從哪裡開始寫，我立刻問了自己三個問題：第一，誰會來看這些指引？是社群裡的所有人嗎？第二，不同背景的人，碰到的困難是一樣的嗎？第三，如果我們資源有限，這批指引要對準誰，才能發揮最大的帶動效益？</p>
+        <br>
+        <p><span class="chunk-tag up">▲ 上推：科學方法論的堅持</span>（展現研究嚴謹度）<br>
+        我們決定：不憑空猜測，也不關起門來自己寫。第一步，先向社群發出問卷，把生態系的輪廓看清楚了，再動筆。</p>
+      </template>
+    </section>
+
+    <!-- ====================================================================
+         SLIDE 7: S7 第二部 三層分群看見真實的需求斷裂
+         ==================================================================== -->
+    <section class="slide-canvas" data-slide="7" data-notes-title="S7 策略選題：三層分群講稿">
       <div class="slide-header">
         <div class="chapter-badge">
           <span class="status-indicator-dot orange"></span>
@@ -1089,25 +1292,29 @@
 
       <div class="title-group">
         <h1 class="slide-title">打破單一想像：三層分群看見真實的需求斷裂</h1>
-        <p class="slide-subtitle">開源社群並非鐵板一塊，不同圈層面臨著截然不同的參與關卡</p>
+        <p class="slide-subtitle">開源社群並非鐵板一塊，不同圈層面臨著截然不同的參與關卡與痛點</p>
       </div>
 
       <div class="slide-body">
-        <div class="layers-layout">
-          <!-- 三層卡片堆疊 -->
+        <div class="split-layout">
+          <!-- 左側真實圖表原圖 -->
+          <div class="chart-container-box">
+            <img src="assets/01_入坑分層分布.png" alt="入坑分層分布圖" onerror="this.onerror=null; this.src='../04_問卷分析報告/圖表v2/01_入坑分層分布.png';">
+          </div>
+
+          <!-- 右側三層卡片堆疊 -->
           <div class="layer-card-stack">
             <!-- 好奇者 (綠) -->
             <div class="layer-bar-card green">
               <div class="layer-meta">
                 <div class="layer-title-badge">
                   <span class="status-indicator-dot green"></span>
-                  好奇者：只聽過或看過公民科技
+                  好奇者：26 人（20.5%） 只聽過或看過
                 </div>
-                <div style="font-size: 13px; color: var(--text-sub); margin-top: 4px;">
+                <div style="font-size: 13.5px; color: var(--text-sub); margin-top: 4px;">
                   核心痛點：缺專案資訊 62%、缺引路人 54%，需要清晰索引與友善入口
                 </div>
               </div>
-              <div class="layer-count" style="color: var(--layer-curious);">26 <span style="font-size: 14px; font-weight: normal; color: var(--text-faint);">人</span></div>
             </div>
 
             <!-- 使用者 (橘，核心打亮) -->
@@ -1115,13 +1322,12 @@
               <div class="layer-meta">
                 <div class="layer-title-badge" style="color: var(--layer-user);">
                   <span class="status-indicator-dot orange"></span>
-                  使用者：坑邊觀望的中間層 策略錨定
+                  使用者：54 人（42.5%） 坑邊觀望 策略鎖定
                 </div>
                 <div style="font-size: 13.5px; color: var(--text-main); font-weight: 500; margin-top: 4px;">
                   特徵：關注議題與成果但尚未跳坑，最需要具體協作切入點與實作方法
                 </div>
               </div>
-              <div class="layer-count" style="color: var(--layer-user);">54 <span style="font-size: 14px; font-weight: normal; color: var(--text-faint);">人</span></div>
             </div>
 
             <!-- 實作者 (藍) -->
@@ -1129,27 +1335,13 @@
               <div class="layer-meta">
                 <div class="layer-title-badge">
                   <span class="status-indicator-dot blue"></span>
-                  實作者：坑底活躍推動者
+                  實作者：47 人（37.0%） 坑底活躍推動者
                 </div>
-                <div style="font-size: 13px; color: var(--text-sub); margin-top: 4px;">
+                <div style="font-size: 13.5px; color: var(--text-sub); margin-top: 4px;">
                   核心痛點：面臨進度停滯 38%、成員累垮 32%，需要體制窗口與維運人脈
                 </div>
               </div>
-              <div class="layer-count" style="color: var(--layer-creator);">47 <span style="font-size: 14px; font-weight: normal; color: var(--text-faint);">人</span></div>
             </div>
-          </div>
-
-          <!-- 右側策略重點提示卡 -->
-          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 28px; box-shadow: var(--card-shadow); height: 100%; display: flex; flex-direction: column; justify-content: center;">
-            <div style="font-size: 13px; font-weight: 700; color: var(--layer-user); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">
-              STRATEGIC FOCUS
-            </div>
-            <h3 style="font-size: 22px; font-weight: 700; color: var(--text-main); line-height: 1.35; margin-bottom: 14px;">
-              鎖定 54 位坑邊觀望者
-            </h3>
-            <p style="font-size: 14.5px; color: var(--text-sub); line-height: 1.65;">
-              調色盤理論指出參與模式沒有高下之分。這批指引不求討好所有人，而是提供最需要的協作指南，給中間層跳坑的臨門一腳。
-            </p>
           </div>
         </div>
       </div>
@@ -1179,9 +1371,91 @@
     </section>
 
     <!-- ====================================================================
-         SLIDE 7: S12 第三部 專案生命週期的互補分工
+         SLIDE 8: S8 第二部 狩野模型的量化分析
          ==================================================================== -->
-    <section class="slide-canvas" data-slide="7" data-notes-title="S12 體制落地：生命週期分工講稿">
+    <section class="slide-canvas" data-slide="8" data-notes-title="S8 策略選題：狩野模型量化分析講稿">
+      <div class="slide-header">
+        <div class="chapter-badge">
+          <span class="status-indicator-dot orange"></span>
+          第二部 策略選題
+        </div>
+        <div class="slide-counter">09 / 17</div>
+      </div>
+
+      <div class="title-group">
+        <h1 class="slide-title">狩野模型的量化分析：用滿意增益鎖定高價值主題</h1>
+        <p class="slide-subtitle">五大主題滿意係數達 0.60～0.79 全數落在魅力型，成果配置定案為「3 長文 ＋ 8 指南」</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="split-layout">
+          <!-- 左側真實圖表原圖 -->
+          <div class="chart-container-box">
+            <img src="assets/12_狩野落點_全體.png" alt="狩野落點散佈圖" onerror="this.onerror=null; this.src='../04_問卷分析報告/圖表v2/12_狩野落點_全體.png';">
+          </div>
+
+          <!-- 右側量化發現與定案配置 -->
+          <div class="data-list">
+            <div class="data-row-card highlight">
+              <div class="data-row-num" style="color: var(--layer-user); font-size: 26px;">0.79</div>
+              <div class="data-row-text">
+                <strong style="color: var(--text-main);">成果落地銜接體制：</strong>全體滿意係數居冠，三群皆最高，最靠近期望型邊界
+              </div>
+            </div>
+
+            <div class="data-row-card">
+              <div class="data-row-num" style="font-size: 26px;">0.71</div>
+              <div class="data-row-text">
+                <strong style="color: var(--text-main);">團隊營運與維護：</strong>老手高達 0.71 深層剛需（圈外人僅 0.48 屬無差別型）
+              </div>
+            </div>
+
+            <div class="data-row-card">
+              <div class="data-row-num" style="font-size: 26px;">0.69</div>
+              <div class="data-row-text">
+                <strong style="color: var(--text-main);">如何發起專案：</strong>坑邊中間層高達 0.69 需求強烈（老手僅 0.51）
+              </div>
+            </div>
+
+            <div class="data-row-card" style="background: rgba(235, 104, 52, 0.03); border-color: rgba(235, 104, 52, 0.35);">
+              <div style="font-size: 14px; line-height: 1.5; color: var(--text-main); width: 100%;">
+                <strong style="color: var(--layer-user); font-size: 15px;">成果定案配置：雙軌交付</strong><br>
+                拍板定案 <strong>3 篇方法論長文</strong> 突破深層卡關，搭配 <strong>8 篇領域指南</strong> 盤點必備工具
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>資料來源：2026 社群調查 02_狩野_全體.csv 與 02_狩野_三層.csv；落點門檻為 0.5</div>
+        <div class="footer-right">
+          <div class="footer-logos">
+            <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
+            <span class="logo-divider">×</span>
+            <img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo">
+          </div>
+          <div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div>
+        </div>
+      </div>
+
+      <template class="slide-notes-template">
+        <p><span class="chunk-tag up">▲ 上推：導入產品分析框架</span>（沉穩、理性專業）<br>
+        確認了目標對象，那到底要寫什麼題目？我們引進了產品管理常用的狩野模型，用量化數據來做選題決策。</p>
+        <br>
+        <p><span class="chunk-tag down">▼ 下切：數據深度解讀</span>（節奏明快、數字鏗鏘有力）<br>
+        分析結果非常有趣：五個候選主題全部落在魅力型，滿意係數高達 0.60 到 0.79。這代表指南不是維生必需品，沒有人會因為少了一篇文章抗議，但一旦產出，能帶來明顯的加分價值！<br>
+        當我們交叉比對三圈層，數據更印證了分群策略：成果落地銜接體制，全體達到 0.79，三群也都把它排在第一；團隊營運這題，圈外人只有 0.48 毫無興趣，但老手高達 0.71；而如何發起專案這題，老手只有 0.51，但坑邊中間層高達 0.69！</p>
+        <br>
+        <p><span class="chunk-tag up">▲ 上推：最終定案結構</span>（總結交付格局）<br>
+        數據提供了方向，再經過揪松團討論拍板，最終確定 3 篇方法論長文專門破解深層卡關，搭配 8 篇領域指南盤點必備工具，把資源精準砸在刀口上。</p>
+      </template>
+    </section>
+
+    <!-- ====================================================================
+         SLIDE 9: S12 第三部 專案生命週期的互補分工
+         ==================================================================== -->
+    <section class="slide-canvas" data-slide="9" data-notes-title="S12 體制落地：生命週期分工講稿">
       <div class="slide-header">
         <div class="chapter-badge">
           <span class="status-indicator-dot blue"></span>
