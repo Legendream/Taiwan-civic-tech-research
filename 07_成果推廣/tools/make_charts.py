@@ -116,7 +116,7 @@ def chart_kano():
         parts.append(text(px0 - 8, f"{Y(v) + 5:.1f}", f"{v:.1f}", 14, SUB, 400, "end"))
     # 點
     for p in pts:
-        c = ORANGE if p["num"] == "⑤" else BLUE
+        c = ORANGE if p["num"] == "⑤" else INK
         x, y = X(p["si"]), Y(p["dsi"])
         parts.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="12" fill="{c}"/>')
         parts.append(text(f"{x:.1f}", f"{y + 5:.1f}", p["num"], 14, "#fff", 700, "middle"))
@@ -124,7 +124,7 @@ def chart_kano():
     lx = px0 + pw + 28
     for i, p in enumerate(pts):
         y = 46 + i * 56
-        c = ORANGE if p["num"] == "⑤" else BLUE
+        c = ORANGE if p["num"] == "⑤" else INK
         parts.append(f'<circle cx="{lx + 12}" cy="{y - 6}" r="12" fill="{c}"/>')
         parts.append(text(lx + 12, y - 1, p["num"], 14, "#fff", 700, "middle"))
         parts.append(text(lx + 34, y, p["label"], 18, INK, 700 if p["num"] == "⑤" else 400))

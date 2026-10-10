@@ -214,6 +214,17 @@
     ul.bul.big li { font-size: 20px; line-height: 1.45; margin-bottom: 0; }
     ul.bul.big li::before { top: 0.65em; }
 
+    .bl-m { border-left: 6px solid #a9a8a2; }
+    /* 三層色（綠／橘／藍）只在「談三層分群」的頁面使用；其餘頁面一律中性色，橘色＝重點 */
+    .plain .bl-g, .plain .bl-b { border-left-color: #a9a8a2; }
+    .plain .tag.g, .plain .tag.b { background: rgba(11,11,11,.06); color: var(--text-sub); }
+    .plain .k.g, .plain .k.b { color: var(--text-faint); }
+    .plain .num.g, .plain .num.b { color: rgba(11,11,11,.14); }
+    .plain .card.hl-b, .plain .card.hl-g { background: #f4f4f1; border-color: var(--card-border); }
+    .plain .dot.green, .plain .dot.blue, .plain .dot.orange { background: var(--text-main); }
+    .plain .b, .plain .g { color: var(--text-main); }
+    .plain .pipe .hl-b, .plain .pipe .hl-g { background: #fff; border-color: var(--card-border); }
+
     .hdr-text { font-size: 15px; color: var(--text-sub); }
 
     /* 間距與字級微調工具 class（由 build 產生；單一屬性、!important）*/
@@ -223,7 +234,6 @@
     .u-border-1px-solid-var-card-border { border:1px solid var(--card-border) !important; }
     .u-border-radius-14px { border-radius:14px !important; }
     .u-box-shadow-none { box-shadow:none !important; }
-    .u-color-c62828 { color:#c62828 !important; }
     .u-color-var-text-main { color:var(--text-main) !important; }
     .u-color-var-text-sub { color:var(--text-sub) !important; }
     .u-display-block { display:block !important; }
@@ -261,7 +271,6 @@
     .u-line-height-1-6 { line-height:1.6 !important; }
     .u-line-height-7 { line-height:.7 !important; }
     .u-margin-0 { margin:0 !important; }
-    .u-margin-10px-0-6px { margin:10px 0 6px !important; }
     .u-margin-14px-0-12px { margin:14px 0 12px !important; }
     .u-margin-28px-0-18px { margin:28px 0 18px !important; }
     .u-margin-2px-0-0 { margin:2px 0 0 !important; }
@@ -315,7 +324,7 @@
   <div id="slide-viewport">
 
     <!-- ===== SLIDE 0 ===== -->
-    <section class="slide-canvas active" data-slide="0" data-notes-title="S0 封面頁講稿">
+    <section class="slide-canvas active plain" data-slide="0" data-notes-title="S0 封面頁講稿">
       <div class="slide-header">
         <div class="slide-counter u-color-var-text-sub">2026 公民科技工作坊 ｜ 成果發表</div>
         <div class="slide-counter">01 / 22</div>
@@ -337,9 +346,9 @@
                 <div class="note">公民科技工作坊 ｜ 2026</div>
               </div>
             </div>
-            <div class="card cstat"><div class="k g">生態實證調研</div><div class="stat">127<small>份</small></div><div class="lab">跨圈層問卷</div></div>
+            <div class="card cstat"><div class="k">生態實證調研</div><div class="stat">127<small>份</small></div><div class="lab">跨圈層問卷</div></div>
             <div class="card cstat hl-o"><div class="k o">知識沉澱指引</div><div class="stat o">11<small>篇</small></div><div class="lab">體制銜接指南</div></div>
-            <div class="card cstat"><div class="k b">開源流程沉澱</div><div class="stat u-font-size-34px u-margin-10px-0-6px">Pipeline</div><div class="lab">人機協同防線</div></div>
+            <div class="card cstat"><div class="k">開源流程沉澱</div><div class="stat">1<small>套</small></div><div class="lab">人機協同寫作流程</div></div>
           </div>
         </div>
       </div>
@@ -358,7 +367,7 @@
     </section>
 
     <!-- ===== SLIDE 1 ===== -->
-    <section class="slide-canvas" data-slide="1" data-notes-title="S1 動手做精神講稿">
+    <section class="slide-canvas plain" data-slide="1" data-notes-title="S1 動手做精神講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>序幕</div>
         <div class="slide-counter">02 / 22</div>
@@ -371,12 +380,12 @@
             <div class="o u-font-size-80px u-line-height-7 u-font-weight-700">“</div>
             <div class="t u-font-size-34px u-line-height-1-5 u-margin-top-10px">看見問題不滿時，運用數位技術與開放資料，主動把解法做出來。</div>
             <div class="rule u-margin-28px-0-18px"></div>
-            <div class="p lg o u-font-weight-700 u-margin-0">開源待用原型（Plan B）：體制隨時可採納的優質備案</div>
+            <div class="p lg o u-font-weight-700 u-margin-0">開源待用原型（Plan B）：先做好放著，體制隨時可以採用</div>
           </div>
           <div class="stack">
-            <div class="card bl-o"><div class="k o">行動哲學</div><div class="p lg u-margin-0">不只在網路上抱怨，用程式與開源資料動手改善</div></div>
-            <div class="card bl-b"><div class="k b">運作模式</div><div class="p lg u-margin-0">去中心化、跨領域、開放透明，人人可自主發起</div></div>
-            <div class="card bl-g"><div class="k g">交付標的</div><div class="p lg u-margin-0">做出「待用原型」，以零風險方式示範給社會與政府看</div></div>
+            <div class="card bl-d"><div class="k">行動哲學</div><div class="p lg u-margin-0">不只在網路上抱怨，用程式與開源資料動手改善</div></div>
+            <div class="card bl-d"><div class="k">運作模式</div><div class="p lg u-margin-0">去中心化、跨領域、開放透明，人人可自主發起</div></div>
+            <div class="card bl-d"><div class="k">交付標的</div><div class="p lg u-margin-0">做出「待用原型」，以零風險方式示範給社會與政府看</div></div>
           </div>
         </div>
       </div>
@@ -404,12 +413,12 @@
     </section>
 
     <!-- ===== SLIDE 2 ===== -->
-    <section class="slide-canvas" data-slide="2" data-notes-title="S2 走過十年講稿">
+    <section class="slide-canvas plain" data-slide="2" data-notes-title="S2 走過十年講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>序幕</div>
         <div class="slide-counter">03 / 22</div>
       </div>
-      <div class="title-group"><h1 class="slide-title">走過十年：專業更多元，但也面臨傳承課題</h1><p class="slide-subtitle">參與光譜從單一技術擴展至公共治理，志工流動帶來知識沉澱挑戰</p></div>
+      <div class="title-group"><h1 class="slide-title">走過十年：專業更多元，但也面臨傳承課題</h1><p class="slide-subtitle">參與者更多元，但志工流動讓經驗難以留下</p></div>
       <div class="slide-body ">
 
         <div class="col-wrap"><div class="grid g-3">
@@ -440,7 +449,7 @@
     </section>
 
     <!-- ===== SLIDE 3 ===== -->
-    <section class="slide-canvas" data-slide="3" data-notes-title="S3 全案實踐四大篇章地圖講稿">
+    <section class="slide-canvas plain" data-slide="3" data-notes-title="S3 全案實踐四大篇章地圖講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot orange"></span>導覽地圖</div>
         <div class="slide-counter">04 / 22</div>
@@ -450,7 +459,7 @@
 
         <div class="col-wrap"><div class="grid g-4">
           <div class="card top  u-padding-22px-22px"><div class="head"><span class="dot green"></span><span class="k u-margin-0">第一部</span></div><div class="t lg u-margin-top-10px u-font-size-34px">生態實證</div><div class="p lg u-font-weight-700 u-color-var-text-main">127 份問卷調研</div><ul class="bul big"><li>打破技術門檻迷思</li><li>定錨同好聚會本質</li><li>揭示資訊與引路人斷層</li></ul></div>
-          <div class="card top hl-o u-padding-22px-22px"><div class="head"><span class="dot orange"></span><span class="k u-margin-0">第二部</span></div><div class="t lg u-margin-top-10px u-font-size-34px">策略選題</div><div class="p lg u-font-weight-700 u-color-var-text-main">三層分群與狩野模型</div><ul class="bul big"><li>鎖定 54 位坑邊中間層</li><li>用滿意增益量化需求</li><li>定案 11 篇實作指引</li></ul></div>
+          <div class="card top  u-padding-22px-22px"><div class="head"><span class="dot orange"></span><span class="k u-margin-0">第二部</span></div><div class="t lg u-margin-top-10px u-font-size-34px">策略選題</div><div class="p lg u-font-weight-700 u-color-var-text-main">三層分群與狩野模型</div><ul class="bul big"><li>鎖定 54 位坑邊中間層</li><li>用滿意增益量化需求</li><li>定案 11 篇實作指引</li></ul></div>
           <div class="card top  u-padding-22px-22px"><div class="head"><span class="dot blue"></span><span class="k u-margin-0">第三部</span></div><div class="t lg u-margin-top-10px u-font-size-34px">體制落地</div><div class="p lg u-font-weight-700 u-color-var-text-main">直面原型停擺危機</div><ul class="bul big"><li>梳理四條實踐路徑</li><li>Cofacts 等標竿案例</li><li>專案生命週期公私互補</li></ul></div>
           <div class="card top  u-padding-22px-22px"><div class="head"><span class="dot dark"></span><span class="k u-margin-0">第四部</span></div><div class="t lg u-margin-top-10px u-font-size-34px">資產傳承</div><div class="p lg u-font-weight-700 u-color-var-text-main">沉澱可接棒的公共財</div><ul class="bul big"><li>突破時間與信任阻力</li><li>人機協同三道防線</li><li>交付三大開源資產</li></ul></div>
         </div><div class="bar u-font-size-20px"><b>閱讀順序：</b>先看清現況，再選對題目，接著走進體制，最後把成果留給下一代。</div></div>
@@ -478,7 +487,7 @@
       <div class="slide-body ">
 
         <div class="grid g-chart">
-          <div class="card chart-card"><div class="t">好奇者還沒參與，是什麼擋住了他們？</div><div class="chart"><img src="assets/charts/notjoin.svg" alt="好奇者未參與原因長條圖"></div><div class="note">最多選 3 項｜分母 26 位好奇者</div></div>
+          <div class="card chart-card"><div class="t">只聽過或看過、還沒參與的人，被什麼擋住？</div><div class="chart"><img src="assets/charts/notjoin.svg" alt="未參與原因長條圖"></div><div class="note">2026 問卷 127 份中，只聽過或看過的 26 位（稱「好奇者」）｜最多選 3 項</div></div>
           <div class="stack">
             <div class="card hl-o"><div class="k o">前三大阻礙</div><div class="t">看不見專案、沒人帶、找不到入口</div>
               <div class="p">三項都是「資訊與引路人」的問題，而不是技能問題。</div></div>
@@ -488,7 +497,7 @@
         </div>
       </div>
       <div class="slide-footer">
-        <div>資料來源：2026 社群調查，未參與者 N=26；官方公告覆蓋率為全體管道題 N=127</div>
+        <div>資料來源：2026 社群調查，只聽過或看過者 N=26；官方公告覆蓋率為全體管道題 N=127</div>
         <div class="footer-right"><div class="footer-logos"><img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo"><span class="logo-divider">×</span><img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo"></div><div class="license-pill">CC BY 4.0 ｜ g0v.tw jothon</div></div>
       </div>
       <template class="slide-notes-template">
@@ -508,7 +517,7 @@
     </section>
 
     <!-- ===== SLIDE 5 ===== -->
-    <section class="slide-canvas" data-slide="5" data-notes-title="S5 公私協同關鍵思維講稿">
+    <section class="slide-canvas plain" data-slide="5" data-notes-title="S5 公私協同關鍵思維講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot green"></span>第一部 生態實證</div>
         <div class="slide-counter">06 / 22</div>
@@ -517,10 +526,10 @@
       <div class="slide-body ">
 
         <div class="grid g-chart">
-          <div class="card chart-card"><div class="t">實作者用過哪些資源？（前五名）</div><div class="chart"><img src="assets/charts/resources.svg" alt="實作者用過的資源長條圖"></div><div class="note">複選｜分母 47 位實作者</div></div>
+          <div class="card chart-card"><div class="t">做過專案的人，用過哪些資源？（前五名）</div><div class="chart"><img src="assets/charts/resources.svg" alt="實作者用過的資源長條圖"></div><div class="note">做過專案的 47 位（稱「實作者」）｜複選</div></div>
           <div class="stack">
-            <div class="card bl-b"><div class="k b">社群本質</div><div class="p u-margin-0">自發的同好聚會，不是簽約代工廠，人來人去是常態。</div></div>
-            <div class="card bl-o"><div class="k o">核心動力</div><div class="p u-margin-0">自我實現與消除摩擦；金錢買不到志工長期的業餘時間。</div></div>
+            <div class="card bl-d"><div class="k">社群本質</div><div class="p u-margin-0">自發的同好聚會，不是簽約代工廠，人來人去是常態。</div></div>
+            <div class="card bl-d"><div class="k">核心動力</div><div class="p u-margin-0">自我實現與消除摩擦；金錢買不到志工長期的業餘時間。</div></div>
             <div class="card hl-o"><div class="k o">體制切入點</div><div class="p u-margin-0">釋出高品質開放資料、建立公務諮詢窗口，化解行政阻力。</div></div>
           </div>
         </div>
@@ -548,20 +557,20 @@
     </section>
 
     <!-- ===== SLIDE 6 ===== -->
-    <section class="slide-canvas" data-slide="6" data-notes-title="S6 策略選題：滿天繁星藏寶圖講稿">
+    <section class="slide-canvas plain" data-slide="6" data-notes-title="S6 策略選題：滿天繁星藏寶圖講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot orange"></span>第二部 策略選題</div>
         <div class="slide-counter">07 / 22</div>
       </div>
-      <div class="title-group"><h1 class="slide-title">滿天繁星的開源專案，需要一張藏寶圖</h1><p class="slide-subtitle">資料庫 226 個專案，行動指引僅 11 篇；先調研再動筆</p></div>
+      <div class="title-group"><h1 class="slide-title">滿天繁星的開源專案，需要一張藏寶圖</h1><p class="slide-subtitle">資料庫 226 個專案，現有行動指引僅 11 篇；先調研再動筆</p></div>
       <div class="slide-body ">
 
         <div class="grid g-2 u-grid-template-columns-0-8fr-1-2fr">
           <div class="stack">
             <div class="card"><div class="k">專案總庫存</div><div class="stat">226<small>個</small></div>
               <div class="p">civictech.tw 資料庫收錄的開源專案</div></div>
-            <div class="card hl-o"><div class="k o">實作行動指引</div><div class="stat o">11<small>篇</small></div>
-              <div class="p">新手不知道哪一顆星與自己相關</div></div>
+            <div class="card hl-o"><div class="k o">現有行動指引</div><div class="stat o">11<small>篇</small></div>
+              <div class="p">新手不知道哪一顆星與自己相關（與本案新產出的 11 篇不同）</div></div>
           </div>
           <div class="stack">
             <div class="card bl-d"><div class="k">核心提問 01</div><div class="t">目標讀者是誰？</div><div class="p u-margin-0">社群背景多元，需求並不一致。</div></div>
@@ -602,13 +611,13 @@
       <div class="slide-body ">
 
         <div class="grid g-chart u-grid-template-columns-0-82fr-1-18fr">
-          <div class="card chart-card"><div class="t">127 位填答者，分成三層</div><div class="chart"><img src="assets/charts/layers.svg" alt="三層分群甜甜圈圖"></div><div class="note">好奇者＝只聽過或看過｜使用者＝接觸但未參與｜實作者＝做過專案</div></div>
+          <div class="card chart-card"><div class="t">127 位填答者，分成三層</div><div class="chart"><img src="assets/charts/layers.svg" alt="三層分群甜甜圈圖"></div><div class="note">依問卷「參與過什麼」分層｜三種顏色在後續頁面沿用於這三群人</div></div>
           <div class="stack">
             <div class="card bl-g"><div class="head"><div class="t">好奇者 26 人（20.5%）</div><span class="tag g">只聽過或看過</span></div>
-              <div class="p u-margin-6px-0-0">缺專案資訊 62%、缺引路人 54%：需要清楚的入口。</div></div>
-            <div class="card bl-o hl-o"><div class="head"><div class="t">使用者 54 人（42.5%）</div><span class="tag o">策略鎖定</span></div>
-              <div class="p u-margin-6px-0-0">關注議題，尚未跳坑：最需要具體切入點與實作方法。</div></div>
-            <div class="card bl-b"><div class="head"><div class="t">實作者 47 人（37.0%）</div><span class="tag b">坑底推動者</span></div>
+              <div class="p u-margin-6px-0-0">不知道有哪些專案 62%、沒人帶 54%：需要清楚的入口。</div></div>
+            <div class="card bl-o hl-o"><div class="head"><div class="t">使用者 54 人（42.5%）</div><span class="tag o">本案主要對象</span></div>
+              <div class="p u-margin-6px-0-0">接觸過但還沒參與：最需要具體的切入點與實作方法。</div></div>
+            <div class="card bl-b"><div class="head"><div class="t">實作者 47 人（37.0%）</div><span class="tag b">做過專案</span></div>
               <div class="p u-margin-6px-0-0">進度停滯 38%、成員累垮 32%：需要體制窗口與維運人脈。</div></div>
           </div>
         </div>
@@ -630,7 +639,7 @@
     </section>
 
     <!-- ===== SLIDE 8 ===== -->
-    <section class="slide-canvas" data-slide="8" data-notes-title="S8 策略選題：狩野模型量化分析講稿">
+    <section class="slide-canvas plain" data-slide="8" data-notes-title="S8 策略選題：狩野模型量化分析講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot orange"></span>第二部 策略選題</div>
         <div class="slide-counter">09 / 22</div>
@@ -639,7 +648,7 @@
       <div class="slide-body ">
 
         <div class="grid g-chart">
-          <div class="card chart-card"><div class="t">五個文章主題的狩野落點（全體，局部放大）</div><div class="chart"><img src="assets/charts/kano.svg" alt="狩野模型落點散布圖"></div><div class="note">SI＝滿意增益，越大越有吸引力｜虛線為 0.5 與 −0.5 分界｜N=126</div></div>
+          <div class="card chart-card"><div class="t">五個候選指引主題，讀者有多想看？</div><div class="chart"><img src="assets/charts/kano.svg" alt="狩野模型落點散布圖"></div><div class="note">SI＝滿意增益，越大越想看｜魅力型＝沒有也沒關係，有了會特別驚喜｜局部放大，N=126</div></div>
           <div class="stack">
             <div class="card hl-o"><div class="head"><div class="stat o u-font-size-40px">0.79</div><div><div class="t">⑤ 落地、接進體制</div><div class="p u-margin-0">全體最高，三群皆居首</div></div></div></div>
             <div class="card"><div class="head"><div class="stat u-font-size-40px">0.71</div><div><div class="t">④ 團隊營運與維護</div><div class="p u-margin-0">實作者 0.71，好奇者僅 0.48</div></div></div></div>
@@ -669,7 +678,7 @@
     </section>
 
     <!-- ===== SLIDE 9 ===== -->
-    <section class="slide-canvas" data-slide="9" data-notes-title="S9 體制落地：黑客松痛點與斷點講稿">
+    <section class="slide-canvas plain" data-slide="9" data-notes-title="S9 體制落地：黑客松痛點與斷點講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地</div>
         <div class="slide-counter">10 / 22</div>
@@ -682,9 +691,9 @@
           <div class="stack">
             <div class="card hl-o"><div class="k o">國際研究警訊</div><div class="t">約 40% 工具不再使用</div>
               <div class="p">回顧 224 篇人機互動論文：客製工具缺人維護，原型少被真正落地。</div></div>
-            <div class="card"><div class="k">國內調查印證</div><div class="t">32% 無專案 ｜ 6/10 累垮</div>
-              <div class="p">發起者 10 人中 6 人坦言核心成員累垮、拖慢進度。</div></div>
-            <div class="card hl-b"><div class="k b">停擺機制</div><div class="t">點火者與幼苗</div>
+            <div class="card"><div class="k">國內調查印證</div><div class="t">32% 手上沒有進行中專案</div>
+              <div class="p">另有 32% 把「核心成員累垮」列為明顯困擾（見左圖）。</div></div>
+            <div class="card"><div class="k">停擺機制</div><div class="t">點火者與幼苗</div>
               <div class="p">點火者只是啟動；幼苗要走向基礎設施，由體制與在地社群接手。</div></div>
           </div>
         </div>
@@ -711,9 +720,9 @@
     </section>
 
     <!-- ===== SLIDE 10 ===== -->
-    <section class="slide-canvas" data-slide="10" data-notes-title="S10 體制落地：路徑一 關鍵受眾策略講稿">
+    <section class="slide-canvas plain" data-slide="10" data-notes-title="S10 體制落地：路徑一 關鍵受眾策略講稿">
       <div class="slide-header">
-        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 路徑 01</div>
+        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 路徑 1／4</div>
         <div class="slide-counter">11 / 22</div>
       </div>
       <div class="title-group"><h1 class="slide-title">路徑一｜成果沒人看見？先選擇廣度或槓桿</h1><p class="slide-subtitle">依議題特性，選擇大眾廣度或專業槓桿</p></div>
@@ -724,7 +733,7 @@
             <div class="card case"><div class="head u-margin-bottom-6px"><span class="tag g">大眾普及路線</span><span class="p u-margin-0 u-font-size-18px">適合貼近生活、人人有感的議題</span></div><div class="rule u-margin-8px-0-10px"></div><div class="head"><img class="logo" src="assets/project-cofacts.png" alt=""><div class="grow"><div class="t">Cofacts 真的假的</div><div class="note u-margin-0">LINE 查證機器人 ＆ 開放事實查核資料庫</div></div><span class="tag g">CC BY-SA 4.0</span></div><div class="p u-margin-top-10px">查證機器人累積規模後開放完整資料集，美玉姨、防詐達人等工具直接介接。</div><div class="shot"><img src="assets/article-cofacts-ai.png" alt="圖：Cofacts 查核對話介面（取自作者專文）"></div><div class="cap">圖：Cofacts 查核對話介面（取自作者專文）</div></div>
             <div class="card case"><div class="head u-margin-bottom-6px"><span class="tag b">專業中介者路線</span><span class="p u-margin-0 u-font-size-18px">適合門檻高、只有專業人士天天處理的議題</span></div><div class="rule u-margin-8px-0-10px"></div><div class="head"><img class="logo" src="assets/project-openfun.png" alt=""><div class="grow"><div class="t">LawTrace 立法足跡</div><div class="note u-margin-0">國會法案審議歷程與版本比對工具</div></div><span class="tag b">歐噴有限公司</span></div><div class="p u-margin-top-10px">鎖定每天要讀法條的國會助理、記者與研究員，版本比對降低人工對照負擔。</div><div class="shot"><img src="assets/article-lawtrace.png" alt="圖：LawTrace 法案比對介面（取自作者專文）"></div><div class="cap">圖：LawTrace 法案比對介面（取自作者專文）</div></div>
           </div>
-          <div class="bar"><b>訣竅：</b>提供別人需要、短期難自建的基礎資源，並精準服務關鍵轉譯者。</div>
+          <div class="bar"><b>訣竅：</b>提供別人需要、短期難自建的基礎資源，並精準服務專業中介者。</div>
         </div>
       </div>
       <div class="slide-footer">
@@ -751,9 +760,9 @@
     </section>
 
     <!-- ===== SLIDE 11 ===== -->
-    <section class="slide-canvas" data-slide="11" data-notes-title="S11 體制落地：路徑二 開源替代示範講稿">
+    <section class="slide-canvas plain" data-slide="11" data-notes-title="S11 體制落地：路徑二 開源替代示範講稿">
       <div class="slide-header">
-        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 路徑 02</div>
+        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 路徑 2／4</div>
         <div class="slide-counter">12 / 22</div>
       </div>
       <div class="title-group"><h1 class="slide-title">路徑二｜建議書推不動？做出 Plan B 示範</h1><p class="slide-subtitle">做出可運作的示範品，讓公部門直接接手現成規格</p></div>
@@ -787,9 +796,9 @@
     </section>
 
     <!-- ===== SLIDE 12 ===== -->
-    <section class="slide-canvas" data-slide="12" data-notes-title="S12 體制落地：路徑三 公務流程借力講稿">
+    <section class="slide-canvas plain" data-slide="12" data-notes-title="S12 體制落地：路徑三 公務流程借力講稿">
       <div class="slide-header">
-        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 路徑 03</div>
+        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 路徑 3／4</div>
         <div class="slide-counter">13 / 22</div>
       </div>
       <div class="title-group"><h1 class="slide-title">路徑三｜立案門檻太高？降低通報門檻，借力體制</h1><p class="slide-subtitle">公部門依法有處理義務；由民間承接高門檻環節</p></div>
@@ -798,8 +807,8 @@
         <div class="col-wrap">
           <div class="grid g-3 u-flex-none u-height-auto">
             <div class="card top u-padding-14px-18px"><div class="k ">STEP 01 ｜ 體制要件</div><div class="t">釐清權責與要件</div><div class="p u-margin-top-4px u-font-size-18px">找出主管機關，列出立案所需事證。</div></div>
-            <div class="card top u-padding-14px-18px"><div class="k o">STEP 02 ｜ 民眾端</div><div class="t">前端極簡化</div><div class="p u-margin-top-4px u-font-size-18px">手機拍照、標記定位，門檻最低。</div></div>
-            <div class="card top u-padding-14px-18px"><div class="k b">STEP 03 ｜ 民間接力</div><div class="t">後端轉譯與追蹤</div><div class="p u-margin-top-4px u-font-size-18px">比對空照與地籍，轉成公文並電話追蹤。</div></div>
+            <div class="card top u-padding-14px-18px"><div class="k ">STEP 02 ｜ 民眾端</div><div class="t">前端極簡化</div><div class="p u-margin-top-4px u-font-size-18px">手機拍照、標記定位，門檻最低。</div></div>
+            <div class="card top u-padding-14px-18px"><div class="k ">STEP 03 ｜ 民間接力</div><div class="t">後端轉譯與追蹤</div><div class="p u-margin-top-4px u-font-size-18px">比對空照與地籍，轉成公文並電話追蹤。</div></div>
           </div>
           <div class="card case u-margin-top-14px u-flex-1 u-flex-direction-row u-gap-20px u-align-items-stretch">
             <div class="u-flex-1 u-display-flex u-flex-direction-column u-min-width-0">
@@ -834,9 +843,9 @@
     </section>
 
     <!-- ===== SLIDE 13 ===== -->
-    <section class="slide-canvas" data-slide="13" data-notes-title="S13 體制落地：路徑四 開放資產長跑講稿">
+    <section class="slide-canvas plain" data-slide="13" data-notes-title="S13 體制落地：路徑四 開放資產長跑講稿">
       <div class="slide-header">
-        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 路徑 04</div>
+        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 路徑 4／4</div>
         <div class="slide-counter">14 / 22</div>
       </div>
       <div class="title-group"><h1 class="slide-title">路徑四｜要長遠影響？開放授權加共筆，做好接棒</h1><p class="slide-subtitle">政治獻金數位化：五年三棒，從黑客松走向官方平台</p></div>
@@ -850,14 +859,14 @@
               <div class="cap">圖：協作介面（取自作者專文）</div>
             </div>
             <div class="stack">
-              <div class="card bl-b u-padding-12px-18px u-flex-1"><div class="head"><div class="k b u-margin-0 u-font-size-16px">2014 第一棒</div><div class="t">g0v 黑客松起步</div></div><div class="p u-margin-top-4px">24 小時辨識近 31 萬格文字，2,637 份紙本轉為結構化資料。</div></div>
-              <div class="card bl-o u-padding-12px-18px u-flex-1"><div class="head"><div class="k o u-margin-0 u-font-size-16px">2017 第二棒</div><div class="t">READr 媒體接力</div></div><div class="p u-margin-top-4px">延續開源資產，赴監院補齊歷屆資料，完成資料新聞專題。</div></div>
-              <div class="card bl-g u-padding-12px-18px u-flex-1"><div class="head"><div class="k g u-margin-0 u-font-size-16px">2019 第三棒</div><div class="t">監察院平臺上線</div></div><div class="p u-margin-top-4px">立院修法通過，監察院正式上線公開查閱平臺。</div></div>
+              <div class="card bl-d u-padding-12px-18px u-flex-1"><div class="head"><div class="k  u-margin-0 u-font-size-16px">2014 第一棒</div><div class="t">g0v 黑客松起步</div></div><div class="p u-margin-top-4px">24 小時辨識近 31 萬格文字，2,637 份紙本轉為結構化資料。</div></div>
+              <div class="card bl-d u-padding-12px-18px u-flex-1"><div class="head"><div class="k  u-margin-0 u-font-size-16px">2017 第二棒</div><div class="t">READr 媒體接力</div></div><div class="p u-margin-top-4px">延續開源資產，赴監院補齊歷屆資料，完成資料新聞專題。</div></div>
+              <div class="card bl-d u-padding-12px-18px u-flex-1"><div class="head"><div class="k  u-margin-0 u-font-size-16px">2019 第三棒</div><div class="t">監察院平臺上線</div></div><div class="p u-margin-top-4px">立院修法通過，監察院正式上線公開查閱平臺。</div></div>
             </div>
           </div>
           <div class="grid g-2 u-flex-none u-height-auto u-margin-top-14px">
-            <div class="card bl-b u-padding-12px-18px"><div class="t">標示明確的開放授權（CC BY）</div><div class="p u-margin-top-2px">接手者不必四處找授權，就能合法、安心地改作。</div></div>
-            <div class="card bl-o u-padding-12px-18px"><div class="t">公開完整脈絡與共筆紀錄</div><div class="p u-margin-top-2px">背景研究、訪談與踩坑經驗公開可讀，後人不必從零摸索。</div></div>
+            <div class="card bl-d u-padding-12px-18px"><div class="t">標示明確的開放授權（CC BY）</div><div class="p u-margin-top-2px">接手者不必四處找授權，就能合法、安心地改作。</div></div>
+            <div class="card bl-d u-padding-12px-18px"><div class="t">公開完整脈絡與共筆紀錄</div><div class="p u-margin-top-2px">背景研究、訪談與踩坑經驗公開可讀，後人不必從零摸索。</div></div>
           </div>
         </div>
       </div>
@@ -879,7 +888,7 @@
     </section>
 
     <!-- ===== SLIDE 14 ===== -->
-    <section class="slide-canvas" data-slide="14" data-notes-title="S14 體制落地：生命週期分工全景講稿">
+    <section class="slide-canvas plain" data-slide="14" data-notes-title="S14 體制落地：生命週期分工全景講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 協同全景</div>
         <div class="slide-counter">15 / 22</div>
@@ -888,9 +897,9 @@
       <div class="slide-body ">
 
         <div class="col-wrap"><div class="grid g-3">
-          <div class="card top u-padding-22px-24px"><div class="k g">階段一</div><div class="t lg">前期探索：沙盒試錯</div><div class="card mute u-margin-top-16px u-padding-14px-18px u-flex-1"><div class="k">民間端職責</div><div class="p lg u-margin-0">敏捷驗證，承擔試錯成本。</div></div><div class="card hl-b u-margin-top-14px u-padding-14px-18px u-box-shadow-none u-flex-1"><div class="k b">體制端支援</div><div class="p lg u-margin-0">主動釋出高品質基礎開放資料。</div></div></div>
-          <div class="card top u-padding-22px-24px"><div class="k o">階段二</div><div class="t lg">中期對接：流程轉譯</div><div class="card mute u-margin-top-16px u-padding-14px-18px u-flex-1"><div class="k">民間端職責</div><div class="p lg u-margin-0">交付可檢驗的開源待用原型。</div></div><div class="card hl-b u-margin-top-14px u-padding-14px-18px u-box-shadow-none u-flex-1"><div class="k b">體制端支援</div><div class="p lg u-margin-0">設專責窗口，轉譯法規邏輯。</div></div></div>
-          <div class="card top u-padding-22px-24px"><div class="k b">階段三</div><div class="t lg">後期落地：制度普及</div><div class="card mute u-margin-top-16px u-padding-14px-18px u-flex-1"><div class="k">民間端職責</div><div class="p lg u-margin-0">開放授權釋出，不鎖死。</div></div><div class="card hl-b u-margin-top-14px u-padding-14px-18px u-box-shadow-none u-flex-1"><div class="k b">體制端支援</div><div class="p lg u-margin-0">將成熟方案納入常規公共服務。</div></div></div>
+          <div class="card top u-padding-22px-24px"><div class="k g">階段一</div><div class="t lg">前期探索：沙盒試錯</div><div class="card mute bl-d u-margin-top-16px u-padding-14px-18px u-flex-1"><div class="k">民間端職責</div><div class="p lg u-margin-0">敏捷驗證，承擔試錯成本。</div></div><div class="card mute bl-m u-margin-top-14px u-padding-14px-18px u-box-shadow-none u-flex-1"><div class="k">體制端支援</div><div class="p lg u-margin-0">主動釋出高品質基礎開放資料。</div></div></div>
+          <div class="card top u-padding-22px-24px"><div class="k o">階段二</div><div class="t lg">中期對接：流程轉譯</div><div class="card mute bl-d u-margin-top-16px u-padding-14px-18px u-flex-1"><div class="k">民間端職責</div><div class="p lg u-margin-0">交付可檢驗的開源待用原型。</div></div><div class="card mute bl-m u-margin-top-14px u-padding-14px-18px u-box-shadow-none u-flex-1"><div class="k">體制端支援</div><div class="p lg u-margin-0">設專責窗口，轉譯法規邏輯。</div></div></div>
+          <div class="card top u-padding-22px-24px"><div class="k b">階段三</div><div class="t lg">後期落地：制度普及</div><div class="card mute bl-d u-margin-top-16px u-padding-14px-18px u-flex-1"><div class="k">民間端職責</div><div class="p lg u-margin-0">開放授權釋出，不鎖死。</div></div><div class="card mute bl-m u-margin-top-14px u-padding-14px-18px u-box-shadow-none u-flex-1"><div class="k">體制端支援</div><div class="p lg u-margin-0">將成熟方案納入常規公共服務。</div></div></div>
         </div><div class="bar u-font-size-20px"><b>分工原則：</b>民間負責「做出來」，體制負責「接下去」。</div></div>
       </div>
       <div class="slide-footer">
@@ -910,18 +919,18 @@
     </section>
 
     <!-- ===== SLIDE 15 ===== -->
-    <section class="slide-canvas" data-slide="15" data-notes-title="S15 體制落地：階段一 沙盒試錯講稿">
+    <section class="slide-canvas plain" data-slide="15" data-notes-title="S15 體制落地：階段一 沙盒試錯講稿">
       <div class="slide-header">
-        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 階段一 探索</div>
+        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 階段 1／3  探索</div>
         <div class="slide-counter">16 / 22</div>
       </div>
       <div class="title-group"><h1 class="slide-title">階段一｜前期探索：民間先試錯，體制開放資料</h1><p class="slide-subtitle">民間承擔早期創新風險；公部門先打開資料水龍頭</p></div>
       <div class="slide-body ">
-<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card bl-g u-padding-18px-24px"><div class="k g u-font-size-17px">民間端：低風險創新沙盒</div><div class="p lg u-margin-0 u-font-size-22px">快速迭代，先驗證痛點存在、解法行得通。</div></div><div class="card bl-b u-padding-18px-24px"><div class="k b u-font-size-17px">體制端：開放資料水龍頭</div><div class="p lg u-margin-0 u-font-size-22px">把鎖在庫存與 PDF 裡的資料開放出來。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card top hl-g u-grid-column-1-1 u-height-100"><div class="head"><div class="grow"><div class="k g">案例</div><div class="t lg">藥品仿單白話文運動</div></div><span class="tag g">早期沙盒驗證</span></div>
+<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card bl-d u-padding-18px-24px"><div class="k u-font-size-17px">民間端：低風險創新沙盒</div><div class="p lg u-margin-0 u-font-size-22px">快速迭代，先驗證痛點存在、解法行得通。</div></div><div class="card bl-m u-padding-18px-24px"><div class="k u-font-size-17px">體制端：開放資料水龍頭</div><div class="p lg u-margin-0 u-font-size-22px">把鎖在庫存與 PDF 裡的資料開放出來。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card top hl-g u-grid-column-1-1 u-height-100"><div class="head"><div class="grow"><div class="k g">案例</div><div class="t lg">藥品仿單白話文運動</div></div><span class="tag g">早期沙盒驗證</span></div>
          <div class="grid g-3 u-height-auto u-flex-1 u-margin-top-14px u-gap-14px">
            <div class="card mute"><div class="k">STEP 01</div><div class="t">原型打造</div><div class="p lg u-margin-4px-0-0">先做 10 種常見藥品的白話指引，不急著衝撞官方標準。</div></div>
            <div class="card mute"><div class="k">STEP 02</div><div class="t">體驗迭代</div><div class="p lg u-margin-4px-0-0">用使用者測試，反覆微調排版與衛教語句。</div></div>
-           <div class="card hl-b"><div class="k b">體制對接起點</div><div class="t">開放原始資料</div><div class="p lg u-margin-4px-0-0">衛福部提供藥品許可資料集。</div></div>
+           <div class="card bl-m"><div class="k">體制對接起點</div><div class="t">開放原始資料</div><div class="p lg u-margin-4px-0-0">衛福部提供藥品許可資料集。</div></div>
          </div>
          <div class="note">另例：口罩地圖也屬此模式，民間以開放 API 在黑客松 24 小時內完成技術沙盒試驗。</div></div></div><div class="bar u-font-size-20px"><b>試錯成本由民間吸收，創新紅利由全體共享。</b></div></div>
       </div>
@@ -943,14 +952,14 @@
     </section>
 
     <!-- ===== SLIDE 16 ===== -->
-    <section class="slide-canvas" data-slide="16" data-notes-title="S16 體制落地：階段二 流程轉譯講稿">
+    <section class="slide-canvas plain" data-slide="16" data-notes-title="S16 體制落地：階段二 流程轉譯講稿">
       <div class="slide-header">
-        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 階段二 對接</div>
+        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 階段 2／3  對接</div>
         <div class="slide-counter">17 / 22</div>
       </div>
       <div class="title-group"><h1 class="slide-title">階段二｜中期對接：民間交待用品，體制設窗口</h1><p class="slide-subtitle">告別抽象抱怨；民間端出可運作的待用品，體制協助對齊規格</p></div>
       <div class="slide-body ">
-<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card bl-o u-padding-18px-24px"><div class="k o u-font-size-17px">民間端：端出「待用品」與事證</div><div class="p lg u-margin-0 u-font-size-22px">做出能直接相容體制公文與介面規格的原型。</div></div><div class="card bl-b u-padding-18px-24px"><div class="k b u-font-size-17px">體制端：設立專責諮詢窗口</div><div class="p lg u-margin-0 u-font-size-22px">協助解碼法規限制、資安與法定文書格式。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-disfactory.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">Disfactory｜法定公文格式轉譯</div><div class="note u-margin-2px-0-0 u-font-size-16px">空照比對 ＋ 地籍查核 ＋ 具名檢舉函</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">民眾零散的照片，轉成法定立案的正式公文。</div></div><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-vtaiwan.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">vTaiwan｜爭議法規調適轉譯</div><div class="note u-margin-2px-0-0 u-font-size-16px">意見徵集 ＋ 草案研擬 ＋ 送交院會</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">政務窗口參與，把多方對話轉成具體政策草案。</div></div></div><div class="bar u-font-size-20px"><b>跨越語言鴻溝：</b>民間懂程式碼，體制懂法規流程。</div></div>
+<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card bl-d u-padding-18px-24px"><div class="k u-font-size-17px">民間端：端出「待用品」與事證</div><div class="p lg u-margin-0 u-font-size-22px">做出能直接相容體制公文與介面規格的原型。</div></div><div class="card bl-m u-padding-18px-24px"><div class="k u-font-size-17px">體制端：設立專責諮詢窗口</div><div class="p lg u-margin-0 u-font-size-22px">協助解碼法規限制、資安與法定文書格式。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-disfactory.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">Disfactory｜法定公文格式轉譯</div><div class="note u-margin-2px-0-0 u-font-size-16px">空照比對 ＋ 地籍查核 ＋ 具名檢舉函</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">民眾零散的照片，轉成法定立案的正式公文。</div></div><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-vtaiwan.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">vTaiwan｜爭議法規調適轉譯</div><div class="note u-margin-2px-0-0 u-font-size-16px">意見徵集 ＋ 草案研擬 ＋ 送交院會</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">政務窗口參與，把多方對話轉成具體政策草案。</div></div></div><div class="bar u-font-size-20px"><b>跨越語言鴻溝：</b>民間懂程式碼，體制懂法規流程。</div></div>
       </div>
       <div class="slide-footer">
         <div>案例出處詳見本專案方法論長文；符合公私協力治理架構</div>
@@ -970,14 +979,14 @@
     </section>
 
     <!-- ===== SLIDE 17 ===== -->
-    <section class="slide-canvas" data-slide="17" data-notes-title="S17 體制落地：階段三 制度普及講稿">
+    <section class="slide-canvas plain" data-slide="17" data-notes-title="S17 體制落地：階段三 制度普及講稿">
       <div class="slide-header">
-        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 階段三 普及</div>
+        <div class="chapter-badge"><span class="dot blue"></span>第三部 體制落地 ｜ 階段 3／3  普及</div>
         <div class="slide-counter">18 / 22</div>
       </div>
       <div class="title-group"><h1 class="slide-title">階段三｜後期落地：民間開放交付，體制常規營運</h1><p class="slide-subtitle">民間以開放授權功成身退；體制編列預算，讓成果普及</p></div>
       <div class="slide-body ">
-<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card bl-b u-padding-18px-24px"><div class="k b u-font-size-17px">民間端：開放授權、無技術鎖死</div><div class="p lg u-margin-0 u-font-size-22px">程式碼、資料規格與維護文件完整開源，不綁商業。</div></div><div class="card bl-g u-padding-18px-24px"><div class="k g u-font-size-17px">體制端：編列常規預算與編制</div><div class="p lg u-margin-0 u-font-size-22px">把成熟原型升級為國家級系統，配置長期維運。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-g0v.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">監察院政治獻金公開查閱平臺</div><div class="note u-margin-2px-0-0 u-font-size-16px">從黑客松紙本 OCR 走向國家法定系統</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">2014 民間點火、2017 媒體接力、2019 修法後監察院正式上線，成為常態業務。</div></div><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-g0v.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">藥品仿單白話指引</div><div class="note u-margin-2px-0-0 u-font-size-16px">目標：納入國家衛生政策法規標準</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">從 10 種原型、30 種臨床現場驗證，推動成為全民就醫領藥的依據。</div></div></div><div class="bar u-font-size-20px"><b>開源起步，法制化收尾：</b>公私協力的最高境界。</div></div>
+<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card bl-d u-padding-18px-24px"><div class="k u-font-size-17px">民間端：開放授權、無技術鎖死</div><div class="p lg u-margin-0 u-font-size-22px">程式碼、資料規格與維護文件完整開源，不綁商業。</div></div><div class="card bl-m u-padding-18px-24px"><div class="k u-font-size-17px">體制端：編列常規預算與編制</div><div class="p lg u-margin-0 u-font-size-22px">把成熟原型升級為國家級系統，配置長期維運。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-g0v.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">監察院政治獻金公開查閱平臺</div><div class="note u-margin-2px-0-0 u-font-size-16px">從黑客松紙本 OCR 走向國家法定系統</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">2014 民間點火、2017 媒體接力、2019 修法後監察院正式上線，成為常態業務。</div></div><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-g0v.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">藥品仿單白話指引</div><div class="note u-margin-2px-0-0 u-font-size-16px">目標：納入國家衛生政策法規標準</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">從 10 種原型、30 種臨床現場驗證，推動成為全民就醫領藥的依據。</div></div></div><div class="bar u-font-size-20px"><b>開源起步，法制化收尾：</b>公私協力的最高境界。</div></div>
       </div>
       <div class="slide-footer">
         <div>案例出處詳見本專案方法論長文；監察院政治獻金平臺 ardata.cy.gov.tw</div>
@@ -996,7 +1005,7 @@
     </section>
 
     <!-- ===== SLIDE 18 ===== -->
-    <section class="slide-canvas" data-slide="18" data-notes-title="S18 資產傳承：雙軌規劃突破三大阻力講稿">
+    <section class="slide-canvas plain" data-slide="18" data-notes-title="S18 資產傳承：雙軌規劃突破三大阻力講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot dark"></span>第四部 資產傳承</div>
         <div class="slide-counter">19 / 22</div>
@@ -1009,14 +1018,14 @@
             <div class="k u-margin-0">傳承的三大現實阻力</div>
             <div class="card bl-d"><div class="t">① 範疇廣大</div><div class="p u-margin-0">議題跨度大且持續演進，單一專案難以窮盡。</div></div>
             <div class="card bl-d"><div class="t">② 動筆時間負擔</div><div class="p u-margin-0">志工利用業餘時間，整理成文字過於沉重。</div></div>
-            <div class="card hl-o bl-o"><div class="t o">③ 查核信任門檻</div><div class="p u-margin-0">AI 易產生幻覺，單一案例出錯就會摧毀公信力。</div></div>
+            <div class="card bl-d"><div class="t">③ 查核信任門檻</div><div class="p u-margin-0">AI 易產生幻覺，單一案例出錯就會摧毀公信力。</div></div>
           </div>
           <div class="stack">
             <div class="k u-margin-0">本專案的雙軌破局</div>
-            <div class="card bl-g"><div class="head"><div class="t grow">內容軌：產出 11 篇高品質指引</div><span class="tag g">突破範疇</span></div>
+            <div class="card bl-d"><div class="head"><div class="t grow">內容軌：產出 11 篇高品質指引</div><span class="tag g">突破範疇</span></div>
               <div class="p u-margin-6px-0-0">3 篇方法論長文＋8 篇領域指南，提供實戰範本。</div></div>
-            <div class="card bl-b"><div class="head"><div class="t grow">工具軌：人機協同寫作流程</div><span class="tag b">解放時間與信任</span></div>
-              <div class="p u-margin-6px-0-0">沉澱成標準化 Pipeline，並以三道防線阻絕 AI 幻覺。</div></div>
+            <div class="card bl-d"><div class="head"><div class="t grow">工具軌：人機協同寫作流程</div><span class="tag b">解放時間與信任</span></div>
+              <div class="p u-margin-6px-0-0">沉澱成標準化寫作流程，並以三道防線阻絕 AI 幻覺。</div></div>
             <div class="card mute u-flex-none u-text-align-center"><div class="p u-margin-0"><b>不只留下一本書，更留下一座人人都能持續開採的工具箱。</b></div></div>
           </div>
         </div>
@@ -1044,7 +1053,7 @@
     </section>
 
     <!-- ===== SLIDE 19 ===== -->
-    <section class="slide-canvas" data-slide="19" data-notes-title="S19 資產傳承：人機協同流程與防線講稿">
+    <section class="slide-canvas plain" data-slide="19" data-notes-title="S19 資產傳承：人機協同流程與防線講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot dark"></span>第四部 資產傳承</div>
         <div class="slide-counter">20 / 22</div>
@@ -1057,17 +1066,17 @@
             <div class="k">人機分工</div>
             <div class="grid g-2 u-height-auto u-gap-12px">
               <div class="card mute u-padding-12px-14px"><div class="k">AI 負責</div><div class="p u-margin-0">檢索、排版、草稿，承擔繁瑣體力</div></div>
-              <div class="card hl-b u-padding-12px-14px u-box-shadow-none"><div class="k b">人類負責</div><div class="p u-margin-0">核心觀點、真實邊界、拍板發布</div></div>
+              <div class="card mute bl-d u-padding-12px-14px u-box-shadow-none"><div class="k">人類負責</div><div class="p u-margin-0">核心觀點、真實邊界、拍板發布</div></div>
             </div>
-            <div class="k u-margin-top-16px">八階段 Pipeline</div>
+            <div class="k u-margin-top-16px">八階段流程</div>
             <div class="pipe u-margin-top-6px">
-              <div class=""><div class="n">01</div><div class="s">選題發想</div></div><div class=""><div class="n">02</div><div class="s">調研訪談</div></div><div class="hl-b"><div class="n">03</div><div class="s">大綱主張</div></div><div class=""><div class="n">04</div><div class="s">草稿初擬</div></div><div class="hl-o"><div class="n">05</div><div class="s">事實標註</div></div><div class="hl-g"><div class="n">06</div><div class="s">獨立審查</div></div><div class=""><div class="n">07</div><div class="s">社群共筆</div></div><div class=""><div class="n">08</div><div class="s">開源釋出</div></div>
+              <div class=""><div class="n">01</div><div class="s">選題發想</div></div><div class=""><div class="n">02</div><div class="s">調研訪談</div></div><div class="hl-o"><div class="n">03</div><div class="s">大綱主張・防線一</div></div><div class=""><div class="n">04</div><div class="s">草稿初擬</div></div><div class="hl-o"><div class="n">05</div><div class="s">事實標註・防線二</div></div><div class="hl-o"><div class="n">06</div><div class="s">獨立審查・防線三</div></div><div class=""><div class="n">07</div><div class="s">社群共筆</div></div><div class=""><div class="n">08</div><div class="s">開源釋出</div></div>
             </div>
           </div>
           <div class="stack">
-            <div class="card bl-b"><div class="head"><div class="t grow">第一道｜大綱主張表</div><span class="tag b">確立核心論點</span></div><div class="p u-margin-4px-0-0">每個核心論點都要有真實案例，沒有佐證不動筆。</div></div>
-            <div class="card bl-o"><div class="head"><div class="t grow">第二道｜逐條事實標註</div><span class="tag o">建立查核總表</span></div><div class="p u-margin-4px-0-0">每個數字與案例標註查驗等級，逐一對照來源。</div></div>
-            <div class="card bl-g"><div class="head"><div class="t grow">第三道｜獨立 AI 審查</div><span class="tag g">杜絕盲點</span></div><div class="p u-margin-4px-0-0">由未參與撰寫的獨立模型挑錯，補上邏輯漏洞。</div></div>
+            <div class="card bl-d"><div class="head"><div class="t grow">第一道｜大綱主張表</div><span class="tag b">確立核心論點</span></div><div class="p u-margin-4px-0-0">每個核心論點都要有真實案例，沒有佐證不動筆。</div></div>
+            <div class="card bl-d"><div class="head"><div class="t grow">第二道｜逐條事實標註</div><span class="tag o">建立查核總表</span></div><div class="p u-margin-4px-0-0">每個數字與案例標註查驗等級，逐一對照來源。</div></div>
+            <div class="card bl-d"><div class="head"><div class="t grow">第三道｜獨立 AI 審查</div><span class="tag g">杜絕盲點</span></div><div class="p u-margin-4px-0-0">由未參與撰寫的獨立模型挑錯，補上邏輯漏洞。</div></div>
           </div>
         </div>
       </div>
@@ -1096,7 +1105,7 @@
     </section>
 
     <!-- ===== SLIDE 20 ===== -->
-    <section class="slide-canvas" data-slide="20" data-notes-title="S20 資產傳承：沉澱開源紀錄三大公共財講稿">
+    <section class="slide-canvas plain" data-slide="20" data-notes-title="S20 資產傳承：沉澱開源紀錄三大公共財講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot dark"></span>第四部 資產傳承</div>
         <div class="slide-counter">21 / 22</div>
@@ -1109,14 +1118,14 @@
             <div class="k u-margin-0">社群傳承痛點（實作者 N=47）</div>
             <div class="card hl-o"><div class="stat o">13%</div><div class="t u-margin-top-6px">缺少文件交接，進度受阻</div>
               <div class="p u-margin-2px-0-0">人一走，知識就斷。</div></div>
-            <div class="card hl-o"><div class="stat u-color-c62828">4%</div><div class="t u-margin-top-6px">嚴重到想退出專案</div>
+            <div class="card hl-o"><div class="stat o">4%</div><div class="t u-margin-top-6px">嚴重到想退出專案</div>
               <div class="p u-margin-2px-0-0">缺乏引導與傳承，精疲力竭離開。</div></div>
           </div>
           <div class="stack">
             <div class="k u-margin-0">三大開源資產</div>
             <div class="card"><div class="head"><span class="tag g">破解新手卡關</span><div class="t">資產一｜11 篇實務指引</div></div><div class="p u-margin-6px-0-0">可即時查閱的實戰工具書，涵蓋選題發起、協同營運、體制落地。</div></div>
             <div class="card"><div class="head"><span class="tag o">破解決策盲點</span><div class="t">資產二｜127 份問卷資料集＋分析網站</div></div><div class="p u-margin-6px-0-0">公開去識別化數據與互動圖表，見 report.claire-cheng.com。</div></div>
-            <div class="card"><div class="head"><span class="tag b">破解傳承斷層</span><div class="t">資產三｜開源人機寫作 Pipeline</div></div><div class="p u-margin-6px-0-0">完整提示詞鏈、大綱主張表與三道防線規格，人人可用。</div></div>
+            <div class="card"><div class="head"><span class="tag b">破解傳承斷層</span><div class="t">資產三｜開源人機寫作流程</div></div><div class="p u-margin-6px-0-0">完整提示詞鏈、大綱主張表與三道防線規格，人人可用。</div></div>
           </div>
         </div>
       </div>
@@ -1146,7 +1155,7 @@
     </section>
 
     <!-- ===== SLIDE 21 ===== -->
-    <section class="slide-canvas" data-slide="21" data-notes-title="S21 結語與行動召喚：今天開始的下一步講稿">
+    <section class="slide-canvas plain" data-slide="21" data-notes-title="S21 結語與行動召喚：今天開始的下一步講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot dark"></span>第四部 資產傳承</div>
         <div class="slide-counter">22 / 22</div>
@@ -1158,7 +1167,7 @@
           <div class="stack">
             <div class="card bl-g"><div class="head"><div class="t grow">體制夥伴｜開放資料與常態窗口</div><span class="tag g">官方對接</span></div><div class="p u-margin-6px-0-0">不只辦競賽獎勵，釋出乾淨的基礎資料、指派專責窗口，當民間創新的低風險試驗場。</div></div>
             <div class="card bl-o"><div class="head"><div class="t grow">現場會眾｜掃描 QR Code 填問卷</div><span class="tag o">擴大樣本</span></div><div class="p u-margin-6px-0-0">花 3 分鐘，為台灣公民科技地圖貢獻第一手樣本，讓下一版傳承更具代表性。</div></div>
-            <div class="card bl-b"><div class="head"><div class="t grow">專案團隊｜套用開源寫作流程</div><span class="tag b">接棒沉澱</span></div><div class="p u-margin-6px-0-0">用人機協同 Pipeline 整理踩坑血淚，降低文字負擔，讓經驗隨人員流動傳下去。</div></div>
+            <div class="card bl-b"><div class="head"><div class="t grow">專案團隊｜套用開源寫作流程</div><span class="tag b">接棒沉澱</span></div><div class="p u-margin-6px-0-0">用人機協同寫作流程整理踩坑血淚，降低文字負擔，讓經驗隨人員流動傳下去。</div></div>
           </div>
           <div class="card u-align-items-center u-text-align-center">
             <div class="t">立即造訪公民科技百寶箱</div>
@@ -1205,7 +1214,7 @@
       function showSlide(i) {
         currentIndex = Math.max(0, Math.min(slides.length - 1, i));
         slides.forEach((s, k) => s.classList.toggle('active', k === currentIndex));
-        try { history.replaceState(null, '', '#' + (currentIndex + 1)); } catch (e) {}
+        if (location.hash !== '#' + (currentIndex + 1)) history.replaceState(null, '', '#' + (currentIndex + 1));
       }
       const fromHash = parseInt(location.hash.slice(1), 10);
       if (fromHash >= 1) showSlide(fromHash - 1);
