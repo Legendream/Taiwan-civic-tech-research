@@ -554,6 +554,105 @@
     }
 
     /* ==========================================================================
+       第三部 四大推進路徑 (S10-S13) 滿版等高均勻分布與專案配圖版型
+       ========================================================================== */
+    .path-grid-two-col {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 22px;
+      width: 100%;
+      height: 100%;
+      align-items: stretch;
+    }
+
+    .path-decision-column {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .path-card-item {
+      padding: 13px 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(11, 11, 11, 0.06);
+      background: rgba(11, 11, 11, 0.02);
+      transition: all 0.2s ease;
+    }
+
+    .path-card-item.active-creator {
+      background: rgba(42, 120, 214, 0.04);
+      border: 1px solid rgba(42, 120, 214, 0.2);
+      border-left: 4px solid var(--layer-creator);
+    }
+
+    .path-card-item.active-user {
+      background: rgba(235, 104, 52, 0.04);
+      border: 1px solid rgba(235, 104, 52, 0.2);
+      border-left: 4px solid var(--layer-user);
+    }
+
+    .path-card-item.active-curious {
+      background: rgba(27, 175, 122, 0.04);
+      border: 1px solid rgba(27, 175, 122, 0.2);
+      border-left: 4px solid var(--layer-curious);
+    }
+
+    .path-showcase-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      height: 100%;
+    }
+
+    .path-project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px 18px;
+      box-shadow: var(--card-shadow);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 0;
+    }
+
+    .path-project-body {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 14px;
+      align-items: center;
+      flex: 1;
+      min-height: 0;
+      margin-top: 6px;
+    }
+
+    .path-project-img {
+      width: 100%;
+      height: 102px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 8px;
+      border: 1px solid rgba(11, 11, 11, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      background: #fafafa;
+    }
+
+    .path-img-caption {
+      font-size: 11px;
+      color: var(--text-faint);
+      margin-top: 3px;
+      text-align: right;
+    }
+
+    /* ==========================================================================
        講者演繹備忘錄抽屜 (Speaker Notes Drawer)
        ========================================================================== */
     #speaker-drawer {
@@ -1569,9 +1668,9 @@
     </section>
 
     <!-- ====================================================================
-         SLIDE 10: S10 第三部 路徑一 ｜ 專業槓桿策略：精準賦能專業轉譯者
+         SLIDE 10: S10 第三部 路徑一 ｜ 鎖定關鍵受眾：先決定讓大眾還是專業轉譯者在意
          ==================================================================== -->
-    <section class="slide-canvas" data-slide="10" data-notes-title="S10 體制落地：路徑一 專業槓桿策略講稿">
+    <section class="slide-canvas" data-slide="10" data-notes-title="S10 體制落地：路徑一 關鍵受眾策略講稿">
       <div class="slide-header">
         <div class="chapter-badge">
           <span class="status-indicator-dot blue"></span>
@@ -1581,75 +1680,96 @@
       </div>
 
       <div class="title-group">
-        <h1 class="slide-title">路徑一 ｜ 專業槓桿策略：精準賦能專業轉譯者</h1>
-        <p class="slide-subtitle">不追求全民普及的大眾廣度，而是鎖定天天處理法規與資訊的轉譯者放大系統效應</p>
+        <h1 class="slide-title">路徑一 ｜ 專案成果沒人看見？先決定讓大眾還是專業轉譯者在意</h1>
+        <p class="slide-subtitle">依議題特性選擇大眾廣度或專業槓桿，以可被引用的基礎資源建立共鳴</p>
       </div>
 
       <div class="slide-body">
-        <div class="split-layout" style="grid-template-columns: 0.95fr 1.05fr; gap: 24px; align-items: stretch;">
+        <div class="path-grid-two-col">
           
-          <!-- 左側：受眾策略選擇矩陣與槓桿邏輯 -->
-          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 22px 24px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div style="font-size: 13.5px; font-weight: 700; color: var(--text-sub); border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 8px; margin-bottom: 14px;">
-                受眾定位決策：廣度 vs. 槓桿
+          <!-- 左側：受眾策略抉擇矩陣與訣竅要點 -->
+          <div class="path-decision-column">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="font-size: 13.5px; font-weight: 700; color: var(--text-sub); border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+                <span>受眾策略抉擇：大眾廣度 vs. 專業槓桿</span>
+                <span class="status-indicator-dot blue"></span>
               </div>
 
-              <div style="display: flex; flex-direction: column; gap: 12px;">
-                <div style="padding: 12px 14px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; border: 1px solid rgba(11,11,11,0.05);">
-                  <div style="font-size: 13.5px; font-weight: 700; color: var(--text-faint); margin-bottom: 3px;">大眾普及路線（日常工具）</div>
-                  <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">貼近生活日常、人人有感，追求廣泛使用量與社會關注。</div>
+              <div class="path-card-item">
+                <div style="font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">大眾普及路線（追求廣度）</div>
+                <div style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">
+                  適合貼近生活、大家都很有感的議題。把複雜資訊做成直覺好上手的工具，吸引大眾在日常生活中使用，透過工具的擴散，讓更多人認識並關注背後的議題。
                 </div>
+              </div>
 
-                <div style="padding: 14px 16px; background: rgba(42, 120, 214, 0.04); border-left: 4px solid var(--layer-creator); border-radius: 8px; border-top: 1px solid rgba(42,120,214,0.15); border-right: 1px solid rgba(42,120,214,0.15); border-bottom: 1px solid rgba(42,120,214,0.15);">
-                  <div style="font-size: 14.5px; font-weight: 700; color: var(--layer-creator); margin-bottom: 4px;">專業槓桿路線（核心對策）</div>
-                  <div style="font-size: 13px; color: var(--text-main); line-height: 1.5;">
-                    專門服務國會助理、調查記者與查核志工，為他們消除資料摩擦，透過其專業報導成倍擴散影響力。
-                  </div>
+              <div class="path-card-item active-creator">
+                <div style="font-size: 14px; font-weight: 700; color: var(--layer-creator); margin-bottom: 4px;">專業中介者路線（追求槓桿）</div>
+                <div style="font-size: 13px; color: var(--text-main); line-height: 1.5;">
+                  適合門檻較高、一般人平時不會主動查閱的議題。專門服務每天都需要處理這類資訊的專業人士，幫他們降低處理門檻，透過他們的專業工作與對外產出，將專案影響力成倍放大。
                 </div>
               </div>
             </div>
 
-            <!-- 槓桿乘數公式小卡 -->
-            <div style="padding: 12px 14px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; font-size: 12.5px; color: var(--text-sub); line-height: 1.5; border: 1px dashed rgba(11,11,11,0.12);">
-              <strong style="color: var(--text-main);">槓桿公式：</strong>精準服務 100 位核心轉譯者 × 產出 100 篇深度報導 ＝ 觸及數百萬公眾
+            <!-- 訣竅要點卡片 -->
+            <div style="padding: 10px 14px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; font-size: 12.5px; color: var(--text-sub); line-height: 1.5; border: 1px dashed rgba(11,11,11,0.12);">
+              <strong style="color: var(--text-main);">訣竅核心：</strong>關鍵不在單向宣傳曝光，而在釐清議題本質，提供一套別人需要但短期難以自建的基礎資源。精準服務關鍵轉譯者，透過其專業產出成倍擴散。
             </div>
           </div>
 
-          <!-- 右側：雙代表案例卡片（嵌入真實官方 Logo 標章） -->
-          <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 14px;">
+          <!-- 右側：雙代表案例卡片（上下平均分布，內嵌真實 Medium 專文配圖） -->
+          <div class="path-showcase-column">
             
             <!-- 案例 1: Cofacts 真的假的 -->
-            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--card-shadow);">
-              <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
-                <img src="assets/project-cofacts.png" alt="Cofacts Logo" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid rgba(11,11,11,0.08); flex-shrink: 0;">
-                <div>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <strong style="font-size: 15.5px; color: var(--text-main);">Cofacts 真的假的</strong>
-                    <span style="font-size: 11.5px; font-weight: 700; color: var(--layer-curious); background: rgba(27,175,122,0.1); padding: 1px 6px; border-radius: 4px;">CC BY-SA 4.0</span>
+            <div class="path-project-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 6px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <img src="assets/project-cofacts.png" alt="Cofacts Logo" style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(11,11,11,0.08); flex-shrink: 0;">
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <strong style="font-size: 15px; color: var(--text-main);">Cofacts 真的假的</strong>
+                      <span style="font-size: 11px; font-weight: 700; color: var(--layer-curious); background: rgba(27,175,122,0.1); padding: 1px 6px; border-radius: 4px;">CC BY-SA 4.0</span>
+                    </div>
+                    <div style="font-size: 11.5px; color: var(--text-faint);">LINE 查證機器人 ＆ 開放事實查核資料庫</div>
                   </div>
-                  <div style="font-size: 12.5px; color: var(--text-sub);">LINE 闢謠機器人 ＆ 開源事實查核資料庫</div>
                 </div>
+                <span style="font-size: 11.5px; font-weight: 700; color: var(--layer-curious); background: rgba(27,175,122,0.08); padding: 2px 8px; border-radius: 4px;">大眾普及路線代表</span>
               </div>
-              <div style="font-size: 13.5px; color: var(--text-sub); line-height: 1.5; background: rgba(11,11,11,0.02); padding: 10px 12px; border-radius: 8px;">
-                將龐大查核資料庫以開放授權釋出，民間防詐工具（美玉姨、趨勢科技）直接串接；<strong style="color: var(--text-main);">2022 年中選會公開建議</strong>民眾加入查證闢謠。
+
+              <div class="path-project-body">
+                <div style="font-size: 12.5px; color: var(--text-sub); line-height: 1.5;">
+                  打造 LINE 查證機器人與雙月小聚號召志工查核。累積規模後以 CC BY-SA 4.0 開放釋出完整資料集，美玉姨、防詐達人等工具直接介接；<strong style="color: var(--text-main);">2022 年中選會更公開建議</strong>民眾加入識別選務謠言。
+                </div>
+                <div>
+                  <img src="assets/article-cofacts-ai.png" alt="Cofacts 查核與對話介面" class="path-project-img">
+                  <div class="path-img-caption">圖：Cofacts 查核對話介面（取自作者專文）</div>
+                </div>
               </div>
             </div>
 
             <!-- 案例 2: LawTrace 立法足跡 -->
-            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--card-shadow);">
-              <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
-                <img src="assets/project-openfun.png" alt="OpenFun Logo" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid rgba(11,11,11,0.08); flex-shrink: 0;">
-                <div>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <strong style="font-size: 15.5px; color: var(--text-main);">LawTrace 立法足跡</strong>
-                    <span style="font-size: 11.5px; font-weight: 700; color: var(--layer-creator); background: rgba(42,120,214,0.1); padding: 1px 6px; border-radius: 4px;">歐噴有限公司</span>
+            <div class="path-project-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 6px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <img src="assets/project-openfun.png" alt="OpenFun Logo" style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(11,11,11,0.08); flex-shrink: 0;">
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <strong style="font-size: 15px; color: var(--text-main);">LawTrace 立法足跡</strong>
+                      <span style="font-size: 11px; font-weight: 700; color: var(--layer-creator); background: rgba(42,120,214,0.1); padding: 1px 6px; border-radius: 4px;">歐噴有限公司</span>
+                    </div>
+                    <div style="font-size: 11.5px; color: var(--text-faint);">國會法案審議歷程與版本比對工具</div>
                   </div>
-                  <div style="font-size: 12.5px; color: var(--text-sub);">立法院法案審議歷程與版本比對平台</div>
                 </div>
+                <span style="font-size: 11.5px; font-weight: 700; color: var(--layer-creator); background: rgba(42,120,214,0.08); padding: 2px 8px; border-radius: 4px;">專業中介者路線代表</span>
               </div>
-              <div style="font-size: 13.5px; color: var(--text-sub); line-height: 1.5; background: rgba(11,11,11,0.02); padding: 10px 12px; border-radius: 8px;">
-                專門服務國會助理與調查記者，大幅壓縮人工對照公報法條的繁重耗損；藉由轉譯者的深度報導，把透明度間接擴散至社會大眾。
+
+              <div class="path-project-body">
+                <div style="font-size: 12.5px; color: var(--text-sub); line-height: 1.5;">
+                  立法院公報龐雜門檻高，團隊鎖定每天需深挖法條的國會助理、記者與研究員。直覺的版本比對大幅降低人工對照負擔，藉由轉譯者的深度報導，把透明度間接擴散給廣大社會。
+                </div>
+                <div>
+                  <img src="assets/article-lawtrace.png" alt="LawTrace 法案比對介面" class="path-project-img">
+                  <div class="path-img-caption">圖：LawTrace 法案比對介面（取自作者專文）</div>
+                </div>
               </div>
             </div>
 
@@ -1658,7 +1778,7 @@
       </div>
 
       <div class="slide-footer">
-        <div>案例出處詳見本專案方法論長文《公民科技專案做出來了，然後呢？》；專案標誌版權屬各該開源團隊</div>
+        <div>案例出處詳見本專案方法論長文《公民科技專案做出來了，然後呢？》；專案標誌與介面版權屬各該開源團隊</div>
         <div class="footer-right">
           <div class="footer-logos">
             <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
@@ -1671,18 +1791,19 @@
 
       <template class="slide-notes-template">
         <p><span class="chunk-tag up">▲ 上推：跳脫普及率的單一框架</span>（思維提升）<br>
-        原型做出來之後該怎麼走？我們梳理了台灣過去十年的成功案例，提煉出四條實戰路徑。第一條路徑就是：專業槓桿。</p>
+        原型做出來之後該怎麼走？許多專案急於曝光，耗費大量精力廣發宣傳卻換不來實質黏著度。第一條路徑告訴我們：先決定讓大眾還是專業轉譯者在意。</p>
         <br>
-        <p><span class="chunk-tag down">▼ 下切：路徑一 專業槓桿與微觀案例</span>（節奏明快）<br>
-        專案不一定要追求幾十萬大眾下載，你可以專門服務關鍵的轉譯者。就像 Cofacts 真的假的，它專注把開放查核資料集做好，結果民間各大防詐機器人直接串接，甚至中選會也公開建議民眾使用；LawTrace 立法足跡也是如此，它精準解決國會助理與法案研究者的痛苦。</p>
+        <p><span class="chunk-tag down">▼ 下切：路徑一 雙路線抉擇與實戰案例</span>（節奏明快）<br>
+        大眾普及路線適合人人有感的民生議題，例如 Cofacts 打造 LINE 機器人並以開放授權釋出查核數據，連中選會都公開推薦；<br>
+        而專業中介者路線則鎖定高門檻議題，例如 LawTrace 專門服務每天需處理法條的國會助理與調查記者，透過這群專業轉譯者的深度報導成倍擴散影響力。</p>
         <br>
-        <p><span class="chunk-tag up">▲ 上推：乘數效應</span><br>
-        服務好 100 位核心轉譯者，影響力就能成倍放大到全社會。</p>
+        <p><span class="chunk-tag up">▲ 上推：槓桿效應</span><br>
+        不需盲目追求全民普及，提供別人短期內難以自建的基礎資源，就能建立真正的共鳴。</p>
       </template>
     </section>
 
     <!-- ====================================================================
-         SLIDE 11: S11 第三部 路徑二 ｜ 開源替代示範：做出體制隨時可用的 Plan B
+         SLIDE 11: S11 第三部 路徑二 ｜ 做出體制隨時可用的 Plan B
          ==================================================================== -->
     <section class="slide-canvas" data-slide="11" data-notes-title="S11 體制落地：路徑二 開源替代示範講稿">
       <div class="slide-header">
@@ -1694,82 +1815,96 @@
       </div>
 
       <div class="title-group">
-        <h1 class="slide-title">路徑二 ｜ 開源替代示範：做出體制隨時可用的 Plan B</h1>
-        <p class="slide-subtitle">與其在體制外寫建言書，不如打造開源可運作的待用品，消除公部門決策風險</p>
+        <h1 class="slide-title">路徑二 ｜ 寫建議書難以推動體制改變？用開源專案，向政府示範 Plan B</h1>
+        <p class="slide-subtitle">做出具體可運作的示範品，消除智慧財產權疑慮，讓公部門可以直接接手現成規格</p>
       </div>
 
       <div class="slide-body">
-        <div class="split-layout" style="grid-template-columns: 0.95fr 1.05fr; gap: 24px; align-items: stretch;">
+        <div class="path-grid-two-col">
           
-          <!-- 左側：為什麼建議書不如開源示範品 -->
-          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 22px 24px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div style="font-size: 13.5px; font-weight: 700; color: var(--text-sub); border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 8px; margin-bottom: 14px;">
-                倡議工具的效能升維
+          <!-- 左側：示範品雙形態與訣竅要點 -->
+          <div class="path-decision-column">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="font-size: 13.5px; font-weight: 700; color: var(--text-sub); border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+                <span>示範品雙形態：將民間想法具象化</span>
+                <span class="status-indicator-dot blue"></span>
               </div>
 
-              <div style="display: flex; flex-direction: column; gap: 12px;">
-                <div style="padding: 12px 14px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; border: 1px solid rgba(11,11,11,0.05);">
-                  <div style="font-size: 13.5px; font-weight: 700; color: var(--text-faint); margin-bottom: 3px;">純文字建言書的瓶頸</div>
-                  <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
-                    內容抽象難以評估技術可行性，公部門無現成規格可循，往往因擔心不可控風險而停擺。
-                  </div>
+              <div class="path-card-item active-creator">
+                <div style="font-size: 14px; font-weight: 700; color: var(--layer-creator); margin-bottom: 4px;">資訊系統的示範</div>
+                <div style="font-size: 13px; color: var(--text-main); line-height: 1.5;">
+                  適合體制內已有相關資料與業務的狀況。將程式碼、介面設計或整理後的資料開源釋出，讓公部門看見技術如何實現、用起來長什麼樣子；未來評估採用時能直接參考現成規格，甚至取用專案成果，省去從零摸索的成本。
                 </div>
+              </div>
 
-                <div style="padding: 14px 16px; background: rgba(42, 120, 214, 0.04); border-left: 4px solid var(--layer-creator); border-radius: 8px; border-top: 1px solid rgba(42,120,214,0.15); border-right: 1px solid rgba(42,120,214,0.15); border-bottom: 1px solid rgba(42,120,214,0.15);">
-                  <div style="font-size: 14.5px; font-weight: 700; color: var(--layer-creator); margin-bottom: 4px;">開源可運作「待用品」（Plan B）</div>
-                  <div style="font-size: 13px; color: var(--text-main); line-height: 1.5;">
-                    將程式碼、介面或多方共識實作開源，公部門評估採用時可直接取用現成規格，省去從零摸索成本。
-                  </div>
+              <div class="path-card-item active-curious">
+                <div style="font-size: 14px; font-weight: 700; color: var(--layer-curious); margin-bottom: 4px;">多方共識的示範</div>
+                <div style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">
+                  適合牽涉利益衝突、爭議較大的新興議題。民間搭建中立平台邀請各方對話、整理出最大公約數，等於先在體制外完成溝通測試，降低公部門擔心反彈的疑慮，減少後續政策落地的阻力。
                 </div>
               </div>
             </div>
 
-            <!-- 雙示範形態標籤卡 -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 8px;">
-              <div style="padding: 8px 10px; background: rgba(11, 11, 11, 0.02); border-radius: 6px; font-size: 12px; text-align: center; color: var(--text-sub);">
-                資訊系統示範
-              </div>
-              <div style="padding: 8px 10px; background: rgba(11, 11, 11, 0.02); border-radius: 6px; font-size: 12px; text-align: center; color: var(--text-sub);">
-                多方共識示範
-              </div>
+            <!-- 訣竅要點卡片 -->
+            <div style="padding: 10px 14px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; font-size: 12.5px; color: var(--text-sub); line-height: 1.5; border: 1px dashed rgba(11,11,11,0.12);">
+              <strong style="color: var(--text-main);">訣竅核心：</strong>純文字倡議往往抽象，公部門難以評估可行性；做出可運作的開源樣品並標註清楚授權，公部門認同理念時才能消除智財疑慮安心採用。
             </div>
           </div>
 
-          <!-- 右側：雙代表專案卡片 -->
-          <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 14px;">
+          <!-- 右側：雙代表案例卡片（上下平均分布，內嵌真實 Medium 專文配圖） -->
+          <div class="path-showcase-column">
             
-            <!-- 案例 1: LawTrace 立法足跡 待用品哲學 -->
-            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--card-shadow);">
-              <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
-                <img src="assets/project-openfun.png" alt="OpenFun Logo" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid rgba(11,11,11,0.08); flex-shrink: 0;">
-                <div>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <strong style="font-size: 15.5px; color: var(--text-main);">LawTrace ｜ 系統待用品示範</strong>
-                    <span style="font-size: 11.5px; font-weight: 700; color: var(--layer-creator); background: rgba(42,120,214,0.1); padding: 1px 6px; border-radius: 4px;">開源規格</span>
+            <!-- 案例 1: LawTrace 待用品 -->
+            <div class="path-project-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 6px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <img src="assets/project-openfun.png" alt="OpenFun Logo" style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(11,11,11,0.08); flex-shrink: 0;">
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <strong style="font-size: 15px; color: var(--text-main);">LawTrace ｜ 資訊系統示範</strong>
+                      <span style="font-size: 11px; font-weight: 700; color: var(--layer-creator); background: rgba(42,120,214,0.1); padding: 1px 6px; border-radius: 4px;">開源待用品</span>
+                    </div>
+                    <div style="font-size: 11.5px; color: var(--text-faint);">做出立法院可隨時採用的「待用品」規格</div>
                   </div>
-                  <div style="font-size: 12.5px; color: var(--text-sub);">「非取代立法院系統，而是做出立院隨時能採用的待用品」</div>
                 </div>
+                <span style="font-size: 11.5px; font-weight: 700; color: var(--layer-creator); background: rgba(42,120,214,0.08); padding: 2px 8px; border-radius: 4px;">現成規格直接引用</span>
               </div>
-              <div style="font-size: 13.5px; color: var(--text-sub); line-height: 1.5; background: rgba(11,11,11,0.02); padding: 10px 12px; border-radius: 8px;">
-                將版本比對程式碼、介面設計與結構化資料全數開源，驗證技術可行性，為體制提供可直接引用的現成規格。
+
+              <div class="path-project-body">
+                <div style="font-size: 12.5px; color: var(--text-sub); line-height: 1.5;">
+                  定位非取代立法院系統，而是做出立院可直接採用的待用品。將程式碼、介面設計與結構化資料全數開源，驗證技術可行性，更為公部門提供一套可直接參考引用的現成規格。
+                </div>
+                <div>
+                  <img src="assets/article-lawtrace-api.png" alt="LawTrace 開放資料與規格" class="path-project-img">
+                  <div class="path-img-caption">圖：LawTrace 資料規格與 API（取自作者專文）</div>
+                </div>
               </div>
             </div>
 
             <!-- 案例 2: vTaiwan 數位公民共識 -->
-            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--card-shadow);">
-              <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
-                <img src="assets/project-vtaiwan.png" alt="vTaiwan Logo" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid rgba(11,11,11,0.08); flex-shrink: 0;">
-                <div>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <strong style="font-size: 15.5px; color: var(--text-main);">vTaiwan ｜ 多方共識型示範</strong>
-                    <span style="font-size: 11.5px; font-weight: 700; color: var(--layer-curious); background: rgba(27,175,122,0.1); padding: 1px 6px; border-radius: 4px;">35 個公共議題</span>
+            <div class="path-project-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 6px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <img src="assets/project-vtaiwan.png" alt="vTaiwan Logo" style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(11,11,11,0.08); flex-shrink: 0;">
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <strong style="font-size: 15px; color: var(--text-main);">vTaiwan ｜ 多方共識型示範</strong>
+                      <span style="font-size: 11px; font-weight: 700; color: var(--layer-curious); background: rgba(27,175,122,0.1); padding: 1px 6px; border-radius: 4px;">35 個公共議題</span>
+                    </div>
+                    <div style="font-size: 11.5px; color: var(--text-faint);">公共政策開放協作平台 ｜ 體制外完成溝通測試</div>
                   </div>
-                  <div style="font-size: 12.5px; color: var(--text-sub);">公共政策開放協作平台 ｜ 體制外完成溝通測試</div>
                 </div>
+                <span style="font-size: 11.5px; font-weight: 700; color: var(--layer-curious); background: rgba(27,175,122,0.08); padding: 2px 8px; border-radius: 4px;">結構化共識交付</span>
               </div>
-              <div style="font-size: 13.5px; color: var(--text-sub); line-height: 1.5; background: rgba(11,11,11,0.02); padding: 10px 12px; border-radius: 8px;">
-                設計「意見徵集 → 研擬草案 → 送交院會」流程，交付經得起檢驗的對話紀錄，為公部門前期法規研擬提供具體依據。
+
+              <div class="path-project-body">
+                <div style="font-size: 12.5px; color: var(--text-sub); line-height: 1.5;">
+                  設計意見徵集、研擬草案到送交院會三階段流程，追蹤 35 個爭議議題（金融沙盒、遠距醫療、AI 風險等）。交付經充分討論的對話紀錄，為公部門前期政策研擬提供具體依據。
+                </div>
+                <div>
+                  <img src="assets/article-vtaiwan.png" alt="vTaiwan 審議協作流程" class="path-project-img">
+                  <div class="path-img-caption">圖：vTaiwan 審議協作流程介面（取自作者專文）</div>
+                </div>
               </div>
             </div>
 
@@ -1778,7 +1913,7 @@
       </div>
 
       <div class="slide-footer">
-        <div>案例出處詳見本專案方法論長文《公民科技專案做出來了，然後呢？》；專案標誌版權屬各該開源團隊</div>
+        <div>案例出處詳見本專案方法論長文《公民科技專案做出來了，然後呢？》；專案標誌與介面版權屬各該開源團隊</div>
         <div class="footer-right">
           <div class="footer-logos">
             <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
@@ -1790,17 +1925,17 @@
       </div>
 
       <template class="slide-notes-template">
-        <p><span class="chunk-tag down">▼ 下切：路徑二 開源原型與微觀案例</span>（層層推進）<br>
-        第二條路徑叫開源原型示範。與其在體制外寫厚厚一本倡議建言書，不如直接寫 code 做一個開源的 Plan B 給體制看。<br>
-        LawTrace 直接做出立法院資料庫的現代化替代品；vTaiwan 更是直接把爭議法案的數位公民共識原型，端到政務官與公務體系眼前。</p>
+        <p><span class="chunk-tag down">▼ 下切：路徑二 開源示範品與微觀案例</span>（層層推進）<br>
+        第二條路徑叫做出體制隨時可用的開源示範品。與其在體制外寫厚厚一本抽象的建議書，不如直接寫 code 做一個開源的 Plan B 給體制看。<br>
+        LawTrace 直接做出立法院資訊系統的待用品，全數開源規格；vTaiwan 則針對爭議性法規，把多方對話收斂為經得起檢驗的共識紀錄，為政策研擬端出實證原型。</p>
         <br>
         <p><span class="chunk-tag up">▲ 上推：事實勝於雄辯</span>（有力結尾）<br>
-        做出開源待用原型，體制就能在零風險的情況下看見更好的可能性。</p>
+        做出開源待用原型，體制就能在零風險、無版權疑慮的情況下看見更好的可能性。</p>
       </template>
     </section>
 
     <!-- ====================================================================
-         SLIDE 12: S12 第三部 路徑三 ｜ 公務流程借力：借力體制依法解決問題
+         SLIDE 12: S12 第三部 路徑三 ｜ 降低大眾通報門檻，借力既有體制解決問題
          ==================================================================== -->
     <section class="slide-canvas" data-slide="12" data-notes-title="S12 體制落地：路徑三 公務流程借力講稿">
       <div class="slide-header">
@@ -1812,56 +1947,68 @@
       </div>
 
       <div class="title-group">
-        <h1 class="slide-title">路徑三 ｜ 公務流程借力：降低大眾門檻，借力體制依法解決問題</h1>
-        <p class="slide-subtitle">體制依法本有查處責任，民間承接高門檻事證轉譯，倒逼公務體系啟動調查</p>
+        <h1 class="slide-title">路徑三 ｜ 官方立案門檻太高走不進去？降低大眾通報門檻，借力既有體制解決問題</h1>
+        <p class="slide-subtitle">公部門依法本有處理義務；拆解公務流程由民間承接高門檻環節，倒逼案件啟動調查</p>
       </div>
 
       <div class="slide-body">
-        <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; height: 100%; justify-content: space-between;">
+        <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 16px; width: 100%; height: 100%;">
           
-          <!-- 上半部：公私銜接三步流程 -->
+          <!-- 上半部：公私作業流程咬合三步驟 -->
           <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 22px; box-shadow: var(--card-shadow);">
             <div style="font-size: 13.5px; font-weight: 700; color: var(--text-sub); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-              <span>公務管道咬合三步驟（拆解公務流程，由民間承接高門檻環節）</span>
+              <span>拆解公務作業流程，由民間承接高門檻的專業環節（銜接體制三步驟）</span>
               <span class="status-indicator-dot green"></span>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
               <div style="padding: 12px 14px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; border: 1px solid rgba(11,11,11,0.06);">
-                <div style="font-weight: 800; font-size: 13px; color: var(--text-faint); margin-bottom: 3px;">STEP 01</div>
-                <div style="font-weight: 700; font-size: 14px; color: var(--text-main); margin-bottom: 3px;">釐清法定要件</div>
-                <div style="font-size: 12.5px; color: var(--text-sub); line-height: 1.4;">研究主管機關立案門檻（精確地號、歷年空照、具名公文）</div>
+                <div style="font-weight: 800; font-size: 12.5px; color: var(--text-faint); margin-bottom: 3px;">STEP 01 ｜ 體制要件</div>
+                <div style="font-weight: 700; font-size: 14px; color: var(--text-main); margin-bottom: 4px;">釐清權責與法定要件</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); line-height: 1.45;">研究主管機關是誰，官方立案必須具備哪些法定事證與格式規範（如精確地號、歷年空照、具名公文）。</div>
               </div>
 
               <div style="padding: 12px 14px; background: rgba(235, 104, 52, 0.04); border-radius: 8px; border: 1px solid rgba(235,104,52,0.25);">
-                <div style="font-weight: 800; font-size: 13px; color: var(--layer-user); margin-bottom: 3px;">STEP 02</div>
-                <div style="font-weight: 700; font-size: 14px; color: var(--layer-user); margin-bottom: 3px;">前端參與極簡化</div>
-                <div style="font-size: 12.5px; color: var(--text-sub); line-height: 1.4;">民眾端只負責手機拍照、標記定位與記錄時間，零門檻回報</div>
+                <div style="font-weight: 800; font-size: 12.5px; color: var(--layer-user); margin-bottom: 3px;">STEP 02 ｜ 民眾端</div>
+                <div style="font-weight: 700; font-size: 14px; color: var(--layer-user); margin-bottom: 4px;">前端參與極簡化</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); line-height: 1.45;">民眾端只負責提供最容易取得的第一線線索（手機拍照、標記定位或記錄時間），將參與門檻降到最低。</div>
               </div>
 
               <div style="padding: 12px 14px; background: rgba(42, 120, 214, 0.04); border-radius: 8px; border: 1px solid rgba(42,120,214,0.25);">
-                <div style="font-weight: 800; font-size: 13px; color: var(--layer-creator); margin-bottom: 3px;">STEP 03</div>
-                <div style="font-weight: 700; font-size: 14px; color: var(--layer-creator); margin-bottom: 3px;">後端專業轉譯與追蹤</div>
-                <div style="font-size: 12.5px; color: var(--text-sub); line-height: 1.4;">民間團隊比對空照與地籍，整理為正式公文送件並電話追蹤</div>
+                <div style="font-weight: 800; font-size: 12.5px; color: var(--layer-creator); margin-bottom: 3px;">STEP 03 ｜ 民間接力</div>
+                <div style="font-weight: 700; font-size: 14px; color: var(--layer-creator); margin-bottom: 4px;">後端接力轉譯與公文追蹤</div>
+                <div style="font-size: 12.5px; color: var(--text-sub); line-height: 1.45;">專案團隊接力比對空照與地籍，轉譯為符合公務格式之正式公文送交機關，並定期以電話追蹤進度。</div>
               </div>
             </div>
           </div>
 
-          <!-- 下半部：旗艦案例 Disfactory -->
-          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 24px; box-shadow: var(--card-shadow); display: flex; align-items: center; gap: 24px;">
-            <img src="assets/project-disfactory.png" alt="Disfactory Logo" style="width: 76px; height: 76px; border-radius: 16px; border: 1px solid rgba(11,11,11,0.08); flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-            
-            <div style="flex: 1;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                  <strong style="font-size: 17px; color: var(--text-main);">Disfactory 農地違章工廠回報</strong>
-                  <span style="font-size: 12px; font-weight: 700; color: var(--layer-curious); background: rgba(27,175,122,0.1); padding: 2px 8px; border-radius: 4px;">地球公民基金會 × g0v 社群</span>
+          <!-- 下半部：旗艦案例 Disfactory（左文右圖均勻分布，填滿剩餘高度） -->
+          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 22px; box-shadow: var(--card-shadow); flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 8px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <img src="assets/project-disfactory.png" alt="Disfactory" style="width: 38px; height: 38px; border-radius: 8px; border: 1px solid rgba(11,11,11,0.08);">
+                <div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <strong style="font-size: 16px; color: var(--text-main);">Disfactory 農地違章工廠回報</strong>
+                    <span style="font-size: 11.5px; font-weight: 700; color: var(--layer-curious); background: rgba(27,175,122,0.1); padding: 1px 7px; border-radius: 4px;">地球公民基金會 × g0v 社群</span>
+                  </div>
+                  <div style="font-size: 12px; color: var(--text-sub);">簡化舉報流程，由民間團體接力將違章回報轉為正式公文</div>
                 </div>
-                <span style="font-size: 14px; font-weight: 800; color: var(--layer-user);">兩年累計超過 1,000+ 件民眾回報</span>
+              </div>
+              <span style="font-size: 13.5px; font-weight: 800; color: var(--layer-user); background: rgba(235,104,52,0.08); padding: 3px 10px; border-radius: 6px;">兩年收到逾千件回報 ｜ 倒逼案件進入法定查處程序</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1.28fr 0.72fr; gap: 20px; align-items: center; flex: 1; margin-top: 10px;">
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.55; display: flex; flex-direction: column; gap: 8px;">
+                <div>檢舉違章工廠在地方政府本為法定業務，有依法查處責任。然而立案需取得地號確認分區、比對歷年空照判定新增建，且須以具名公文提出，門檻極高容易讓想反映問題的民眾打退堂鼓。</div>
+                <div style="background: rgba(11,11,11,0.02); padding: 8px 12px; border-radius: 6px; border-left: 3px solid var(--layer-user);">
+                  <strong style="color: var(--text-main);">機制突破：</strong>Disfactory 將前端簡化為手機拍照與上傳定位；核心團隊比對空照與地籍、篩選新增建並以基金會名義寄發公文追蹤，<strong style="color: var(--text-main);">在不改變政府作業流程前提下，讓大量有效案件進入體制查處程序。</strong>
+                </div>
               </div>
 
-              <div style="font-size: 13.5px; color: var(--text-sub); line-height: 1.5;">
-                檢舉違章工廠是地方政府法定業務，但成案門檻極高。專案不自創無法約束政府的新平台，而是民間承接查核重擔，以基金會名義寄發標準檢舉公文，<strong style="color: var(--text-main);">在不改變政府作業流程前提下，倒逼大量有效案件進入體制查處程序。</strong>
+              <div>
+                <img src="assets/article-disfactory.png" alt="Disfactory 介面截圖" style="width: 100%; height: 130px; object-fit: cover; object-position: top center; border-radius: 8px; border: 1px solid rgba(11,11,11,0.08); box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+                <div class="path-img-caption">圖：Disfactory 違章工廠地圖與進度追蹤（取自作者專文）</div>
               </div>
             </div>
           </div>
@@ -1870,7 +2017,7 @@
       </div>
 
       <div class="slide-footer">
-        <div>案例出處詳見本專案方法論長文《公民科技專案做出來了，然後呢？》；專案標誌版權屬各該開源團隊</div>
+        <div>案例出處詳見本專案方法論長文《公民科技專案做出來了，然後呢？》；專案標誌與介面版權屬各該開源團隊</div>
         <div class="footer-right">
           <div class="footer-logos">
             <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
@@ -1883,13 +2030,14 @@
 
       <template class="slide-notes-template">
         <p><span class="chunk-tag down">▼ 下切：路徑三 借力公務體系</span>（生動描述）<br>
-        第三條路徑是借力使力。民間團隊不需要自己成立龐大的稽查隊伍。Disfactory 農地違章工廠讓民眾在手機上拍照通報，民間團體在後台把事證整理成標準公文，直接送進政府既有的查處體制，要求地方政府依法查處。<br>
+        第三條路徑是借力使力。民間團隊不需要自建龐大的稽查隊伍。公部門本來就有依法查處的義務，只是民眾被繁瑣的立案門檻卡住了。<br>
+        Disfactory 農地違章工廠讓民眾在手機上拍照通報，民間團體在後台把事證整理成標準公文，直接送進政府既有的查處體制，要求地方政府依法查處。<br>
         前端群眾參與，後端無縫咬合公務體系。</p>
       </template>
     </section>
 
     <!-- ====================================================================
-         SLIDE 13: S13 第三部 路徑四 ｜ 開放資產長跑：以開源授權預備社群接力
+         SLIDE 13: S13 第三部 路徑四 ｜ 以開放授權與完整共筆做好接棒準備
          ==================================================================== -->
     <section class="slide-canvas" data-slide="13" data-notes-title="S13 體制落地：路徑四 開放資產長跑講稿">
       <div class="slide-header">
@@ -1901,57 +2049,69 @@
       </div>
 
       <div class="title-group">
-        <h1 class="slide-title">路徑四 ｜ 開放資產長跑：以開源授權預備社群接力</h1>
-        <p class="slide-subtitle">承認志工流動為自然常態；人會累會休息，但開源公共財能跨越世代持續接棒</p>
+        <h1 class="slide-title">路徑四 ｜ 專案如何發揮長遠影響？以開放授權與完整共筆做好接棒準備</h1>
+        <p class="slide-subtitle">推動體制改變是一場長跑；以開放授權與公開共筆沉澱經驗，即便核心休息也能由社群接力</p>
       </div>
 
       <div class="slide-body">
-        <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; height: 100%; justify-content: space-between;">
+        <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 16px; width: 100%; height: 100%;">
           
-          <!-- 上半部：政治獻金五年三棒時間軸 -->
-          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 22px; box-shadow: var(--card-shadow);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <!-- 上半部：長跑接力典範 政治獻金數位化（左文右圖均勻分布，填滿上半空間） -->
+          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 22px; box-shadow: var(--card-shadow); flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(11,11,11,0.06); padding-bottom: 8px;">
               <div style="display: flex; align-items: center; gap: 10px;">
                 <img src="assets/project-g0v.png" alt="g0v Logo" style="width: 32px; height: 32px; border-radius: 8px;">
-                <strong style="font-size: 15px; color: var(--text-main);">政治獻金數位化：歷經五年的長跑接力典範</strong>
+                <div>
+                  <strong style="font-size: 15px; color: var(--text-main);">政治獻金數位化歷經五年接力，從民間黑客松走向官方平台</strong>
+                  <div style="font-size: 11.5px; color: var(--text-faint);">實質改變非單一團隊一鼓作氣完成，靠著開源成果在休眠期後持續接棒</div>
+                </div>
               </div>
-              <span style="font-size: 12.5px; font-weight: 700; color: var(--layer-creator);">2014 → 2017 → 2019</span>
+              <span style="font-size: 12.5px; font-weight: 700; color: var(--layer-creator); background: rgba(42,120,214,0.08); padding: 2px 8px; border-radius: 4px;">五年三棒跨世代接力</span>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
-              <div style="padding: 12px 14px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; border: 1px solid rgba(11,11,11,0.06);">
-                <div style="font-weight: 800; font-size: 14px; color: var(--layer-creator); margin-bottom: 2px;">2014 第一棒 ｜ g0v 黑客松</div>
-                <div style="font-weight: 700; font-size: 13.5px; color: var(--text-main); margin-bottom: 3px;">群眾 OCR 微任務起步</div>
-                <div style="font-size: 12px; color: var(--text-sub); line-height: 1.4;">24 小時內完成近 31 萬格文字辨識，將 2,637 份紙本文件轉為數位結構化資料。</div>
+            <div style="display: grid; grid-template-columns: 1.28fr 0.72fr; gap: 18px; align-items: center; flex: 1; margin-top: 10px;">
+              <!-- 左側三棒時間軸卡片 -->
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <div style="padding: 10px 12px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; border: 1px solid rgba(11,11,11,0.06);">
+                  <div style="font-weight: 800; font-size: 13px; color: var(--layer-creator); margin-bottom: 2px;">2014 第一棒</div>
+                  <div style="font-weight: 700; font-size: 12.5px; color: var(--text-main); margin-bottom: 3px;">g0v 黑客松起步</div>
+                  <div style="font-size: 11.5px; color: var(--text-sub); line-height: 1.4;">24 小時完成近 31 萬格文字辨識，將 2,637 份紙本轉為數位結構化資料。</div>
+                </div>
+
+                <div style="padding: 10px 12px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; border: 1px solid rgba(11,11,11,0.06);">
+                  <div style="font-weight: 800; font-size: 13px; color: var(--layer-user); margin-bottom: 2px;">2017 第二棒</div>
+                  <div style="font-weight: 700; font-size: 12.5px; color: var(--text-main); margin-bottom: 3px;">READr 媒體接力</div>
+                  <div style="font-size: 11.5px; color: var(--text-sub); line-height: 1.4;">延續開源資產，赴監院印出第九屆並補齊七八屆，完成深度資料新聞專題。</div>
+                </div>
+
+                <div style="padding: 10px 12px; background: rgba(27, 175, 122, 0.05); border-radius: 8px; border: 1px solid rgba(27,175,122,0.3);">
+                  <div style="font-weight: 800; font-size: 13px; color: var(--layer-curious); margin-bottom: 2px;">2019 第三棒</div>
+                  <div style="font-weight: 700; font-size: 12.5px; color: var(--text-main); margin-bottom: 3px;">監察院平臺上線</div>
+                  <div style="font-size: 11.5px; color: var(--text-sub); line-height: 1.4;">立院修法通過，監察院正式上線政治獻金公開查閱平臺，成為國家例行業務！</div>
+                </div>
               </div>
 
-              <div style="padding: 12px 14px; background: rgba(11, 11, 11, 0.02); border-radius: 8px; border: 1px solid rgba(11,11,11,0.06);">
-                <div style="font-weight: 800; font-size: 14px; color: var(--layer-user); margin-bottom: 2px;">2017 第二棒 ｜ 媒體接力</div>
-                <div style="font-weight: 700; font-size: 13.5px; color: var(--text-main); margin-bottom: 3px;">READr 資料新聞專題</div>
-                <div style="font-size: 12px; color: var(--text-sub); line-height: 1.4;">接續前人開源資產，重新鍵入第九屆並補齊七八屆，產出具備深遠影響力之專題。</div>
-              </div>
-
-              <div style="padding: 12px 14px; background: rgba(27, 175, 122, 0.05); border-radius: 8px; border: 1px solid rgba(27,175,122,0.3);">
-                <div style="font-weight: 800; font-size: 14px; color: var(--layer-curious); margin-bottom: 2px;">2019 第三棒 ｜ 體制常規化</div>
-                <div style="font-weight: 700; font-size: 13.5px; color: var(--text-main); margin-bottom: 3px;">監察院官方平臺上線</div>
-                <div style="font-size: 12px; color: var(--text-sub); line-height: 1.4;">立院修法通過，監察院正式上線政治獻金公開查閱平臺，成為國家法定例行業務！</div>
+              <!-- 右側真實介面截圖 -->
+              <div>
+                <img src="assets/article-campaign-finance.png" alt="政治獻金協作辨識介面" style="width: 100%; height: 125px; object-fit: cover; object-position: top center; border-radius: 8px; border: 1px solid rgba(11,11,11,0.08); box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+                <div class="path-img-caption">圖：政治獻金數位化協作介面（取自作者專文）</div>
               </div>
             </div>
           </div>
 
-          <!-- 下半部：開源資產能被接棒的兩大基石 -->
+          <!-- 下半部：開源資產能被接棒的兩大前置基石（消除空洞，充實高度） -->
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
             <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--layer-creator); border-radius: 12px; padding: 14px 18px; box-shadow: var(--card-shadow);">
-              <strong style="font-size: 14.5px; color: var(--text-main); display: block; margin-bottom: 4px;">基石一 ｜ 標示明確的開放授權（CC BY）</strong>
-              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
-                消除法律與版權模糊地帶，讓後續接手者無需四處尋覓原作者，即可合法且安心利用與改作。
+              <strong style="font-size: 14.5px; color: var(--text-main); display: block; margin-bottom: 4px;">標示明確的開放授權（CC BY）</strong>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">
+                為累積的資料、分析報告或設計產出標上清晰的開放授權（例如 CC BY 授權）。消除法律與版權的模糊地帶，讓後續接手的提案者、貢獻者不需要四處尋找原作者授權，就能合法且安心地使用與改作。
               </div>
             </div>
 
             <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-left: 4px solid var(--layer-user); border-radius: 12px; padding: 14px 18px; box-shadow: var(--card-shadow);">
-              <strong style="font-size: 14.5px; color: var(--text-main); display: block; margin-bottom: 4px;">基石二 ｜ 公開完整的脈絡與共筆紀錄</strong>
-              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.45;">
-                將背景調研、踩坑教訓與資料規格寫入公開 HackMD，讓未來的參與者站在巨人肩膀上前進。
+              <strong style="font-size: 14.5px; color: var(--text-main); display: block; margin-bottom: 4px;">公開完整的脈絡與共筆紀錄</strong>
+              <div style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">
+                將專案的背景研究、訪談發現、嘗試過的方法與踩坑經驗，整理成公開可讀的共筆文件。幫助未來的提案者、貢獻者站在前人的基礎上繼續前進，省去從零摸索的成本。
               </div>
             </div>
           </div>
@@ -1960,7 +2120,7 @@
       </div>
 
       <div class="slide-footer">
-        <div>案例出處詳見本專案方法論長文《公民科技專案做出來了，然後呢？》；專案標誌版權屬各該開源團隊</div>
+        <div>案例出處詳見本專案方法論長文《公民科技專案做出來了，然後呢？》；專案標誌與介面版權屬各該開源團隊</div>
         <div class="footer-right">
           <div class="footer-logos">
             <img src="assets/g0v-logo.svg" alt="g0v" class="footer-logo">
@@ -1976,7 +2136,7 @@
         第四條路徑則是社群長跑接力。承認志工流動是必然的，所以一切資產必須開源。政治獻金數位化專案歷經了長達五年的接力，2014 年在 g0v 黑客松上，網友用群眾 OCR 把紙本資料數位化；2017 年新聞團隊 READr 延續成果，做出資料新聞專題；2019 年修法通過後，監察院自己上線了政治獻金查閱平台！</p>
         <br>
         <p><span class="chunk-tag up">▲ 上推：開源資產的永恆性</span>（語氣澎湃）<br>
-        這證明了：人雖然會離開，但只要開源程式碼、共筆文件與授權還在，公民科技的火種就能在不同世代之間持續接棒！</p>
+        這證明了：人雖然會離開，但只要開源授權與共筆文件還在，公民科技的火種就能在休眠期後持續被接棒！</p>
       </template>
     </section>
 
