@@ -10,14 +10,14 @@
        字級下限：正文 18px、卡片小標 20px、註腳／標籤 14px
        ========================================================================== */
     :root {
-      --bg-page: #fcfcfb;
+      --bg-page: #ebe9e2;   /* 暖灰底：讓白卡片浮出來 */
       --text-main: #0b0b0b;
       --text-body: #33322f;
       --text-sub: #52514e;
-      --text-faint: #75746f;
+      --text-faint: #5f5e59;
       --card-bg: #ffffff;
-      --card-border: rgba(11, 11, 11, 0.09);
-      --card-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+      --card-border: rgba(11, 11, 11, 0.13);
+      --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 10px 26px rgba(0, 0, 0, 0.07);
       --layer-curious: #1baf7a;
       --layer-user: #eb6834;
       --layer-creator: #2a78d6;
@@ -57,7 +57,7 @@
     .chapter-badge {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 4px 14px; border-radius: 999px;
-      background: rgba(11, 11, 11, 0.04); border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.7); border: 1px solid var(--card-border);
       font-size: 15px; font-weight: 500; color: var(--text-sub); letter-spacing: 0.5px;
     }
     .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
@@ -103,10 +103,11 @@
       display: flex; flex-direction: column; justify-content: center; min-height: 0; min-width: 0;
     }
     .card.top { justify-content: flex-start; }
-    .card.hl-o { background: #fff8f4; border-color: rgba(235, 104, 52, 0.38); }
+    .card.hl-o { background: #fff5ee; border-color: rgba(235, 104, 52, 0.5); }
     .card.hl-b { background: #f5f9ff; border-color: rgba(42, 120, 214, 0.35); }
     .card.hl-g { background: #f4fbf8; border-color: rgba(27, 175, 122, 0.35); }
-    .card.mute { background: #f4f4f1; box-shadow: none; }
+    .card.mute { background: transparent; border: 1px solid rgba(11,11,11,.16); box-shadow: none; }
+    .card .card.mute { background: #f3f2ee; border-color: rgba(11,11,11,.08); }
     .bl-g { border-left: 6px solid var(--layer-curious); }
     .bl-o { border-left: 6px solid var(--layer-user); }
     .bl-b { border-left: 6px solid var(--layer-creator); }
@@ -122,7 +123,7 @@
     .p b, .t b { color: var(--text-main); }
     .o { color: var(--layer-user); } .b { color: var(--layer-creator); } .g { color: var(--layer-curious); }
     .note { font-size: 14px; color: var(--text-faint); line-height: 1.4; margin-top: 8px; }
-    .stat { font-size: 48px; font-weight: 700; line-height: 1; letter-spacing: -1px; }
+    .stat { font-size: 56px; font-weight: 700; line-height: 1; letter-spacing: -1px; }
     .stat small { font-size: 20px; font-weight: 500; color: var(--text-sub); letter-spacing: 0; margin-left: 4px; }
     .tag {
       display: inline-block; font-size: 14px; font-weight: 700; line-height: 1.3;
@@ -155,7 +156,7 @@
     .cap { font-size: 14px; color: var(--text-faint); margin-top: 6px; }
     .bar {
       flex: none; width: 100%; margin-top: 14px; padding: 12px 20px; border-radius: 12px;
-      background: #f4f4f1; border: 1px dashed rgba(11,11,11,.18); font-size: 18px; line-height: 1.45; color: var(--text-body);
+      background: rgba(11,11,11,.07); border: 1px dashed rgba(11,11,11,.28); font-size: 18px; line-height: 1.45; color: var(--text-body);
     }
     .bar b { color: var(--text-main); }
     .col-wrap { display: flex; flex-direction: column; width: 100%; height: 100%; }
@@ -224,6 +225,16 @@
     .plain .dot.green, .plain .dot.blue, .plain .dot.orange { background: var(--text-main); }
     .plain .b, .plain .g { color: var(--text-main); }
     .plain .pipe .hl-b, .plain .pipe .hl-g { background: #fff; border-color: var(--card-border); }
+
+    /* 卡片減量：次要資訊改成無框列，只留細線或左側色條；重點才用白卡片 */
+    .card.flat { background: transparent; box-shadow: none; border-radius: 0; border-top: 0; border-right: 0;
+                 border-bottom: 1px solid rgba(11,11,11,.16); padding-left: 4px; padding-right: 4px; }
+    .card.flat:not([class*="bl-"]) { border-left: 0; }
+    .card.flat[class*="bl-"] { border-bottom: 0; padding-left: 20px; }
+    .stack > .card.flat:last-child { border-bottom: 0; }
+    .plain .card.hl-b, .plain .card.hl-g { background: #f3f2ee; }
+    .card.flat[class*="bl-"] { border-left-width: 4px; }
+    .card.flat.bl-d { border-left-color: #3a3935; }
 
     .hdr-text { font-size: 15px; color: var(--text-sub); }
 
@@ -294,7 +305,7 @@
     .u-padding-12px-18px { padding:12px 18px !important; }
     .u-padding-14px-16px { padding:14px 16px !important; }
     .u-padding-14px-18px { padding:14px 18px !important; }
-    .u-padding-18px-24px { padding:18px 24px !important; }
+    .u-padding-14px-24px { padding:14px 24px !important; }
     .u-padding-20px-24px { padding:20px 24px !important; }
     .u-padding-22px-22px { padding:22px 22px !important; }
     .u-padding-22px-24px { padding:22px 24px !important; }
@@ -383,9 +394,9 @@
             <div class="p lg o u-font-weight-700 u-margin-0">開源待用原型（Plan B）：先做好放著，體制隨時可以採用</div>
           </div>
           <div class="stack">
-            <div class="card bl-d"><div class="k">行動哲學</div><div class="p lg u-margin-0">不只在網路上抱怨，用程式與開源資料動手改善</div></div>
-            <div class="card bl-d"><div class="k">運作模式</div><div class="p lg u-margin-0">去中心化、跨領域、開放透明，人人可自主發起</div></div>
-            <div class="card bl-d"><div class="k">交付標的</div><div class="p lg u-margin-0">做出「待用原型」，以零風險方式示範給社會與政府看</div></div>
+            <div class="card flat bl-d"><div class="k">行動哲學</div><div class="p lg u-margin-0">不只在網路上抱怨，用程式與開源資料動手改善</div></div>
+            <div class="card flat bl-d"><div class="k">運作模式</div><div class="p lg u-margin-0">去中心化、跨領域、開放透明，人人可自主發起</div></div>
+            <div class="card flat bl-d"><div class="k">交付標的</div><div class="p lg u-margin-0">做出「待用原型」，以零風險方式示範給社會與政府看</div></div>
           </div>
         </div>
       </div>
@@ -528,8 +539,8 @@
         <div class="grid g-chart">
           <div class="card chart-card"><div class="t">做過專案的人，用過哪些資源？（前五名）</div><div class="chart"><img src="assets/charts/resources.svg" alt="實作者用過的資源長條圖"></div><div class="note">做過專案的 47 位（稱「實作者」）｜複選</div></div>
           <div class="stack">
-            <div class="card bl-d"><div class="k">社群本質</div><div class="p u-margin-0">自發的同好聚會，不是簽約代工廠，人來人去是常態。</div></div>
-            <div class="card bl-d"><div class="k">核心動力</div><div class="p u-margin-0">自我實現與消除摩擦；金錢買不到志工長期的業餘時間。</div></div>
+            <div class="card flat bl-d"><div class="k">社群本質</div><div class="p u-margin-0">自發的同好聚會，不是簽約代工廠，人來人去是常態。</div></div>
+            <div class="card flat bl-d"><div class="k">核心動力</div><div class="p u-margin-0">自我實現與消除摩擦；金錢買不到志工長期的業餘時間。</div></div>
             <div class="card hl-o"><div class="k o">體制切入點</div><div class="p u-margin-0">釋出高品質開放資料、建立公務諮詢窗口，化解行政阻力。</div></div>
           </div>
         </div>
@@ -573,9 +584,9 @@
               <div class="p">新手不知道哪一顆星與自己相關（與本案新產出的 11 篇不同）</div></div>
           </div>
           <div class="stack">
-            <div class="card bl-d"><div class="k">核心提問 01</div><div class="t">目標讀者是誰？</div><div class="p u-margin-0">社群背景多元，需求並不一致。</div></div>
-            <div class="card bl-d"><div class="k">核心提問 02</div><div class="t">真實痛點為何？</div><div class="p u-margin-0">技術老手與跨界新手卡關的地方不同。</div></div>
-            <div class="card bl-d"><div class="k">核心提問 03</div><div class="t">效益對準何處？</div><div class="p u-margin-0">資源有限，指引要對準最關鍵的切入點。</div></div>
+            <div class="card flat bl-d"><div class="k">核心提問 01</div><div class="t">目標讀者是誰？</div><div class="p u-margin-0">社群背景多元，需求並不一致。</div></div>
+            <div class="card flat bl-d"><div class="k">核心提問 02</div><div class="t">真實痛點為何？</div><div class="p u-margin-0">技術老手與跨界新手卡關的地方不同。</div></div>
+            <div class="card flat bl-d"><div class="k">核心提問 03</div><div class="t">效益對準何處？</div><div class="p u-margin-0">資源有限，指引要對準最關鍵的切入點。</div></div>
             <div class="card hl-o u-flex-none"><div class="p u-margin-0"><b class="o">我們的做法：</b>不憑空猜測，先用 127 份問卷摸清生態輪廓，再精準定題。</div></div>
           </div>
         </div>
@@ -651,8 +662,8 @@
           <div class="card chart-card"><div class="t">五個候選指引主題，讀者有多想看？</div><div class="chart"><img src="assets/charts/kano.svg" alt="狩野模型落點散布圖"></div><div class="note">SI＝滿意增益，越大越想看｜魅力型＝沒有也沒關係，有了會特別驚喜｜局部放大，N=126</div></div>
           <div class="stack">
             <div class="card hl-o"><div class="head"><div class="stat o u-font-size-40px">0.79</div><div><div class="t">⑤ 落地、接進體制</div><div class="p u-margin-0">全體最高，三群皆居首</div></div></div></div>
-            <div class="card"><div class="head"><div class="stat u-font-size-40px">0.71</div><div><div class="t">④ 團隊營運與維護</div><div class="p u-margin-0">實作者 0.71，好奇者僅 0.48</div></div></div></div>
-            <div class="card"><div class="head"><div class="stat u-font-size-40px">0.69</div><div><div class="t">① 如何發起專案</div><div class="p u-margin-0">使用者 0.69，實作者僅 0.51</div></div></div></div>
+            <div class="card flat"><div class="head"><div class="stat u-font-size-40px">0.71</div><div><div class="t">④ 團隊營運與維護</div><div class="p u-margin-0">實作者 0.71，好奇者僅 0.48</div></div></div></div>
+            <div class="card flat"><div class="head"><div class="stat u-font-size-40px">0.69</div><div><div class="t">① 如何發起專案</div><div class="p u-margin-0">使用者 0.69，實作者僅 0.51</div></div></div></div>
             <div class="card hl-o u-flex-none"><div class="p u-margin-0"><b class="o">定案：</b>3 篇方法論長文，搭配 8 篇領域指引</div></div>
           </div>
         </div>
@@ -691,9 +702,9 @@
           <div class="stack">
             <div class="card hl-o"><div class="k o">國際研究警訊</div><div class="t">約 40% 工具不再使用</div>
               <div class="p">回顧 224 篇人機互動論文：客製工具缺人維護，原型少被真正落地。</div></div>
-            <div class="card"><div class="k">國內調查印證</div><div class="t">32% 手上沒有進行中專案</div>
+            <div class="card flat"><div class="k">國內調查印證</div><div class="t">32% 手上沒有進行中專案</div>
               <div class="p">另有 32% 把「核心成員累垮」列為明顯困擾（見左圖）。</div></div>
-            <div class="card"><div class="k">停擺機制</div><div class="t">點火者與幼苗</div>
+            <div class="card flat"><div class="k">停擺機制</div><div class="t">點火者與幼苗</div>
               <div class="p">點火者只是啟動；幼苗要走向基礎設施，由體制與在地社群接手。</div></div>
           </div>
         </div>
@@ -865,8 +876,8 @@
             </div>
           </div>
           <div class="grid g-2 u-flex-none u-height-auto u-margin-top-14px">
-            <div class="card bl-d u-padding-12px-18px"><div class="t">標示明確的開放授權（CC BY）</div><div class="p u-margin-top-2px">接手者不必四處找授權，就能合法、安心地改作。</div></div>
-            <div class="card bl-d u-padding-12px-18px"><div class="t">公開完整脈絡與共筆紀錄</div><div class="p u-margin-top-2px">背景研究、訪談與踩坑經驗公開可讀，後人不必從零摸索。</div></div>
+            <div class="card flat bl-d u-padding-12px-18px"><div class="t">標示明確的開放授權（CC BY）</div><div class="p u-margin-top-2px">接手者不必四處找授權，就能合法、安心地改作。</div></div>
+            <div class="card flat bl-d u-padding-12px-18px"><div class="t">公開完整脈絡與共筆紀錄</div><div class="p u-margin-top-2px">背景研究、訪談與踩坑經驗公開可讀，後人不必從零摸索。</div></div>
           </div>
         </div>
       </div>
@@ -926,7 +937,7 @@
       </div>
       <div class="title-group"><h1 class="slide-title">階段一｜前期探索：民間先試錯，體制開放資料</h1><p class="slide-subtitle">民間承擔早期創新風險；公部門先打開資料水龍頭</p></div>
       <div class="slide-body ">
-<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card bl-d u-padding-18px-24px"><div class="k u-font-size-17px">民間端：低風險創新沙盒</div><div class="p lg u-margin-0 u-font-size-22px">快速迭代，先驗證痛點存在、解法行得通。</div></div><div class="card bl-m u-padding-18px-24px"><div class="k u-font-size-17px">體制端：開放資料水龍頭</div><div class="p lg u-margin-0 u-font-size-22px">把鎖在庫存與 PDF 裡的資料開放出來。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card top hl-g u-grid-column-1-1 u-height-100"><div class="head"><div class="grow"><div class="k g">案例</div><div class="t lg">藥品仿單白話文運動</div></div><span class="tag g">早期沙盒驗證</span></div>
+<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card flat bl-d u-padding-14px-24px"><div class="k u-font-size-17px">民間端：低風險創新沙盒</div><div class="p lg u-margin-0 u-font-size-22px">快速迭代，先驗證痛點存在、解法行得通。</div></div><div class="card flat bl-m u-padding-14px-24px"><div class="k u-font-size-17px">體制端：開放資料水龍頭</div><div class="p lg u-margin-0 u-font-size-22px">把鎖在庫存與 PDF 裡的資料開放出來。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card top hl-g u-grid-column-1-1 u-height-100"><div class="head"><div class="grow"><div class="k g">案例</div><div class="t lg">藥品仿單白話文運動</div></div><span class="tag g">早期沙盒驗證</span></div>
          <div class="grid g-3 u-height-auto u-flex-1 u-margin-top-14px u-gap-14px">
            <div class="card mute"><div class="k">STEP 01</div><div class="t">原型打造</div><div class="p lg u-margin-4px-0-0">先做 10 種常見藥品的白話指引，不急著衝撞官方標準。</div></div>
            <div class="card mute"><div class="k">STEP 02</div><div class="t">體驗迭代</div><div class="p lg u-margin-4px-0-0">用使用者測試，反覆微調排版與衛教語句。</div></div>
@@ -959,7 +970,7 @@
       </div>
       <div class="title-group"><h1 class="slide-title">階段二｜中期對接：民間交待用品，體制設窗口</h1><p class="slide-subtitle">告別抽象抱怨；民間端出可運作的待用品，體制協助對齊規格</p></div>
       <div class="slide-body ">
-<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card bl-d u-padding-18px-24px"><div class="k u-font-size-17px">民間端：端出「待用品」與事證</div><div class="p lg u-margin-0 u-font-size-22px">做出能直接相容體制公文與介面規格的原型。</div></div><div class="card bl-m u-padding-18px-24px"><div class="k u-font-size-17px">體制端：設立專責諮詢窗口</div><div class="p lg u-margin-0 u-font-size-22px">協助解碼法規限制、資安與法定文書格式。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-disfactory.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">Disfactory｜法定公文格式轉譯</div><div class="note u-margin-2px-0-0 u-font-size-16px">空照比對 ＋ 地籍查核 ＋ 具名檢舉函</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">民眾零散的照片，轉成法定立案的正式公文。</div></div><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-vtaiwan.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">vTaiwan｜爭議法規調適轉譯</div><div class="note u-margin-2px-0-0 u-font-size-16px">意見徵集 ＋ 草案研擬 ＋ 送交院會</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">政務窗口參與，把多方對話轉成具體政策草案。</div></div></div><div class="bar u-font-size-20px"><b>跨越語言鴻溝：</b>民間懂程式碼，體制懂法規流程。</div></div>
+<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card flat bl-d u-padding-14px-24px"><div class="k u-font-size-17px">民間端：端出「待用品」與事證</div><div class="p lg u-margin-0 u-font-size-22px">做出能直接相容體制公文與介面規格的原型。</div></div><div class="card flat bl-m u-padding-14px-24px"><div class="k u-font-size-17px">體制端：設立專責諮詢窗口</div><div class="p lg u-margin-0 u-font-size-22px">協助解碼法規限制、資安與法定文書格式。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-disfactory.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">Disfactory｜法定公文格式轉譯</div><div class="note u-margin-2px-0-0 u-font-size-16px">空照比對 ＋ 地籍查核 ＋ 具名檢舉函</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">民眾零散的照片，轉成法定立案的正式公文。</div></div><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-vtaiwan.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">vTaiwan｜爭議法規調適轉譯</div><div class="note u-margin-2px-0-0 u-font-size-16px">意見徵集 ＋ 草案研擬 ＋ 送交院會</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">政務窗口參與，把多方對話轉成具體政策草案。</div></div></div><div class="bar u-font-size-20px"><b>跨越語言鴻溝：</b>民間懂程式碼，體制懂法規流程。</div></div>
       </div>
       <div class="slide-footer">
         <div>案例出處詳見本專案方法論長文；符合公私協力治理架構</div>
@@ -986,7 +997,7 @@
       </div>
       <div class="title-group"><h1 class="slide-title">階段三｜後期落地：民間開放交付，體制常規營運</h1><p class="slide-subtitle">民間以開放授權功成身退；體制編列預算，讓成果普及</p></div>
       <div class="slide-body ">
-<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card bl-d u-padding-18px-24px"><div class="k u-font-size-17px">民間端：開放授權、無技術鎖死</div><div class="p lg u-margin-0 u-font-size-22px">程式碼、資料規格與維護文件完整開源，不綁商業。</div></div><div class="card bl-m u-padding-18px-24px"><div class="k u-font-size-17px">體制端：編列常規預算與編制</div><div class="p lg u-margin-0 u-font-size-22px">把成熟原型升級為國家級系統，配置長期維運。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-g0v.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">監察院政治獻金公開查閱平臺</div><div class="note u-margin-2px-0-0 u-font-size-16px">從黑客松紙本 OCR 走向國家法定系統</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">2014 民間點火、2017 媒體接力、2019 修法後監察院正式上線，成為常態業務。</div></div><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-g0v.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">藥品仿單白話指引</div><div class="note u-margin-2px-0-0 u-font-size-16px">目標：納入國家衛生政策法規標準</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">從 10 種原型、30 種臨床現場驗證，推動成為全民就醫領藥的依據。</div></div></div><div class="bar u-font-size-20px"><b>開源起步，法制化收尾：</b>公私協力的最高境界。</div></div>
+<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card flat bl-d u-padding-14px-24px"><div class="k u-font-size-17px">民間端：開放授權、無技術鎖死</div><div class="p lg u-margin-0 u-font-size-22px">程式碼、資料規格與維護文件完整開源，不綁商業。</div></div><div class="card flat bl-m u-padding-14px-24px"><div class="k u-font-size-17px">體制端：編列常規預算與編制</div><div class="p lg u-margin-0 u-font-size-22px">把成熟原型升級為國家級系統，配置長期維運。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-g0v.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">監察院政治獻金公開查閱平臺</div><div class="note u-margin-2px-0-0 u-font-size-16px">從黑客松紙本 OCR 走向國家法定系統</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">2014 民間點火、2017 媒體接力、2019 修法後監察院正式上線，成為常態業務。</div></div><div class="card u-padding-20px-24px"><div class="head"><img class="logo u-width-56px u-height-56px" src="assets/project-g0v.png" alt=""><div class="grow"><div class="t lg u-font-size-24px">藥品仿單白話指引</div><div class="note u-margin-2px-0-0 u-font-size-16px">目標：納入國家衛生政策法規標準</div></div></div><div class="p lg u-margin-top-14px u-font-size-22px">從 10 種原型、30 種臨床現場驗證，推動成為全民就醫領藥的依據。</div></div></div><div class="bar u-font-size-20px"><b>開源起步，法制化收尾：</b>公私協力的最高境界。</div></div>
       </div>
       <div class="slide-footer">
         <div>案例出處詳見本專案方法論長文；監察院政治獻金平臺 ardata.cy.gov.tw</div>
@@ -1016,15 +1027,15 @@
         <div class="grid g-2">
           <div class="stack">
             <div class="k u-margin-0">傳承的三大現實阻力</div>
-            <div class="card bl-d"><div class="t">① 範疇廣大</div><div class="p u-margin-0">議題跨度大且持續演進，單一專案難以窮盡。</div></div>
-            <div class="card bl-d"><div class="t">② 動筆時間負擔</div><div class="p u-margin-0">志工利用業餘時間，整理成文字過於沉重。</div></div>
-            <div class="card bl-d"><div class="t">③ 查核信任門檻</div><div class="p u-margin-0">AI 易產生幻覺，單一案例出錯就會摧毀公信力。</div></div>
+            <div class="card flat bl-d"><div class="t">① 範疇廣大</div><div class="p u-margin-0">議題跨度大且持續演進，單一專案難以窮盡。</div></div>
+            <div class="card flat bl-d"><div class="t">② 動筆時間負擔</div><div class="p u-margin-0">志工利用業餘時間，整理成文字過於沉重。</div></div>
+            <div class="card flat bl-d"><div class="t">③ 查核信任門檻</div><div class="p u-margin-0">AI 易產生幻覺，單一案例出錯就會摧毀公信力。</div></div>
           </div>
           <div class="stack">
             <div class="k u-margin-0">本專案的雙軌破局</div>
-            <div class="card bl-d"><div class="head"><div class="t grow">內容軌：產出 11 篇高品質指引</div><span class="tag g">突破範疇</span></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">內容軌：產出 11 篇高品質指引</div><span class="tag g">突破範疇</span></div>
               <div class="p u-margin-6px-0-0">3 篇方法論長文＋8 篇領域指南，提供實戰範本。</div></div>
-            <div class="card bl-d"><div class="head"><div class="t grow">工具軌：人機協同寫作流程</div><span class="tag b">解放時間與信任</span></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">工具軌：人機協同寫作流程</div><span class="tag b">解放時間與信任</span></div>
               <div class="p u-margin-6px-0-0">沉澱成標準化寫作流程，並以三道防線阻絕 AI 幻覺。</div></div>
             <div class="card mute u-flex-none u-text-align-center"><div class="p u-margin-0"><b>不只留下一本書，更留下一座人人都能持續開採的工具箱。</b></div></div>
           </div>
@@ -1074,9 +1085,9 @@
             </div>
           </div>
           <div class="stack">
-            <div class="card bl-d"><div class="head"><div class="t grow">第一道｜大綱主張表</div><span class="tag b">確立核心論點</span></div><div class="p u-margin-4px-0-0">每個核心論點都要有真實案例，沒有佐證不動筆。</div></div>
-            <div class="card bl-d"><div class="head"><div class="t grow">第二道｜逐條事實標註</div><span class="tag o">建立查核總表</span></div><div class="p u-margin-4px-0-0">每個數字與案例標註查驗等級，逐一對照來源。</div></div>
-            <div class="card bl-d"><div class="head"><div class="t grow">第三道｜獨立 AI 審查</div><span class="tag g">杜絕盲點</span></div><div class="p u-margin-4px-0-0">由未參與撰寫的獨立模型挑錯，補上邏輯漏洞。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">第一道｜大綱主張表</div><span class="tag b">確立核心論點</span></div><div class="p u-margin-4px-0-0">每個核心論點都要有真實案例，沒有佐證不動筆。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">第二道｜逐條事實標註</div><span class="tag o">建立查核總表</span></div><div class="p u-margin-4px-0-0">每個數字與案例標註查驗等級，逐一對照來源。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">第三道｜獨立 AI 審查</div><span class="tag g">杜絕盲點</span></div><div class="p u-margin-4px-0-0">由未參與撰寫的獨立模型挑錯，補上邏輯漏洞。</div></div>
           </div>
         </div>
       </div>
@@ -1123,9 +1134,9 @@
           </div>
           <div class="stack">
             <div class="k u-margin-0">三大開源資產</div>
-            <div class="card"><div class="head"><span class="tag g">破解新手卡關</span><div class="t">資產一｜11 篇實務指引</div></div><div class="p u-margin-6px-0-0">可即時查閱的實戰工具書，涵蓋選題發起、協同營運、體制落地。</div></div>
-            <div class="card"><div class="head"><span class="tag o">破解決策盲點</span><div class="t">資產二｜127 份問卷資料集＋分析網站</div></div><div class="p u-margin-6px-0-0">公開去識別化數據與互動圖表，見 report.claire-cheng.com。</div></div>
-            <div class="card"><div class="head"><span class="tag b">破解傳承斷層</span><div class="t">資產三｜開源人機寫作流程</div></div><div class="p u-margin-6px-0-0">完整提示詞鏈、大綱主張表與三道防線規格，人人可用。</div></div>
+            <div class="card flat"><div class="head"><span class="tag g">破解新手卡關</span><div class="t">資產一｜11 篇實務指引</div></div><div class="p u-margin-6px-0-0">可即時查閱的實戰工具書，涵蓋選題發起、協同營運、體制落地。</div></div>
+            <div class="card flat"><div class="head"><span class="tag o">破解決策盲點</span><div class="t">資產二｜127 份問卷資料集＋分析網站</div></div><div class="p u-margin-6px-0-0">公開去識別化數據與互動圖表，見 report.claire-cheng.com。</div></div>
+            <div class="card flat"><div class="head"><span class="tag b">破解傳承斷層</span><div class="t">資產三｜開源人機寫作流程</div></div><div class="p u-margin-6px-0-0">完整提示詞鏈、大綱主張表與三道防線規格，人人可用。</div></div>
           </div>
         </div>
       </div>
@@ -1165,9 +1176,9 @@
 
         <div class="grid u-grid-template-columns-1-5fr-1fr">
           <div class="stack">
-            <div class="card bl-g"><div class="head"><div class="t grow">體制夥伴｜開放資料與常態窗口</div><span class="tag g">官方對接</span></div><div class="p u-margin-6px-0-0">不只辦競賽獎勵，釋出乾淨的基礎資料、指派專責窗口，當民間創新的低風險試驗場。</div></div>
-            <div class="card bl-o"><div class="head"><div class="t grow">現場會眾｜掃描 QR Code 填問卷</div><span class="tag o">擴大樣本</span></div><div class="p u-margin-6px-0-0">花 3 分鐘，為台灣公民科技地圖貢獻第一手樣本，讓下一版傳承更具代表性。</div></div>
-            <div class="card bl-b"><div class="head"><div class="t grow">專案團隊｜套用開源寫作流程</div><span class="tag b">接棒沉澱</span></div><div class="p u-margin-6px-0-0">用人機協同寫作流程整理踩坑血淚，降低文字負擔，讓經驗隨人員流動傳下去。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">體制夥伴｜開放資料與常態窗口</div><span class="tag g">官方對接</span></div><div class="p u-margin-6px-0-0">不只辦競賽獎勵，釋出乾淨的基礎資料、指派專責窗口，當民間創新的低風險試驗場。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">現場會眾｜掃描 QR Code 填問卷</div><span class="tag o">擴大樣本</span></div><div class="p u-margin-6px-0-0">花 3 分鐘，為台灣公民科技地圖貢獻第一手樣本，讓下一版傳承更具代表性。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">專案團隊｜套用開源寫作流程</div><span class="tag b">接棒沉澱</span></div><div class="p u-margin-6px-0-0">用人機協同寫作流程整理踩坑血淚，降低文字負擔，讓經驗隨人員流動傳下去。</div></div>
           </div>
           <div class="card u-align-items-center u-text-align-center">
             <div class="t">立即造訪公民科技百寶箱</div>
