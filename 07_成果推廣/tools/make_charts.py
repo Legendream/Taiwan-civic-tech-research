@@ -100,7 +100,7 @@ def chart_kano():
     px0, py0, pw, ph = 56, 12, 360, 320
     xlo, xhi, ylo, yhi = 0.45, 0.85, -0.55, -0.15  # 局部放大
     X = lambda v: px0 + (v - xlo) / (xhi - xlo) * pw
-    Y = lambda v: py0 + (yhi - v) / (yhi - ylo) * ph if False else py0 + (v - yhi) / (ylo - yhi) * ph
+    Y = lambda v: py0 + (v - yhi) / (ylo - yhi) * ph
     parts = [f'<rect x="{px0}" y="{py0}" width="{pw}" height="{ph}" fill="#fafaf8" stroke="{GRID}"/>']
     # 分界線：x=0.5、y=-0.5
     parts.append(f'<line x1="{X(0.5):.1f}" y1="{py0}" x2="{X(0.5):.1f}" y2="{py0 + ph}" stroke="{FAINT}" stroke-dasharray="5 4"/>')
@@ -114,7 +114,6 @@ def chart_kano():
     parts.append(text(px0 + pw / 2, py0 + ph + 48, "滿意增益 SI →（越右越想看）", 16, SUB, 400, "middle"))
     for v in (-0.2, -0.3, -0.4, -0.5):
         parts.append(text(px0 - 8, f"{Y(v) + 5:.1f}", f"{v:.1f}", 14, SUB, 400, "end"))
-    parts.append(text(14, py0 + ph / 2, "", 14))
     # 點
     for p in pts:
         c = ORANGE if p["num"] == "⑤" else BLUE

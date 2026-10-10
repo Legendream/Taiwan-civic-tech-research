@@ -1205,7 +1205,7 @@
       function showSlide(i) {
         currentIndex = Math.max(0, Math.min(slides.length - 1, i));
         slides.forEach((s, k) => s.classList.toggle('active', k === currentIndex));
-        if (location.hash !== '#' + (currentIndex + 1)) history.replaceState(null, '', '#' + (currentIndex + 1));
+        try { history.replaceState(null, '', '#' + (currentIndex + 1)); } catch (e) {}
       }
       const fromHash = parseInt(location.hash.slice(1), 10);
       if (fromHash >= 1) showSlide(fromHash - 1);
