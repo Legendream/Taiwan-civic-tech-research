@@ -212,6 +212,41 @@
     .chunk-tag.down { background: rgba(27,175,122,.1); color: var(--chunk-down); }
     .chunk-tag.side { background: rgba(235,104,52,.1); color: var(--chunk-side); }
 
+    /* 講者視窗：同一個檔案加上 ?speaker 開啟（簡報按 S）。只顯示講稿，不顯示投影片。
+       用系統字型，因為內嵌字型只含簡報用到的字。 */
+    #speaker-view { display: none; }
+    body.speaker-mode {
+      display: block; height: auto; min-height: 100vh; width: auto; overflow: auto; user-select: text;
+      background: #17171a; color: #ecebe6;
+      font-family: "PingFang TC", "Heiti TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    }
+    body.speaker-mode #slide-viewport, body.speaker-mode #controls { display: none; }
+    body.speaker-mode #speaker-view { display: block; max-width: 1100px; margin: 0 auto; padding: 0 28px 48px; }
+    .sp-bar {
+      position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      padding: 14px 0; background: #17171a; border-bottom: 1px solid rgba(255,255,255,.14);
+    }
+    .sp-page { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .sp-timer { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; color: #ffb38f; min-width: 4.2em; }
+    .sp-spacer { flex: 1; }
+    .sp-btn {
+      background: rgba(255,255,255,.1); color: inherit; border: 1px solid rgba(255,255,255,.2); border-radius: 8px;
+      padding: 8px 14px; font: inherit; font-size: 16px; cursor: pointer;
+    }
+    .sp-btn:hover { background: rgba(255,255,255,.18); }
+    .sp-status { font-size: 14px; color: #a8a79f; }
+    .sp-status.on { color: #6fd3a8; }
+    .sp-title { font-size: 28px; font-weight: 700; line-height: 1.35; margin: 22px 0 6px; }
+    .sp-kicker { font-size: 15px; color: #a8a79f; letter-spacing: .5px; }
+    #sp-notes { font-size: 26px; line-height: 1.75; margin-top: 14px; }
+    #sp-notes p { margin: 0 0 1.1em; }
+    #sp-notes > br { display: none; }
+    #sp-notes .chunk-tag { font-size: .62em; padding: 3px 10px; background: rgba(255,255,255,.12); }
+    #sp-notes .chunk-tag.up { color: #8fbdf5; } #sp-notes .chunk-tag.down { color: #6fd3a8; } #sp-notes .chunk-tag.side { color: #ffb38f; }
+    .sp-next { margin-top: 26px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.14); font-size: 18px; color: #a8a79f; }
+    .sp-next b { color: #ecebe6; font-weight: 600; }
+    .sp-help { margin-top: 18px; font-size: 14px; color: #8a8982; }
+
     .card.fit { align-self: start; height: auto; }
     .card.mid { align-self: center; height: auto; }
     .card.roomy { padding: 38px 34px 40px; }
@@ -350,11 +385,31 @@
     <button class="ctrl-btn" id="btn-next" title="下一頁 (→ / 空白鍵)">下一頁
       <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
     </button>
+    <button class="ctrl-btn" id="btn-speaker" title="開啟講者視窗 (S)">講稿</button>
     <button class="ctrl-btn" id="btn-fs" title="全螢幕 (F)">
       <svg class="svg-icon" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>全螢幕
     </button>
   </div>
 
+  <div id="speaker-view">
+    <div class="sp-bar">
+      <span class="sp-page" id="sp-page"></span>
+      <button class="sp-btn" id="sp-prev" title="上一頁 (←)">← 上一頁</button>
+      <button class="sp-btn" id="sp-next-btn" title="下一頁 (→ / 空白鍵)">下一頁 →</button>
+      <span class="sp-spacer"></span>
+      <span class="sp-timer" id="sp-timer">00:00</span>
+      <button class="sp-btn" id="sp-timer-toggle" title="開始／暫停計時 (T)">開始</button>
+      <button class="sp-btn" id="sp-timer-reset" title="計時歸零 (R)">歸零</button>
+      <button class="sp-btn" id="sp-smaller" title="縮小字級 (-)">A−</button>
+      <button class="sp-btn" id="sp-bigger" title="放大字級 (+)">A＋</button>
+    </div>
+    <div class="sp-status" id="sp-status"></div>
+    <div class="sp-kicker" id="sp-kicker"></div>
+    <div class="sp-title" id="sp-title"></div>
+    <div id="sp-notes"></div>
+    <div class="sp-next" id="sp-next"></div>
+    <div class="sp-help">← → 換頁｜T 開始或暫停計時｜R 歸零｜＋ − 調整字級</div>
+  </div>
   <div id="slide-viewport">
 
     <!-- ===== SLIDE 0 ===== -->
@@ -1282,6 +1337,103 @@
       const fromHash = parseInt(location.hash.slice(1), 10);
       if (fromHash >= 1) showSlide(fromHash - 1);
 
+      // ---- 講者視窗 ----
+      // 同一個檔案加上 ?speaker 就是講者視窗。兩個視窗用 postMessage 連動（直接開檔案也能用）；
+      // 沒有連動對象時，講者視窗可以自己翻頁（例如在平板上單獨打開）。
+      const MSG = 'civictech-deck';
+      const isSpeaker = /[?&]speaker\b/.test(location.search);
+      let speakerWin = null;
+      function post(target, data) { try { if (target && !target.closed) target.postMessage(Object.assign({ src: MSG }, data), '*'); } catch (e) {} }
+      function openSpeaker() {
+        const url = location.href.split('#')[0].split('?')[0] + '?speaker#' + (currentIndex + 1);
+        speakerWin = window.open(url, 'civictech-speaker', 'width=980,height=760');
+      }
+      if (isSpeaker) { initSpeaker(); return; }
+
+      const showSlideBase = showSlide;
+      showSlide = function (i) { showSlideBase(i); post(speakerWin, { type: 'slide', i: currentIndex }); };
+      window.addEventListener('message', (e) => {
+        const d = e.data; if (!d || d.src !== MSG) return;
+        if (d.type === 'hello') { speakerWin = e.source; post(speakerWin, { type: 'slide', i: currentIndex }); }
+        if (d.type === 'goto' && Number.isInteger(d.i)) { speakerWin = e.source; showSlide(d.i); }
+      });
+      document.getElementById('btn-speaker').addEventListener('click', openSpeaker);
+
+      function initSpeaker() {
+        document.body.classList.add('speaker-mode');
+        document.title = '講稿｜' + document.title;
+        const $ = (id) => document.getElementById(id);
+        const titleOf = (s) => { const h = s.querySelector('.slide-title, .cover-title h1'); return h ? h.textContent.trim() : ''; };
+        const linked = () => !!(window.opener && !window.opener.closed);
+        function render() {
+          const s = slides[currentIndex], t = s.querySelector('template.slide-notes-template');
+          $('sp-page').textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + slides.length;
+          const badge = s.querySelector('.chapter-badge');
+          $('sp-kicker').textContent = badge ? badge.textContent.trim() : '';
+          $('sp-title').textContent = titleOf(s);
+          $('sp-notes').innerHTML = t ? t.innerHTML : '';
+          const n = slides[currentIndex + 1];
+          $('sp-next').innerHTML = n ? '下一頁：<b></b>' : '這是最後一頁';
+          if (n) $('sp-next').querySelector('b').textContent = titleOf(n);
+          $('sp-status').textContent = linked() ? '已與簡報視窗連動' : '未連動：這個視窗單獨翻頁';
+          $('sp-status').classList.toggle('on', linked());
+          if (location.hash !== '#' + (currentIndex + 1)) history.replaceState(null, '', location.search + '#' + (currentIndex + 1));
+          window.scrollTo(0, 0);
+        }
+        function go(i) {
+          currentIndex = Math.max(0, Math.min(slides.length - 1, i));
+          render();
+          if (linked()) post(window.opener, { type: 'goto', i: currentIndex });
+        }
+        window.addEventListener('message', (e) => {
+          const d = e.data; if (!d || d.src !== MSG) return;
+          if (d.type === 'slide' && Number.isInteger(d.i) && d.i !== currentIndex) { currentIndex = d.i; render(); }
+        });
+        $('sp-prev').addEventListener('click', () => go(currentIndex - 1));
+        $('sp-next-btn').addEventListener('click', () => go(currentIndex + 1));
+
+        // 計時器
+        let elapsed = 0, startedAt = null, tick = null;
+        const fmt = (ms) => { const t = Math.floor(ms / 1000); return String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0'); };
+        const now = () => elapsed + (startedAt === null ? 0 : Date.now() - startedAt);
+        const paint = () => { $('sp-timer').textContent = fmt(now()); $('sp-timer-toggle').textContent = startedAt === null ? (elapsed ? '繼續' : '開始') : '暫停'; };
+        function toggleTimer() {
+          if (startedAt === null) { startedAt = Date.now(); tick = setInterval(paint, 250); }
+          else { elapsed = now(); startedAt = null; clearInterval(tick); }
+          paint();
+        }
+        function resetTimer() { elapsed = 0; startedAt = null; clearInterval(tick); paint(); }
+        $('sp-timer-toggle').addEventListener('click', toggleTimer);
+        $('sp-timer-reset').addEventListener('click', resetTimer);
+
+        // 字級（下限 22px）
+        let size = 26;
+        try { size = parseInt(localStorage.getItem('deck-speaker-size'), 10) || 26; } catch (e) {}
+        function setSize(v) {
+          size = Math.max(22, Math.min(48, v));
+          $('sp-notes').style.fontSize = size + 'px';
+          try { localStorage.setItem('deck-speaker-size', String(size)); } catch (e) {}
+        }
+        $('sp-smaller').addEventListener('click', () => setSize(size - 2));
+        $('sp-bigger').addEventListener('click', () => setSize(size + 2));
+        setSize(size);
+
+        window.addEventListener('keydown', (e) => {
+          switch (e.key) {
+            case 'ArrowRight': case ' ': case 'PageDown': e.preventDefault(); go(currentIndex + 1); break;
+            case 'ArrowLeft': case 'PageUp': e.preventDefault(); go(currentIndex - 1); break;
+            case 'Home': go(0); break;
+            case 'End': go(slides.length - 1); break;
+            case 't': case 'T': toggleTimer(); break;
+            case 'r': case 'R': resetTimer(); break;
+            case '+': case '=': setSize(size + 2); break;
+            case '-': case '_': setSize(size - 2); break;
+          }
+        });
+        render(); paint();
+        if (linked()) post(window.opener, { type: 'hello' });
+      }
+
       document.getElementById('btn-prev').addEventListener('click', () => showSlide(currentIndex - 1));
       document.getElementById('btn-next').addEventListener('click', () => showSlide(currentIndex + 1));
       function toggleFs() {
@@ -1303,6 +1455,7 @@
           case 'Home': showSlide(0); break;
           case 'End': showSlide(slides.length - 1); break;
           case 'f': case 'F': toggleFs(); break;
+          case 's': case 'S': openSpeaker(); break;
         }
       });
     })();
