@@ -126,7 +126,7 @@
     .k.g { color: var(--layer-curious); } .k.o { color: var(--layer-user); } .k.b { color: var(--layer-creator); }
     .t { font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--text-main); }
     .t.lg { font-size: 26px; }
-    .p { font-size: 18px; line-height: 1.55; color: var(--text-body); margin-top: 6px; }
+    .p { font-size: 20px; line-height: 1.55; color: var(--text-body); margin-top: 6px; }
     .p.lg { font-size: 20px; }
     .p b, .t b { color: var(--text-main); }
     .o { color: var(--layer-user); } .b { color: var(--layer-creator); } .g { color: var(--layer-curious); }
@@ -148,7 +148,7 @@
     .num.g { color: rgba(27,175,122,.55); } .num.o { color: rgba(235,104,52,.6); } .num.b { color: rgba(42,120,214,.55); }
     .rule { height: 1px; background: rgba(11,11,11,.08); margin: 12px 0; flex: none; }
     ul.bul { list-style: none; margin-top: 10px; }
-    ul.bul li { font-size: 18px; line-height: 1.5; color: var(--text-body); padding-left: 18px; position: relative; margin-bottom: 8px; }
+    ul.bul li { font-size: 20px; line-height: 1.5; color: var(--text-body); padding-left: 18px; position: relative; margin-bottom: 8px; }
     ul.bul li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .5; }
 
     /* 圖表卡 */
@@ -164,7 +164,7 @@
     .cap { font-size: 14px; color: var(--text-faint); margin-top: 6px; }
     .bar {
       flex: none; width: 100%; margin-top: 14px; padding: 12px 20px; border-radius: 12px;
-      background: rgba(11,11,11,.07); border: 1px dashed rgba(11,11,11,.28); font-size: 18px; line-height: 1.45; color: var(--text-body);
+      background: rgba(11,11,11,.07); border: 1px dashed rgba(11,11,11,.28); font-size: 20px; line-height: 1.45; color: var(--text-body);
     }
     .bar b { color: var(--text-main); }
     .col-wrap { display: flex; flex-direction: column; width: 100%; height: 100%; }
@@ -254,6 +254,16 @@
 
     .hdr-text { font-size: 15px; color: var(--text-sub); }
 
+    /* 第四輪減量：案例卡留白加大，卡片依內容高度 */
+    .grid.wide { gap: 36px; }
+    .case.airy { padding: 26px 30px; }
+    .case.airy .t { font-size: 26px; }
+    .case.airy .lead { margin: 10px 0 8px; }
+    .case.airy .shot { margin-top: 12px; }
+    .sp { height: 14px; flex: none; }
+    .card.calm { padding: 26px 30px; justify-content: flex-start; }
+    .card.calm .p { margin-top: 10px; }
+
     /* 間距與字級微調工具 class（由 build 產生；單一屬性、!important）*/
     .u-align-items-center { align-items:center !important; }
     .u-align-items-stretch { align-items:stretch !important; }
@@ -310,6 +320,7 @@
     .u-margin-top-10px { margin-top:10px !important; }
     .u-margin-top-14px { margin-top:14px !important; }
     .u-margin-top-16px { margin-top:16px !important; }
+    .u-margin-top-28px { margin-top:28px !important; }
     .u-margin-top-2px { margin-top:2px !important; }
     .u-margin-top-4px { margin-top:4px !important; }
     .u-margin-top-6px { margin-top:6px !important; }
@@ -457,8 +468,7 @@
             <div class="p lg u-line-height-1-6">研究者、倡議者、設計師都來了，<br>關心的議題也更廣。</div></div>
           <div class="card top hl-o roomy"><div class="k lg o">我們想問</div><div class="t lg u-font-size-28px o">現在的社群長什麼樣？</div>
             <div class="p lg u-line-height-1-6">現在有哪些人在參與？<br>大家的需求和困難是什麼？</div></div>
-        </div>
-          <div class="bar u-font-size-20px"><b>先了解，再動筆：</b>接下來的三個步驟，就從這個問題出發。</div></div>
+        </div></div>
       </div>
       <div class="slide-footer">
         <div>臺灣公民科技社群發展十多年，參與者從工程師擴展到各種專業</div>
@@ -473,7 +483,8 @@
         這些珍貴的協作經驗，如果只留在少數前輩的腦袋裡，一旦人離開了，知識會不會就這樣斷掉？這正是我們發起這次調研最深層的提問。</p>
         <br>
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
-        『知識能否沉澱？』是這一頁留給觀眾的問題，可在口述時拋出。</p>
+        『知識能否沉澱？』是這一頁留給觀眾的問題，可在口述時拋出。<br>
+        原底部條：先了解，再動筆：接下來的三個步驟，就從這個問題出發。</p>
       </template>
     </section>
 
@@ -490,10 +501,10 @@
           <div class="card top roomy"><div class="k lg">第一步</div><div class="t lg u-font-size-28px">了解現況</div><div class="p lg u-font-weight-700 u-color-var-text-main">127 份社群問卷</div><ul class="bul big"><li>參與者分成哪三層</li><li>新人被什麼擋住</li><li>哪些主題最想看</li></ul></div>
           <div class="card top roomy"><div class="k lg">第二步</div><div class="t lg u-font-size-28px">撰寫指引</div><div class="p lg u-font-weight-700 u-color-var-text-main">11 篇，已在 civictech.tw 上線</div><ul class="bul big"><li>3 篇方法論長文</li><li>8 篇工具與資料整理</li></ul></div>
           <div class="card top roomy"><div class="k lg">第三步</div><div class="t lg u-font-size-28px">打造寫作流程</div><div class="p lg u-font-weight-700 u-color-var-text-main">降低知識傳承的門檻</div><ul class="bul big"><li>經驗難傳承的三個原因</li><li>人機協同寫作與三道防線</li><li>流程與成果全部開源</li></ul></div>
-        </div><div class="bar u-font-size-20px"><b>順序：</b>先用問卷了解現況，再依調查結果撰寫指引，最後把寫作流程開源，讓更多人接著寫。</div></div>
+        </div></div>
       </div>
       <div class="slide-footer">
-        <div>去識別化的問卷資料、實作指引與寫作流程，全部以 CC BY 4.0 授權公開</div>
+        <div>實作指引與寫作流程以 CC BY 4.0 授權公開；去識別化問卷資料集由 g0v 揪松團公開</div>
         <div class="footer-right"><div class="footer-logos"><img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo"></div><div class="license-pill">g0v.tw jothon</div></div>
       </div>
       <template class="slide-notes-template">
@@ -502,6 +513,9 @@
         <br>
         <p><span class="chunk-tag down">▼ 下切：三步驟節奏預告</span>（節奏明快、字字分明）<br>
         今天分三個步驟來談：第一步，用問卷了解社群現況，打破刻板迷思，並決定指引要寫什麼；第二步，撰寫 11 篇指引，今天以其中一篇長文為例，直面熱血專案的停擺危機，盤點四條實踐路徑；第三步，分享人機協同寫作流程，把成果化為人人可接棒的公共財。</p>
+        <br>
+        <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
+        原底部條：順序是先用問卷了解現況，再依調查結果撰寫指引，最後把寫作流程開源，讓更多人接著寫。</p>
       </template>
     </section>
 
@@ -525,12 +539,12 @@
             <div class="card flat bl-d"><div class="k">問題 1</div><div class="t">誰會來讀這些指引？</div><div class="p u-margin-0">社群成員的背景很多元。</div></div>
             <div class="card flat bl-d"><div class="k">問題 2</div><div class="t">他們遇到的困難一樣嗎？</div><div class="p u-margin-0">老手和新手卡住的地方不同。</div></div>
             <div class="card flat bl-d"><div class="k">問題 3</div><div class="t">資源有限，要先寫給誰？</div><div class="p u-margin-0">把指引寫給最能帶動參與的那群人。</div></div>
-            <div class="card hl-o u-flex-none"><div class="p u-margin-0"><b class="o">我們的做法：</b>不用猜的。先發問卷了解社群（回收 127 份），再決定題目。</div></div>
+            <div class="card hl-o u-flex-none"><div class="p u-margin-0"><b class="o">我們的做法：</b>不用猜的。先發問卷了解社群，再決定題目。</div></div>
           </div>
         </div>
       </div>
       <div class="slide-footer">
-        <div>資料來源：civictech.tw（2026-10-11 查詢）；問卷資料已去識別化，以 CC BY 4.0 公開</div>
+        <div>資料來源：civictech.tw（2026-10-11 查詢）；去識別化問卷資料集由 g0v 揪松團公開</div>
         <div class="footer-right"><div class="footer-logos"><img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo"></div><div class="license-pill">g0v.tw jothon</div></div>
       </div>
       <template class="slide-notes-template">
@@ -546,7 +560,8 @@
         <br>
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         226 個專案是歷經十餘年黑客松沉澱的珍貴成果；專案如滿天繁星，新手很難找到與自己相關的那一顆。<br>
-        策略路徑選擇：科學方法論——拒絕閉門造車、憑空猜測。</p>
+        策略路徑選擇：科學方法論——拒絕閉門造車、憑空猜測。<br>
+        做法完整說法：不用猜的。先發問卷了解社群（回收 127 份），再決定題目。</p>
       </template>
     </section>
 
@@ -601,7 +616,7 @@
         <div class="grid g-chart">
           <div class="card chart-card"><div class="t">做過專案的人，用過哪些資源？（前五名）</div><div class="chart"><svg role="img" aria-label="實作者用過的資源長條圖" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 388" width="600" height="388" font-family="Noto Sans TC Deck, PingFang TC, Heiti TC, sans-serif"><text x="0" y="30" font-size="20" font-weight="700" fill="#0b0b0b" text-anchor="start">人脈（社群介紹的專家）</text><rect x="0" y="40" width="296.8" height="24" rx="5" fill="#2a78d6"/><text x="306.80851063829783" y="59" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">66%</text><text x="362.80851063829783" y="59" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">31/47</text><text x="0" y="106" font-size="20" font-weight="400" fill="#52514e" text-anchor="start">經費（獎助金、標案）</text><rect x="0" y="116" width="210.6" height="24" rx="5" fill="#d3d3cd"/><text x="220.63829787234042" y="135" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">47%</text><text x="276.63829787234044" y="135" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">22/47</text><text x="0" y="182" font-size="20" font-weight="400" fill="#52514e" text-anchor="start">公開資料、開放資料</text><rect x="0" y="192" width="201.1" height="24" rx="5" fill="#d3d3cd"/><text x="211.06382978723403" y="211" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">45%</text><text x="267.063829787234" y="211" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">21/47</text><text x="0" y="258" font-size="20" font-weight="400" fill="#52514e" text-anchor="start">場地（例如 NPO Hub）</text><rect x="0" y="268" width="181.9" height="24" rx="5" fill="#d3d3cd"/><text x="191.91489361702128" y="287" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">40%</text><text x="247.91489361702128" y="287" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">19/47</text><text x="0" y="334" font-size="20" font-weight="400" fill="#52514e" text-anchor="start">現成數位工具或平台</text><rect x="0" y="344" width="162.8" height="24" rx="5" fill="#d3d3cd"/><text x="172.76595744680853" y="363" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">36%</text><text x="228.76595744680853" y="363" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">17/47</text></svg></div><div class="note">做過專案的 47 位（稱「實作者」）｜複選</div></div>
           <div class="stack">
-            <div class="card flat bl-d"><div class="k">社群是什麼</div><div class="p u-margin-0">自發的同好聚會，不是簽了約的代工廠；成員來來去去很正常。</div></div>
+            <div class="card flat bl-d"><div class="k">社群是什麼</div><div class="p u-margin-0">自發的同好聚會，不是簽約的代工廠；成員來去很正常。</div></div>
             <div class="card flat bl-d"><div class="k">大家為什麼來</div><div class="p u-margin-0">為了自我實現而來；獎金買不到志工長期的下班時間。</div></div>
             <div class="card hl-o"><div class="k o">政府可以做的</div><div class="p u-margin-0">釋出品質好的開放資料、設立諮詢窗口。實作者中用過政府窗口的占 34%，排第六。</div></div>
           </div>
@@ -626,7 +641,8 @@
         <br>
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         資源使用排序：最常用的是人脈網絡（66%），顯著高於經費補助（47%）；政府窗口 34%（16/47），在八個選項中排第六。<br>
-        核心動力原句：自我實現與消除摩擦；金錢買不到志工長期的業餘時間。</p>
+        核心動力原句：自我實現與消除摩擦；金錢買不到志工長期的業餘時間。<br>
+        完整說法：社群是自發的同好聚會，不是簽了約的代工廠；成員來來去去很正常。</p>
       </template>
     </section>
 
@@ -640,14 +656,14 @@
       <div class="slide-body ">
 
         <div class="grid g-chart u-grid-template-columns-0-82fr-1-18fr">
-          <div class="card chart-card"><div class="t">127 位填答者，分成三層</div><div class="chart"><svg role="img" aria-label="三層分群甜甜圈圖" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" font-family="Noto Sans TC Deck, PingFang TC, Heiti TC, sans-serif"><path d="M200.0 65.0 A135 135 0 0 1 329.6 162.1" fill="none" stroke="#1baf7a" stroke-width="86"/><text x="281.0" y="90.0" font-size="22" font-weight="700" fill="#fff" text-anchor="middle">26 人</text><text x="281.0" y="114.0" font-size="18" font-weight="400" fill="#fff" text-anchor="middle">20%</text><path d="M329.6 162.1 A135 135 0 0 1 101.6 292.5" fill="none" stroke="#eb6834" stroke-width="86"/><text x="267.0" y="315.2" font-size="22" font-weight="700" fill="#fff" text-anchor="middle">54 人</text><text x="267.0" y="339.2" font-size="18" font-weight="400" fill="#fff" text-anchor="middle">43%</text><path d="M101.6 292.5 A135 135 0 0 1 200.0 65.0" fill="none" stroke="#2a78d6" stroke-width="86"/><text x="76.1" y="144.4" font-size="22" font-weight="700" fill="#fff" text-anchor="middle">47 人</text><text x="76.1" y="168.4" font-size="18" font-weight="400" fill="#fff" text-anchor="middle">37%</text><text x="200" y="204" font-size="44" font-weight="700" fill="#0b0b0b" text-anchor="middle">127</text><text x="200" y="232" font-size="18" font-weight="400" fill="#52514e" text-anchor="middle">位填答者</text></svg></div><div class="note">依問卷「參與過什麼」分層｜三種顏色在後續頁面沿用於這三群人</div></div>
+          <div class="card chart-card"><div class="t">127 位填答者，分成三層</div><div class="chart"><svg role="img" aria-label="三層分群甜甜圈圖" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" font-family="Noto Sans TC Deck, PingFang TC, Heiti TC, sans-serif"><path d="M200.0 65.0 A135 135 0 0 1 329.6 162.1" fill="none" stroke="#1baf7a" stroke-width="86"/><text x="281.0" y="90.0" font-size="22" font-weight="700" fill="#fff" text-anchor="middle">26 人</text><text x="281.0" y="114.0" font-size="18" font-weight="400" fill="#fff" text-anchor="middle">20%</text><path d="M329.6 162.1 A135 135 0 0 1 101.6 292.5" fill="none" stroke="#eb6834" stroke-width="86"/><text x="267.0" y="315.2" font-size="22" font-weight="700" fill="#fff" text-anchor="middle">54 人</text><text x="267.0" y="339.2" font-size="18" font-weight="400" fill="#fff" text-anchor="middle">43%</text><path d="M101.6 292.5 A135 135 0 0 1 200.0 65.0" fill="none" stroke="#2a78d6" stroke-width="86"/><text x="76.1" y="144.4" font-size="22" font-weight="700" fill="#fff" text-anchor="middle">47 人</text><text x="76.1" y="168.4" font-size="18" font-weight="400" fill="#fff" text-anchor="middle">37%</text><text x="200" y="204" font-size="44" font-weight="700" fill="#0b0b0b" text-anchor="middle">127</text><text x="200" y="232" font-size="18" font-weight="400" fill="#52514e" text-anchor="middle">位填答者</text></svg></div></div>
           <div class="stack">
             <div class="card bl-g"><div class="head"><div class="t">好奇者 26 人（20.5%）</div><span class="tag g">只聽過或看過</span></div>
               <div class="p u-margin-6px-0-0">62% 不知道有哪些專案、54% 沒人帶。他們需要清楚的入口。</div></div>
             <div class="card bl-o hl-o"><div class="head"><div class="t">使用者 54 人（42.5%）</div><span class="tag o">接觸過、還沒參與</span></div>
               <div class="p u-margin-6px-0-0">本案指引的主要讀者。他們最需要具體的切入點和做法。</div></div>
             <div class="card bl-b"><div class="head"><div class="t">實作者 47 人（37.0%）</div><span class="tag b">做過專案</span></div>
-              <div class="p u-margin-6px-0-0">38% 進度停滯、32% 核心成員累垮。他們需要維持進度、分攤負荷的方法。</div></div>
+              <div class="p u-margin-6px-0-0">38% 進度停滯、32% 核心成員累垮。<br>他們需要維持進度、分攤負荷的方法。</div></div>
           </div>
         </div>
       </div>
@@ -664,6 +680,9 @@
         <br>
         <p><span class="chunk-tag up">▲ 上推：策略鎖定的關鍵抉擇</span><br>
         這批指引不求討好所有人，而是聚焦鎖定這 54 位中間層，給他們跳坑最需要的實作方法。</p>
+        <br>
+        <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
+        畫面移出的圖註：依問卷「參與過什麼」分層；三種顏色在後續頁面沿用於這三群人。</p>
       </template>
     </section>
 
@@ -679,7 +698,7 @@
         <div class="grid g-chart">
           <div class="card chart-card"><div class="t">五個候選指引主題，讀者有多想看？</div><div class="chart"><svg role="img" aria-label="狩野模型落點散布圖" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400" font-family="Noto Sans TC Deck, PingFang TC, Heiti TC, sans-serif"><rect x="56" y="12" width="360" height="320" fill="#fafaf8" stroke="#e4e4e0"/><line x1="101.0" y1="12" x2="101.0" y2="332" stroke="#8a8a85" stroke-dasharray="5 4"/><line x1="56" y1="292.0" x2="416" y2="292.0" stroke="#8a8a85" stroke-dasharray="5 4"/><text x="408" y="38" font-size="20" font-weight="700" fill="#1baf7a" text-anchor="end">魅力型</text><text x="408" y="315.99999999999994" font-size="20" font-weight="700" fill="#8a8a85" text-anchor="end">期望型</text><text x="109.0" y="324" font-size="14" font-weight="400" fill="#8a8a85" text-anchor="start">SI 0.5</text><text x="101.0" y="354" font-size="14" font-weight="400" fill="#52514e" text-anchor="middle">0.5</text><text x="191.0" y="354" font-size="14" font-weight="400" fill="#52514e" text-anchor="middle">0.6</text><text x="281.0" y="354" font-size="14" font-weight="400" fill="#52514e" text-anchor="middle">0.7</text><text x="371.0" y="354" font-size="14" font-weight="400" fill="#52514e" text-anchor="middle">0.8</text><text x="236.0" y="380" font-size="16" font-weight="400" fill="#52514e" text-anchor="middle">滿意增益 SI →（越右越想看）</text><text x="48" y="57.0" font-size="14" font-weight="400" fill="#52514e" text-anchor="end">-0.2</text><text x="48" y="137.0" font-size="14" font-weight="400" fill="#52514e" text-anchor="end">-0.3</text><text x="48" y="217.0" font-size="14" font-weight="400" fill="#52514e" text-anchor="end">-0.4</text><text x="48" y="297.0" font-size="14" font-weight="400" fill="#52514e" text-anchor="end">-0.5</text><circle cx="189.2" cy="144.8" r="12" fill="#0b0b0b"/><text x="189.2" y="149.8" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">①</text><circle cx="212.6" cy="158.4" r="12" fill="#0b0b0b"/><text x="212.6" y="163.4" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">②</text><circle cx="212.6" cy="83.2" r="12" fill="#0b0b0b"/><text x="212.6" y="88.2" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">③</text><circle cx="236.0" cy="83.2" r="12" fill="#0b0b0b"/><text x="236.0" y="88.2" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">④</text><circle cx="364.7" cy="244.0" r="12" fill="#eb6834"/><text x="364.7" y="249.0" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">⑤</text><circle cx="456" cy="40" r="12" fill="#0b0b0b"/><text x="456" y="45" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">①</text><text x="478" y="46" font-size="18" font-weight="400" fill="#0b0b0b" text-anchor="start">發起專案</text><text x="478" y="68" font-size="14" font-weight="400" fill="#8a8a85" text-anchor="start">SI 0.60</text><circle cx="456" cy="96" r="12" fill="#0b0b0b"/><text x="456" y="101" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">②</text><text x="478" y="102" font-size="18" font-weight="400" fill="#0b0b0b" text-anchor="start">找資料／建資料</text><text x="478" y="124" font-size="14" font-weight="400" fill="#8a8a85" text-anchor="start">SI 0.62</text><circle cx="456" cy="152" r="12" fill="#0b0b0b"/><text x="456" y="157" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">③</text><text x="478" y="158" font-size="18" font-weight="400" fill="#0b0b0b" text-anchor="start">捲動更多人參與</text><text x="478" y="180" font-size="14" font-weight="400" fill="#8a8a85" text-anchor="start">SI 0.62</text><circle cx="456" cy="208" r="12" fill="#0b0b0b"/><text x="456" y="213" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">④</text><text x="478" y="214" font-size="18" font-weight="400" fill="#0b0b0b" text-anchor="start">留住夥伴</text><text x="478" y="236" font-size="14" font-weight="400" fill="#8a8a85" text-anchor="start">SI 0.65</text><circle cx="456" cy="264" r="12" fill="#eb6834"/><text x="456" y="269" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">⑤</text><text x="478" y="270" font-size="18" font-weight="700" fill="#0b0b0b" text-anchor="start">落地、接進體制</text><text x="478" y="292" font-size="14" font-weight="400" fill="#8a8a85" text-anchor="start">SI 0.79</text></svg></div><div class="note">SI＝滿意增益，越大越想看｜魅力型＝沒有也沒關係，有了會特別驚喜｜局部放大，N=126</div></div>
           <div class="stack">
-            <div class="card hl-o"><div class="head"><div class="stat o u-font-size-40px">0.79</div><div><div class="t">《專案做出來了，然後呢？》</div><div class="p u-margin-0">主題 ⑤ 落地、接進體制｜全體最高，三層都排第一</div></div></div></div>
+            <div class="card hl-o"><div class="head"><div class="stat o u-font-size-40px">0.79</div><div><div class="t">《專案做出來了，然後呢？》</div><div class="p u-margin-0">主題 ⑤ 落地、接進體制｜三層都排第一</div></div></div></div>
             <div class="card flat"><div class="head"><div class="stat u-font-size-40px">0.62</div><div><div class="t">《資料卡住了怎麼辦？》</div><div class="p u-margin-0">主題 ② 找資料／建資料</div></div></div></div>
             <div class="card flat"><div class="head"><div class="stat u-font-size-40px">0.62</div><div><div class="t">《公民科技專案上線卻無人問津？》</div><div class="p u-margin-0">主題 ③ 捲動更多人參與</div></div></div></div>
             <div class="card hl-o u-flex-none"><div class="p u-margin-0"><b class="o">定案：</b>以上 3 篇方法論長文，加上 8 篇工具與資料整理</div></div>
@@ -702,7 +721,8 @@
         數據提供了方向，再經過揪松團討論拍板，最終確定 3 篇方法論長文專門破解深層卡關，搭配 8 篇工具與資料整理盤點必備資源，把資源精準砸在刀口上。</p>
         <br>
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
-        0.71 與 0.69 為分層數值：團隊營運與維護對實作者 0.71、對好奇者 0.48（無差別型）；發起專案對使用者 0.69、對實作者 0.51。</p>
+        0.71 與 0.69 為分層數值：團隊營運與維護對實作者 0.71、對好奇者 0.48（無差別型）；發起專案對使用者 0.69、對實作者 0.51。<br>
+        0.79 是全體最高，三層都排第一。</p>
       </template>
     </section>
 
@@ -723,7 +743,7 @@
             <div class="card flat"><div class="k">本次調查</div><div class="t">實作者 32% 手上沒有進行中的專案</div>
               <div class="p">自己發起專案的 10 人裡，6 人說核心成員累垮卡住進度。</div></div>
             <div class="card flat"><div class="k">為什麼會停擺</div><div class="t">「點火者」啟動之後，要有人接手</div>
-              <div class="p">發起人只能把專案啟動；要長久運作，需要體制與在地社群接手。</div></div>
+              <div class="p">發起人只能啟動；長久運作需要體制與在地社群接手。</div></div>
           </div>
         </div>
       </div>
@@ -744,7 +764,8 @@
         <br>
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         里斯本研究指出：點火者（ignitor）只是啟動；幼苗必須走向基礎設施化，由體制資料與在地社群接手。<br>
-        完整 13 項困擾的五級分布圖見報告圖表 05。</p>
+        完整 13 項困擾的五級分布圖見報告圖表 05。<br>
+        完整說法：發起人只能把專案啟動；要長久運作，需要體制與在地社群接手。</p>
       </template>
     </section>
 
@@ -758,11 +779,11 @@
       <div class="slide-body ">
 
         <div class="col-wrap">
-          <div class="grid g-2">
-            <div class="card case"><div class="head u-margin-bottom-6px"><span class="tag g">給大眾用</span><span class="p u-margin-0 u-font-size-18px">適合貼近生活、人人有感的議題</span></div><div class="rule u-margin-8px-0-10px"></div><div class="head"><div class="grow"><div class="t">Cofacts 真的假的</div><div class="note u-margin-0">LINE 查證機器人 ＆ 開放事實查核資料庫</div></div><span class="tag g">CC BY-SA 4.0</span></div><div class="p u-margin-top-10px">機器人累積大量查證資料後全部開放，美玉姨、防詐達人等工具直接串接。</div><div class="shot"><img src="assets/article-cofacts-ai.png" alt="圖：Cofacts 查核對話介面（取自作者專文）"></div><div class="cap">圖：Cofacts 查核對話介面（取自作者專文）</div></div>
-            <div class="card case"><div class="head u-margin-bottom-6px"><span class="tag b">給專業工作者用</span><span class="p u-margin-0 u-font-size-18px">適合門檻高、只有專業人士每天在處理的議題</span></div><div class="rule u-margin-8px-0-10px"></div><div class="head"><div class="grow"><div class="t">LawTrace 立法足跡</div><div class="note u-margin-0">國會法案審議歷程與版本比對工具</div></div><span class="tag b">歐噴有限公司</span></div><div class="p u-margin-top-10px">為每天讀法條的國會助理、記者和研究員自動比對法案版本，省去人工對照。</div><div class="shot"><img src="assets/article-lawtrace.png" alt="圖：LawTrace 法案比對介面（取自作者專文）"></div><div class="cap">圖：LawTrace 法案比對介面（取自作者專文）</div></div>
+          <div class="grid g-2 wide">
+            <div class="card case airy"><div class="head u-margin-bottom-6px"><span class="tag g">給大眾用</span><span class="p u-margin-0">適合貼近生活、人人有感的議題</span></div><div class="sp"></div><div class="head"><div class="grow"><div class="t">Cofacts 真的假的</div></div></div><div class="p lead">機器人累積大量查證資料後全部開放，美玉姨、防詐達人等工具直接串接。</div><div class="shot"><img src="assets/article-cofacts-ai.png" alt="圖：Cofacts 查核對話介面（取自作者專文）"></div></div>
+            <div class="card case airy"><div class="head u-margin-bottom-6px"><span class="tag b">給專業工作者用</span><span class="p u-margin-0">適合門檻高、專業人士處理的議題</span></div><div class="sp"></div><div class="head"><div class="grow"><div class="t">LawTrace 立法足跡</div></div></div><div class="p lead">為每天讀法條的國會助理、記者和研究員自動比對法案版本，省去人工對照。</div><div class="shot"><img src="assets/article-lawtrace.png" alt="圖：LawTrace 法案比對介面（取自作者專文）"></div></div>
           </div>
-          <div class="bar"><b>訣竅：</b>提供別人需要、自己又很難短期做出來的資源；對象要選得準。</div>
+          
         </div>
       </div>
       <div class="slide-footer">
@@ -784,7 +805,11 @@
         Cofacts：打造 LINE 查證機器人與雙月小聚號召志工查核；2022 年中選會更公開建議民眾加入識別選務謠言。<br>
         大眾普及路線完整說明：把複雜資訊做成直覺好上手的工具，吸引大眾日常使用，透過工具擴散讓更多人認識並關注背後的議題。<br>
         專業中介者路線完整說明：專門服務每天都需要處理這類資訊的專業人士，透過他們的專業工作與對外產出，將專案影響力成倍放大。<br>
-        訣竅核心完整說明：關鍵不在單向宣傳曝光，而在釐清議題本質，提供一套別人需要但短期難以自建的基礎資源。</p>
+        訣竅核心完整說明：關鍵不在單向宣傳曝光，而在釐清議題本質，提供一套別人需要但短期難以自建的基礎資源。<br>
+        畫面移出的標示：Cofacts 是 LINE 查證機器人與開放事實查核資料庫，資料以 CC BY-SA 4.0 授權；LawTrace 立法足跡是國會法案審議歷程與版本比對工具，由歐噴有限公司開發。<br>
+        原底部條（訣竅）：提供別人需要、自己又很難短期做出來的資源；對象要選得準。<br>
+        截圖：Cofacts 查核對話介面、LawTrace 法案比對介面，皆取自作者專文。<br>
+        完整說法：給專業工作者用，適合門檻高、只有專業人士每天在處理的議題。</p>
       </template>
     </section>
 
@@ -798,11 +823,11 @@
       <div class="slide-body ">
 
         <div class="col-wrap">
-          <div class="grid g-2">
-            <div class="card case"><div class="head u-margin-bottom-6px"><span class="tag b">示範一套系統</span><span class="p u-margin-0 u-font-size-18px">適合政府已經有資料、有業務的議題</span></div><div class="rule u-margin-8px-0-10px"></div><div class="head"><div class="grow"><div class="t">LawTrace｜立法院可直接採用</div><div class="note u-margin-0">把規格做好、開源放著</div></div><span class="tag b">現成規格</span></div><div class="p u-margin-top-10px">程式碼、介面和結構化資料全部開源，既證明做得到，立法院也能直接參考。</div><div class="shot"><img src="assets/article-lawtrace-api.png" alt="圖：LawTrace 資料規格與 API（取自作者專文）"></div><div class="cap">圖：LawTrace 資料規格與 API（取自作者專文）</div></div>
-            <div class="card case"><div class="head u-margin-bottom-6px"><span class="tag g">示範一套討論流程</span><span class="p u-margin-0 u-font-size-18px">適合各方利益衝突、爭議大的新議題</span></div><div class="rule u-margin-8px-0-10px"></div><div class="head"><div class="grow"><div class="t">vTaiwan｜多方共識</div><div class="note u-margin-0">公共政策開放協作平台</div></div><span class="tag g">35 個公共議題</span></div><div class="p u-margin-top-10px">用三階段流程討論爭議議題，把討論紀錄交給公部門，作為研擬政策的參考。</div><div class="shot"><img src="assets/article-vtaiwan.png" alt="圖：vTaiwan 審議協作流程介面（取自作者專文）"></div><div class="cap">圖：vTaiwan 審議協作流程介面（取自作者專文）</div></div>
+          <div class="grid g-2 wide">
+            <div class="card case airy"><div class="head u-margin-bottom-6px"><span class="tag b">示範一套系統</span><span class="p u-margin-0">適合政府已經有資料、有業務的議題</span></div><div class="sp"></div><div class="head"><div class="grow"><div class="t">LawTrace｜立法院可直接採用</div></div></div><div class="p lead">程式碼、介面和結構化資料全部開源，既證明做得到，立法院也能直接參考。</div><div class="shot"><img src="assets/article-lawtrace-api.png" alt="圖：LawTrace 資料規格與 API（取自作者專文）"></div></div>
+            <div class="card case airy"><div class="head u-margin-bottom-6px"><span class="tag g">示範一套討論流程</span><span class="p u-margin-0">適合各方利益衝突、爭議大的新議題</span></div><div class="sp"></div><div class="head"><div class="grow"><div class="t">vTaiwan｜多方共識</div></div></div><div class="p lead">用三階段流程討論爭議議題，把討論紀錄交給公部門，作為研擬政策的參考。</div><div class="shot"><img src="assets/article-vtaiwan.png" alt="圖：vTaiwan 審議協作流程介面（取自作者專文）"></div></div>
           </div>
-          <div class="bar"><b>訣竅：</b>只有文字，政府很難評估；做出能運作、授權清楚的成品，公部門才敢用。</div>
+          
         </div>
       </div>
       <div class="slide-footer">
@@ -820,7 +845,10 @@
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         資訊系統示範：未來評估採用時能直接參考現成規格，甚至取用專案成果，省去從零摸索的成本。<br>
         多方共識示範：民間搭建中立平台邀請各方對話，等於先在體制外完成溝通測試，降低公部門擔心反彈的疑慮。<br>
-        vTaiwan 追蹤 35 個爭議議題，如金融沙盒、遠距醫療、AI 風險；流程為意見徵集、研擬草案、送交院會。</p>
+        vTaiwan 追蹤 35 個爭議議題，如金融沙盒、遠距醫療、AI 風險；流程為意見徵集、研擬草案、送交院會。<br>
+        畫面移出的標示：LawTrace 把規格做好、開源放著，是現成規格；vTaiwan 是公共政策開放協作平台，討論過 35 個公共議題。<br>
+        原底部條（訣竅）：只有文字，政府很難評估；做出能運作、授權清楚的成品，公部門才敢用。<br>
+        截圖：LawTrace 資料規格與 API、vTaiwan 審議協作流程介面，皆取自作者專文。</p>
       </template>
     </section>
 
@@ -835,21 +863,19 @@
 
         <div class="col-wrap">
           <div class="grid g-3 u-flex-none u-height-auto">
-            <div class="card top u-padding-14px-18px"><div class="k ">STEP 01 ｜ 先弄清規定</div><div class="t">誰主管？要哪些證據？</div><div class="p u-margin-top-4px u-font-size-18px">找出主管機關，列出立案需要的證據。</div></div>
-            <div class="card top u-padding-14px-18px"><div class="k ">STEP 02 ｜ 民眾端</div><div class="t">民眾只做最簡單的事</div><div class="p u-margin-top-4px u-font-size-18px">用手機拍照、標出位置就好。</div></div>
-            <div class="card top u-padding-14px-18px"><div class="k ">STEP 03 ｜ 民間團隊</div><div class="t">補齊文件並追蹤</div><div class="p u-margin-top-4px u-font-size-18px">比對空照圖和地籍資料，寫成公文，再打電話追蹤。</div></div>
+            <div class="card top u-padding-14px-18px"><div class="k ">STEP 01 ｜ 先弄清規定</div><div class="t">誰主管？要哪些證據？</div><div class="p u-margin-top-4px">找出主管機關，列出需要的證據。</div></div>
+            <div class="card top u-padding-14px-18px"><div class="k ">STEP 02 ｜ 民眾端</div><div class="t">民眾只做最簡單的事</div><div class="p u-margin-top-4px">用手機拍照、標出位置就好。</div></div>
+            <div class="card top u-padding-14px-18px"><div class="k ">STEP 03 ｜ 民間團隊</div><div class="t">補齊文件並追蹤</div><div class="p u-margin-top-4px">比對空照圖和地籍資料，寫成公文，再打電話追蹤。</div></div>
           </div>
           <div class="card case u-margin-top-14px u-flex-1 u-flex-direction-row u-gap-20px u-align-items-stretch">
             <div class="u-flex-1 u-display-flex u-flex-direction-column u-min-width-0">
-              <div class="head"><div class="grow"><div class="t">Disfactory 農地違章工廠回報</div>
-                <div class="note u-margin-0">地球公民基金會 × g0v 社群</div></div></div>
-              <div class="p u-margin-top-10px">民眾只要拍照、定位；核心團隊比對後，以基金會名義發公文並追蹤。不必改政府流程，案件就能進入查處。</div>
+              <div class="head"><div class="grow"><div class="t">Disfactory 農地違章工廠回報</div></div></div>
+              <div class="p u-margin-top-10px">以基金會名義發公文並追蹤。不必改政府流程，案件就能進入查處。</div>
               <div class="u-flex-1"></div>
               <div><span class="tag o">兩年收到超過一千件回報 ｜ 促使案件進入法定查處程序</span></div>
             </div>
             <div class="u-flex-0-8 u-display-flex u-flex-direction-column u-min-width-0">
               <div class="shot u-margin-top-0"><img src="assets/article-disfactory.png" alt="Disfactory 地圖"></div>
-              <div class="cap">圖：Disfactory 違章工廠地圖與進度追蹤（取自作者專文）</div>
             </div>
           </div>
         </div>
@@ -867,7 +893,11 @@
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         檢舉違章工廠在地方政府本為法定業務；然而立案需取得地號確認分區、比對歷年空照判定新增建，且須以具名公文提出，門檻極高。<br>
         機制突破：不改變政府作業流程前提下，讓大量有效案件進入體制查處程序。<br>
-        步驟一細節：官方立案必須具備的法定事證與格式規範，如精確地號、歷年空照、具名公文。</p>
+        步驟一細節：官方立案必須具備的法定事證與格式規範，如精確地號、歷年空照、具名公文。<br>
+        畫面移出的標示：Disfactory 由地球公民基金會與 g0v 社群合作。<br>
+        截圖：Disfactory 違章工廠地圖與進度追蹤，取自作者專文。<br>
+        畫面移出：民眾只要拍照、定位；核心團隊比對後，以基金會名義發公文並追蹤。<br>
+        步驟一完整說法：找出主管機關，列出立案需要的證據。</p>
       </template>
     </section>
 
@@ -880,27 +910,20 @@
       <div class="title-group"><h1 class="slide-title">路徑四｜想走得長遠？讓別人接得下去</h1><p class="slide-subtitle">靠開放授權和公開紀錄：政治獻金數位化五年傳了三棒</p></div>
       <div class="slide-body ">
 
-        <div class="col-wrap">
-          <div class="grid u-grid-template-columns-0-62fr-1-38fr u-flex-1 u-min-height-0">
-            <div class="card case u-padding-14px-16px">
-              <div class="head"><div class="t">政治獻金數位化</div></div>
-              <div class="shot"><img src="assets/article-campaign-finance.png" alt="政治獻金數位化協作介面"></div>
-              <div class="cap">圖：協作介面（取自作者專文）</div>
-            </div>
-            <div class="stack">
-              <div class="card bl-d u-padding-12px-18px u-flex-1"><div class="head"><div class="k  u-margin-0 u-font-size-16px">2014 第一棒</div><div class="t">g0v 黑客松起步</div></div><div class="p u-margin-top-4px">24 小時內辨識近 31 萬格文字，把 2,637 份紙本變成結構化資料。</div></div>
-              <div class="card bl-d u-padding-12px-18px u-flex-1"><div class="head"><div class="k  u-margin-0 u-font-size-16px">2017 第二棒</div><div class="t">READr 媒體接力</div></div><div class="p u-margin-top-4px">沿用開源成果，到監察院補齊歷屆資料，做成資料新聞專題。</div></div>
-              <div class="card bl-d u-padding-12px-18px u-flex-1"><div class="head"><div class="k  u-margin-0 u-font-size-16px">2019 第三棒</div><div class="t">監察院平臺上線</div></div><div class="p u-margin-top-4px">立法院修法通過後，監察院的公開查閱平臺正式上線。</div></div>
-            </div>
+        <div class="col-wrap mid">
+          <div class="grid g-3 u-flex-none u-height-auto">
+            <div class="card top calm bl-d"><div class="k lg">2014 第一棒</div><div class="t lg">g0v 黑客松起步</div><div class="p">24 小時內辨識近 31 萬格文字，把 2,637 份紙本變成結構化資料。</div></div>
+            <div class="card top calm bl-d"><div class="k lg">2017 第二棒</div><div class="t lg">READr 媒體接力</div><div class="p">沿用開源成果，到監察院補齊歷屆資料，做成資料新聞專題。</div></div>
+            <div class="card top calm bl-d"><div class="k lg">2019 第三棒</div><div class="t lg">監察院平臺上線</div><div class="p">修法通過後，監察院的查閱平臺正式上線。</div></div>
           </div>
-          <div class="grid g-2 u-flex-none u-height-auto u-margin-top-14px">
+          <div class="grid g-2 wide u-flex-none u-height-auto u-margin-top-28px">
             <div class="card flat bl-d u-padding-12px-18px"><div class="t">標示明確的開放授權（CC BY）</div><div class="p u-margin-top-2px">接手的人不必到處問授權，就能合法、放心地修改再利用。</div></div>
-            <div class="card flat bl-d u-padding-12px-18px"><div class="t">公開完整的背景與共筆紀錄</div><div class="p u-margin-top-2px">背景研究、訪談和實作經驗都公開，後來的人不必從零開始摸索。</div></div>
+            <div class="card flat bl-d u-padding-12px-18px"><div class="t">公開完整的背景與共筆紀錄</div><div class="p u-margin-top-2px">背景研究、訪談和實作經驗都公開，<br>後來的人不必從零摸索。</div></div>
           </div>
         </div>
       </div>
       <div class="slide-footer">
-        <div>案例出處：方法論長文《專案做出來了，然後呢？》；介面截圖版權屬各專案團隊</div>
+        <div>案例出處：方法論長文《專案做出來了，然後呢？》</div>
         <div class="footer-right"><div class="footer-logos"><img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo"></div><div class="license-pill">g0v.tw jothon</div></div>
       </div>
       <template class="slide-notes-template">
@@ -912,7 +935,10 @@
         <br>
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         第二棒：READr 赴監院印出第九屆並補齊第七、八屆，完成深度資料新聞專題。<br>
-        實質改變非單一團隊一鼓作氣完成，靠開源成果在休眠期後持續接棒；即便核心休息，也能由社群接力。</p>
+        實質改變非單一團隊一鼓作氣完成，靠開源成果在休眠期後持續接棒；即便核心休息，也能由社群接力。<br>
+        畫面移出：政治獻金數位化的協作介面截圖（取自作者專文）。<br>
+        第三棒完整說法：立法院修法通過後，監察院的公開查閱平臺正式上線。<br>
+        完整說法：背景研究、訪談和實作經驗都公開，後來的人不必從零開始摸索。</p>
       </template>
     </section>
 
@@ -922,14 +948,14 @@
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 分工全景</div>
         <div class="slide-counter">15 / 22</div>
       </div>
-      <div class="title-group"><h1 class="slide-title">民間和政府怎麼分工？分三個階段來看</h1><p class="slide-subtitle">前面談民間的四條路徑；這裡談民間端與體制端各做什麼</p></div>
+      <div class="title-group"><h1 class="slide-title">民間和政府怎麼分工？分三個階段來看</h1><p class="slide-subtitle">分工原則：民間負責「做出來」，體制負責「接下去」</p></div>
       <div class="slide-body ">
 
         <div class="col-wrap"><div class="grid g-3">
           <div class="card top u-padding-22px-24px"><div class="k g">階段一</div><div class="t lg">前期探索：小規模試做</div><div class="card mute bl-d u-margin-top-16px u-padding-14px-18px u-flex-1"><div class="k">民間端職責</div><div class="p lg u-margin-0">快速試做，自己承擔試錯成本。</div></div><div class="card mute bl-m u-margin-top-14px u-padding-14px-18px u-box-shadow-none u-flex-1"><div class="k">體制端支援</div><div class="p lg u-margin-0">主動釋出品質好的開放資料。</div></div></div>
           <div class="card top u-padding-22px-24px"><div class="k o">階段二</div><div class="t lg">中期銜接：對齊規格</div><div class="card mute bl-d u-margin-top-16px u-padding-14px-18px u-flex-1"><div class="k">民間端職責</div><div class="p lg u-margin-0">交出可以實際檢驗的開源原型。</div></div><div class="card mute bl-m u-margin-top-14px u-padding-14px-18px u-box-shadow-none u-flex-1"><div class="k">體制端支援</div><div class="p lg u-margin-0">設專責窗口，說明法規與流程。</div></div></div>
           <div class="card top u-padding-22px-24px"><div class="k b">階段三</div><div class="t lg">後期落地：成為常態服務</div><div class="card mute bl-d u-margin-top-16px u-padding-14px-18px u-flex-1"><div class="k">民間端職責</div><div class="p lg u-margin-0">以開放授權釋出，誰都能接手。</div></div><div class="card mute bl-m u-margin-top-14px u-padding-14px-18px u-box-shadow-none u-flex-1"><div class="k">體制端支援</div><div class="p lg u-margin-0">把成熟方案納入常態公共服務。</div></div></div>
-        </div><div class="bar u-font-size-20px"><b>分工原則：</b>民間負責「做出來」，體制負責「接下去」。</div></div>
+        </div></div>
       </div>
       <div class="slide-footer">
         <div>三個階段對應專案從試做、銜接到落地的生命週期</div>
@@ -944,6 +970,9 @@
         <br>
         <p><span class="chunk-tag up">▲ 上推：民主治理的雙向奔赴</span><br>
         各司其職、相互補位，這才是成熟民主社會裡，公私協同最理想的樣貌。</p>
+        <br>
+        <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
+        原副標：前面談民間的四條路徑；這裡談民間端與體制端各做什麼。</p>
       </template>
     </section>
 
@@ -953,14 +982,14 @@
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 階段 1／3  探索</div>
         <div class="slide-counter">16 / 22</div>
       </div>
-      <div class="title-group"><h1 class="slide-title">階段一｜前期探索：民間先試做，政府開放資料</h1><p class="slide-subtitle">民間承擔早期試錯的風險；公部門先把資料開放出來</p></div>
+      <div class="title-group"><h1 class="slide-title">階段一｜前期探索：民間先試做，政府開放資料</h1><p class="slide-subtitle">試錯的成本由民間承擔，成功的好處由所有人共享</p></div>
       <div class="slide-body ">
-<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card flat bl-d u-padding-14px-24px"><div class="k u-font-size-17px">民間端：小規模試做</div><div class="p lg u-margin-0">快速修改，先確認問題真的存在、解法行得通。</div></div><div class="card flat bl-m u-padding-14px-24px"><div class="k u-font-size-17px">體制端：開放資料</div><div class="p lg u-margin-0">把鎖在內部系統和 PDF 裡的資料開放出來。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card top hl-g u-grid-column-1-1 u-height-100"><div class="head"><div class="grow"><div class="k g">案例</div><div class="t lg">藥品仿單白話文運動</div></div><span class="tag g">早期試做</span></div>
+<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card flat bl-d u-padding-14px-24px"><div class="k u-font-size-17px">民間端：小規模試做</div><div class="p lg u-margin-0">快速修改，先確認問題真的存在、解法行得通。</div></div><div class="card flat bl-m u-padding-14px-24px"><div class="k u-font-size-17px">體制端：開放資料</div><div class="p lg u-margin-0">把鎖在內部系統和 PDF 裡的資料開放出來。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card top hl-g u-grid-column-1-1 u-height-100"><div class="head"><div class="grow"><div class="k g">案例</div><div class="t lg">藥品仿單白話文運動</div></div></div>
          <div class="grid g-3 u-height-auto u-flex-1 u-margin-top-14px u-gap-14px">
            <div class="card mute"><div class="k">STEP 01</div><div class="t">做出原型</div><div class="p lg u-margin-4px-0-0">第一階段先做 10 種藥品的原型，不急著挑戰官方標準。</div></div>
            <div class="card mute"><div class="k">STEP 02</div><div class="t">測試與修改</div><div class="p lg u-margin-4px-0-0">請使用者試讀，反覆調整排版和衛教用語。</div></div>
-           <div class="card bl-m"><div class="k">體制端的起點</div><div class="t">開放原始資料</div><div class="p lg u-margin-4px-0-0">衛福部提供藥品許可資料集。</div></div>
-         </div></div></div><div class="bar u-font-size-20px"><b>試錯的成本由民間承擔，成功的好處由所有人共享。</b></div></div>
+           <div class="card bl-m"><div class="k">體制端的起點</div><div class="t">開放原始資料</div><div class="p lg u-margin-4px-0-0">公部門開放藥品相關資料。</div></div>
+         </div></div></div></div>
       </div>
       <div class="slide-footer">
         <div>藥品仿單案例見方法論長文《專案做出來了，然後呢？》與 HackMD 共筆公開紀錄</div>
@@ -975,7 +1004,10 @@
         <br>
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         民間端：利用業餘動能敏捷衝刺，在未受法規拘束的沙盒中快速迭代。<br>
-        體制端：不急於給予大量行政指導，而是把基礎資料開放出來，成為民間創新的肥料。</p>
+        體制端：不急於給予大量行政指導，而是把基礎資料開放出來，成為民間創新的肥料。<br>
+        原副標：民間承擔早期試錯的風險；公部門先把資料開放出來。<br>
+        畫面移出的標示：藥品仿單白話文運動屬於早期試做。<br>
+        注意：原畫面「衛福部提供藥品許可資料集」查無出處，畫面已改為「公部門開放藥品相關資料」，口述時不要指名機關與資料集。</p>
       </template>
     </section>
 
@@ -985,9 +1017,9 @@
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 階段 2／3  銜接</div>
         <div class="slide-counter">17 / 22</div>
       </div>
-      <div class="title-group"><h1 class="slide-title">階段二｜中期銜接：民間交出原型，政府設窗口</h1><p class="slide-subtitle">民間拿出能運作的原型；公部門協助它符合法規與格式</p></div>
+      <div class="title-group"><h1 class="slide-title">階段二｜中期銜接：民間交出原型，政府設窗口</h1><p class="slide-subtitle">雙方說的是不同語言：民間懂程式，體制懂法規與流程</p></div>
       <div class="slide-body ">
-<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card flat bl-d u-padding-14px-24px"><div class="k u-font-size-17px">民間端：交出原型與證據</div><div class="p lg u-margin-0">做出符合政府公文格式與系統規格的原型。</div></div><div class="card flat bl-m u-padding-14px-24px"><div class="k u-font-size-17px">體制端：設立專責諮詢窗口</div><div class="p lg u-margin-0">說明法規限制、資安要求和法定文書格式。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card u-padding-20px-24px"><div class="head"><div class="grow"><div class="t lg u-font-size-24px">Disfactory｜把照片變成正式公文</div><div class="note u-margin-2px-0-0 u-font-size-16px">空照比對 ＋ 地籍查核 ＋ 具名檢舉函</div></div></div><div class="p lg u-margin-top-14px">把民眾零散的照片，整理成能立案的正式公文。</div></div><div class="card u-padding-20px-24px"><div class="head"><div class="grow"><div class="t lg u-font-size-24px">vTaiwan｜把討論變成政策草案</div><div class="note u-margin-2px-0-0 u-font-size-16px">意見徵集 ＋ 草案研擬 ＋ 送交院會</div></div></div><div class="p lg u-margin-top-14px">有政務窗口參與，把各方意見整理成政策草案。</div></div></div><div class="bar u-font-size-20px"><b>雙方說的是不同語言：</b>民間懂程式，體制懂法規與流程。</div></div>
+<div class="col-wrap mid"><div class="grid g-2 wide start u-flex-none"><div class="card flat bl-d u-padding-14px-24px"><div class="k u-font-size-17px">民間端：交出原型與證據</div><div class="p lg u-margin-0">做出符合政府公文格式與系統規格的原型。</div></div><div class="card flat bl-m u-padding-14px-24px"><div class="k u-font-size-17px">體制端：設立專責諮詢窗口</div><div class="p lg u-margin-0">說明法規限制、資安要求和法定文書格式。</div></div></div><div class="grid g-2 wide start u-margin-top-28px u-flex-none"><div class="card calm"><div class="head"><div class="grow"><div class="t lg u-font-size-24px">Disfactory</div></div></div><div class="p lg">把民眾零散的照片，整理成能立案的正式公文。</div></div><div class="card calm"><div class="head"><div class="grow"><div class="t lg u-font-size-24px">vTaiwan</div></div></div><div class="p lg">有政務窗口參與，把各方意見整理成政策草案。</div></div></div></div>
       </div>
       <div class="slide-footer">
         <div>案例出處：方法論長文《專案做出來了，然後呢？》</div>
@@ -1002,7 +1034,9 @@
         <br>
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         Disfactory：將一般民眾零散的照片，轉譯為符合地方政府建管與經發局法定立案要件的正式公文，達成無縫對接。<br>
-        vTaiwan：政務窗口深度參與，將社群與利害關係人多方對話紀錄，轉化為行政院會評估新興科技政策的具體草案。</p>
+        vTaiwan：政務窗口深度參與，將社群與利害關係人多方對話紀錄，轉化為行政院會評估新興科技政策的具體草案。<br>
+        原副標：民間拿出能運作的原型；公部門協助它符合法規與格式。<br>
+        畫面移出的標示：Disfactory 的做法是空照比對、地籍查核、具名檢舉函；vTaiwan 的流程是意見徵集、草案研擬、送交院會。</p>
       </template>
     </section>
 
@@ -1012,9 +1046,9 @@
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 階段 3／3  普及</div>
         <div class="slide-counter">18 / 22</div>
       </div>
-      <div class="title-group"><h1 class="slide-title">階段三｜後期落地：民間開放成果，政府長期營運</h1><p class="slide-subtitle">民間以開放授權交出成果；政府編預算，讓更多人用得到</p></div>
+      <div class="title-group"><h1 class="slide-title">階段三｜後期落地：民間開放成果，政府長期營運</h1><p class="slide-subtitle">從民間開源起步，到政府以法規和預算接手，才算走完全程</p></div>
       <div class="slide-body ">
-<div class="col-wrap"><div class="grid g-2 start u-flex-none"><div class="card flat bl-d u-padding-14px-24px"><div class="k u-font-size-17px">民間端：開放授權，不被技術綁住</div><div class="p lg u-margin-0">程式碼、資料規格與維護文件全部開源，不綁廠商。</div></div><div class="card flat bl-m u-padding-14px-24px"><div class="k u-font-size-17px">體制端：編列預算與人力</div><div class="p lg u-margin-0">把成熟的原型升級成正式系統，安排長期維運。</div></div></div><div class="grid g-2 u-margin-top-14px u-flex-1 u-min-height-0 u-height-auto"><div class="card u-padding-20px-24px"><div class="head"><div class="grow"><div class="t lg u-font-size-24px">監察院政治獻金公開查閱平臺</div><div class="note u-margin-2px-0-0 u-font-size-16px">從黑客松辨識紙本，走到法定的官方系統</div></div></div><div class="p lg u-margin-top-14px">2014 民間起頭、2017 媒體接力、2019 修法後由監察院正式上線，成為常態業務。</div></div><div class="card u-padding-20px-24px"><div class="head"><div class="grow"><div class="t lg u-font-size-24px">藥品仿單白話指引</div><div class="note u-margin-2px-0-0 u-font-size-16px">目標：納入國家衛生政策與法規標準</div></div></div><div class="p lg u-margin-top-14px">規劃從 10 種藥品的原型，擴展到 30 種並在醫院實地測試，最終推動納入國家政策。</div></div></div><div class="bar u-font-size-20px"><b>從民間開源起步，</b>到政府以法規和預算接手，才算走完全程。</div></div>
+<div class="col-wrap mid"><div class="grid g-2 wide start u-flex-none"><div class="card flat bl-d u-padding-14px-24px"><div class="k u-font-size-17px">民間端：開放授權，不被技術綁住</div><div class="p lg u-margin-0">程式碼、資料規格與維護文件全部開源，不綁廠商。</div></div><div class="card flat bl-m u-padding-14px-24px"><div class="k u-font-size-17px">體制端：編列預算與人力</div><div class="p lg u-margin-0">把成熟的原型升級成正式系統，安排長期維運。</div></div></div><div class="grid g-2 wide start u-margin-top-28px u-flex-none"><div class="card calm"><div class="head"><div class="grow"><div class="t lg u-font-size-24px">監察院政治獻金公開查閱平臺</div></div></div><div class="p lg">2019 修法後由監察院正式上線，成為常態業務。</div></div><div class="card calm"><div class="head"><div class="grow"><div class="t lg u-font-size-24px">藥品仿單白話指引</div></div></div><div class="p lg">規劃從 10 種藥品的原型，擴展到 30 種並在醫院實地測試，最終推動納入國家政策。</div></div></div></div>
       </div>
       <div class="slide-footer">
         <div>案例出處：方法論長文《專案做出來了，然後呢？》；監察院政治獻金平臺 ardata.cy.gov.tw</div>
@@ -1028,7 +1062,10 @@
         監察院在 2019 年上線官方平台，就是民間接力 5 年最好的制度化回報；藥品仿單也是以納入衛福部政策規範為最終目標。民間以開源確保資產公共化，體制編列法定預算普及至全民，這才是公民科技最圓滿的落地終點！</p>
         <br>
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
-        藥品仿單白話指引屬『第四階段終點：衛生政策法規標準化』，目前為推動中的目標，非已達成。</p>
+        藥品仿單白話指引屬『第四階段終點：衛生政策法規標準化』，目前為推動中的目標，非已達成。<br>
+        原副標：民間以開放授權交出成果；政府編預算，讓更多人用得到。<br>
+        畫面移出：政治獻金從黑客松辨識紙本，走到法定的官方系統——2014 民間起頭、2017 媒體接力、2019 修法後由監察院正式上線。<br>
+        畫面移出：藥品仿單白話指引的目標是納入國家衛生政策與法規標準。</p>
       </template>
     </section>
 
@@ -1050,11 +1087,10 @@
           </div>
           <div class="stack">
             <div class="k u-margin-0">本案的兩種解法</div>
-            <div class="card flat bl-d"><div class="head"><div class="t grow">內容：先寫出 11 篇指引</div><span class="tag g">做示範</span></div>
-              <div class="p u-margin-6px-0-0">3 篇方法論長文＋8 篇工具與資料整理，當作可以參考的範本。</div></div>
-            <div class="card flat bl-d"><div class="head"><div class="t grow">工具：人機協同寫作流程</div><span class="tag b">讓大家接著寫</span></div>
-              <div class="p u-margin-6px-0-0">AI 分擔費時的工作、三道防線擋錯，其他議題就能由更多人接著寫。</div></div>
-            <div class="card mute u-flex-none u-text-align-center"><div class="p u-margin-0"><b>不只留下 11 篇文章，也留下一套人人都能用的寫作工具。</b></div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">內容：先寫出 11 篇指引</div></div>
+              <div class="p u-margin-6px-0-0">3 篇方法論長文＋8 篇工具與資料整理，可以當作範本。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">工具：人機協同寫作流程</div></div>
+              <div class="p u-margin-6px-0-0">AI 分擔費時的工作、三道防線擋錯，更多人就能接著寫。</div></div>
           </div>
         </div>
       </div>
@@ -1076,7 +1112,11 @@
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         範疇廣大：單一專案難以窮盡所有指南，易陷入涵蓋不足的焦慮。<br>
         動筆負擔：數萬字實作紀錄難以動筆。<br>
-        查核信任：開源需要高信任，單一案例出錯將摧毀全書公信力。</p>
+        查核信任：開源需要高信任，單一案例出錯將摧毀全書公信力。<br>
+        畫面移出的標示：內容這一軌是「做示範」，工具這一軌是「讓大家接著寫」。<br>
+        原結語句：不只留下 11 篇文章，也留下一套人人都能用的寫作工具。<br>
+        完整說法：3 篇方法論長文＋8 篇工具與資料整理，當作可以參考的範本。<br>
+        完整說法：AI 分擔費時的工作、三道防線擋錯，其他議題就能由更多人接著寫。</p>
       </template>
     </section>
 
@@ -1091,10 +1131,9 @@
 
         <div class="grid g-chart u-grid-template-columns-1fr-1fr">
           <div class="card top">
-            <div class="k">人機分工</div>
             <div class="grid g-2 u-height-auto u-gap-12px">
-              <div class="card mute u-padding-12px-14px"><div class="k">AI 負責</div><div class="p u-margin-0">搜尋資料、排版、寫草稿等費時的工作</div></div>
-              <div class="card mute bl-d u-padding-12px-14px u-box-shadow-none"><div class="k">人負責</div><div class="p u-margin-0">決定觀點、確認事實、決定能不能發布</div></div>
+              <div class="card mute u-padding-12px-14px"><div class="k">AI 負責</div><div class="p u-margin-0">搜尋資料、排版、寫草稿</div></div>
+              <div class="card mute bl-d u-padding-12px-14px u-box-shadow-none"><div class="k">人負責</div><div class="p u-margin-0">觀點、查證、發布</div></div>
             </div>
             <div class="k u-margin-top-16px">八階段流程</div>
             <div class="pipe u-margin-top-6px">
@@ -1102,9 +1141,9 @@
             </div>
           </div>
           <div class="stack">
-            <div class="card flat bl-d"><div class="head"><div class="t grow">第一道｜大綱主張表</div><span class="tag b">先確定論點</span></div><div class="p u-margin-4px-0-0">每個論點都要有真實案例支持；沒有證據就不動筆。</div></div>
-            <div class="card flat bl-d"><div class="head"><div class="t grow">第二道｜逐條事實標註</div><span class="tag o">建立查核總表</span></div><div class="p u-margin-4px-0-0">每個數字和案例都標上查證程度，逐一對照來源。</div></div>
-            <div class="card flat bl-d"><div class="head"><div class="t grow">第三道｜獨立 AI 審查</div><span class="tag g">找出盲點</span></div><div class="p u-margin-4px-0-0">請沒有參與寫作的另一個 AI 模型挑錯，找出邏輯漏洞。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">第一道｜大綱主張表</div></div><div class="p u-margin-4px-0-0">每個論點都要有真實案例支持；沒有證據就不動筆。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">第二道｜逐條事實標註</div></div><div class="p u-margin-4px-0-0">每個數字和案例都標上查證程度，逐一對照來源。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">第三道｜獨立 AI 審查</div></div><div class="p u-margin-4px-0-0">請沒有參與寫作的另一個 AI 模型挑錯，找出邏輯漏洞。</div></div>
           </div>
         </div>
       </div>
@@ -1128,7 +1167,9 @@
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         第一道防線：嚴格檢視每個段落的核心論點與真實案例，無真實數據佐證或受訪者口述經驗，絕不予動筆。<br>
         第二道防線：稿中每個數字、專案引述皆標註查驗等級，並產出對應引用來源清單與查核總表。<br>
-        第三道防線：引入未參與撰寫協作的獨立模型擔任審查官，從旁挑錯，驗收邏輯漏洞與過度推論。</p>
+        第三道防線：引入未參與撰寫協作的獨立模型擔任審查官，從旁挑錯，驗收邏輯漏洞與過度推論。<br>
+        畫面移出的標示：第一道是先確定論點；第二道是建立查核總表；第三道是找出盲點。<br>
+        人機分工完整說法：AI 負責搜尋資料、排版、寫草稿等費時的工作；人負責決定觀點、確認事實、決定能不能發布。</p>
       </template>
     </section>
 
@@ -1138,27 +1179,17 @@
         <div class="chapter-badge"><span class="dot dark"></span>第三步 寫作流程</div>
         <div class="slide-counter">21 / 22</div>
       </div>
-      <div class="title-group"><h1 class="slide-title">三項開源成果：讓下一個人接得下去</h1><p class="slide-subtitle">指引、問卷資料、寫作流程，全部以 CC BY 4.0 公開</p></div>
+      <div class="title-group"><h1 class="slide-title">三項開源成果：讓下一個人接得下去</h1><p class="slide-subtitle">指引與寫作流程以 CC BY 4.0 公開；問卷資料集由揪松團公開</p></div>
       <div class="slide-body ">
 
-        <div class="grid g-2 u-grid-template-columns-0-8fr-1-2fr">
-          <div class="stack">
-            <div class="k u-margin-0">交接出問題的人有多少？（實作者 47 人）</div>
-            <div class="card hl-o"><div class="stat o">13%</div><div class="t u-margin-top-6px">6 人因為缺少文件或交接，進度明顯卡住</div>
-              <div class="p u-margin-2px-0-0">人一走，知識就斷了。</div></div>
-            <div class="card hl-o"><div class="stat o">4%</div><div class="t u-margin-top-6px">2 人因此受挫到萌生退意</div>
-              <div class="p u-margin-2px-0-0">缺少文件與交接，會讓人想放棄。</div></div>
-          </div>
-          <div class="stack">
-            <div class="k u-margin-0">三項開源成果</div>
-            <div class="card flat"><div class="head"><span class="tag g">幫新手起步</span><div class="t">成果一｜11 篇實作指引</div></div><div class="p u-margin-6px-0-0">隨時可查的實用文章，涵蓋做專案的方法、好用的工具、各領域的資料。</div></div>
-            <div class="card flat"><div class="head"><span class="tag o">幫決策者看清現況</span><div class="t">成果二｜127 份問卷資料集＋分析網站</div></div><div class="p u-margin-6px-0-0">去識別化資料集由 g0v 揪松團公開；互動圖表見 report.claire-cheng.com。</div></div>
-            <div class="card flat"><div class="head"><span class="tag b">幫經驗傳下去</span><div class="t">成果三｜開源的人機協同寫作流程</div></div><div class="p u-margin-6px-0-0">包含完整提示詞、大綱主張表和三道防線的做法，任何人都能用。</div></div>
-          </div>
-        </div>
+        <div class="col-wrap mid"><div class="grid g-3">
+          <div class="card top roomy"><div class="k lg">成果一｜幫新手起步</div><div class="t lg">11 篇實作指引</div><div class="p lg">涵蓋做專案的方法、好用的工具、各領域的資料。</div></div>
+          <div class="card top roomy"><div class="k lg">成果二｜幫決策者看清現況</div><div class="t lg">127 份問卷的分析</div><div class="p lg">去識別化資料集由 g0v 揪松團公開；互動圖表在分析網站。</div></div>
+          <div class="card top roomy"><div class="k lg">成果三｜幫經驗傳下去</div><div class="t lg">人機協同寫作流程</div><div class="p lg">完整提示詞、大綱主張表和三道防線的做法，任何人都能用。</div></div>
+        </div></div>
       </div>
       <div class="slide-footer">
-        <div>資料來源：2026 社群調查困擾評分，實作者 N=47；展示網站 report.claire-cheng.com</div>
+        <div>指引 civictech.tw/g；問卷分析 report.claire-cheng.com；寫作流程 civictech-guide.claire-cheng.com</div>
         <div class="footer-right"><div class="footer-logos"><img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo"></div><div class="license-pill">g0v.tw jothon</div></div>
       </div>
       <template class="slide-notes-template">
@@ -1178,7 +1209,10 @@
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         13% 的實作者反映專案缺少文件交接、人一走知識就斷；老手與實作者反映無完整交接直接卡死專案推進。<br>
         4% 的人嚴重到想退出專案：2 人（2/47）評 4 分「受挫到萌生退意」，沒有人評 5 分。<br>
-        成果不該只留在個人硬碟裡，唯有變成可被接棒的公共財，改變才會持續發生。</p>
+        成果不該只留在個人硬碟裡，唯有變成可被接棒的公共財，改變才會持續發生。<br>
+        畫面移出的數據（實作者 47 人）：13%（6 人）因為缺少文件或交接，進度明顯卡住；4%（2 人）因此受挫到萌生退意。資料來源：2026 社群調查困擾評分。<br>
+        畫面移出的說明：成果一是隨時可查的實用文章；成果二原稱「127 份問卷資料集＋分析網站」；成果三是開源的。<br>
+        分析網站網址：report.claire-cheng.com（畫面改放頁尾）。</p>
       </template>
     </section>
 
@@ -1193,21 +1227,21 @@
 
         <div class="grid u-grid-template-columns-1-5fr-1fr">
           <div class="stack">
-            <div class="card flat bl-d"><div class="head"><div class="t grow">公部門夥伴｜開放資料、設常態窗口</div><span class="tag g">與民間合作</span></div><div class="p u-margin-6px-0-0">除了辦競賽發獎金，也請釋出整理好的基礎資料、指派專責窗口，讓民間能試做。</div></div>
-            <div class="card flat bl-d"><div class="head"><div class="t grow">每一位與會者｜掃 QR Code 填問卷</div><span class="tag o">補上你的經驗</span></div><div class="p u-margin-6px-0-0">花 3 分鐘填問卷，讓下一版的調查更能代表整個社群。</div></div>
-            <div class="card flat bl-d"><div class="head"><div class="t grow">專案團隊｜用開源寫作流程記下經驗</div><span class="tag b">留下紀錄</span></div><div class="p u-margin-6px-0-0">用人機協同寫作流程把實作經驗寫下來；寫作負擔變輕，人換了經驗也還在。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">公部門夥伴｜開放資料、設常態窗口</div></div><div class="p u-margin-6px-0-0">除了辦競賽發獎金，也請釋出整理好的基礎資料、指派專責窗口。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">每一位與會者｜掃 QR Code 填問卷</div></div><div class="p u-margin-6px-0-0">花 3 分鐘填問卷，讓下一版的調查更能代表整個社群。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">專案團隊｜用開源寫作流程記下經驗</div></div><div class="p u-margin-6px-0-0">用人機協同寫作流程寫下實作經驗；負擔變輕，人換了經驗也還在。</div></div>
           </div>
           <div class="card u-align-items-center u-text-align-center">
             <div class="t">現在就去看看：台灣公民科技資料庫</div>
             <div class="u-background-fff u-padding-10px u-border-radius-14px u-border-1px-solid-var-card-border u-margin-14px-0-12px u-width-200px u-height-200px">
               <img class="u-width-100 u-height-100 u-object-fit-contain" src="assets/qr-civictech.svg" alt="civictech.tw QR Code"></div>
             <div class="t lg">civictech.tw</div>
-            <div class="p u-margin-6px-0-0 u-font-size-18px">查閱 11 篇指引 ｜ 填寫問卷 ｜ 取得寫作工具</div>
+            <div class="p u-margin-6px-0-0">查閱 11 篇指引 ｜ 填寫問卷 ｜ 取得寫作工具</div>
           </div>
         </div>
       </div>
       <div class="slide-footer">
-        <div>現場掃描 QR Code 造訪 civictech.tw；開源寫作流程見 civictech-guide.claire-cheng.com</div>
+        <div>開源寫作流程見 civictech-guide.claire-cheng.com</div>
         <div class="footer-right"><div class="footer-logos"><img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo"></div><div class="license-pill">g0v.tw jothon</div></div>
       </div>
       <template class="slide-notes-template">
@@ -1221,6 +1255,12 @@
         <br>
         <p><span class="chunk-tag up">▲ 上推：長跑收尾</span>（堅定微笑致謝）<br>
         公民科技是一場一代接一代的長跑。感謝有大家的同行，讓我們一起把這條路走得更遠、更寬廣。謝謝大家！</p>
+        <br>
+        <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
+        畫面移出的標示：對公部門夥伴是「與民間合作」；對每一位與會者是「補上你的經驗」；對專案團隊是「留下紀錄」。<br>
+        原頁尾：掃描 QR Code 造訪 civictech.tw。<br>
+        完整說法：除了辦競賽發獎金，也請釋出整理好的基礎資料、指派專責窗口，讓民間能試做。<br>
+        完整說法：用人機協同寫作流程把實作經驗寫下來；寫作負擔變輕，人換了經驗也還在。</p>
       </template>
     </section>
 
