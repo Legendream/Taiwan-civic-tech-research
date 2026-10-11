@@ -408,7 +408,7 @@
     <div class="sp-title" id="sp-title"></div>
     <div id="sp-notes"></div>
     <div class="sp-next" id="sp-next"></div>
-    <div class="sp-help">← → 換頁｜T 開始或暫停計時｜R 歸零｜＋ − 調整字級</div>
+    <div class="sp-help">← → 換頁｜第一次換頁時自動開始計時｜T 開始或暫停｜R 歸零｜＋ − 調整字級</div>
   </div>
   <div id="slide-viewport">
 
@@ -1341,6 +1341,8 @@
       // 同一個檔案加上 ?speaker 就是講者視窗。兩個視窗用 postMessage 連動（直接開檔案也能用）；
       // 沒有連動對象時，講者視窗可以自己翻頁（例如在平板上單獨打開）。
       const MSG = 'civictech-deck';
+      // 字母快捷鍵用實體按鍵位置（e.code）判斷：中文輸入法開著時 e.key 會是 'Process'，只看 e.key 會失效。
+      const letter = (e) => (/^Key[A-Z]$/.test(e.code) ? e.code.slice(3).toLowerCase() : (e.key.length === 1 ? e.key.toLowerCase() : e.key));
       const isSpeaker = /[?&]speaker\b/.test(location.search);
       let speakerWin = null;
       function post(target, data) { try { if (target && !target.closed) target.postMessage(Object.assign({ src: MSG }, data), '*'); } catch (e) {} }
@@ -1381,13 +1383,15 @@
           window.scrollTo(0, 0);
         }
         function go(i) {
+          const prev = currentIndex;
           currentIndex = Math.max(0, Math.min(slides.length - 1, i));
           render();
+          if (currentIndex !== prev) autoStart();
           if (linked()) post(window.opener, { type: 'goto', i: currentIndex });
         }
         window.addEventListener('message', (e) => {
           const d = e.data; if (!d || d.src !== MSG) return;
-          if (d.type === 'slide' && Number.isInteger(d.i) && d.i !== currentIndex) { currentIndex = d.i; render(); }
+          if (d.type === 'slide' && Number.isInteger(d.i) && d.i !== currentIndex) { currentIndex = d.i; render(); autoStart(); }
         });
         $('sp-prev').addEventListener('click', () => go(currentIndex - 1));
         $('sp-next-btn').addEventListener('click', () => go(currentIndex + 1));
@@ -1403,6 +1407,8 @@
           paint();
         }
         function resetTimer() { elapsed = 0; startedAt = null; clearInterval(tick); paint(); }
+        // 第一次換頁時自動開始計時（歸零後同樣適用），不必記得按開始。
+        function autoStart() { if (startedAt === null && elapsed === 0) toggleTimer(); }
         $('sp-timer-toggle').addEventListener('click', toggleTimer);
         $('sp-timer-reset').addEventListener('click', resetTimer);
 
@@ -1419,17 +1425,18 @@
         setSize(size);
 
         window.addEventListener('keydown', (e) => {
-          switch (e.key) {
+          switch (letter(e)) {
             case 'ArrowRight': case ' ': case 'PageDown': e.preventDefault(); go(currentIndex + 1); break;
             case 'ArrowLeft': case 'PageUp': e.preventDefault(); go(currentIndex - 1); break;
             case 'Home': go(0); break;
             case 'End': go(slides.length - 1); break;
-            case 't': case 'T': toggleTimer(); break;
-            case 'r': case 'R': resetTimer(); break;
+            case 't': toggleTimer(); break;
+            case 'r': resetTimer(); break;
             case '+': case '=': setSize(size + 2); break;
             case '-': case '_': setSize(size - 2); break;
           }
         });
+        document.querySelectorAll('.sp-btn').forEach((b) => b.addEventListener('click', () => b.blur()));
         render(); paint();
         if (linked()) post(window.opener, { type: 'hello' });
       }
@@ -1449,13 +1456,13 @@
       });
 
       window.addEventListener('keydown', (e) => {
-        switch (e.key) {
+        switch (letter(e)) {
           case 'ArrowRight': case ' ': case 'PageDown': e.preventDefault(); showSlide(currentIndex + 1); break;
           case 'ArrowLeft': case 'PageUp': e.preventDefault(); showSlide(currentIndex - 1); break;
           case 'Home': showSlide(0); break;
           case 'End': showSlide(slides.length - 1); break;
-          case 'f': case 'F': toggleFs(); break;
-          case 's': case 'S': openSpeaker(); break;
+          case 'f': toggleFs(); break;
+          case 's': openSpeaker(); break;
         }
       });
     })();
