@@ -247,16 +247,25 @@
     .sp-btn:hover { background: rgba(255,255,255,.18); }
     .sp-status { font-size: 14px; color: #a8a79f; }
     .sp-status.on { color: #6fd3a8; }
-    .sp-title { font-size: 28px; font-weight: 700; line-height: 1.35; margin: 22px 0 6px; }
+    .sp-title { font-size: 22px; font-weight: 700; line-height: 1.35; margin: 14px 0 4px; }
     .sp-kicker { font-size: 15px; color: #a8a79f; letter-spacing: .5px; }
-    #sp-notes { font-size: 26px; line-height: 1.75; margin-top: 14px; }
-    #sp-notes p { margin: 0 0 1.1em; }
+    #sp-notes { font-size: 18px; line-height: 1.55; margin-top: 10px; }
+    #sp-notes p { margin: 0 0 .7em; }
     #sp-notes > br { display: none; }
     #sp-notes .chunk-tag { font-size: .62em; padding: 3px 10px; background: rgba(255,255,255,.12); }
     #sp-notes .chunk-tag.up { color: #8fbdf5; } #sp-notes .chunk-tag.down { color: #6fd3a8; } #sp-notes .chunk-tag.side { color: #ffb38f; }
     .sp-next { margin-top: 26px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.14); font-size: 18px; color: #a8a79f; }
     .sp-next b { color: #ecebe6; font-weight: 600; }
     .sp-help { margin-top: 18px; font-size: 14px; color: #8a8982; }
+    /* 手機當小抄：按鈕列縮小、左右留 16px */
+    @media (max-width: 600px) {
+      body.speaker-mode #speaker-view { padding: 0 16px 32px; }
+      .sp-bar { gap: 8px; padding: 10px 0; }
+      .sp-page, .sp-timer { font-size: 20px; }
+      .sp-timer { min-width: 0; }
+      .sp-btn { padding: 6px 10px; font-size: 14px; }
+      .sp-spacer { display: none; }
+    }
 
     .card.fit { align-self: start; height: auto; }
     .card.mid { align-self: center; height: auto; }
@@ -1268,13 +1277,14 @@
         $('sp-timer-toggle').addEventListener('click', toggleTimer);
         $('sp-timer-reset').addEventListener('click', resetTimer);
 
-        // 字級（下限 22px）
-        let size = 26;
-        try { size = parseInt(localStorage.getItem('deck-speaker-size'), 10) || 26; } catch (e) {}
+        // 字級（14–48px）。記憶名稱換新，舊的 26px 設定不會蓋掉新預設
+        const SIZE_KEY = 'deck-speaker-size-v2';
+        let size = 18;
+        try { size = parseInt(localStorage.getItem(SIZE_KEY), 10) || 18; } catch (e) {}
         function setSize(v) {
-          size = Math.max(22, Math.min(48, v));
+          size = Math.max(14, Math.min(48, v));
           $('sp-notes').style.fontSize = size + 'px';
-          try { localStorage.setItem('deck-speaker-size', String(size)); } catch (e) {}
+          try { localStorage.setItem(SIZE_KEY, String(size)); } catch (e) {}
         }
         $('sp-smaller').addEventListener('click', () => setSize(size - 2));
         $('sp-bigger').addEventListener('click', () => setSize(size + 2));
