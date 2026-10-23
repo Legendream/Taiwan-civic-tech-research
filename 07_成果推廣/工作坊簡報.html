@@ -168,6 +168,8 @@
     /* 小標後面直接接內文時，小標就是這張卡的標題：放大、改深色 */
     .k.head { font-size: 18px; color: var(--text-main); letter-spacing: 0; margin-bottom: 6px; }
     .k.head.o { color: var(--layer-user); }
+    /* 舉例：比內文小一級、淡色，不用「例如」二字 */
+    .p.ex { font-size: 18px; color: var(--text-faint); margin-top: 4px; }
 
     /* 封面 */
     .cover-body { flex-direction: column; justify-content: space-between; height: 100%; padding: 8px 0 14px; align-items: stretch; }
@@ -293,13 +295,6 @@
     .case.airy .shot { margin-top: 12px; }
     .sp { height: 14px; flex: none; }
     .card.calm { padding: 26px 30px; justify-content: flex-start; }
-    .card.band { flex: none; flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 24px; padding: 22px 34px; }
-    .card.band .k { margin: 0; }
-    .stack.u-rows { height: auto; flex: 1; gap: 12px; }
-    .card.numrow { flex: 1; flex-direction: row; align-items: center; justify-content: flex-start; gap: 22px; padding: 10px 32px; }
-    .card.numrow .num { margin: 0; font-size: 40px; width: 1.4em; }
-    .card.numrow > div:last-child { display: flex; align-items: baseline; gap: 18px; }
-    .card.numrow .k { margin: 0; width: 2.6em; }
     .card.calm .p { margin-top: 10px; }
     /* 無框列與上下的白卡片對齊左緣（卡片內距 22px＋邊框 1px） */
     .card.flat.inset { padding-left: 23px; padding-right: 23px; }
@@ -510,13 +505,12 @@
             <div class="o u-font-size-48px u-line-height-7 u-font-weight-700">“</div>
             <div class="t lg u-line-height-1-5 u-margin-top-10px">公民科技是用科技和數位工具，<br>讓公民社會變得更好。</div>
             <div class="rule u-margin-28px-0-18px"></div>
-            <div class="k head">例如</div>
-            <div class="p lg u-margin-0">政府預算視覺化圖表、Covid-19 口罩地圖、<br>查證假訊息的工具、vTaiwan 線上議題審議</div>
+            <div class="p lg u-margin-0">做出工具，或把人和議題組織起來，<br>只要用得上科技或開放資料都算。</div>
           </div>
           <div class="stack">
-            <div class="card flat bl-d"><div class="k head">打造解決方案</div><div class="p lg u-margin-0">讓大家更容易參與公共事務、<br>更好用公共服務</div></div>
-            <div class="card flat bl-d"><div class="k head">連結社群、推動討論</div><div class="p lg u-margin-0">想辦法用科技改善政策、<br>提升民主品質</div></div>
-            <div class="card flat bl-d"><div class="k head">怎樣都算</div><div class="p lg u-margin-0">做出工具，或把人和議題組織起來，<br>只要用得上科技或開放資料都算</div></div>
+            <div class="card flat bl-d"><div class="t lg">看懂公共資訊</div><div class="p ex">政府預算視覺化、查證假訊息的工具</div></div>
+            <div class="card flat bl-d"><div class="t lg">公共服務更好用</div><div class="p ex">Covid-19 口罩地圖</div></div>
+            <div class="card flat bl-d"><div class="t lg">一起討論、影響政策</div><div class="p ex">vTaiwan 線上議題審議</div></div>
           </div>
         </div>
       </div>
@@ -526,13 +520,16 @@
       </div>
       <template class="slide-notes-template">
         <p><span class="chunk-tag down">▼ 下切：問卷裡的公民科技</span>（平實、清楚）<br>
-        在進入調查結果之前，我想先說明這次問卷怎麼界定公民科技。我們在問卷開頭告訴填答者：公民科技，就是用科技和數位工具，讓公民社會變得更好。</p>
+        在進入調查結果之前，我想先說明這次問卷怎麼界定公民科技。我們在問卷開頭告訴填答者：公民科技，就是用科技和數位工具，讓公民社會變得更好。不管是做出工具，還是把人和議題組織起來，只要用得上科技或開放資料，都算。</p>
         <br>
-        <p><span class="chunk-tag right">▶ 平移：兩種做法</span><br>
-        它可以是打造解決方案，讓大家更容易參與公共事務、更好用公共服務；也可以是連結社群、推動討論，用科技改善政策、提升民主品質。像是把政府預算做成看得懂的圖表、疫情期間的口罩地圖、查證假訊息的工具，或是 vTaiwan 用線上工具推動議題審議，都算在內。</p>
+        <p><span class="chunk-tag right">▶ 平移：三種感受得到的改變</span><br>
+        站在一般人的角度，我們把它整理成三種你感受得到的改變。第一，看懂公共資訊，像是把政府預算做成看得懂的圖表、查證假訊息的工具；第二，公共服務更好用，像是疫情期間的口罩地圖；第三，一起討論、影響政策，像是 vTaiwan 用線上工具推動議題審議。</p>
         <br>
         <p><span class="chunk-tag up">▲ 上推：為什麼這樣定義</span>（微停頓）<br>
         我們刻意把「做工具」和「組織討論」都放進來。科技是必要的條件，但不只寫程式的人才算；把人和議題組織起來的夥伴，也是公民科技的一份子。這樣一來，接下來的調查結果才能涵蓋整個社群。</p>
+        <br>
+        <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
+        問卷原文的分法是兩種：打造解決方案（讓大家更容易參與公共事務、更好用公共服務），以及串聯社群、推動討論（用科技改善政策、提升民主品質）。畫面上的「資訊／服務／參與」三類是簡報整理的，不是問卷原本的分法。</p>
       </template>
     </section>
 
@@ -545,14 +542,11 @@
       <div class="title-group"><h1 class="slide-title">先做調查，比對不同參與程度的人</h1><p class="slide-subtitle">civictech.tw 收錄 226 個專案，新手卻不知道從哪一個看起</p></div>
       <div class="slide-body ">
 
-        <div class="col-wrap"><div class="stack">
-          <div class="card band"><div class="k">資料庫收錄</div><div class="stat">226<small>個</small></div><div class="p u-margin-0">civictech.tw 收錄的公民科技專案</div></div>
-          <div class="stack u-rows">
-          <div class="card numrow"><div class="num o">01</div><div><div class="k lg o">組成</div><div class="t lg u-font-size-28px">誰在參與、擔任什麼角色</div></div></div>
-          <div class="card numrow"><div class="num o">02</div><div><div class="k lg o">動機</div><div class="t lg u-font-size-28px">什麼讓人願意長期投入</div></div></div>
-          <div class="card numrow"><div class="num o">03</div><div><div class="k lg o">困難</div><div class="t lg u-font-size-28px">貢獻者卡在哪、新人為何卻步</div></div></div>
-          <div class="card numrow"><div class="num o">04</div><div><div class="k lg o">資源</div><div class="t lg u-font-size-28px">什麼最實用、出資者看重什麼</div></div></div>
-          </div>
+        <div class="col-wrap mid"><div class="grid g-2">
+          <div class="card top roomy"><div class="num o">01</div><div class="k lg o">組成</div><div class="t lg u-font-size-28px">誰在參與、擔任什麼角色</div></div>
+          <div class="card top roomy"><div class="num o">02</div><div class="k lg o">動機</div><div class="t lg u-font-size-28px">什麼讓人願意長期投入</div></div>
+          <div class="card top roomy"><div class="num o">03</div><div class="k lg o">困難</div><div class="t lg u-font-size-28px">貢獻者卡在哪、新人為何卻步</div></div>
+          <div class="card top roomy"><div class="num o">04</div><div class="k lg o">資源</div><div class="t lg u-font-size-28px">什麼最實用、出資者看重什麼</div></div>
         </div></div>
       </div>
       <div class="slide-footer">
