@@ -122,7 +122,7 @@
     .bl-d { border-left: 6px solid var(--text-main); }
 
     /* 文字層級 */
-    .k { font-size: 14px; font-weight: 700; color: var(--text-faint); letter-spacing: 0.5px; margin-bottom: 4px; }
+    .k { font-size: 16px; font-weight: 700; color: var(--layer-user); letter-spacing: 0.5px; margin-bottom: 4px; }
     .k.g { color: var(--layer-curious); } .k.o { color: var(--layer-user); } .k.b { color: var(--layer-creator); }
     .t { font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--text-main); }
     .t.lg { font-size: 26px; }
@@ -165,9 +165,6 @@
     .col-wrap.mid { justify-content: center; }
     .col-wrap.mid > .grid { flex: none; }
     .k.lg { font-size: 16px; margin-bottom: 8px; }
-    /* 小標後面直接接內文時，小標就是這張卡的標題：放大、改深色 */
-    .k.head { font-size: 18px; color: var(--text-main); letter-spacing: 0; margin-bottom: 6px; }
-    .k.head.o { color: var(--layer-user); }
     /* 舉例：比內文小一級、淡色，不用「例如」二字 */
     /* 一行放不下時，讓瀏覽器避免最後一行只剩一兩個字（不同瀏覽器字寬略有差異，不只靠手動換行） */
     .slide-body .p, .slide-body .t, .slide-body li, .slide-body .hb-l, .slide-subtitle { text-wrap: pretty; }
@@ -499,9 +496,9 @@
       <div class="slide-body ">
 
         <div class="col-wrap"><div class="grid g-3">
-          <div class="card top roomy"><div class="k lg">第一步</div><div class="t lg">了解現況</div><div class="p lg u-font-weight-700 u-color-var-text-main">127 份社群問卷</div><ul class="bul big"><li>參與者分成哪三層</li><li>新人被什麼擋住</li><li>哪些主題最想看</li></ul></div>
-          <div class="card top roomy"><div class="k lg">第二步</div><div class="t lg">撰寫指引</div><div class="p lg u-font-weight-700 u-color-var-text-main">11 篇，已上線</div><ul class="bul big"><li>3 篇方法論長文</li><li>8 篇工具與資料整理</li></ul></div>
-          <div class="card top roomy"><div class="k lg">第三步</div><div class="t lg">打造寫作流程</div><div class="p lg u-font-weight-700 u-color-var-text-main">降低知識傳承的門檻</div><ul class="bul big"><li>降低整理經驗的門檻</li><li>人機協同寫作流程</li><li>流程與成果全部開源</li></ul></div>
+          <div class="card top roomy"><div class="k lg">第一步</div><div class="t lg">了解現況</div><div class="p lg u-font-weight-700 o">127 份社群問卷</div><ul class="bul big"><li>參與者分成哪三層</li><li>新人被什麼擋住</li><li>哪些主題最想看</li></ul></div>
+          <div class="card top roomy"><div class="k lg">第二步</div><div class="t lg">撰寫指引</div><div class="p lg u-font-weight-700 o">11 篇，已上線</div><ul class="bul big"><li>3 篇方法論長文</li><li>8 篇工具與資料整理</li></ul></div>
+          <div class="card top roomy"><div class="k lg">第三步</div><div class="t lg">打造寫作流程</div><div class="p lg u-font-weight-700 o">降低知識傳承的門檻</div><ul class="bul big"><li>降低整理經驗的門檻</li><li>人機協同寫作流程</li><li>流程與成果全部開源</li></ul></div>
         </div></div>
       </div>
       <div class="slide-footer">
@@ -657,9 +654,9 @@
         <div class="grid g-chart">
           <div class="card chart-card"><div class="t">做過專案的人，用過哪些資源？（前五名）</div><div class="chart"><div class="hbars" role="img" aria-label="實作者用過的資源長條圖"><div class="hb"><div class="hb-l strong">人脈（社群介紹的專家）</div><div class="hb-row"><span class="hb-bar" style="width:calc(66% * 0.7);background:#2a78d6"></span><b>66%</b><span class="hb-n">31/47</span></div></div><div class="hb"><div class="hb-l">經費（獎助金、標案）</div><div class="hb-row"><span class="hb-bar" style="width:calc(47% * 0.7);background:#d3d3cd"></span><b>47%</b><span class="hb-n">22/47</span></div></div><div class="hb"><div class="hb-l">公開資料、開放資料</div><div class="hb-row"><span class="hb-bar" style="width:calc(45% * 0.7);background:#d3d3cd"></span><b>45%</b><span class="hb-n">21/47</span></div></div><div class="hb"><div class="hb-l">場地（例如 NPO Hub）</div><div class="hb-row"><span class="hb-bar" style="width:calc(40% * 0.7);background:#d3d3cd"></span><b>40%</b><span class="hb-n">19/47</span></div></div><div class="hb"><div class="hb-l">現成數位工具或平台</div><div class="hb-row"><span class="hb-bar" style="width:calc(36% * 0.7);background:#d3d3cd"></span><b>36%</b><span class="hb-n">17/47</span></div></div></div></div><div class="note">做過專案的 47 位（稱「實作者」）｜複選</div></div>
           <div class="stack">
-            <div class="card flat bl-d"><div class="k head">最常用的資源</div><div class="p u-margin-0">66% 用過人脈，比經費（47%）還多。</div></div>
-            <div class="card flat bl-d"><div class="k head">留下來的原因</div><div class="p u-margin-0">認同專案目標，也在這裡交到朋友。</div></div>
-            <div class="card hl-o"><div class="k o head">可以怎麼支持</div><div class="p u-margin-0">介紹可諮詢的專家、接上政府窗口、<br>提供開會場地。</div></div>
+            <div class="card flat bl-d"><div class="t">最常用的資源</div><div class="p u-margin-0">66% 用過人脈，比經費（47%）還多。</div></div>
+            <div class="card flat bl-d"><div class="t">留下來的原因</div><div class="p u-margin-0">認同專案目標，也在這裡交到朋友。</div></div>
+            <div class="card hl-o"><div class="t">可以怎麼支持</div><div class="p u-margin-0">介紹可諮詢的專家、接上政府窗口、<br>提供開會場地。</div></div>
           </div>
         </div>
       </div>
@@ -998,12 +995,12 @@
 
         <div class="grid g-2">
           <div class="stack">
-            <div class="k head">我們看到的</div>
+            <div class="k">我們看到的</div>
             <div class="card flat bl-d"><div class="t">投入的原因不是寫紀錄</div><div class="p u-margin-0">大家因為認同目標、和同好一起做而投入；<br>整理經驗不是初衷，很難強求。</div></div>
             <div class="card flat bl-d"><div class="t">新人需要有人指路</div><div class="p u-margin-0">還沒參與的人中，<br>62% 不知道能參與哪些專案、<br>54% 沒人帶、50% 找不到入口。</div></div>
           </div>
           <div class="stack">
-            <div class="k head o">本案的做法</div>
+            <div class="k">本案的做法</div>
             <div class="card flat bl-o"><div class="t">寫出 11 篇指引</div><div class="p u-margin-0">替新人指路，找到資源和入口。</div></div>
             <div class="card flat bl-o"><div class="t">人機協同寫作流程</div><div class="p u-margin-0">人的經驗 AI 取代不了，所以讓 AI 分擔整理；<br>寫 11 篇的同時，用三道防線<br>把幻覺壓低、把流程調穩。</div></div>
           </div>
@@ -1041,10 +1038,10 @@
         <div class="grid g-chart u-grid-template-columns-1fr-1fr">
           <div class="card top">
             <div class="grid g-2 u-height-auto u-gap-12px">
-              <div class="card mute u-padding-12px-14px"><div class="k head">AI 負責</div><div class="p u-margin-0">搜尋資料、排版、寫草稿</div></div>
-              <div class="card mute bl-d u-padding-12px-14px u-box-shadow-none"><div class="k head">人負責</div><div class="p u-margin-0">觀點、查證、發布</div></div>
+              <div class="card mute u-padding-12px-14px"><div class="t">AI 負責</div><div class="p u-margin-0">搜尋資料、排版、寫草稿</div></div>
+              <div class="card mute bl-d u-padding-12px-14px u-box-shadow-none"><div class="t">人負責</div><div class="p u-margin-0">觀點、查證、發布</div></div>
             </div>
-            <div class="k u-margin-top-16px head">八階段流程</div>
+            <div class="k u-margin-top-16px">八階段流程</div>
             <div class="pipe two u-margin-top-6px">
               <div class=""><div class="n">01</div><div class="s">選題發想</div></div><div class=""><div class="n">02</div><div class="s">研究與訪談</div></div><div class="hl-o"><div class="n">03</div><div class="s">大綱主張</div></div><div class=""><div class="n">04</div><div class="s">撰寫草稿</div></div><div class="hl-o"><div class="n">05</div><div class="s">事實標註</div></div><div class="hl-o"><div class="n">06</div><div class="s">獨立審查</div></div><div class=""><div class="n">07</div><div class="s">社群共筆</div></div><div class=""><div class="n">08</div><div class="s">開源釋出</div></div>
             </div>
