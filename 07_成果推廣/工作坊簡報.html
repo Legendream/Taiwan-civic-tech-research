@@ -290,6 +290,13 @@
     .case.airy .shot { margin-top: 12px; }
     .sp { height: 14px; flex: none; }
     .card.calm { padding: 26px 30px; justify-content: flex-start; }
+    .card.band { flex: none; flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 24px; padding: 22px 34px; }
+    .card.band .k { margin: 0; }
+    .stack.u-rows { height: auto; flex: 1; gap: 12px; }
+    .card.numrow { flex: 1; flex-direction: row; align-items: center; justify-content: flex-start; gap: 22px; padding: 10px 32px; }
+    .card.numrow .num { margin: 0; font-size: 40px; width: 1.4em; }
+    .card.numrow > div:last-child { display: flex; align-items: baseline; gap: 18px; }
+    .card.numrow .k { margin: 0; width: 2.6em; }
     .card.calm .p { margin-top: 10px; }
     /* 無框列與上下的白卡片對齊左緣（卡片內距 22px＋邊框 1px） */
     .card.flat.inset { padding-left: 23px; padding-right: 23px; }
@@ -416,7 +423,7 @@
     <section class="slide-canvas active plain" data-slide="0" data-notes-title="S0 封面頁講稿">
       <div class="slide-header">
         <div class="slide-counter u-color-var-text-sub">2026 公民科技工作坊 ｜ 成果發表</div>
-        <div class="slide-counter">01 / 22</div>
+        <div class="slide-counter">01 / 21</div>
       </div>
       
       <div class="slide-body u-display-block">
@@ -459,7 +466,7 @@
     <section class="slide-canvas plain" data-slide="1" data-notes-title="S1 全案三步驟地圖講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot orange"></span>導覽地圖</div>
-        <div class="slide-counter">02 / 22</div>
+        <div class="slide-counter">02 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">今天的內容：這個專案做的三件事</h1><p class="slide-subtitle">了解現況、撰寫指引，再把寫作流程開源給社群</p></div>
       <div class="slide-body ">
@@ -490,7 +497,7 @@
     <section class="slide-canvas plain" data-slide="2" data-notes-title="S2 問卷的公民科技定義講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot orange"></span>第一步 了解現況</div>
-        <div class="slide-counter">03 / 22</div>
+        <div class="slide-counter">03 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">這份問卷怎麼定義公民科技？</h1><p class="slide-subtitle">填答前，我們先在問卷開頭這樣說明</p></div>
       <div class="slide-body ">
@@ -527,66 +534,23 @@
     </section>
 
     <!-- ===== SLIDE 2 ===== -->
-    <section class="slide-canvas plain" data-slide="3" data-notes-title="S3 調查比對面向講稿">
+    <section class="slide-canvas plain" data-slide="3" data-notes-title="S3 先做調查：比對面向講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot orange"></span>第一步 了解現況</div>
-        <div class="slide-counter">04 / 22</div>
+        <div class="slide-counter">04 / 21</div>
       </div>
-      <div class="title-group"><h1 class="slide-title">參與者變多元了，這次調查比對不同參與程度的人</h1><p class="slide-subtitle">從只關注的人到發起專案的人，再加上出資者與還沒參與的人</p></div>
+      <div class="title-group"><h1 class="slide-title">先做調查，比對不同參與程度的人</h1><p class="slide-subtitle">civictech.tw 收錄 226 個專案，新手卻不知道從哪一個看起</p></div>
       <div class="slide-body ">
 
-        <div class="col-wrap mid"><div class="grid g-2">
-          <div class="card top roomy"><div class="k lg">組成</div><div class="t lg u-font-size-28px">誰在參與、擔任什麼角色</div></div>
-          <div class="card top roomy"><div class="k lg">動機</div><div class="t lg u-font-size-28px">什麼讓人願意長期投入</div></div>
-          <div class="card top roomy"><div class="k lg">困難</div><div class="t lg u-font-size-28px">貢獻者卡在哪、新人為何卻步</div></div>
-          <div class="card top roomy"><div class="k lg">資源</div><div class="t lg u-font-size-28px">什麼最實用、出資者看重什麼</div></div>
+        <div class="col-wrap"><div class="stack">
+          <div class="card band"><div class="k">資料庫收錄</div><div class="stat">226<small>個</small></div><div class="p u-margin-0">civictech.tw 收錄的公民科技專案</div></div>
+          <div class="stack u-rows">
+          <div class="card numrow"><div class="num o">01</div><div><div class="k lg o">組成</div><div class="t lg u-font-size-28px">誰在參與、擔任什麼角色</div></div></div>
+          <div class="card numrow"><div class="num o">02</div><div><div class="k lg o">動機</div><div class="t lg u-font-size-28px">什麼讓人願意長期投入</div></div></div>
+          <div class="card numrow"><div class="num o">03</div><div><div class="k lg o">困難</div><div class="t lg u-font-size-28px">貢獻者卡在哪、新人為何卻步</div></div></div>
+          <div class="card numrow"><div class="num o">04</div><div><div class="k lg o">資源</div><div class="t lg u-font-size-28px">什麼最實用、出資者看重什麼</div></div></div>
+          </div>
         </div></div>
-      </div>
-      <div class="slide-footer">
-        <div>臺灣公民科技社群發展十多年，參與者從工程師擴展到各種專業</div>
-        <div class="footer-right"><div class="footer-logos"><img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo"></div><div class="license-pill">g0v.tw jothon</div></div>
-      </div>
-      <template class="slide-notes-template">
-        <p><span class="chunk-tag down">▼ 下切：十年的社群變化</span>（敘事節奏、平實鋪陳）<br>
-        走過十多年，台灣公民科技的樣貌已經改變了。十年前，參與的人大多是寫程式的工程師；現在，研究者、倡議者、設計師都來了，關心的議題也更廣。</p>
-        <br>
-        <p><span class="chunk-tag up">▲ 上推：這次調查比對什麼</span>（語調轉為清楚說明）<br>
-        所以這次調查不只問「有誰」，而是把參與程度深淺不同的人放在一起比較：從只關注的人，到發起專案的人，再加上出資者，以及還沒參與的人。</p>
-        <br>
-        <p><span class="chunk-tag right">▶ 平移：四個面向</span><br>
-        我們從四個面向來看：第一，組成，誰在參與、擔任什麼角色；第二，動機，什麼讓人願意長期投入；第三，困難，貢獻者卡在哪裡、新人為什麼卻步；第四，資源，什麼最實用、出資者看重什麼。</p>
-        <br>
-        <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
-        原卡片：十年之前／工程師為主／參與的人大多是寫程式的工程師。<br>
-        原卡片：十年之後／各種專業加入／研究者、倡議者、設計師都來了，關心的議題也更廣。<br>
-        原卡片：我們想問／社群長什麼樣？／現在有哪些人在參與？需求和困難是什麼？<br>
-        原講稿問題：這些協作經驗如果只留在少數前輩的腦袋裡，人離開了，知識會不會就這樣斷掉？</p>
-      </template>
-    </section>
-
-    <!-- ===== SLIDE 4 ===== -->
-    <section class="slide-canvas plain" data-slide="4" data-notes-title="S4 選題：滿天繁星藏寶圖講稿">
-      <div class="slide-header">
-        <div class="chapter-badge"><span class="dot orange"></span>第一步 了解現況</div>
-        <div class="slide-counter">05 / 22</div>
-      </div>
-      <div class="title-group"><h1 class="slide-title">專案有 226 個，新手卻不知道從哪一個看起</h1><p class="slide-subtitle">其中 84 個還沒有一句話介紹；所以我們先做調查，再動筆</p></div>
-      <div class="slide-body ">
-
-        <div class="grid g-2 u-grid-template-columns-0-8fr-1-2fr">
-          <div class="stack">
-            <div class="card"><div class="k">資料庫收錄</div><div class="stat">226<small>個</small></div>
-              <div class="p">civictech.tw 收錄的公民科技專案</div></div>
-            <div class="card hl-o"><div class="k o">還沒有介紹</div><div class="stat o">84<small>個</small></div>
-              <div class="p">資料庫裡還沒有人寫一句話介紹的專案</div></div>
-          </div>
-          <div class="stack">
-            <div class="card flat bl-d"><div class="k">問題 1</div><div class="t">誰會來讀這些指引？</div><div class="p u-margin-0">社群成員的背景很多元。</div></div>
-            <div class="card flat bl-d"><div class="k">問題 2</div><div class="t">他們遇到的困難一樣嗎？</div><div class="p u-margin-0">老手和新手卡住的地方不同。</div></div>
-            <div class="card flat bl-d"><div class="k">問題 3</div><div class="t">資源有限，要先寫給誰？</div><div class="p u-margin-0">把指引寫給最能帶動參與的那群人。</div></div>
-            <div class="card hl-o u-flex-none"><div class="p u-margin-0"><b class="o">我們的做法：</b>不用猜的。先發問卷了解社群，再決定題目。</div></div>
-          </div>
-        </div>
       </div>
       <div class="slide-footer">
         <div>資料來源：civictech.tw（2026-10-11 查詢）；去識別化問卷資料集由 g0v 揪松團公開</div>
@@ -595,35 +559,41 @@
       <template class="slide-notes-template">
         <p><span class="chunk-tag side">▶ 平移：繁星與藏寶圖比喻</span>（生動引導）<br>
         我們從第一步開始：了解現況。<br>
-        當我接手主持這項指引撰寫計畫時，揪松團已經累積了一個寶庫：civictech.tw 資料庫目前收錄了 226 個台灣公民科技專案，其中 84 個還沒有人寫一句話介紹。這就像滿天繁星，專案非常多，大家抬頭看覺得很美，卻不知道哪一顆跟自己有關。</p>
+        當我接手主持這項指引撰寫計畫時，揪松團已經累積了一個寶庫：civictech.tw 資料庫目前收錄了 226 個台灣公民科技專案。這就像滿天繁星，專案非常多，大家抬頭看覺得很美，卻不知道哪一顆跟自己有關。</p>
         <br>
-        <p><span class="chunk-tag down">▼ 下切：直面規劃初期的三個提問</span>（層層推進）<br>
-        面對這個龐大的資料庫，指引該從哪裡開始寫，我立刻問了自己三個問題：第一，誰會來看這些指引？是社群裡的所有人嗎？第二，不同背景的人，碰到的困難是一樣的嗎？第三，如果我們資源有限，這批指引要對準誰，才能發揮最大的帶動效益？</p>
+        <p><span class="chunk-tag down">▼ 下切：規劃初期的三個提問</span>（層層推進）<br>
+        面對這個龐大的資料庫，指引該從哪裡開始寫，我先問了自己三個問題：第一，誰會來看這些指引？第二，不同背景的人，碰到的困難是一樣的嗎？第三，如果資源有限，這批指引要對準誰，才能發揮最大的帶動效益？</p>
         <br>
-        <p><span class="chunk-tag up">▲ 上推：科學方法論的堅持</span>（展現研究嚴謹度）<br>
-        我們決定：不憑空猜測，也不關起門來自己寫。第一步，先向社群發出問卷，把生態系的輪廓看清楚了，再動筆。</p>
+        <p><span class="chunk-tag up">▲ 上推：先調查再動筆</span>（展現研究嚴謹度）<br>
+        我們決定不憑空猜測：先向社群發出問卷，把生態系的輪廓看清楚了，再動筆。<br>
+        走過十多年，參與的人已經不一樣了。十年前大多是寫程式的工程師；現在，研究者、倡議者、設計師都來了，關心的議題也更廣。所以這次調查不只問「有誰」，而是把參與程度深淺不同的人放在一起比較：從只關注的人，到發起專案的人，再加上出資者，以及還沒參與的人。</p>
+        <br>
+        <p><span class="chunk-tag right">▶ 平移：四個面向</span><br>
+        我們從四個面向來看：第一，組成，誰在參與、擔任什麼角色；第二，動機，什麼讓人願意長期投入；第三，困難，貢獻者卡在哪裡、新人為什麼卻步；第四，資源，什麼最實用、出資者看重什麼。</p>
         <br>
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
-        226 個專案是歷經十餘年黑客松沉澱的珍貴成果；專案如滿天繁星，新手很難找到與自己相關的那一顆。<br>
-        策略路徑選擇：科學方法論——拒絕閉門造車、憑空猜測。<br>
-        做法完整說法：不用猜的。先發問卷了解社群（回收 127 份），再決定題目。</p>
+        civictech.tw 首頁（2026-10-11 查詢）：226 個專案在資料庫裡，其中 84 個還沒有人寫一句話介紹（網站說法：這是缺口不是瑕疵，資料庫是社群一起填的）。<br>
+        原頁 5 的三個問題：誰會來讀這些指引？社群成員的背景很多元／他們遇到的困難一樣嗎？老手和新手卡住的地方不同／資源有限，要先寫給誰？把指引寫給最能帶動參與的那群人。<br>
+        原頁 5 的做法：不用猜的。先發問卷了解社群（回收 127 份），再決定題目。<br>
+        原卡片：十年之前／工程師為主；十年之後／各種專業加入；我們想問／社群長什麼樣？現在有哪些人在參與？需求和困難是什麼？<br>
+        原講稿問題：這些協作經驗如果只留在少數前輩的腦袋裡，人離開了，知識會不會就這樣斷掉？</p>
       </template>
     </section>
 
     <!-- ===== SLIDE 5 ===== -->
-    <section class="slide-canvas" data-slide="5" data-notes-title="S5 社群現況：打破技術迷思講稿">
+    <section class="slide-canvas" data-slide="4" data-notes-title="S4 社群現況：打破技術迷思講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot green"></span>第一步 了解現況</div>
-        <div class="slide-counter">06 / 22</div>
+        <div class="slide-counter">05 / 21</div>
       </div>
-      <div class="title-group"><h1 class="slide-title">擋住新人的不是技術，是找不到專案、沒人帶</h1><p class="slide-subtitle">65% 的人從官方管道得到消息，但知道消息不等於知道怎麼加入</p></div>
+      <div class="title-group"><h1 class="slide-title">擋住新人的不是技術，是不知道能參與哪些專案、沒人帶</h1><p class="slide-subtitle">65% 的人從官方管道得到消息，但知道消息不等於知道怎麼加入</p></div>
       <div class="slide-body ">
 
         <div class="grid g-chart">
-          <div class="card chart-card"><div class="t">只聽過或看過、還沒參與的人，被什麼擋住？</div><div class="chart"><svg role="img" aria-label="未參與原因長條圖" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 388" width="600" height="388" font-family="Noto Sans TC Deck, PingFang TC, Heiti TC, sans-serif"><text x="0" y="30" font-size="20" font-weight="700" fill="#0b0b0b" text-anchor="start">不知道有哪些專案或議題</text><rect x="0" y="40" width="276.9" height="24" rx="5" fill="#1baf7a"/><text x="286.92307692307696" y="59" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">62%</text><text x="342.92307692307696" y="59" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">16/26</text><text x="0" y="106" font-size="20" font-weight="700" fill="#0b0b0b" text-anchor="start">身邊沒人帶，怕融不進去</text><rect x="0" y="116" width="242.3" height="24" rx="5" fill="#1baf7a"/><text x="252.3076923076923" y="135" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">54%</text><text x="308.30769230769226" y="135" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">14/26</text><text x="0" y="182" font-size="20" font-weight="700" fill="#0b0b0b" text-anchor="start">找不到入口、不知如何加入</text><rect x="0" y="192" width="225.0" height="24" rx="5" fill="#1baf7a"/><text x="235.0" y="211" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">50%</text><text x="291.0" y="211" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">13/26</text><text x="0" y="258" font-size="20" font-weight="400" fill="#52514e" text-anchor="start">覺得要會寫程式、門檻太高</text><rect x="0" y="268" width="155.8" height="24" rx="5" fill="#d3d3cd"/><text x="165.76923076923077" y="287" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">35%</text><text x="221.76923076923077" y="287" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">9/26</text><text x="0" y="334" font-size="20" font-weight="400" fill="#52514e" text-anchor="start">沒有時間</text><rect x="0" y="344" width="138.5" height="24" rx="5" fill="#d3d3cd"/><text x="148.46153846153848" y="363" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">31%</text><text x="204.46153846153848" y="363" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">8/26</text></svg></div><div class="note">2026 問卷 127 份中，只聽過或看過的 26 位（稱「好奇者」）｜最多選 3 項</div></div>
+          <div class="card chart-card"><div class="t">只聽過或看過、還沒參與的人，被什麼擋住？</div><div class="chart"><svg role="img" aria-label="未參與原因長條圖" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 388" width="600" height="388" font-family="Noto Sans TC Deck, PingFang TC, Heiti TC, sans-serif"><text x="0" y="30" font-size="20" font-weight="700" fill="#0b0b0b" text-anchor="start">不知道有哪些專案或議題可以參與</text><rect x="0" y="40" width="276.9" height="24" rx="5" fill="#1baf7a"/><text x="286.92307692307696" y="59" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">62%</text><text x="342.92307692307696" y="59" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">16/26</text><text x="0" y="106" font-size="20" font-weight="700" fill="#0b0b0b" text-anchor="start">身邊沒人帶，怕融不進去</text><rect x="0" y="116" width="242.3" height="24" rx="5" fill="#1baf7a"/><text x="252.3076923076923" y="135" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">54%</text><text x="308.30769230769226" y="135" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">14/26</text><text x="0" y="182" font-size="20" font-weight="700" fill="#0b0b0b" text-anchor="start">找不到入口、不知如何加入</text><rect x="0" y="192" width="225.0" height="24" rx="5" fill="#1baf7a"/><text x="235.0" y="211" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">50%</text><text x="291.0" y="211" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">13/26</text><text x="0" y="258" font-size="20" font-weight="400" fill="#52514e" text-anchor="start">覺得要會寫程式、門檻太高</text><rect x="0" y="268" width="155.8" height="24" rx="5" fill="#d3d3cd"/><text x="165.76923076923077" y="287" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">35%</text><text x="221.76923076923077" y="287" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">9/26</text><text x="0" y="334" font-size="20" font-weight="400" fill="#52514e" text-anchor="start">沒有時間</text><rect x="0" y="344" width="138.5" height="24" rx="5" fill="#d3d3cd"/><text x="148.46153846153848" y="363" font-size="22" font-weight="700" fill="#0b0b0b" text-anchor="start">31%</text><text x="204.46153846153848" y="363" font-size="16" font-weight="400" fill="#8a8a85" text-anchor="start">8/26</text></svg></div><div class="note">2026 問卷 127 份中，只聽過或看過的 26 位（稱「好奇者」）｜最多選 3 項</div></div>
           <div class="stack">
-            <div class="card hl-o"><div class="k o">前三大阻礙</div><div class="t">不知道有哪些專案、沒人帶、找不到入口</div>
-              <div class="p">這三項缺的都是資訊和帶路的人，不是技能。</div></div>
+            <div class="card hl-o"><div class="k o">前三大阻礙</div><div class="t">不知道能參與哪些專案、<br>沒人帶、找不到入口</div>
+              <div class="p">這三項缺的都是資訊和帶路的人，<br>不是技能。</div></div>
             <div class="card mute"><div class="k">常見的誤解</div><div class="t">技術門檻只排第四（35%）</div>
               <div class="p">「要會寫程式」並不是最大的阻礙。</div></div>
           </div>
@@ -650,10 +620,10 @@
     </section>
 
     <!-- ===== SLIDE 6 ===== -->
-    <section class="slide-canvas plain" data-slide="6" data-notes-title="S6 公私協同關鍵思維講稿">
+    <section class="slide-canvas plain" data-slide="5" data-notes-title="S5 公私協同關鍵思維講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot green"></span>第一步 了解現況</div>
-        <div class="slide-counter">07 / 22</div>
+        <div class="slide-counter">06 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">比起發獎金，社群更需要開放資料和諮詢窗口</h1><p class="slide-subtitle">社群是自發的同好聚會；志工最需要有人幫忙排除行政障礙</p></div>
       <div class="slide-body ">
@@ -692,10 +662,10 @@
     </section>
 
     <!-- ===== SLIDE 7 ===== -->
-    <section class="slide-canvas" data-slide="7" data-notes-title="S7 選題：三層分群講稿">
+    <section class="slide-canvas" data-slide="6" data-notes-title="S6 選題：三層分群講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot orange"></span>第一步 了解現況</div>
-        <div class="slide-counter">08 / 22</div>
+        <div class="slide-counter">07 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">把 127 位填答者分三層，每一層的需求都不同</h1><p class="slide-subtitle">指引主要寫給中間那一層：接觸過、還沒參與的 54 人</p></div>
       <div class="slide-body ">
@@ -732,10 +702,10 @@
     </section>
 
     <!-- ===== SLIDE 8 ===== -->
-    <section class="slide-canvas plain" data-slide="8" data-notes-title="S8 選題：狩野模型量化分析講稿">
+    <section class="slide-canvas plain" data-slide="7" data-notes-title="S7 選題：狩野模型量化分析講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot orange"></span>第一步 了解現況</div>
-        <div class="slide-counter">09 / 22</div>
+        <div class="slide-counter">08 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">用狩野模型問讀者：哪些主題最想看？</h1><p class="slide-subtitle">滿意增益 0.60～0.79：全部是「有了會加分」的魅力型</p></div>
       <div class="slide-body ">
@@ -772,10 +742,10 @@
     </section>
 
     <!-- ===== SLIDE 9 ===== -->
-    <section class="slide-canvas plain" data-slide="9" data-notes-title="S9 成果落地：黑客松痛點與斷點講稿">
+    <section class="slide-canvas plain" data-slide="8" data-notes-title="S8 成果落地：黑客松痛點與斷點講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引</div>
-        <div class="slide-counter">10 / 22</div>
+        <div class="slide-counter">09 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">黑客松之後，專案為什麼常常做不下去？</h1><p class="slide-subtitle">國外研究：約 40% 的工具已停用；本次調查也看到同樣的問題</p></div>
       <div class="slide-body ">
@@ -815,10 +785,10 @@
     </section>
 
     <!-- ===== SLIDE 10 ===== -->
-    <section class="slide-canvas plain" data-slide="10" data-notes-title="S10 成果落地：路徑一 關鍵受眾策略講稿">
+    <section class="slide-canvas plain" data-slide="9" data-notes-title="S9 成果落地：路徑一 關鍵受眾策略講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 路徑 1／4</div>
-        <div class="slide-counter">11 / 22</div>
+        <div class="slide-counter">10 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">路徑一｜成果沒人看見？先決定要讓誰看見</h1><p class="slide-subtitle">貼近生活的議題找大眾；門檻高的議題找專業工作者</p></div>
       <div class="slide-body ">
@@ -859,10 +829,10 @@
     </section>
 
     <!-- ===== SLIDE 11 ===== -->
-    <section class="slide-canvas plain" data-slide="11" data-notes-title="S11 成果落地：路徑二 開源替代示範講稿">
+    <section class="slide-canvas plain" data-slide="10" data-notes-title="S10 成果落地：路徑二 開源替代示範講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 路徑 2／4</div>
-        <div class="slide-counter">12 / 22</div>
+        <div class="slide-counter">11 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">路徑二｜建議書推不動？直接做一個給政府看</h1><p class="slide-subtitle">做出能運作的成品，公部門可以直接參考現成的規格</p></div>
       <div class="slide-body ">
@@ -898,10 +868,10 @@
     </section>
 
     <!-- ===== SLIDE 12 ===== -->
-    <section class="slide-canvas plain" data-slide="12" data-notes-title="S12 成果落地：路徑三 公務流程借力講稿">
+    <section class="slide-canvas plain" data-slide="11" data-notes-title="S11 成果落地：路徑三 公務流程借力講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 路徑 3／4</div>
-        <div class="slide-counter">13 / 22</div>
+        <div class="slide-counter">12 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">路徑三｜通報門檻太高？難的部分由民間代勞</h1><p class="slide-subtitle">政府依法必須處理；民眾只要拍照，其餘文件由民間團隊準備</p></div>
       <div class="slide-body ">
@@ -947,10 +917,10 @@
     </section>
 
     <!-- ===== SLIDE 13 ===== -->
-    <section class="slide-canvas plain" data-slide="13" data-notes-title="S13 成果落地：路徑四 開放資產長跑講稿">
+    <section class="slide-canvas plain" data-slide="12" data-notes-title="S12 成果落地：路徑四 開放資產長跑講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 路徑 4／4</div>
-        <div class="slide-counter">14 / 22</div>
+        <div class="slide-counter">13 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">路徑四｜想走得長遠？讓別人接得下去</h1><p class="slide-subtitle">靠開放授權和公開紀錄：政治獻金數位化五年傳了三棒</p></div>
       <div class="slide-body ">
@@ -988,10 +958,10 @@
     </section>
 
     <!-- ===== SLIDE 14 ===== -->
-    <section class="slide-canvas plain" data-slide="14" data-notes-title="S14 成果落地：生命週期分工全景講稿">
+    <section class="slide-canvas plain" data-slide="13" data-notes-title="S13 成果落地：生命週期分工全景講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 分工全景</div>
-        <div class="slide-counter">15 / 22</div>
+        <div class="slide-counter">14 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">民間和政府怎麼分工？分三個階段來看</h1><p class="slide-subtitle">分工原則：民間負責「做出來」，體制負責「接下去」</p></div>
       <div class="slide-body ">
@@ -1022,10 +992,10 @@
     </section>
 
     <!-- ===== SLIDE 15 ===== -->
-    <section class="slide-canvas plain" data-slide="15" data-notes-title="S15 成果落地：階段一 沙盒試錯講稿">
+    <section class="slide-canvas plain" data-slide="14" data-notes-title="S14 成果落地：階段一 沙盒試錯講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 階段 1／3  探索</div>
-        <div class="slide-counter">16 / 22</div>
+        <div class="slide-counter">15 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">階段一｜前期探索：民間先試做，政府開放資料</h1><p class="slide-subtitle">試錯的成本由民間承擔，成功的好處由所有人共享</p></div>
       <div class="slide-body ">
@@ -1057,10 +1027,10 @@
     </section>
 
     <!-- ===== SLIDE 16 ===== -->
-    <section class="slide-canvas plain" data-slide="16" data-notes-title="S16 成果落地：階段二 流程轉譯講稿">
+    <section class="slide-canvas plain" data-slide="15" data-notes-title="S15 成果落地：階段二 流程轉譯講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 階段 2／3  銜接</div>
-        <div class="slide-counter">17 / 22</div>
+        <div class="slide-counter">16 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">階段二｜中期銜接：民間交出原型，政府設窗口</h1><p class="slide-subtitle">雙方說的是不同語言：民間懂程式，體制懂法規與流程</p></div>
       <div class="slide-body ">
@@ -1086,10 +1056,10 @@
     </section>
 
     <!-- ===== SLIDE 17 ===== -->
-    <section class="slide-canvas plain" data-slide="17" data-notes-title="S17 成果落地：階段三 制度普及講稿">
+    <section class="slide-canvas plain" data-slide="16" data-notes-title="S16 成果落地：階段三 制度普及講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot blue"></span>第二步 撰寫指引 ｜ 階段 3／3  普及</div>
-        <div class="slide-counter">18 / 22</div>
+        <div class="slide-counter">17 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">階段三｜後期落地：民間開放成果，政府長期營運</h1><p class="slide-subtitle">從民間開源起步，到政府以法規和預算接手，才算走完全程</p></div>
       <div class="slide-body ">
@@ -1114,10 +1084,10 @@
     </section>
 
     <!-- ===== SLIDE 18 ===== -->
-    <section class="slide-canvas plain" data-slide="18" data-notes-title="S18 經驗傳承：雙軌規劃突破三大阻力講稿">
+    <section class="slide-canvas plain" data-slide="17" data-notes-title="S17 經驗傳承：雙軌規劃突破三大阻力講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot dark"></span>第三步 寫作流程</div>
-        <div class="slide-counter">19 / 22</div>
+        <div class="slide-counter">18 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">經驗為什麼難傳下去？三個原因、兩種解法</h1><p class="slide-subtitle">不靠少數人硬撐：先寫出示範，再把寫作流程交給大家</p></div>
       <div class="slide-body ">
@@ -1165,10 +1135,10 @@
     </section>
 
     <!-- ===== SLIDE 19 ===== -->
-    <section class="slide-canvas plain" data-slide="19" data-notes-title="S19 經驗傳承：人機協同流程與防線講稿">
+    <section class="slide-canvas plain" data-slide="18" data-notes-title="S18 經驗傳承：人機協同流程與防線講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot dark"></span>第三步 寫作流程</div>
-        <div class="slide-counter">20 / 22</div>
+        <div class="slide-counter">19 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">人機協同寫作：八個階段、三道品質防線</h1><p class="slide-subtitle">判斷由人來做；費時的重複工作交給 AI</p></div>
       <div class="slide-body ">
@@ -1218,10 +1188,10 @@
     </section>
 
     <!-- ===== SLIDE 20 ===== -->
-    <section class="slide-canvas plain" data-slide="20" data-notes-title="S20 經驗傳承：沉澱開源紀錄三大公共財講稿">
+    <section class="slide-canvas plain" data-slide="19" data-notes-title="S19 經驗傳承：沉澱開源紀錄三大公共財講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot dark"></span>第三步 寫作流程</div>
-        <div class="slide-counter">21 / 22</div>
+        <div class="slide-counter">20 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">三項開源成果：讓下一個人接得下去</h1><p class="slide-subtitle">指引與寫作流程以 CC BY 4.0 公開；問卷資料集由揪松團公開</p></div>
       <div class="slide-body ">
@@ -1261,10 +1231,10 @@
     </section>
 
     <!-- ===== SLIDE 21 ===== -->
-    <section class="slide-canvas plain" data-slide="21" data-notes-title="S21 結語與行動召喚：今天開始的下一步講稿">
+    <section class="slide-canvas plain" data-slide="20" data-notes-title="S20 結語與行動召喚：今天開始的下一步講稿">
       <div class="slide-header">
         <div class="chapter-badge"><span class="dot dark"></span>第三步 寫作流程</div>
-        <div class="slide-counter">22 / 22</div>
+        <div class="slide-counter">21 / 21</div>
       </div>
       <div class="title-group"><h1 class="slide-title">接下來，你可以做的一件事</h1><p class="slide-subtitle">公民科技是一場接力賽；不同位置的人，都有可以接的一棒</p></div>
       <div class="slide-body ">
