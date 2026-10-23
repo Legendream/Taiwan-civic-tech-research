@@ -169,6 +169,9 @@
     .k.head { font-size: 18px; color: var(--text-main); letter-spacing: 0; margin-bottom: 6px; }
     .k.head.o { color: var(--layer-user); }
     /* 舉例：比內文小一級、淡色，不用「例如」二字 */
+    /* 一行放不下時，讓瀏覽器避免最後一行只剩一兩個字（不同瀏覽器字寬略有差異，不只靠手動換行） */
+    .slide-body .p, .slide-body .t, .slide-body li, .slide-body .hb-l, .slide-subtitle { text-wrap: pretty; }
+    .slide-title { text-wrap: balance; }
     .p.ex { font-size: 17px; color: var(--text-sub); background: #f1f0eb; border-radius: 8px; padding: 6px 12px; margin-top: 10px; }
     .p.ex b { color: var(--text-main); }
     .p.src { font-size: 16px; font-weight: 700; color: var(--layer-user); margin-top: 10px; }
@@ -497,8 +500,8 @@
 
         <div class="col-wrap"><div class="grid g-3">
           <div class="card top roomy"><div class="k lg">第一步</div><div class="t lg">了解現況</div><div class="p lg u-font-weight-700 u-color-var-text-main">127 份社群問卷</div><ul class="bul big"><li>參與者分成哪三層</li><li>新人被什麼擋住</li><li>哪些主題最想看</li></ul></div>
-          <div class="card top roomy"><div class="k lg">第二步</div><div class="t lg">撰寫指引</div><div class="p lg u-font-weight-700 u-color-var-text-main">11 篇，<br>已在 civictech.tw 上線</div><ul class="bul big"><li>3 篇方法論長文</li><li>8 篇工具與資料整理</li></ul></div>
-          <div class="card top roomy"><div class="k lg">第三步</div><div class="t lg">打造寫作流程</div><div class="p lg u-font-weight-700 u-color-var-text-main">降低知識傳承的門檻</div><ul class="bul big"><li>降低整理經驗的門檻</li><li>人機協同寫作<br>與三道防線</li><li>流程與成果全部開源</li></ul></div>
+          <div class="card top roomy"><div class="k lg">第二步</div><div class="t lg">撰寫指引</div><div class="p lg u-font-weight-700 u-color-var-text-main">11 篇，已上線</div><ul class="bul big"><li>3 篇方法論長文</li><li>8 篇工具與資料整理</li></ul></div>
+          <div class="card top roomy"><div class="k lg">第三步</div><div class="t lg">打造寫作流程</div><div class="p lg u-font-weight-700 u-color-var-text-main">降低知識傳承的門檻</div><ul class="bul big"><li>降低整理經驗的門檻</li><li>人機協同寫作流程</li><li>流程與成果全部開源</li></ul></div>
         </div></div>
       </div>
       <div class="slide-footer">
@@ -613,10 +616,10 @@
       <div class="slide-body ">
 
         <div class="grid g-chart">
-          <div class="card chart-card"><div class="t">只聽過或看過、還沒參與的人，<br>被什麼擋住？</div><div class="chart"><div class="hbars" role="img" aria-label="未參與原因長條圖"><div class="hb"><div class="hb-l strong">不知道有哪些專案或議題可以參與</div><div class="hb-row"><span class="hb-bar" style="width:calc(62% * 0.7);background:#1baf7a"></span><b>62%</b><span class="hb-n">16/26</span></div></div><div class="hb"><div class="hb-l strong">身邊沒人帶，怕融不進去</div><div class="hb-row"><span class="hb-bar" style="width:calc(54% * 0.7);background:#1baf7a"></span><b>54%</b><span class="hb-n">14/26</span></div></div><div class="hb"><div class="hb-l strong">找不到入口、不知如何加入</div><div class="hb-row"><span class="hb-bar" style="width:calc(50% * 0.7);background:#1baf7a"></span><b>50%</b><span class="hb-n">13/26</span></div></div><div class="hb"><div class="hb-l">覺得要會寫程式、門檻太高</div><div class="hb-row"><span class="hb-bar" style="width:calc(35% * 0.7);background:#d3d3cd"></span><b>35%</b><span class="hb-n">9/26</span></div></div><div class="hb"><div class="hb-l">沒有時間</div><div class="hb-row"><span class="hb-bar" style="width:calc(31% * 0.7);background:#d3d3cd"></span><b>31%</b><span class="hb-n">8/26</span></div></div></div></div><div class="note">2026 問卷 127 份中，只聽過或看過的 26 位（稱「好奇者」）｜最多選 3 項</div></div>
+          <div class="card chart-card"><div class="t">還沒參與的人，被什麼擋住？</div><div class="chart"><div class="hbars" role="img" aria-label="未參與原因長條圖"><div class="hb"><div class="hb-l strong">不知道有哪些專案或議題可以參與</div><div class="hb-row"><span class="hb-bar" style="width:calc(62% * 0.7);background:#1baf7a"></span><b>62%</b><span class="hb-n">16/26</span></div></div><div class="hb"><div class="hb-l strong">身邊沒人帶，怕融不進去</div><div class="hb-row"><span class="hb-bar" style="width:calc(54% * 0.7);background:#1baf7a"></span><b>54%</b><span class="hb-n">14/26</span></div></div><div class="hb"><div class="hb-l strong">找不到入口、不知如何加入</div><div class="hb-row"><span class="hb-bar" style="width:calc(50% * 0.7);background:#1baf7a"></span><b>50%</b><span class="hb-n">13/26</span></div></div><div class="hb"><div class="hb-l">覺得要會寫程式、門檻太高</div><div class="hb-row"><span class="hb-bar" style="width:calc(35% * 0.7);background:#d3d3cd"></span><b>35%</b><span class="hb-n">9/26</span></div></div><div class="hb"><div class="hb-l">沒有時間</div><div class="hb-row"><span class="hb-bar" style="width:calc(31% * 0.7);background:#d3d3cd"></span><b>31%</b><span class="hb-n">8/26</span></div></div></div></div><div class="note">2026 問卷 127 份中，只聽過或看過的 26 位（稱「好奇者」）｜最多選 3 項</div></div>
           <div class="stack">
             <div class="card hl-o"><div class="k o">前三大阻礙</div><div class="t">不知道能參與哪些專案、<br>沒人帶、找不到入口</div>
-              <div class="p">這三項缺的都是資訊和帶路的人，<br>不是技能。</div></div>
+              <div class="p">缺的是資訊和帶路的人，不是技能。</div></div>
             <div class="card mute"><div class="k">常見的誤解</div><div class="t">技術門檻只排第四（35%）</div>
               <div class="p">「要會寫程式」並不是最大的阻礙。</div></div>
           </div>
@@ -655,7 +658,7 @@
           <div class="card chart-card"><div class="t">做過專案的人，用過哪些資源？（前五名）</div><div class="chart"><div class="hbars" role="img" aria-label="實作者用過的資源長條圖"><div class="hb"><div class="hb-l strong">人脈（社群介紹的專家）</div><div class="hb-row"><span class="hb-bar" style="width:calc(66% * 0.7);background:#2a78d6"></span><b>66%</b><span class="hb-n">31/47</span></div></div><div class="hb"><div class="hb-l">經費（獎助金、標案）</div><div class="hb-row"><span class="hb-bar" style="width:calc(47% * 0.7);background:#d3d3cd"></span><b>47%</b><span class="hb-n">22/47</span></div></div><div class="hb"><div class="hb-l">公開資料、開放資料</div><div class="hb-row"><span class="hb-bar" style="width:calc(45% * 0.7);background:#d3d3cd"></span><b>45%</b><span class="hb-n">21/47</span></div></div><div class="hb"><div class="hb-l">場地（例如 NPO Hub）</div><div class="hb-row"><span class="hb-bar" style="width:calc(40% * 0.7);background:#d3d3cd"></span><b>40%</b><span class="hb-n">19/47</span></div></div><div class="hb"><div class="hb-l">現成數位工具或平台</div><div class="hb-row"><span class="hb-bar" style="width:calc(36% * 0.7);background:#d3d3cd"></span><b>36%</b><span class="hb-n">17/47</span></div></div></div></div><div class="note">做過專案的 47 位（稱「實作者」）｜複選</div></div>
           <div class="stack">
             <div class="card flat bl-d"><div class="k head">最常用的資源</div><div class="p u-margin-0">66% 用過人脈，比經費（47%）還多。</div></div>
-            <div class="card flat bl-d"><div class="k head">留下來的原因</div><div class="p u-margin-0">認同專案目標，<br>並在這裡交到志同道合的朋友。</div></div>
+            <div class="card flat bl-d"><div class="k head">留下來的原因</div><div class="p u-margin-0">認同專案目標，也在這裡交到朋友。</div></div>
             <div class="card hl-o"><div class="k o head">可以怎麼支持</div><div class="p u-margin-0">介紹可諮詢的專家、接上政府窗口、<br>提供開會場地。</div></div>
           </div>
         </div>
@@ -895,7 +898,7 @@
         <div class="col-wrap mid"><div class="grid g-3">
           <div class="card top roomy"><div class="num o">01</div><div class="t lg">找到受眾與管道</div><div class="p">在需求發生的現場，<br>接觸使用者</div><div class="p ex"><b>Open165</b><br>一搜詐騙網站就看得到</div></div>
           <div class="card top roomy"><div class="num o">02</div><div class="t lg">降低參與門檻</div><div class="p">拆解任務，<br>讓新手只做最直覺的動作</div><div class="p ex"><b>Disfactory</b><br>拍照就能檢舉違章工廠</div></div>
-          <div class="card top roomy"><div class="num o">03</div><div class="t lg">預備延續機制</div><div class="p">人潮退去後，<br>專案仍有出路</div><div class="p ex"><b>光復超人</b><br>救災後轉型提供重建資訊</div></div>
+          <div class="card top roomy"><div class="num o">03</div><div class="t lg">預備延續機制</div><div class="p">人潮退去後仍有出路</div><div class="p ex"><b>光復超人</b><br>救災後轉型提供重建資訊</div></div>
         </div></div>
       </div>
       <div class="slide-footer">
