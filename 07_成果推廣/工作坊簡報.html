@@ -169,7 +169,9 @@
     .k.head { font-size: 18px; color: var(--text-main); letter-spacing: 0; margin-bottom: 6px; }
     .k.head.o { color: var(--layer-user); }
     /* 舉例：比內文小一級、淡色，不用「例如」二字 */
-    .p.ex { font-size: 18px; color: var(--text-faint); margin-top: 4px; }
+    .p.ex { font-size: 17px; color: var(--text-sub); background: #f1f0eb; border-radius: 8px; padding: 6px 12px; margin-top: 10px; }
+    .p.ex b { color: var(--text-main); }
+    .p.src { font-size: 16px; font-weight: 700; color: var(--layer-user); margin-top: 10px; }
 
     /* 封面 */
     .cover-body { flex-direction: column; justify-content: space-between; height: 100%; padding: 8px 0 14px; align-items: stretch; }
@@ -732,7 +734,7 @@
         <div class="grid g-chart">
           <div class="card chart-card"><div class="t">五個候選指引主題，讀者有多想看？</div><div class="chart kano"><svg role="img" aria-label="狩野模型四象限圖" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 266 322" width="266" height="322" font-family="Noto Sans TC Deck, PingFang TC, Heiti TC, sans-serif"><rect x="40" y="10" width="220" height="262" fill="#fafaf8" stroke="#dcdbd5"/><line x1="150.0" y1="10" x2="150.0" y2="272" stroke="#9a9993" stroke-dasharray="4 4"/><line x1="40" y1="141.0" x2="260" y2="141.0" stroke="#9a9993" stroke-dasharray="4 4"/><text x="46" y="34" font-size="20" font-weight="700" fill="#1baf7a">魅力型</text><text x="46" y="53" font-size="16" fill="#6b6a64">有了會驚喜</text><text x="156.0" y="34" font-size="20" font-weight="700" fill="#52514e">期望型</text><text x="156.0" y="53" font-size="16" fill="#6b6a64">越多越滿意</text><text x="46" y="246" font-size="20" font-weight="700" fill="#52514e">無差別</text><text x="46" y="265" font-size="16" fill="#6b6a64">有沒有都無感</text><text x="156.0" y="246" font-size="20" font-weight="700" fill="#52514e">基本型</text><text x="156.0" y="265" font-size="16" fill="#6b6a64">沒有會不滿</text><text x="40" y="292" font-size="16" fill="#52514e" text-anchor="middle">0</text><text x="34" y="277" font-size="16" fill="#52514e" text-anchor="end">0</text><text x="150.0" y="292" font-size="16" fill="#52514e" text-anchor="middle">0.5</text><text x="34" y="146.0" font-size="16" fill="#52514e" text-anchor="end">0.5</text><text x="260" y="292" font-size="16" fill="#52514e" text-anchor="middle">1</text><text x="34" y="15" font-size="16" fill="#52514e" text-anchor="end">1</text><text x="150.0" y="314" font-size="16" fill="#52514e" text-anchor="middle">沒有時多不滿 |DSI| →</text><text transform="translate(14 141.0) rotate(-90)" font-size="16" fill="#52514e" text-anchor="middle">有了時多滿意 SI →</text><line x1="109.5" y1="115.3" x2="110" y2="133" stroke="#b9b8b2" stroke-width="1"/><line x1="113.3" y1="108.5" x2="131" y2="111" stroke="#b9b8b2" stroke-width="1"/><line x1="92.6" y1="108.5" x2="69" y2="119" stroke="#b9b8b2" stroke-width="1"/><line x1="92.6" y1="101.7" x2="69" y2="90" stroke="#b9b8b2" stroke-width="1"/><line x1="136.8" y1="64.2" x2="137" y2="82" stroke="#b9b8b2" stroke-width="1"/><circle cx="109.5" cy="115.3" r="4.5" fill="#0b0b0b"/><text x="110" y="139" font-size="16" font-weight="700" fill="#0b0b0b" text-anchor="middle">①</text><circle cx="113.3" cy="108.5" r="4.5" fill="#0b0b0b"/><text x="131" y="117" font-size="16" font-weight="700" fill="#0b0b0b" text-anchor="middle">②</text><circle cx="92.6" cy="108.5" r="4.5" fill="#0b0b0b"/><text x="69" y="125" font-size="16" font-weight="700" fill="#0b0b0b" text-anchor="middle">③</text><circle cx="92.6" cy="101.7" r="4.5" fill="#0b0b0b"/><text x="69" y="96" font-size="16" font-weight="700" fill="#0b0b0b" text-anchor="middle">④</text><circle cx="136.8" cy="64.2" r="4.5" fill="#eb6834"/><text x="137" y="88" font-size="16" font-weight="700" fill="#eb6834" text-anchor="middle">⑤</text></svg><ol class="kano-legend"><li><span>①</span><div>發起專案<small>SI 0.60</small></div></li><li><span>②</span><div>找資料／建資料<small>SI 0.62</small></div></li><li><span>③</span><div>捲動更多人參與<small>SI 0.62</small></div></li><li><span>④</span><div>留住夥伴<small>SI 0.65</small></div></li><li class="o"><span>⑤</span><div>落地、接進體制<small>SI 0.79</small></div></li></ol></div><div class="note">分界線為 0.5｜五個主題都落在魅力型，⑤ 最靠近期望型｜N=126</div></div>
           <div class="stack">
-            <div class="card hl-o"><div class="head"><div class="stat o u-font-size-40px">0.79</div><div><div class="t">《專案做出來了，然後呢？》</div><div class="p u-margin-0">主題 ⑤ 落地、接進體制｜三層都排第一</div></div></div></div>
+            <div class="card hl-o"><div class="head"><div class="stat o u-font-size-40px">0.79</div><div><div class="t">《專案做出來了，然後呢？》</div><div class="p u-margin-0">主題 ⑤ 落地、接進體制｜<br>三層都排第一</div></div></div></div>
             <div class="card flat inset"><div class="head"><div class="stat u-font-size-40px">0.62</div><div><div class="t">《資料卡住了怎麼辦？》</div><div class="p u-margin-0">主題 ② 找資料／建資料</div></div></div></div>
             <div class="card flat inset"><div class="head"><div class="stat u-font-size-40px">0.62</div><div><div class="t">《公民科技專案<br>上線卻無人問津？》</div><div class="p u-margin-0">主題 ③ 捲動更多人參與</div></div></div></div>
             <div class="card hl-o u-flex-none"><div class="p u-margin-0"><b class="o">定案：</b>以上 3 篇方法論長文，加上 8 篇工具與資料整理</div></div>
@@ -850,9 +852,9 @@
       <div class="slide-body ">
 
         <div class="col-wrap mid"><div class="grid g-3">
-          <div class="card top roomy"><div class="num o">01</div><div class="t lg">先鎖定使用者</div><div class="p">只服務立委助理、記者<br>等轉譯者</div><div class="p ex">《上線卻無人問津？》</div></div>
-          <div class="card top roomy"><div class="num o">02</div><div class="t lg">開源做出待用品</div><div class="p">程式碼、介面、<br>結構化資料全數開源</div><div class="p ex">《專案做出來了，<br>然後呢？》</div></div>
-          <div class="card top roomy"><div class="num o">03</div><div class="t lg">釋出資料長出生態</div><div class="p">釋出 LYAPI，催生 LYZER<br>與立委問政網站</div><div class="p ex">《資料卡住了怎麼辦？》</div></div>
+          <div class="card top roomy"><div class="num o">01</div><div class="t lg">先鎖定使用者</div><div class="p">只服務立委助理、<br>記者等轉譯者</div><div class="p src">《上線卻無人問津？》</div></div>
+          <div class="card top roomy"><div class="num o">02</div><div class="t lg">開源做出待用品</div><div class="p">程式碼、介面、<br>結構化資料全數開源</div><div class="p src">《專案做出來了，然後呢？》</div></div>
+          <div class="card top roomy"><div class="num o">03</div><div class="t lg">釋出資料長出生態</div><div class="p">釋出 LYAPI，<br>催生 LYZER、<br>立委問政網站</div><div class="p src">《資料卡住了怎麼辦？》</div></div>
         </div></div>
       </div>
       <div class="slide-footer">
@@ -886,9 +888,9 @@
       <div class="slide-body ">
 
         <div class="col-wrap mid"><div class="grid g-3">
-          <div class="card top roomy"><div class="num o">01</div><div class="t lg">找到受眾與管道</div><div class="p">在需求發生的現場<br>接觸使用者</div><div class="p ex">Open165：出現在民眾<br>搜尋會看到的頁面</div></div>
-          <div class="card top roomy"><div class="num o">02</div><div class="t lg">降低參與門檻</div><div class="p">拆解任務，讓新手<br>只做最直覺的動作</div><div class="p ex">Disfactory：<br>拍照、定位就能回報</div></div>
-          <div class="card top roomy"><div class="num o">03</div><div class="t lg">預備延續機制</div><div class="p">人潮退去後，<br>專案仍有出路</div><div class="p ex">光復超人：救災結束後<br>轉型提供重建資訊</div></div>
+          <div class="card top roomy"><div class="num o">01</div><div class="t lg">找到受眾與管道</div><div class="p">在需求發生的現場，<br>接觸使用者</div><div class="p ex"><b>Open165</b><br>出現在民眾搜尋的頁面</div></div>
+          <div class="card top roomy"><div class="num o">02</div><div class="t lg">降低參與門檻</div><div class="p">拆解任務，<br>讓新手只做最直覺的動作</div><div class="p ex"><b>Disfactory</b><br>拍照、定位就能回報</div></div>
+          <div class="card top roomy"><div class="num o">03</div><div class="t lg">預備延續機制</div><div class="p">人潮退去後，<br>專案仍有出路</div><div class="p ex"><b>光復超人</b><br>救災後轉型提供重建資訊</div></div>
         </div></div>
       </div>
       <div class="slide-footer">
@@ -918,10 +920,10 @@
       <div class="slide-body ">
 
         <div class="col-wrap mid"><div class="grid g-2">
-          <div class="card top calm"><div class="k lg o">01</div><div class="t lg">先決定讓誰在意</div><div class="p">大眾普及，或服務專業轉譯者</div><div class="p ex">Cofacts：開放查核資料，獲中選會推薦</div></div>
-          <div class="card top calm"><div class="k lg o">02</div><div class="t lg">開源示範 Plan B</div><div class="p">做出政府能直接接手的示範品</div><div class="p ex">vTaiwan：追蹤 35 個爭議議題的公民共識</div></div>
-          <div class="card top calm"><div class="k lg o">03</div><div class="t lg">借力既有體制</div><div class="p">民間代勞高門檻的專業環節</div><div class="p ex">Disfactory：民間團體把回報轉成正式公文</div></div>
-          <div class="card top calm"><div class="k lg o">04</div><div class="t lg">開放授權接棒</div><div class="p">開放授權與共筆，讓別人接得下去</div><div class="p ex">政治獻金：五年接力，走到官方平臺</div></div>
+          <div class="card top calm"><div class="k lg o">01</div><div class="t lg">先決定讓誰在意</div><div class="p">大眾普及，或服務專業轉譯者</div><div class="p ex"><b>Cofacts</b>：開放查核資料，獲中選會推薦</div></div>
+          <div class="card top calm"><div class="k lg o">02</div><div class="t lg">開源示範 Plan B</div><div class="p">做出政府能直接接手的示範品</div><div class="p ex"><b>vTaiwan</b>：追蹤 35 個爭議議題的公民共識</div></div>
+          <div class="card top calm"><div class="k lg o">03</div><div class="t lg">借力既有體制</div><div class="p">民間代勞高門檻的專業環節</div><div class="p ex"><b>Disfactory</b>：民間團體把回報轉成正式公文</div></div>
+          <div class="card top calm"><div class="k lg o">04</div><div class="t lg">開放授權接棒</div><div class="p">開放授權與共筆，讓別人接得下去</div><div class="p ex"><b>政治獻金</b>：五年接力，走到官方平臺</div></div>
         </div></div>
       </div>
       <div class="slide-footer">
@@ -953,10 +955,10 @@
       <div class="slide-body ">
 
         <div class="col-wrap mid"><div class="grid g-2">
-          <div class="card top calm"><div class="k lg o">01</div><div class="t lg">從無到有建資料</div><div class="p">用輕量群眾協作，自建第一批資料</div><div class="p ex">路殺社：大眾隨手通報，專家後台鑑定</div></div>
-          <div class="card top calm"><div class="k lg o">02</div><div class="t lg">轉成機器可讀</div><div class="p">把封閉格式的文本，轉成開放資料</div><div class="p ex">政治獻金：以微任務拆解紙本掃描檔</div></div>
-          <div class="card top calm"><div class="k lg o">03</div><div class="t lg">跨資料串接</div><div class="p">找出共通關聯鍵，拼出事情全貌</div><div class="p ex">透明足跡：串接統編與集團投資關係</div></div>
-          <div class="card top calm"><div class="k lg o">04</div><div class="t lg">開放釋出</div><div class="p">以原始檔、API、AI 協議三層釋出</div><div class="p ex">Twinkle Hub：把政府資料接上 AI 工具</div></div>
+          <div class="card top calm"><div class="k lg o">01</div><div class="t lg">從無到有建資料</div><div class="p">用輕量群眾協作，自建第一批資料</div><div class="p ex"><b>路殺社</b>：大眾隨手通報，專家後台鑑定</div></div>
+          <div class="card top calm"><div class="k lg o">02</div><div class="t lg">轉成機器可讀</div><div class="p">把封閉格式的文本，轉成開放資料</div><div class="p ex"><b>政治獻金</b>：以微任務拆解紙本掃描檔</div></div>
+          <div class="card top calm"><div class="k lg o">03</div><div class="t lg">跨資料串接</div><div class="p">找出共通關聯鍵，拼出事情全貌</div><div class="p ex"><b>透明足跡</b>：串接統編與集團投資關係</div></div>
+          <div class="card top calm"><div class="k lg o">04</div><div class="t lg">開放釋出</div><div class="p">以原始檔、API、AI 協議三層釋出</div><div class="p ex"><b>Twinkle Hub</b>：把政府資料接上 AI 工具</div></div>
         </div></div>
       </div>
       <div class="slide-footer">
@@ -1042,7 +1044,7 @@
           <div class="stack">
             <div class="card flat bl-d"><div class="head"><div class="t grow">第一道｜大綱主張表</div></div><div class="p u-margin-4px-0-0">每個論點都要有真實案例支持；<br>沒有證據就不動筆。</div></div>
             <div class="card flat bl-d"><div class="head"><div class="t grow">第二道｜逐條事實標註</div></div><div class="p u-margin-4px-0-0">每個數字和案例都標上查證程度，<br>逐一對照來源。</div></div>
-            <div class="card flat bl-d"><div class="head"><div class="t grow">第三道｜獨立 AI 審查</div></div><div class="p u-margin-4px-0-0">請沒有參與寫作的另一個 AI 模型挑錯，找出邏輯漏洞。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">第三道｜獨立 AI 審查</div></div><div class="p u-margin-4px-0-0">請沒有參與寫作的另一個 AI 模型挑錯，<br>找出邏輯漏洞。</div></div>
           </div>
         </div>
       </div>
