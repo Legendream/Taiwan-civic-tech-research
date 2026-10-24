@@ -274,6 +274,7 @@
     .grid.start { align-items: start; height: auto; }
 
     ul.bul.big { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; margin-top: 14px; }
+    ul.bul.big.tight { flex: none; justify-content: flex-start; gap: 14px; margin-top: 18px; }
     ul.bul.big li { font-size: 20px; line-height: 1.45; margin-bottom: 0; }
     ul.bul.big li::before { top: 0.65em; }
 
@@ -412,6 +413,10 @@
     .u-text-align-center { text-align:center !important; }
     .u-width-100 { width:100% !important; }
     .u-width-200px { width:200px !important; }
+    .cq .qb img { width:100%; height:100%; object-fit:contain; display:block; }
+    .cq { display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:auto; padding-top:10px; font-size:15px; font-weight:500; color:var(--text-sub); }
+    .cq .qb { width:120px; height:120px; box-sizing:border-box; padding:6px; background:#fff; border:1px solid var(--card-border); border-radius:10px; }
+    .cta-qr-main { width:200px; height:200px; margin: 14px 0 12px !important; box-sizing:border-box; }
     .u-width-56px { width:56px !important; }
   </style>
 </head>
@@ -505,9 +510,9 @@
       <div class="slide-body ">
 
         <div class="col-wrap"><div class="grid g-3">
-          <div class="card top roomy"><div class="k lg">第一步</div><div class="t lg">了解現況</div><div class="p lg u-font-weight-700 o">127 份社群問卷</div><ul class="bul big"><li>參與者分成哪三層</li><li>新人被什麼擋住</li><li>哪些主題最想看</li></ul></div>
-          <div class="card top roomy"><div class="k lg">第二步</div><div class="t lg">撰寫指引</div><div class="p lg u-font-weight-700 o">11 篇，已上線</div><ul class="bul big"><li>3 篇方法論長文</li><li>8 篇工具與資料整理</li></ul></div>
-          <div class="card top roomy"><div class="k lg">第三步</div><div class="t lg">打造寫作流程</div><div class="p lg u-font-weight-700 o">降低知識傳承的門檻</div><ul class="bul big"><li>降低整理經驗的門檻</li><li>人機協同寫作流程</li><li>流程與成果全部開源</li></ul></div>
+          <div class="card top roomy"><div class="k lg">第一步</div><div class="t lg">了解現況</div><div class="p lg u-font-weight-700 o">127 份社群問卷</div><ul class="bul big tight"><li>參與者分成哪三層</li><li>新人被什麼擋住</li><li>哪些主題最想看</li></ul></div>
+          <div class="card top roomy"><div class="k lg">第二步</div><div class="t lg">撰寫指引</div><div class="p lg u-font-weight-700 o">11 篇，已上線</div><ul class="bul big tight"><li>3 篇方法論長文</li><li>8 篇工具與資料整理</li></ul></div>
+          <div class="card top roomy"><div class="k lg">第三步</div><div class="t lg">打造寫作流程</div><div class="p lg u-font-weight-700 o">降低知識傳承的門檻</div><ul class="bul big tight"><li>降低整理經驗的門檻</li><li>人機協同寫作流程</li><li>流程與成果全部開源</li></ul></div>
         </div></div>
       </div>
       <div class="slide-footer">
@@ -1098,13 +1103,13 @@
       <div class="slide-body ">
 
         <div class="col-wrap mid"><div class="grid g-3">
-          <div class="card top roomy"><div class="k lg">幫新手起步</div><div class="t lg">11 篇實作指引</div><div class="p lg">涵蓋做專案的方法、<br>好用的工具、<br>各領域的資料。</div></div>
-          <div class="card top roomy"><div class="k lg">幫決策者看清現況</div><div class="t lg">127 份問卷的分析</div><div class="p lg">去識別化資料集<br>由 g0v 揪松團公開；<br>互動圖表在分析網站。</div></div>
-          <div class="card top roomy"><div class="k lg">幫經驗傳下去</div><div class="t lg">人機協同寫作流程</div><div class="p lg">完整提示詞、大綱主張表<br>和三道防線的做法，<br>任何人都能用。</div></div>
+          <div class="card top roomy"><div class="k lg">幫新手起步</div><div class="t lg">11 篇實作指引</div><div class="p lg">涵蓋做專案的方法、<br>好用的工具、<br>各領域的資料。</div><div class="cq"><div class="qb"><img src="assets/qr-guides-g.svg" alt="civictech.tw/g QR Code"></div>11 篇指引</div></div>
+          <div class="card top roomy"><div class="k lg">幫決策者看清現況</div><div class="t lg">127 份問卷的分析</div><div class="p lg">去識別化資料集<br>由 g0v 揪松團公開；<br>互動圖表在分析網站。</div><div class="cq"><div class="qb"><img src="assets/qr-report.svg" alt="問卷分析報告 QR Code"></div>完整問卷報告</div></div>
+          <div class="card top roomy"><div class="k lg">幫經驗傳下去</div><div class="t lg">人機協同寫作流程</div><div class="p lg">完整提示詞、大綱主張表<br>和三道防線的做法，<br>任何人都能用。</div><div class="cq"><div class="qb"><img src="assets/qr-guide.svg" alt="寫作流程展示網頁 QR Code"></div>寫作流程展示</div></div>
         </div></div>
       </div>
       <div class="slide-footer">
-        <div>指引 civictech.tw/g；問卷分析 report.claire-cheng.com；寫作流程 civictech-guide.claire-cheng.com</div>
+        <div></div>
         <div class="footer-right"><div class="footer-logos"><img src="assets/jothon-logo.svg" alt="g0v 揪松團" class="footer-logo"></div><div class="license-pill">g0v.tw jothon</div></div>
       </div>
       <template class="slide-notes-template">
@@ -1120,6 +1125,8 @@
         <br>
         <p><span class="chunk-tag up">▲ 上推：公共財的長遠價值</span>（堅定）<br>
         成果不該只留在個人的硬碟裡，唯有變成可被接棒的公共財，改變才會持續發生。</p>
+        <br>
+        <p>（三張卡片下方的 QR Code，分別通往指引、完整問卷報告和寫作流程展示網頁，歡迎現在掃描。）</p>
         <br>
         <p><span class="chunk-tag side">▶ 投影片精簡時移入的細節</span><br>
         13% 的實作者反映專案缺少文件交接、人一走知識就斷；老手與實作者反映無完整交接直接卡死專案推進。<br>
@@ -1143,15 +1150,17 @@
         <div class="grid u-grid-template-columns-1-5fr-1fr">
           <div class="stack">
             <div class="card flat bl-d"><div class="head"><div class="t grow">公部門夥伴｜開放資料、設常態窗口</div></div><div class="p u-margin-6px-0-0">除了辦競賽發獎金，<br>也請釋出整理好的基礎資料、指派專責窗口。</div></div>
-            <div class="card flat bl-d"><div class="head"><div class="t grow">每一位與會者｜掃 QR Code 填問卷</div></div><div class="p u-margin-6px-0-0">花 3 分鐘填問卷，讓下一版的調查更能代表整個社群。</div></div>
+            <div class="card flat bl-d"><div class="head"><div class="t grow">每一位與會者｜看完整問卷報告</div></div><div class="p u-margin-6px-0-0">127 份問卷的完整分析與互動圖表，<br>第 17 頁的 QR Code 可以掃。</div></div>
             <div class="card flat bl-d"><div class="head"><div class="t grow">專案團隊｜用開源寫作流程記下經驗</div></div><div class="p u-margin-6px-0-0">用人機協同寫作流程寫下實作經驗；<br>負擔變輕，人換了經驗也還在。</div></div>
           </div>
-          <div class="card u-align-items-center u-text-align-center">
-            <div class="t">現在就去看看：<br>台灣公民科技資料庫</div>
-            <div class="u-background-fff u-padding-10px u-border-radius-14px u-border-1px-solid-var-card-border u-margin-14px-0-12px u-width-200px u-height-200px">
-              <img class="u-width-100 u-height-100 u-object-fit-contain" src="assets/qr-civictech.svg" alt="civictech.tw QR Code"></div>
-            <div class="t lg">civictech.tw</div>
-            <div class="p u-margin-6px-0-0">查閱 11 篇指引 ｜ 填寫問卷<br>取得寫作工具</div>
+          <div class="stack cta-col">
+            <div class="card u-align-items-center u-text-align-center">
+              <div class="t">現在就去看看：<br>台灣公民科技資料庫</div>
+              <div class="u-background-fff u-padding-10px u-border-radius-14px u-border-1px-solid-var-card-border u-margin-14px-0-12px cta-qr-main">
+                <img class="u-width-100 u-height-100 u-object-fit-contain" src="assets/qr-civictech.svg" alt="civictech.tw QR Code"></div>
+              <div class="t lg">civictech.tw</div>
+              <div class="p u-margin-6px-0-0">查閱 11 篇指引 ｜ 取得寫作工具</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1165,7 +1174,7 @@
         <br>
         <p><span class="chunk-tag down">▼ 下切：三類夥伴的今天下一步</span>（分別對焦三大聽眾，眼神與語氣逐一對焦）<br>
         如果你是公部門與體制的夥伴，請試著把資料開放出來、開啟常態對話窗口，做民間創新的最佳後盾；<br>
-        如果你是今天坐在台下參與活動的朋友，請現在拿出手機，掃描螢幕上的 QR Code 造訪 civictech.tw，花幾分鐘填寫問卷，每一筆回覆都能讓這份地圖更加完整；<br>
+        如果你是今天坐在台下參與活動的朋友，請現在拿出手機，請掃第 17 頁的 QR Code 看完整的問卷分析報告，了解社群的現況；也歡迎掃描螢幕上的 QR Code 造訪 civictech.tw 查閱指引；<br>
         如果你是正在坑裡奮鬥的專案夥伴，請試試看我們釋出的寫作流程，把你的實作經驗轉化成下一代能讀懂的指引。</p>
         <br>
         <p><span class="chunk-tag up">▲ 上推：長跑收尾</span>（堅定微笑致謝）<br>
